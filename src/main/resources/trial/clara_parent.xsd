@@ -15,7 +15,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-<xs:schema version="1.1"
+<xs:schema version="1.0"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
            targetNamespace="urn:vaadin:parent"
            attributeFormDefault="qualified">

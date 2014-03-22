@@ -20,7 +20,8 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="
 urn:import:com.vaadin.ui clara-com_vaadin_ui.xsd
-urn:import:org.vaadin.teemu.ratingstars clara-org_vaadin_teemu_ratingstars.xsd"
+urn:import:org.vaadin.teemu.ratingstars clara-org_vaadin_teemu_ratingstars.xsd
+"
     margin="true"
     spacing="true">
 
@@ -35,12 +36,20 @@ urn:import:org.vaadin.teemu.ratingstars clara-org_vaadin_teemu_ratingstars.xsd"
 
     <CssLayout width="60%">
         <Table id="person-list" width="100%" 
-            caption="Controller provides my datasource..." pageLength="2" />
+               caption="Controller provides my datasource..." pageLength="2" />
         <Select caption="...try moving the person-list id here" 
-            itemCaptionPropertyId="Name" />
+                itemCaptionPropertyId="Name" />
     </CssLayout>
 
     <a:RatingStars id="value-field" l:componentAlignment="MIDDLE_CENTER" 
-        immediate="true" caption="Add-ons work too" />
+                   immediate="true" caption="Add-ons work too" />
+    
+    <a:RatingStars2 caption="" id="">
+        <Button ></Button>
+        <HorizontalLayout caption="">
+            <Button ></Button>
+        </HorizontalLayout>
+        <a:RatingStars ></a:RatingStars>
+    </a:RatingStars2>
     
 </VerticalLayout>

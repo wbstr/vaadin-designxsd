@@ -15,52 +15,51 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-<xs:schema version="1.1"
+<xs:schema version="1.0"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
            targetNamespace="urn:import:com.vaadin.ui"
+           xmlns:v="urn:import:com.vaadin.ui"
            xmlns:b="urn:clara:base"
            xmlns:r="urn:clara:root"
            elementFormDefault="qualified">
     
-    <xs:import schemaLocation="clara.xsd" namespace="urn:clara:root"/>
     <xs:import schemaLocation="clara_base.xsd" namespace="urn:clara:base"/>
 
     <xs:element name="VerticalLayout">
         <xs:complexType>
-            <!-- This would be much better, but breaks attribute level autocomplete in NetBeans -->
+            <!-- This would be better, but breaks attribute level autocomplete in NetBeans -->
             <!-- <xs:sequence>
-                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
-            </xs:sequence>
-            -->
+                <xs:any namespace="##any" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>            -->
             <!-- so we need a group of all components to make NetBeans happy -->
-            <xs:group ref="r:AllComponentsGroup" minOccurs="0" maxOccurs="unbounded"/>
-            <xs:attributeGroup ref="b:AbstractComponentAttributeGroup"/>
+            <xs:group ref="v:AllComponentsGroup" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:attributeGroup ref="b:com.vaadin.ui.AbstractComponent"/>
         </xs:complexType>
     </xs:element>
     
     <xs:element name="HorizontalLayout">
         <xs:complexType>
-            <xs:group ref="r:AllComponentsGroup" minOccurs="0" maxOccurs="unbounded"/>
-            <xs:attributeGroup ref="b:AbstractComponentAttributeGroup"/>
+            <xs:group ref="v:AllComponentsGroup" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:attributeGroup ref="b:com.vaadin.ui.AbstractComponent"/>
         </xs:complexType>
     </xs:element>
 
     <xs:element name="CssLayout">
         <xs:complexType>
-            <xs:group ref="r:AllComponentsGroup" minOccurs="0" maxOccurs="unbounded"/>
-            <xs:attributeGroup ref="b:AbstractComponentAttributeGroup"/>
+            <xs:group ref="v:AllComponentsGroup" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:attributeGroup ref="b:com.vaadin.ui.AbstractComponent"/>
         </xs:complexType>
     </xs:element>
 
     <xs:element name="Button">
         <xs:complexType>
-            <xs:attributeGroup ref="b:AbstractComponentAttributeGroup"/>
+            <xs:attributeGroup ref="b:com.vaadin.ui.AbstractComponent"/>
         </xs:complexType>
     </xs:element>
 
     <xs:element name="Label">
         <xs:complexType>
-            <xs:attributeGroup ref="b:AbstractComponentAttributeGroup"/>
+            <xs:attributeGroup ref="b:com.vaadin.ui.AbstractComponent"/>
             <xs:attribute name="value"/>
             <xs:attribute name="contentMode"/>
         </xs:complexType>
@@ -68,22 +67,36 @@ limitations under the License.
 
     <xs:element name="Table">
         <xs:complexType>
-            <xs:attributeGroup ref="b:AbstractComponentAttributeGroup"/>
+            <xs:attributeGroup ref="b:com.vaadin.ui.AbstractComponent"/>
             <xs:attribute name="pageLength"/>
         </xs:complexType>
     </xs:element>
 
     <xs:element name="DateField">
         <xs:complexType>
-            <xs:attributeGroup ref="b:AbstractFieldAttributeGroup"/>
+            <xs:attributeGroup ref="b:com.vaadin.ui.AbstractField"/>
         </xs:complexType>
     </xs:element>
 
     <xs:element name="Select">
         <xs:complexType>
-            <xs:attributeGroup ref="b:AbstractFieldAttributeGroup"/>
+            <xs:attributeGroup ref="b:com.vaadin.ui.AbstractField"/>
             <xs:attribute name="itemCaptionPropertyId"/>
         </xs:complexType>
     </xs:element>
+
+    <xs:group name="AllComponentsGroup">
+        <xs:choice>
+            <xs:element ref="v:Label" />
+            <xs:element ref="v:Button"/>
+            <xs:element ref="v:DateField" />
+            <xs:element ref="v:Table" />
+            <xs:element ref="v:Select" />
+            <xs:element ref="v:CssLayout"/>
+            <xs:element ref="v:VerticalLayout"/>
+            <xs:element ref="v:HorizontalLayout"/>
+            <xs:any namespace="##other"/>
+        </xs:choice>
+    </xs:group>
 
 </xs:schema>

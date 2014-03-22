@@ -15,20 +15,36 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-<xs:schema version="1.1"
+<xs:schema version="1.0"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
            targetNamespace="urn:import:org.vaadin.teemu.ratingstars"
            xmlns:b="urn:clara:base"
            xmlns:r="urn:clara:root"
+           xmlns:a="urn:import:org.vaadin.teemu.ratingstars"
            elementFormDefault="qualified">
     
-    <xs:import schemaLocation="clara.xsd" namespace="urn:clara:root"/>
     <xs:import schemaLocation="clara_base.xsd" namespace="urn:clara:base"/>
 
     <xs:element name="RatingStars">
         <xs:complexType>
-            <xs:attributeGroup ref="b:AbstractFieldAttributeGroup"/>
+            <xs:group ref="a:AllComponentsGroup" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:attributeGroup ref="b:com.vaadin.ui.AbstractField"/>
         </xs:complexType>
     </xs:element>
+
+    <xs:element name="RatingStars2">
+        <xs:complexType>
+            <xs:group ref="a:AllComponentsGroup" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:attributeGroup ref="b:com.vaadin.ui.AbstractComponent"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:group name="AllComponentsGroup">
+        <xs:choice>
+            <xs:element ref="a:RatingStars" />
+            <xs:element ref="a:RatingStars2" />
+            <xs:any namespace="##other"/>
+        </xs:choice>
+    </xs:group>
 
 </xs:schema>

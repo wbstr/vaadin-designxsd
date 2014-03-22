@@ -15,7 +15,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-<xs:schema version="1.1"
+<xs:schema version="1.0"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
            xmlns:p="urn:vaadin:parent"
            xmlns:b="urn:clara:base"
@@ -25,7 +25,7 @@ limitations under the License.
 
     <xs:import schemaLocation="clara_parent.xsd" namespace="urn:vaadin:parent"/>
 
-    <xs:attributeGroup name="ComponentAttributeGroup">
+    <xs:attributeGroup name="com.vaadin.ui.Component">
         <xs:attribute name="id" type="xs:string"/>
         <xs:attribute name="caption" type="xs:string"/>
         <xs:attribute name="enabled" type="xs:boolean"/>
@@ -36,8 +36,8 @@ limitations under the License.
         <xs:attribute ref="p:expandRatio"/>
     </xs:attributeGroup>
 
-    <xs:attributeGroup name="AbstractComponentAttributeGroup">
-        <xs:attributeGroup ref="b:ComponentAttributeGroup"/>
+    <xs:attributeGroup name="com.vaadin.ui.AbstractComponent">
+        <xs:attributeGroup ref="b:com.vaadin.ui.Component"/>
         <xs:attribute name="description" type="xs:string"/>
         <xs:attribute name="immediate" type="xs:boolean"/>
         <xs:attribute name="margin" type="xs:string"/>
@@ -48,8 +48,8 @@ limitations under the License.
         <xs:attribute name="sizeUndefined" type="xs:string" fixed=""/>
     </xs:attributeGroup>
     
-    <xs:attributeGroup name="AbstractFieldAttributeGroup">
-        <xs:attributeGroup ref="b:AbstractComponentAttributeGroup"/>
+    <xs:attributeGroup name="com.vaadin.ui.AbstractField">
+        <xs:attributeGroup ref="b:com.vaadin.ui.AbstractComponent"/>
         <xs:attribute name="required" type="xs:boolean"/>
         <xs:attribute name="buffered" type="xs:boolean"/>
         <xs:attribute name="invalidAllowed" type="xs:boolean"/>
