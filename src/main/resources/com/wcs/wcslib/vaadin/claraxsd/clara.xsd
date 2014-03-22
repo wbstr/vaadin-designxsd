@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<!--
+Copyright 2014 kumm.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<xs:schema version="1.0"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:v="urn:import:com.vaadin.ui"
+           xmlns:p="urn:vaadin:parent"
+           targetNamespace="urn:import:com.vaadin.ui"
+           elementFormDefault="qualified"
+           attributeFormDefault="unqualified">
+
+    <!--<xs:import schemaLocation="clara-parent.xsd" namespace="urn:vaadin:parent"/>-->
+    
+    <xs:attributeGroup name="ComponentAttributeGroup">
+        <xs:attribute name="id" type="xs:string"/>
+        <xs:attribute name="caption" type="xs:string"/>
+        <xs:attribute name="enabled" type="xs:boolean"/>
+        <xs:attribute name="visible" type="xs:boolean"/>
+        <xs:attribute name="readOnly" type="xs:boolean"/>
+        <xs:attribute name="styleName" type="xs:string"/>
+        <xs:attribute ref="p:componentAlignment"/>
+        <xs:attribute ref="p:expandRatio"/>
+    </xs:attributeGroup>
+
+    <xs:attributeGroup name="AbstractComponentAttributeGroup">
+        <xs:attributeGroup ref="v:ComponentAttributeGroup"/>
+        <xs:attribute name="description" type="xs:string"/>
+        <xs:attribute name="immediate" type="xs:boolean"/>
+        <xs:attribute name="margin" type="xs:string"/>
+        <xs:attribute name="spacing" type="xs:boolean"/>
+        <xs:attribute name="width" type="xs:string"/>
+        <xs:attribute name="height" type="xs:string"/>
+        <xs:attribute name="sizeFull" type="xs:string" fixed=""/>
+        <xs:attribute name="sizeUndefined" type="xs:string" fixed=""/>
+    </xs:attributeGroup>
+    
+    <xs:attributeGroup name="AbstractFieldAttributeGroup">
+        <xs:attributeGroup ref="v:AbstractComponentAttributeGroup"/>
+        <xs:attribute name="required" type="xs:boolean"/>
+        <xs:attribute name="buffered" type="xs:boolean"/>
+        <xs:attribute name="invalidAllowed" type="xs:boolean"/>
+        <xs:attribute name="invalidComitted" type="xs:boolean"/>
+        <xs:attribute name="requiredError" type="xs:string"/>
+        <xs:attribute name="validationVisible" type="xs:boolean"/>
+        <xs:attribute name="tabIndex" type="xs:integer"/>
+    </xs:attributeGroup>
+
+    <xs:group name="AllComponentsGroup">
+        <xs:choice>
+        </xs:choice>
+    </xs:group>
+
+</xs:schema>
