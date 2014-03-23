@@ -17,15 +17,15 @@ limitations under the License.
 
 <xs:schema version="1.0"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:v="urn:import:com.vaadin.ui"
            xmlns:p="urn:vaadin:parent"
-           targetNamespace="urn:import:com.vaadin.ui"
+           xmlns:b="urn:clara:base"
+           targetNamespace="urn:clara:base"
            elementFormDefault="qualified"
            attributeFormDefault="unqualified">
 
-    <!--<xs:import schemaLocation="clara-parent.xsd" namespace="urn:vaadin:parent"/>-->
-    
-    <xs:attributeGroup name="ComponentAttributeGroup">
+    <xs:import schemaLocation="clara_parent.xsd" namespace="urn:vaadin:parent"/>
+
+    <xs:attributeGroup name="com.vaadin.ui.Component">
         <xs:attribute name="id" type="xs:string"/>
         <xs:attribute name="caption" type="xs:string"/>
         <xs:attribute name="enabled" type="xs:boolean"/>
@@ -36,8 +36,8 @@ limitations under the License.
         <xs:attribute ref="p:expandRatio"/>
     </xs:attributeGroup>
 
-    <xs:attributeGroup name="AbstractComponentAttributeGroup">
-        <xs:attributeGroup ref="v:ComponentAttributeGroup"/>
+    <xs:attributeGroup name="com.vaadin.ui.AbstractComponent">
+        <xs:attributeGroup ref="b:com.vaadin.ui.Component"/>
         <xs:attribute name="description" type="xs:string"/>
         <xs:attribute name="immediate" type="xs:boolean"/>
         <xs:attribute name="margin" type="xs:string"/>
@@ -48,8 +48,8 @@ limitations under the License.
         <xs:attribute name="sizeUndefined" type="xs:string" fixed=""/>
     </xs:attributeGroup>
     
-    <xs:attributeGroup name="AbstractFieldAttributeGroup">
-        <xs:attributeGroup ref="v:AbstractComponentAttributeGroup"/>
+    <xs:attributeGroup name="com.vaadin.ui.AbstractField">
+        <xs:attributeGroup ref="b:com.vaadin.ui.AbstractComponent"/>
         <xs:attribute name="required" type="xs:boolean"/>
         <xs:attribute name="buffered" type="xs:boolean"/>
         <xs:attribute name="invalidAllowed" type="xs:boolean"/>
@@ -58,10 +58,5 @@ limitations under the License.
         <xs:attribute name="validationVisible" type="xs:boolean"/>
         <xs:attribute name="tabIndex" type="xs:integer"/>
     </xs:attributeGroup>
-
-    <xs:group name="AllComponentsGroup">
-        <xs:choice>
-        </xs:choice>
-    </xs:group>
 
 </xs:schema>

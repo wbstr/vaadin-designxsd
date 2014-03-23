@@ -18,7 +18,7 @@ limitations under the License.
 <xs:schema version="1.0"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
            targetNamespace="urn:vaadin:parent"
-           elementFormDefault="qualified">
+           attributeFormDefault="qualified">
 
     <xs:attribute name="componentAlignment"/>
     <xs:attribute name="expandRatio"/>
