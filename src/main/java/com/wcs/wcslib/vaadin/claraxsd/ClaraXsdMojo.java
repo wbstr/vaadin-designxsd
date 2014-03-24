@@ -24,7 +24,6 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 
 import java.io.File;
-import java.io.InputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.net.MalformedURLException;
@@ -37,7 +36,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.reflections.Reflections;
-import org.reflections.util.ConfigurationBuilder;
 
 /**
  * Goal which touches a timestamp file.
@@ -64,12 +62,12 @@ public class ClaraXsdMojo
             Logger.getLogger(ClaraXsdMojo.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        ClassLoader contextClassLoader = URLClassLoader.newInstance(urls.toArray(new URL[0]));
+        ClassLoader contextClassLoader = URLClassLoader.newInstance(
+                urls.toArray(new URL[0]), 
+                Thread.currentThread().getContextClassLoader());
+        Thread.currentThread().setContextClassLoader(contextClassLoader);
 
-        ConfigurationBuilder config = new ConfigurationBuilder()
-                .addUrls(urls)
-                .addClassLoader(contextClassLoader);
-        Reflections reflections = new Reflections(config);
+        Reflections reflections = new Reflections();
         Set<Class<? extends Component>> subTypesOf = reflections.getSubTypesOf(Component.class);
 
         SchemaGenerator xmlSchemaHandler = new SchemaGenerator();
@@ -93,9 +91,11 @@ public class ClaraXsdMojo
                 continue;
             }
 
-            xmlSchemaHandler.append(componentClass);
-
+            System.out.println("**" + componentClass.getCanonicalName());
+//            xmlSchemaHandler.append(componentClass);
         }
+        
+        
 //        xmlSchemaHandler.dump();
     }
 
