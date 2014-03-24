@@ -14,7 +14,7 @@ import java.util.Iterator;
  *
  * @author kumm
  */
-public class MyContainerComponent extends AbstractComponentContainer {
+public class MyComponentContainer extends AbstractComponentContainer {
 
     @Override
     public void replaceComponent(Component oldComponent, Component newComponent) {

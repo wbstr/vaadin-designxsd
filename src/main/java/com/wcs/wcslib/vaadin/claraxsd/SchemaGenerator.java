@@ -35,12 +35,17 @@ class SchemaGenerator {
     private XmlSchemaCollection schemaCol;
     private List<AttributeGroup> attributeGroups = new ArrayList<>();
     private Map<Package, GeneratedSchema> generatedSchemas = new HashMap<>();
+    private Collection<AttributeGenerator> attributeGenerators;
 
     public SchemaGenerator() {
         this(SchemaGenerator.class.getResourceAsStream("clara_base.xsd"));
     }
 
     public SchemaGenerator(InputStream baseXsd) {
+        this(baseXsd, new ArrayList<AttributeGenerator>());
+    }
+
+    public SchemaGenerator(InputStream baseXsd, Collection<AttributeGenerator> attributeGenerators) {
         schemaCol = new XmlSchemaCollection();
         schemaCol.setSchemaResolver(new URIResolver() {
 
@@ -50,6 +55,7 @@ class SchemaGenerator {
             }
         });
         initAttributeGroups(schemaCol.read(new StreamSource(baseXsd), null));
+        this.attributeGenerators = attributeGenerators;
     }
 
     private void initAttributeGroups(XmlSchema base) throws RuntimeException {
@@ -84,14 +90,6 @@ class SchemaGenerator {
             }
         }
         Collections.reverse(attributeGroups);
-        /*
-         elements = schema.getElements();
-         XmlSchemaGroup allComponentsGroup = (XmlSchemaGroup) schema.getGroups().getItem(new QName("urn:import:com.vaadin.ui", "AllComponentsGroup"));
-         XmlSchemaGroupBase allComponentsGroupParticle = allComponentsGroup.getParticle();
-         allComponentsGroupItems = allComponentsGroupParticle.getItems();
-         knownAttributeGroups.add(new KnownAttributeGroup(AbstractField.class));
-         knownAttributeGroups.add(new KnownAttributeGroup(AbstractComponent.class));
-         knownAttributeGroups.add(new KnownAttributeGroup(Component.class));*/
     }
 
     List<AttributeGroup> getAttributeGroups() {
@@ -124,10 +122,18 @@ class SchemaGenerator {
         return null;
     }
 
+    public AttributeGenerator findAttributeGenerator(Class<?> parameterType) {
+        for (AttributeGenerator attributeGenerator : attributeGenerators) {
+            if (attributeGenerator.isSupports(parameterType)) {
+                return attributeGenerator;
+            }
+        }
+        return null;
+    }
+
     public Collection<GeneratedSchema> getGeneratedSchemas() {
         return generatedSchemas.values();
     }
-
 
     static class AttributeGroup {
 

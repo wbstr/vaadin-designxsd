@@ -13,5 +13,16 @@ import com.vaadin.ui.AbstractComponent;
  * @author kumm
  */
 public class MyComponent extends AbstractComponent {
+
+    public void setAProp(String stringProp) {
+    }
+
+    public void setBProp(int intProp) {
+    }
     
+    public void setCProp() {
+    }
+    
+    public void setDProp(String a, String b) {
+    }
 }
