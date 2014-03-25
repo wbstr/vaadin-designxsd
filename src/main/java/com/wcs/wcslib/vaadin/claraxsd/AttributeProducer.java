@@ -12,13 +12,9 @@ import org.apache.ws.commons.schema.XmlSchemaAttribute;
  *
  * @author kumm
  */
-public interface AttributeGenerator {
-/*    private static final List<Class<?>> primitiveClasses = Arrays.asList(
-            String.class, Object.class, Boolean.class, Integer.class,
-            Byte.class, Short.class, Long.class, Character.class, Float.class,
-            Double.class);*/
+public interface AttributeProducer {
 
-    XmlSchemaAttribute generate(String name, Class<?> type);
+    XmlSchemaAttribute produce(String name, Class<?> type);
     
     boolean isSupports(Class<?> type);
 }

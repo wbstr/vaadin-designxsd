@@ -30,22 +30,22 @@ import org.xml.sax.InputSource;
  *
  * @author kumm
  */
-class SchemaGenerator {
+class Generator {
 
     private XmlSchemaCollection schemaCol;
     private List<AttributeGroup> attributeGroups = new ArrayList<>();
     private Map<Package, GeneratedSchema> generatedSchemas = new HashMap<>();
-    private Collection<AttributeGenerator> attributeGenerators;
+    private Collection<AttributeProducer> attributeGenerators;
 
-    public SchemaGenerator() {
-        this(SchemaGenerator.class.getResourceAsStream("clara_base.xsd"));
+    public Generator() {
+        this(Generator.class.getResourceAsStream("clara_base.xsd"));
     }
 
-    public SchemaGenerator(InputStream baseXsd) {
-        this(baseXsd, new ArrayList<AttributeGenerator>());
+    public Generator(InputStream baseXsd) {
+        this(baseXsd, new ArrayList<AttributeProducer>());
     }
 
-    public SchemaGenerator(InputStream baseXsd, Collection<AttributeGenerator> attributeGenerators) {
+    public Generator(InputStream baseXsd, Collection<AttributeProducer> attributeGenerators) {
         schemaCol = new XmlSchemaCollection();
         schemaCol.setSchemaResolver(new URIResolver() {
 
@@ -122,8 +122,8 @@ class SchemaGenerator {
         return null;
     }
 
-    public AttributeGenerator findAttributeGenerator(Class<?> parameterType) {
-        for (AttributeGenerator attributeGenerator : attributeGenerators) {
+    public AttributeProducer findAttributeGenerator(Class<?> parameterType) {
+        for (AttributeProducer attributeGenerator : attributeGenerators) {
             if (attributeGenerator.isSupports(parameterType)) {
                 return attributeGenerator;
             }

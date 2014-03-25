@@ -22,16 +22,16 @@ import org.junit.Before;
  */
 public class SchemaGeneratorTest {
 
-    SchemaGenerator generator;
+    Generator generator;
 
     @Before
     public void setUp() {
-        generator = new SchemaGenerator();
+        generator = new Generator();
     }
 
     @Test
     public void testAtributeGroupsParsed() {
-        List<SchemaGenerator.AttributeGroup> attributeGroups = generator.getAttributeGroups();
+        List<Generator.AttributeGroup> attributeGroups = generator.getAttributeGroups();
 
         assertEquals(3, attributeGroups.size());
         assertEquals(AbstractField.class, attributeGroups.get(0).getGroupClass());

@@ -70,7 +70,7 @@ public class ClaraXsdMojo
         Reflections reflections = new Reflections();
         Set<Class<? extends Component>> subTypesOf = reflections.getSubTypesOf(Component.class);
 
-        SchemaGenerator xmlSchemaHandler = new SchemaGenerator();
+        Generator xmlSchemaHandler = new Generator();
 
         for (Class<? extends Component> componentClass : subTypesOf) {
             System.out.println("++" + componentClass.getCanonicalName());

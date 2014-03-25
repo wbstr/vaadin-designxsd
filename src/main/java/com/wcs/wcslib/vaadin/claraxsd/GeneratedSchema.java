@@ -30,15 +30,16 @@ import org.apache.ws.commons.schema.XmlSchemaObjectCollection;
  *
  * @author kumm
  */
-class GeneratedSchema {
+public class GeneratedSchema {
 
     private final Package componentPackage;
     private final XmlSchemaObjectCollection allGroupItems;
     private final XmlSchema schema;
     private final XmlSchemaObjectCollection items;
-    private final SchemaGenerator schemaGenerator;
+    private final Generator schemaGenerator;
+    public static final String SCHEMA_NS = "http://www.w3.org/2001/XMLSchema";
 
-    public GeneratedSchema(SchemaGenerator schemaGenerator, Package componentPackage) {
+    public GeneratedSchema(Generator schemaGenerator, Package componentPackage) {
         this.componentPackage = componentPackage;
         this.schemaGenerator = schemaGenerator;
         schema = buildSchemaFromTemplate();
@@ -77,7 +78,7 @@ class GeneratedSchema {
         element.setName(componentClass.getSimpleName());
         final XmlSchemaComplexType type = new XmlSchemaComplexType(schema);
         element.setType(type);
-        SchemaGenerator.AttributeGroup attributeGroup = schemaGenerator.findAttributeGroup(componentClass);
+        Generator.AttributeGroup attributeGroup = schemaGenerator.findAttributeGroup(componentClass);
         final XmlSchemaObjectCollection typeAttributes = type.getAttributes();
         typeAttributes.add(attributeGroup.newRef());
         if (ComponentContainer.class.isAssignableFrom(componentClass)) {
@@ -90,7 +91,7 @@ class GeneratedSchema {
         appendToAllGroup(element.getName());
     }
 
-    private void appendAttributes(Class componentClass, SchemaGenerator.AttributeGroup attributeGroup, final XmlSchemaObjectCollection typeAttributes) {
+    private void appendAttributes(Class componentClass, Generator.AttributeGroup attributeGroup, final XmlSchemaObjectCollection typeAttributes) {
         Map<String, XmlSchemaAttribute> generatedAttributes = new TreeMap<>();
         for (Method method : componentClass.getMethods()) {
             String methodName = method.getName();
@@ -103,11 +104,11 @@ class GeneratedSchema {
                 continue;
             }
             Class<?> parameterType = parameterTypes.length == 1 ? parameterTypes[0] : null;
-            AttributeGenerator attributeGenerator = schemaGenerator.findAttributeGenerator(parameterType);
+            AttributeProducer attributeGenerator = schemaGenerator.findAttributeGenerator(parameterType);
             if (attributeGenerator == null) {
                 continue;
             }
-            XmlSchemaAttribute attribute = attributeGenerator.generate(propertyName, parameterType);
+            XmlSchemaAttribute attribute = attributeGenerator.produce(propertyName, parameterType);
             if (attribute != null) {
                 generatedAttributes.put(propertyName, attribute);
             }
