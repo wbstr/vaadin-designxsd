@@ -16,7 +16,7 @@ import javax.xml.transform.OutputKeys;
  */
 public class XsdTestUtils {
 
-    private static final Map writeOptions = new HashMap() {
+    public static final Map writeOptions = new HashMap() {
         {
             put(OutputKeys.INDENT, "no");
         }

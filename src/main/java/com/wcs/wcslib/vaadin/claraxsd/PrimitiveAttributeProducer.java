@@ -37,6 +37,9 @@ public class PrimitiveAttributeProducer implements AttributeProducer {
         } else {
             typeName = translationMap.get(type);
         }
+        if (typeName == null) {
+            return null;
+        }
         XmlSchemaAttribute attr = new XmlSchemaAttribute();
         attr.setName(name);
         attr.setSchemaTypeName(new QName(GeneratedSchema.SCHEMA_NS, typeName));

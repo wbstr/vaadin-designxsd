@@ -78,7 +78,7 @@ public class GeneratedSchema {
         element.setName(componentClass.getSimpleName());
         final XmlSchemaComplexType type = new XmlSchemaComplexType(schema);
         element.setType(type);
-        Generator.AttributeGroup attributeGroup = schemaGenerator.findAttributeGroup(componentClass);
+        BaseAttributeGroup attributeGroup = schemaGenerator.findAttributeGroup(componentClass);
         final XmlSchemaObjectCollection typeAttributes = type.getAttributes();
         typeAttributes.add(attributeGroup.newRef());
         if (ComponentContainer.class.isAssignableFrom(componentClass)) {
@@ -91,7 +91,7 @@ public class GeneratedSchema {
         appendToAllGroup(element.getName());
     }
 
-    private void appendAttributes(Class componentClass, Generator.AttributeGroup attributeGroup, final XmlSchemaObjectCollection typeAttributes) {
+    private void appendAttributes(Class componentClass, BaseAttributeGroup attributeGroup, final XmlSchemaObjectCollection typeAttributes) {
         Map<String, XmlSchemaAttribute> generatedAttributes = new TreeMap<>();
         for (Method method : componentClass.getMethods()) {
             String methodName = method.getName();

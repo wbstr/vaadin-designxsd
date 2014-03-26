@@ -31,7 +31,7 @@ public class SchemaGeneratorTest {
 
     @Test
     public void testAtributeGroupsParsed() {
-        List<Generator.AttributeGroup> attributeGroups = generator.getAttributeGroups();
+        List<BaseAttributeGroup> attributeGroups = generator.getAttributeGroups();
 
         assertEquals(3, attributeGroups.size());
         assertEquals(AbstractField.class, attributeGroups.get(0).getGroupClass());
