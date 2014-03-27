@@ -16,6 +16,7 @@ package com.wcs.wcslib.vaadin.claraxsd;
  * limitations under the License.
  */
 import com.vaadin.ui.Component;
+import com.vaadin.ui.UI;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 
@@ -24,11 +25,15 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -37,10 +42,6 @@ import java.util.logging.Logger;
 import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.reflections.Reflections;
 
-/**
- * Goal which touches a timestamp file.
- *
- */
 @Mojo(name = "trial", defaultPhase = LifecyclePhase.GENERATE_RESOURCES,
         requiresDependencyResolution = ResolutionScope.COMPILE)
 public class ClaraXsdMojo
@@ -48,6 +49,9 @@ public class ClaraXsdMojo
 
     @Parameter(property = "project.compileClasspathElements", required = true, readonly = true)
     private List<String> classpath;
+
+    @Parameter(property = "project.build.directory")
+    private String targetDir;
 
     @Override
     public void execute()
@@ -63,17 +67,20 @@ public class ClaraXsdMojo
         }
 
         ClassLoader contextClassLoader = URLClassLoader.newInstance(
-                urls.toArray(new URL[0]), 
+                urls.toArray(new URL[0]),
                 Thread.currentThread().getContextClassLoader());
         Thread.currentThread().setContextClassLoader(contextClassLoader);
 
         Reflections reflections = new Reflections();
         Set<Class<? extends Component>> subTypesOf = reflections.getSubTypesOf(Component.class);
 
-        Generator xmlSchemaHandler = new Generator();
+        Generator generator = new Generator();
 
         for (Class<? extends Component> componentClass : subTypesOf) {
             System.out.println("++" + componentClass.getCanonicalName());
+            if (UI.class.isAssignableFrom(componentClass)) {
+                continue;
+            }
             if (Modifier.isAbstract(componentClass.getModifiers())
                     || Modifier.isInterface(componentClass.getModifiers())
                     || !Modifier.isPublic(componentClass.getModifiers())) {
@@ -92,12 +99,19 @@ public class ClaraXsdMojo
             }
 
             System.out.println("**" + componentClass.getCanonicalName());
-//            xmlSchemaHandler.append(componentClass);
+            generator.append(componentClass);
         }
-        
-        
-//        xmlSchemaHandler.dump();
-    }
 
+        Collection<GeneratedSchema> generatedSchemas = generator.getGeneratedSchemas();
+        for (GeneratedSchema generatedSchema : generatedSchemas) {
+            String fileName = targetDir + "/clara-" + generatedSchema.getComponentPackage().getName() + ".xsd";
+            try {
+                Writer writer = new FileWriter(fileName, false);
+                generatedSchema.write(writer);
+            } catch (IOException ex) {
+                Logger.getLogger(ClaraXsdMojo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
 
 }

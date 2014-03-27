@@ -5,7 +5,9 @@
  */
 package com.wcs.wcslib.vaadin.claraxsd;
 
+import com.wcs.wcslib.vaadin.claraxsd.attributeproducer.AttributeProducer;
 import java.util.ArrayList;
+import org.apache.ws.commons.schema.XmlSchema;
 import org.apache.ws.commons.schema.XmlSchemaAttribute;
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -22,7 +24,7 @@ public class GeneratedSchemaAttributesTest {
     AttributeProducer skipObjectAttributeProducer = new AttributeProducer() {
 
         @Override
-        public XmlSchemaAttribute produce(String name, Class<?> type) {
+        public XmlSchemaAttribute produce(XmlSchema schema, String name, Class<?> type) {
             XmlSchemaAttribute attr = new XmlSchemaAttribute();
             attr.setName(name);
             return attr;

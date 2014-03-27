@@ -5,6 +5,7 @@
  */
 package com.wcs.wcslib.vaadin.claraxsd;
 
+import com.wcs.wcslib.vaadin.claraxsd.attributeproducer.AttributeProducer;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -22,6 +23,8 @@ import org.apache.ws.commons.schema.XmlSchema;
 import org.apache.ws.commons.schema.XmlSchemaCollection;
 import org.apache.ws.commons.schema.resolver.URIResolver;
 import org.xml.sax.InputSource;
+import com.wcs.wcslib.vaadin.claraxsd.attributeproducer.PrimitiveAttributeProducer;
+import com.wcs.wcslib.vaadin.claraxsd.attributeproducer.EnumAttributeProducer;
 
 /**
  *
@@ -39,7 +42,10 @@ public class Generator {
     }
 
     public Generator(InputStream baseXsd) {
-        this(baseXsd, new ArrayList<AttributeProducer>());
+        this(baseXsd, new ArrayList<AttributeProducer>() {{
+            add(new PrimitiveAttributeProducer());
+            add(new EnumAttributeProducer());
+        }});
     }
 
     public Generator(InputStream baseXsd, Collection<AttributeProducer> attributeGenerators) {

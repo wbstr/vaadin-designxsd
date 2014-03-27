@@ -5,6 +5,7 @@
  */
 package com.wcs.wcslib.vaadin.claraxsd;
 
+import com.wcs.wcslib.vaadin.claraxsd.attributeproducer.AttributeProducer;
 import com.vaadin.ui.ComponentContainer;
 import com.vaadin.ui.SingleComponentContainer;
 import java.io.BufferedReader;
@@ -108,7 +109,7 @@ public class GeneratedSchema {
             if (attributeGenerator == null) {
                 continue;
             }
-            XmlSchemaAttribute attribute = attributeGenerator.produce(propertyName, parameterType);
+            XmlSchemaAttribute attribute = attributeGenerator.produce(schema, propertyName, parameterType);
             if (attribute != null) {
                 generatedAttributes.put(propertyName, attribute);
             }
@@ -144,4 +145,7 @@ public class GeneratedSchema {
         schema.write(writer, options);
     }
 
+    public Package getComponentPackage() {
+        return componentPackage;
+    }
 }

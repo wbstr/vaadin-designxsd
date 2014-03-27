@@ -9,6 +9,8 @@ import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 import javax.xml.transform.OutputKeys;
+import org.apache.ws.commons.schema.XmlSchema;
+import org.apache.ws.commons.schema.XmlSchemaAttribute;
 
 /**
  *
@@ -39,6 +41,16 @@ public class XsdTestUtils {
         String markup = readMarkup(generatedSchema);
         int beginIndex = markup.indexOf("<xs:complexType>") + "<xs:complexType>".length();
         int endIndex = markup.indexOf("</xs:complexType></xs:element>");
+        return markup.substring(beginIndex, endIndex);
+    }
+    
+    public static String buildAttributeMarkup(XmlSchema emptySchema, XmlSchemaAttribute attr) {
+        emptySchema.getItems().add(attr);
+        StringWriter markupWriter = new StringWriter();
+        emptySchema.write(markupWriter, writeOptions);
+        String markup = markupWriter.toString();
+        int endIndex = markup.indexOf("</schema>");
+        int beginIndex = markup.indexOf("<attribute ");
         return markup.substring(beginIndex, endIndex);
     }
 }

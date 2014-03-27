@@ -4,8 +4,9 @@
  * and open the template in the editor.
  */
 
-package com.wcs.wcslib.vaadin.claraxsd;
+package com.wcs.wcslib.vaadin.claraxsd.attributeproducer;
 
+import org.apache.ws.commons.schema.XmlSchema;
 import org.apache.ws.commons.schema.XmlSchemaAttribute;
 
 /**
@@ -14,7 +15,7 @@ import org.apache.ws.commons.schema.XmlSchemaAttribute;
  */
 public interface AttributeProducer {
 
-    XmlSchemaAttribute produce(String name, Class<?> type);
+    XmlSchemaAttribute produce(XmlSchema schema, String name, Class<?> type);
     
     boolean isSupports(Class<?> type);
 }

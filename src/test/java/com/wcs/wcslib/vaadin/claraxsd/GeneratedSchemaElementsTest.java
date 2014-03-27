@@ -5,8 +5,7 @@
  */
 package com.wcs.wcslib.vaadin.claraxsd;
 
-import java.util.ArrayList;
-import org.apache.ws.commons.schema.XmlSchemaAttribute;
+import java.util.Collections;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,7 +20,10 @@ public class GeneratedSchemaElementsTest {
 
     @Before
     public void setUp() {
-        Generator schemaGenerator = new Generator();
+        Generator schemaGenerator = new Generator(
+                Generator.class.getResourceAsStream("clara_base.xsd"),
+                Collections.EMPTY_LIST
+        );
         generatedSchema = new GeneratedSchema(schemaGenerator, getClass().getPackage());
     }
 

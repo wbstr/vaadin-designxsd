@@ -3,11 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.wcs.wcslib.vaadin.claraxsd;
+package com.wcs.wcslib.vaadin.claraxsd.attributeproducer;
 
+import com.wcs.wcslib.vaadin.claraxsd.GeneratedSchema;
 import java.util.HashMap;
 import java.util.Map;
 import javax.xml.namespace.QName;
+import org.apache.ws.commons.schema.XmlSchema;
 import org.apache.ws.commons.schema.XmlSchemaAttribute;
 
 /**
@@ -30,7 +32,7 @@ public class PrimitiveAttributeProducer implements AttributeProducer {
     };
 
     @Override
-    public XmlSchemaAttribute produce(String name, Class<?> type) {
+    public XmlSchemaAttribute produce(XmlSchema schema, String name, Class<?> type) {
         String typeName;
         if (type.isPrimitive()) {
             typeName = type.getName();

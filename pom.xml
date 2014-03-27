@@ -64,7 +64,7 @@
                 <artifactId>maven-plugin-plugin</artifactId>
                 <version>3.1</version>
                 <configuration>
-                    <goalPrefix>triel-maven-plugin</goalPrefix>
+                    <goalPrefix>claraxsd</goalPrefix>
                     <skipErrorNoDescriptorsFound>true</skipErrorNoDescriptorsFound>
                 </configuration>
                 <executions>

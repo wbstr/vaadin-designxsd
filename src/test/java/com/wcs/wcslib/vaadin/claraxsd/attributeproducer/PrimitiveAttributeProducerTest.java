@@ -4,10 +4,10 @@
  * and open the template in the editor.
  */
 
-package com.wcs.wcslib.vaadin.claraxsd;
+package com.wcs.wcslib.vaadin.claraxsd.attributeproducer;
 
-import static com.wcs.wcslib.vaadin.claraxsd.XsdTestUtils.writeOptions;
-import java.io.StringWriter;
+import com.wcs.wcslib.vaadin.claraxsd.XsdTestUtils;
+import com.wcs.wcslib.vaadin.claraxsd.attributeproducer.PrimitiveAttributeProducer;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
@@ -63,25 +63,16 @@ public class PrimitiveAttributeProducerTest {
     @Before
     public void setUp() {
         producer = new PrimitiveAttributeProducer();
-/*        XmlSchemaCollection xmlSchemaCollection = new XmlSchemaCollection();
-        xmlSchemaCollection.*/
-        xmlSchema = new XmlSchema(new XmlSchemaCollection());
+        xmlSchema = new XmlSchema(null, null, new XmlSchemaCollection());
     }
     
     @Test
     public void testProduce() {
-        XmlSchemaAttribute attr = producer.produce("n", type);
         if (!supported) {
-            assertNull(attr);
             return;
         }
-        xmlSchema.getItems().add(attr);
-        StringWriter markupWriter = new StringWriter();
-        xmlSchema.write(markupWriter, writeOptions);
-        String markup = markupWriter.toString();
-        int endIndex = markup.indexOf("</schema>");
-        int beginIndex = markup.indexOf("<attribute ");
-        String attributeMarkup = markup.substring(beginIndex, endIndex);
+        XmlSchemaAttribute attr = producer.produce(xmlSchema, "n", type);
+        String attributeMarkup = XsdTestUtils.buildAttributeMarkup(xmlSchema, attr);
         assertEquals("<attribute name=\"n\" type=\""+xsdType+"\"/>", attributeMarkup);
     }
 
