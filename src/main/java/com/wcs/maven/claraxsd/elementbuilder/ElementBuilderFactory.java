@@ -49,7 +49,7 @@ public class ElementBuilderFactory {
         }
         try {
             componentClass.newInstance();
-        } catch (InstantiationException | IllegalAccessException ex) {
+        } catch (InstantiationException | IllegalAccessException | NoClassDefFoundError ex) {
             return false;
         }
         return true;
