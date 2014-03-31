@@ -23,7 +23,7 @@ limitations under the License.
            elementFormDefault="qualified"
            attributeFormDefault="unqualified">
 
-    <xs:import schemaLocation="clara_parent.xsd" namespace="urn:vaadin:parent"/>
+    <xs:import schemaLocation="clara://lib/parent.xsd" namespace="urn:vaadin:parent"/>
 
     <xs:attributeGroup name="com.vaadin.ui.Component">
         <xs:attribute name="id" type="xs:string"/>

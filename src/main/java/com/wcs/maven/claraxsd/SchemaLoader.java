@@ -5,6 +5,7 @@
  */
 package com.wcs.maven.claraxsd;
 
+import com.wcs.maven.claraxsd.NamingRules.FixedName;
 import java.io.InputStream;
 import java.io.StringReader;
 import javax.xml.transform.stream.StreamSource;
@@ -28,7 +29,12 @@ public class SchemaLoader {
 
             @Override
             public InputSource resolveEntity(String targetNamespace, String schemaLocation, String baseUri) {
-                return new InputSource(getClass().getResourceAsStream(schemaLocation));
+                for(FixedName fixed : FixedName.values()) {
+                    if (fixed.getSystemId().equals(schemaLocation)) {
+                        return new InputSource(getClass().getResourceAsStream(fixed.getFileName()));
+                    }
+                }
+                return null;
             }
         });
     }

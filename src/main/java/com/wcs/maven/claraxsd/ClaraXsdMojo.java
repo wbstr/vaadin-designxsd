@@ -16,6 +16,7 @@ package com.wcs.maven.claraxsd;
  * limitations under the License.
  */
 import com.vaadin.ui.Component;
+import com.wcs.maven.claraxsd.NamingRules.FixedName;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 
@@ -35,6 +36,7 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -80,12 +82,19 @@ public class ClaraXsdMojo
 
     private void writeSchemaFiles(Generator generator) throws IOException {
         Files.createDirectories(destinationPath);
-        copyResource("clara_base.xsd");
-        copyResource("clara_parent.xsd");
+        for(FixedName fixed: NamingRules.FixedName.values()) {
+            copyResource(fixed.getFileName());
+        }
         Collection<GeneratedSchema> generatedSchemas = generator.getGeneratedSchemas();
+        Collection<Package> packages = new ArrayList<>(generatedSchemas.size());
         for (GeneratedSchema generatedSchema : generatedSchemas) {
             writeGeneratedSchema(generatedSchema);
+            packages.add(generatedSchema.getComponentPackage());
         }
+        Catalog catalog = new Catalog(packages, destinationPath);
+        FileWriter catalogFW = new FileWriter(destinationPath.resolve(NamingRules.CATALOG_FILENAME).toFile());
+        catalog.write(catalogFW);
+        catalogFW.close();
     }
     
     private void copyResource(String resource) throws IOException {
@@ -95,7 +104,7 @@ public class ClaraXsdMojo
     }
 
     private void writeGeneratedSchema(GeneratedSchema generatedSchema) throws IOException {
-        String destfileName = "clara-" + generatedSchema.getComponentPackage().getName() + ".xsd";
+        String destfileName = NamingRules.getGeneratedXsdFileName(generatedSchema.getComponentPackage());
         Path destXsdPath = destinationPath.resolve(destfileName);
         Writer writer = new FileWriter(destXsdPath.toFile(), false);
         generatedSchema.write(writer);

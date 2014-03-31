@@ -6,7 +6,7 @@
            xmlns:a="urn:import:${package}"
            elementFormDefault="qualified">
     
-    <xs:import schemaLocation="clara_base.xsd" namespace="urn:clara:base"/>
+    <xs:import schemaLocation="clara://lib/base.xsd" namespace="urn:clara:base"/>
 
     <xs:group name="AllComponentsGroup">
         <xs:choice>
