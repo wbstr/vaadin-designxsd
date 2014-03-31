@@ -11,6 +11,8 @@ import com.vaadin.ui.SingleComponentContainer;
 import com.vaadin.ui.UI;
 import com.wcs.maven.claraxsd.attributebuilder.AttributeBuilderFactory;
 import com.wcs.maven.claraxsd.baseattributegroup.BaseAttributeGroupMngr;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
 
 public class ElementBuilderFactory {
 
@@ -18,12 +20,12 @@ public class ElementBuilderFactory {
     private final BaseAttributeGroupMngr baseAttributeGroupMngr;
 
     public ElementBuilderFactory(
-            AttributeBuilderFactory attributeBuilderFactory, 
+            AttributeBuilderFactory attributeBuilderFactory,
             BaseAttributeGroupMngr baseAttributeGroupMngr) {
         this.attributeBuilderFactory = attributeBuilderFactory;
         this.baseAttributeGroupMngr = baseAttributeGroupMngr;
     }
-    
+
     public ElementBuilder getElementBuilder(Class componentClass) {
         if (!isVaadinComponentSupportedByClara(componentClass)) {
             return new NopElementBuilder();
@@ -47,9 +49,17 @@ public class ElementBuilderFactory {
         if (componentClass.isMemberClass()) {
             return false;
         }
+        if (Modifier.isAbstract(componentClass.getModifiers())
+                || Modifier.isInterface(componentClass.getModifiers())
+                || !Modifier.isPublic(componentClass.getModifiers())) {
+            return false;
+        };
         try {
-            componentClass.newInstance();
-        } catch (InstantiationException | IllegalAccessException | NoClassDefFoundError ex) {
+            Constructor<? extends Component> constructor = componentClass.getConstructor(new Class<?>[]{});
+            if (constructor == null || !Modifier.isPublic(constructor.getModifiers())) {
+                return false;
+            }
+        } catch (NoSuchMethodException e) {
             return false;
         }
         return true;
