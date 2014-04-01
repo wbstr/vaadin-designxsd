@@ -5,6 +5,7 @@
  */
 package com.wcs.maven.claraxsd;
 
+import static com.wcs.maven.claraxsd.NamingRules.FixedName.BASE;
 import com.wcs.maven.claraxsd.attributebuilder.AttributeBuilderFactory;
 import com.wcs.maven.claraxsd.baseattributegroup.BaseAttributeGroupMngr;
 import com.wcs.maven.claraxsd.baseattributegroup.BaseSchema;
@@ -28,7 +29,7 @@ public class Generator {
 
     public static Generator create() {
         SchemaLoader schemaLoader = new SchemaLoader();
-        XmlSchema baseXsd = schemaLoader.load(Generator.class.getResourceAsStream("clara_base.xsd"));
+        XmlSchema baseXsd = schemaLoader.load(Generator.class.getResourceAsStream(BASE.getFileName()));
         BaseSchema baseSchema = new BaseSchema(baseXsd);
         BaseAttributeGroupMngr baseAttributeGroupMngr = new BaseAttributeGroupMngr(baseSchema);
         AttributeBuilderFactory attributeBuilderFactory = new AttributeBuilderFactory();
