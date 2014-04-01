@@ -19,7 +19,6 @@ import org.xml.sax.InputSource;
  * @author kumm
  */
 public class SchemaLoader {
-    public static final String SCHEMA_NS = "http://www.w3.org/2001/XMLSchema";
 
     private XmlSchemaCollection schemaCol;
 
@@ -29,7 +28,7 @@ public class SchemaLoader {
 
             @Override
             public InputSource resolveEntity(String targetNamespace, String schemaLocation, String baseUri) {
-                for(FixedName fixed : FixedName.values()) {
+                for (FixedName fixed : FixedName.values()) {
                     if (fixed.getSystemId().equals(schemaLocation)) {
                         return new InputSource(getClass().getResourceAsStream(fixed.getFileName()));
                     }

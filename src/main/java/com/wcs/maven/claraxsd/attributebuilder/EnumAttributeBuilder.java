@@ -6,8 +6,7 @@
 
 package com.wcs.maven.claraxsd.attributebuilder;
 
-import com.wcs.maven.claraxsd.GeneratedSchema;
-import com.wcs.maven.claraxsd.SchemaLoader;
+import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 import org.apache.ws.commons.schema.XmlSchema;
 import org.apache.ws.commons.schema.XmlSchemaAttribute;
@@ -30,7 +29,7 @@ public class EnumAttributeBuilder implements AttributeBuilder {
         attr.setSchemaType(type);
         XmlSchemaSimpleTypeRestriction restriction = new XmlSchemaSimpleTypeRestriction();
         type.setContent(restriction);
-        restriction.setBaseTypeName(new QName(SchemaLoader.SCHEMA_NS, "string"));
+        restriction.setBaseTypeName(new QName(XMLConstants.W3C_XML_SCHEMA_NS_URI, "string"));
         XmlSchemaObjectCollection facets = restriction.getFacets();
         Enum[] constants = ((Class<Enum>)javaEnumType).getEnumConstants();
         for (Enum enumConstant : constants) {

@@ -6,8 +6,7 @@
 
 package com.wcs.maven.claraxsd.attributebuilder;
 
-import com.wcs.maven.claraxsd.GeneratedSchema;
-import com.wcs.maven.claraxsd.SchemaLoader;
+import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 import org.apache.ws.commons.schema.XmlSchema;
 import org.apache.ws.commons.schema.XmlSchemaAttribute;
@@ -22,7 +21,7 @@ public class NoValueAttributeBuilder implements AttributeBuilder {
     public XmlSchemaAttribute buildAttribute(XmlSchema schema, String name, Class<?> type) {
         XmlSchemaAttribute attr = new XmlSchemaAttribute();
         attr.setName(name);
-        attr.setSchemaTypeName(new QName(SchemaLoader.SCHEMA_NS, "string"));
+        attr.setSchemaTypeName(new QName(XMLConstants.W3C_XML_SCHEMA_NS_URI, "string"));
         attr.setFixedValue("");
         return attr;
     }
