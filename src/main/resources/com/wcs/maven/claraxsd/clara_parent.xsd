@@ -20,8 +20,24 @@ limitations under the License.
            targetNamespace="urn:vaadin:parent"
            attributeFormDefault="qualified">
 
-    <xs:attribute name="componentAlignment"/>
-    <xs:attribute name="expandRatio"/>
-    <xs:attribute name="position"/><!-- AbsoluteLayout-->
+    <xs:attribute name="componentAlignment">
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:enumeration value="TOP_LEFT"/>
+                <xs:enumeration value="TOP_CENTER"/>
+                <xs:enumeration value="TOP_RIGHT"/>
+                <xs:enumeration value="MIDDLE_LEFT"/>
+                <xs:enumeration value="MIDDLE_CENTER"/>
+                <xs:enumeration value="MIDDLE_RIGHT"/>
+                <xs:enumeration value="BOTTOM_LEFT"/>
+                <xs:enumeration value="BOTTOM_CENTER"/>
+                <xs:enumeration value="BOTTOM_RIGHT"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:attribute>
+
+    <xs:attribute name="expandRatio" type="xs:float"/>
+
+    <xs:attribute name="position"/>
 
 </xs:schema>
