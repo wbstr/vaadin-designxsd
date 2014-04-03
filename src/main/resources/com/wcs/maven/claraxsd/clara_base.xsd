@@ -55,7 +55,10 @@ limitations under the License.
         <xs:attribute name="required" type="xs:boolean"/>
         <xs:attribute name="buffered" type="xs:boolean"/>
         <xs:attribute name="invalidAllowed" type="xs:boolean"/>
-        <xs:attribute name="invalidComitted" type="xs:boolean"/>
+        <xs:attribute name="invalidCommitted" type="xs:boolean"/>
+        <xs:attribute name="conversionError" type="xs:string"/>
+        <xs:attribute name="convertedValue" type="xs:string"/>
+        <xs:attribute name="value" type="xs:string"/>
         <xs:attribute name="requiredError" type="xs:string"/>
         <xs:attribute name="validationVisible" type="xs:boolean"/>
         <xs:attribute name="tabIndex" type="xs:integer"/>
