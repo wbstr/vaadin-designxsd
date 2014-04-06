@@ -94,8 +94,8 @@ public class GeneratedSchema {
     }
     
     public boolean isEmpty() {
-        for (Iterator iter = items.getIterator(); iter.hasNext();) {
-            if (iter.next() instanceof XmlSchemaElement) {
+        for (Iterator iterator = items.getIterator(); iterator.hasNext();) {
+            if (iterator.next() instanceof XmlSchemaElement) {
                 return false;
             }
         }

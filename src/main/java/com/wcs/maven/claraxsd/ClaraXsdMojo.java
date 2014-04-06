@@ -43,6 +43,7 @@ import java.util.logging.Logger;
 public class ClaraXsdMojo
         extends AbstractMojo {
 
+    @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
     @Parameter(property = "project.compileClasspathElements", required = true, readonly = true)
     private List<String> classpath;
 
@@ -96,8 +97,8 @@ public class ClaraXsdMojo
     }
 
     private void writeGeneratedSchema(GeneratedSchema generatedSchema) throws IOException {
-        String destfileName = NamingRules.getGeneratedXsdFileName(generatedSchema.getComponentPackage());
-        Path destXsdPath = destinationPath.resolve(destfileName);
+        String destFileName = NamingRules.getGeneratedXsdFileName(generatedSchema.getComponentPackage());
+        Path destXsdPath = destinationPath.resolve(destFileName);
         Writer writer = new FileWriter(destXsdPath.toFile(), false);
         generatedSchema.write(writer);
     }

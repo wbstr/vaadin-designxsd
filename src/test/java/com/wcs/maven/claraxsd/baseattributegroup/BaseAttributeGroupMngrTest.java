@@ -46,11 +46,11 @@ public class BaseAttributeGroupMngrTest {
     @Test
     public void testFindAttributeGroup() {
         BaseAttributeGroup childA
-                = putBaseAttribureGroup("childA", new String[]{"parent"}, new Class[]{Label.class, ChildA.class});
+                = putBaseAttributeGroup("childA", new String[]{"parent"}, new Class[]{Label.class, ChildA.class});
         BaseAttributeGroup childB
-                = putBaseAttribureGroup("childB", new String[]{"parent"}, new Class[]{ChildB.class});
+                = putBaseAttributeGroup("childB", new String[]{"parent"}, new Class[]{ChildB.class});
         BaseAttributeGroup parent
-                = putBaseAttribureGroup("parent", new String[]{}, new Class[]{ChildA.class, ChildB.class, Parent.class});
+                = putBaseAttributeGroup("parent", new String[]{}, new Class[]{ChildA.class, ChildB.class, Parent.class});
         
         instance = new BaseAttributeGroupMngr(baseSchema);
         
@@ -64,11 +64,11 @@ public class BaseAttributeGroupMngrTest {
     @Test
     public void testIsAttributeInherited() {
         BaseAttributeGroup childA
-                = putBaseAttribureGroup("childA", new String[]{"parent"}, new String[]{"a_prop"});
+                = putBaseAttributeGroup("childA", new String[]{"parent"}, new String[]{"a_prop"});
         BaseAttributeGroup childB
-                = putBaseAttribureGroup("childB", new String[]{"parent"}, new String[]{"b_prop"});
+                = putBaseAttributeGroup("childB", new String[]{"parent"}, new String[]{"b_prop"});
         BaseAttributeGroup parent
-                = putBaseAttribureGroup("parent", new String[]{}, new String[]{"p_prop"});
+                = putBaseAttributeGroup("parent", new String[]{}, new String[]{"p_prop"});
 
         instance = new BaseAttributeGroupMngr(baseSchema);
 
@@ -85,29 +85,29 @@ public class BaseAttributeGroupMngrTest {
         assertTrue(instance.isAttributeInherited(parent, "p_prop"));
     }
 
-    private BaseAttributeGroup putBaseAttribureGroup(String name, String[] referencedNames) {
+    private BaseAttributeGroup putBaseAttributeGroup(String name, String[] referencedNames) {
         BaseAttributeGroup mock = mock(BaseAttributeGroup.class);
         QName qName = new QName(name);
         when(mock.getName()).thenReturn(qName);
-        List<QName> referenes = new ArrayList<>();
+        List<QName> references = new ArrayList<>();
         for (String refName : referencedNames) {
-            referenes.add(new QName(refName));
+            references.add(new QName(refName));
         }
-        when(mock.getReferences()).thenReturn(referenes);
+        when(mock.getReferences()).thenReturn(references);
         attributeGroups.put(qName, mock);
         return mock;
     }
 
-    private BaseAttributeGroup putBaseAttribureGroup(String name, String[] referencedNames, Class[] appliesTo) {
-        BaseAttributeGroup mock = putBaseAttribureGroup(name, referencedNames);
+    private BaseAttributeGroup putBaseAttributeGroup(String name, String[] referencedNames, Class[] appliesTo) {
+        BaseAttributeGroup mock = putBaseAttributeGroup(name, referencedNames);
         for (Class appliesToClass : appliesTo) {
             when(mock.isAppliesTo(appliesToClass)).thenReturn(Boolean.TRUE);
         }
         return mock;
     }
 
-    private BaseAttributeGroup putBaseAttribureGroup(String name, String[] referencedNames, String[] attributes) {
-        BaseAttributeGroup mock = putBaseAttribureGroup(name, referencedNames);
+    private BaseAttributeGroup putBaseAttributeGroup(String name, String[] referencedNames, String[] attributes) {
+        BaseAttributeGroup mock = putBaseAttributeGroup(name, referencedNames);
         for (String attribute : attributes) {
             when(mock.hasAttribute(attribute)).thenReturn(Boolean.TRUE);
         }

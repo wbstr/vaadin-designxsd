@@ -75,8 +75,8 @@ public class GeneratedSchemaTest {
                 .thenReturn(new DumbElementBuilder());
         instance.append(MyFakeComponent.class);
         String groupAllMarkup = XsdTestUtils.readGeneratedElementsMarkup(instance);
-        String expexted = "<xs:element name=\"MyFakeComponent\"/>";
-        assertEquals(expexted, groupAllMarkup);
+        String expected = "<xs:element name=\"MyFakeComponent\"/>";
+        assertEquals(expected, groupAllMarkup);
     }
 
     @Test
@@ -85,14 +85,14 @@ public class GeneratedSchemaTest {
                 .thenReturn(new DumbElementBuilder());
         instance.append(MyFakeComponent.class);
         String groupAllMarkup = XsdTestUtils.readGeneratedAllComponentsGroupMarkup(instance);
-        String expexted
+        String expected
                 = "<xs:group name=\"AllComponentsGroup\">"
                 + "<xs:choice>"
                 + "<xs:any namespace=\"##other\"/>"
                 + "<xs:element ref=\"a:MyFakeComponent\"/>"
                 + "</xs:choice>"
                 + "</xs:group>";
-        assertEquals(expexted, groupAllMarkup);
+        assertEquals(expected, groupAllMarkup);
     }
 
     private void assertAllGroupIsEmpty() {
