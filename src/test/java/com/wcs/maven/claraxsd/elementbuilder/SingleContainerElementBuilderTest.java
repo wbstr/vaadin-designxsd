@@ -5,19 +5,23 @@
  */
 package com.wcs.maven.claraxsd.elementbuilder;
 
-import com.wcs.maven.claraxsd.elementbuilder.SingleContainerElementBuilder;
-import com.wcs.maven.claraxsd.testutils.XsdTestUtils;
+import com.vaadin.ui.AbstractComponent;
 import com.wcs.maven.claraxsd.attributebuilder.AttributeBuilderFactory;
+import com.wcs.maven.claraxsd.attributebuilder.NopAttributeBuilder;
 import com.wcs.maven.claraxsd.baseattributegroup.BaseAttributeGroupMngr;
+import com.wcs.maven.claraxsd.testutils.XsdTestUtils;
 import org.apache.ws.commons.schema.XmlSchema;
 import org.apache.ws.commons.schema.XmlSchemaCollection;
 import org.apache.ws.commons.schema.XmlSchemaElement;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.when;
 
 /**
  *
@@ -35,6 +39,8 @@ public class SingleContainerElementBuilderTest {
 
     @Before
     public void setUp() {
+        when(attributeBuilderFactory.getAttributeBuilder(any(String.class), any(Class.class)))
+                .thenReturn(new NopAttributeBuilder());
         instance = new SingleContainerElementBuilder(attributeBuilderFactory, baseAttributeGroupMngr);
         schema = new XmlSchema(null, null, new XmlSchemaCollection());
     }
@@ -53,6 +59,6 @@ public class SingleContainerElementBuilderTest {
         assertEquals(expectedMarkup, resultMarkup);
     }
 
-    public static class MyFakeComponent {
+    public static class MyFakeComponent extends AbstractComponent {
     }
 }

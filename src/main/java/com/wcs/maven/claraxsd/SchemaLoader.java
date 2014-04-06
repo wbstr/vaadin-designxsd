@@ -6,13 +6,14 @@
 package com.wcs.maven.claraxsd;
 
 import com.wcs.maven.claraxsd.NamingRules.FixedName;
-import java.io.InputStream;
-import java.io.StringReader;
-import javax.xml.transform.stream.StreamSource;
 import org.apache.ws.commons.schema.XmlSchema;
 import org.apache.ws.commons.schema.XmlSchemaCollection;
 import org.apache.ws.commons.schema.resolver.URIResolver;
 import org.xml.sax.InputSource;
+
+import javax.xml.transform.stream.StreamSource;
+import java.io.InputStream;
+import java.io.StringReader;
 
 /**
  *
@@ -20,7 +21,7 @@ import org.xml.sax.InputSource;
  */
 public class SchemaLoader {
 
-    private XmlSchemaCollection schemaCol;
+    private final XmlSchemaCollection schemaCol;
 
     public SchemaLoader() {
         schemaCol = new XmlSchemaCollection();

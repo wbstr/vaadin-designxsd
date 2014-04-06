@@ -21,8 +21,8 @@ public final class NamingRules {
         BASE("clara_base.xsd", "clara://lib/base.xsd"),
         PARENT("clara_parent.xsd", "clara://lib/parent.xsd");
 
-        private String fileName;
-        private String SystemId;
+        private final String fileName;
+        private final String SystemId;
 
         private FixedName(String fileName, String SystemId) {
             this.fileName = fileName;

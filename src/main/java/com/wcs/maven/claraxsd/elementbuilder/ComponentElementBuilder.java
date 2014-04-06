@@ -5,19 +5,16 @@
  */
 package com.wcs.maven.claraxsd.elementbuilder;
 
-import com.wcs.maven.claraxsd.baseattributegroup.BaseAttributeGroup;
+import com.vaadin.ui.Component;
 import com.wcs.maven.claraxsd.attributebuilder.AttributeBuilder;
 import com.wcs.maven.claraxsd.attributebuilder.AttributeBuilderFactory;
+import com.wcs.maven.claraxsd.baseattributegroup.BaseAttributeGroup;
 import com.wcs.maven.claraxsd.baseattributegroup.BaseAttributeGroupMngr;
+import org.apache.ws.commons.schema.*;
+
 import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.TreeMap;
-import org.apache.ws.commons.schema.XmlSchema;
-import org.apache.ws.commons.schema.XmlSchemaAttribute;
-import org.apache.ws.commons.schema.XmlSchemaAttributeGroupRef;
-import org.apache.ws.commons.schema.XmlSchemaComplexType;
-import org.apache.ws.commons.schema.XmlSchemaElement;
-import org.apache.ws.commons.schema.XmlSchemaObjectCollection;
 
 /**
  *
@@ -27,8 +24,8 @@ public class ComponentElementBuilder implements ElementBuilder {
 
     private BaseAttributeGroup attributeGroup;
     private XmlSchema schema;
-    private AttributeBuilderFactory attributeBuilderFactory;
-    private BaseAttributeGroupMngr baseAttributeGroupMngr;
+    private final AttributeBuilderFactory attributeBuilderFactory;
+    private final BaseAttributeGroupMngr baseAttributeGroupMngr;
 
     public ComponentElementBuilder(AttributeBuilderFactory attributeBuilderFactory, BaseAttributeGroupMngr baseAttributeGroupMngr) {
         this.attributeBuilderFactory = attributeBuilderFactory;
@@ -36,7 +33,7 @@ public class ComponentElementBuilder implements ElementBuilder {
     }
     
     @Override
-    public XmlSchemaElement buildElement(XmlSchema schema, Class componentClass) {
+    public XmlSchemaElement buildElement(XmlSchema schema, Class<? extends Component> componentClass) {
         this.schema = schema;
         attributeGroup = baseAttributeGroupMngr.findAttributeGroup(componentClass);
         XmlSchemaElement element = new XmlSchemaElement();

@@ -5,15 +5,14 @@
  */
 package com.wcs.maven.claraxsd;
 
+import org.junit.Test;
+
 import java.io.StringWriter;
-import java.io.Writer;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.Arrays;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  *

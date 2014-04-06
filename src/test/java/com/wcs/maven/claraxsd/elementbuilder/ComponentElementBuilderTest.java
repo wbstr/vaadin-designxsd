@@ -5,25 +5,27 @@
  */
 package com.wcs.maven.claraxsd.elementbuilder;
 
-import com.wcs.maven.claraxsd.elementbuilder.ComponentElementBuilder;
-import com.wcs.maven.claraxsd.testutils.XsdTestUtils;
+import com.vaadin.ui.Component;
 import com.wcs.maven.claraxsd.attributebuilder.AttributeBuilder;
 import com.wcs.maven.claraxsd.attributebuilder.AttributeBuilderFactory;
 import com.wcs.maven.claraxsd.attributebuilder.NopAttributeBuilder;
 import com.wcs.maven.claraxsd.baseattributegroup.BaseAttributeGroup;
 import com.wcs.maven.claraxsd.baseattributegroup.BaseAttributeGroupMngr;
-import javax.xml.namespace.QName;
+import com.wcs.maven.claraxsd.testutils.XsdTestUtils;
 import org.apache.ws.commons.schema.XmlSchema;
 import org.apache.ws.commons.schema.XmlSchemaAttribute;
 import org.apache.ws.commons.schema.XmlSchemaCollection;
 import org.apache.ws.commons.schema.XmlSchemaElement;
-import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import static org.mockito.Mockito.*;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import javax.xml.namespace.QName;
+
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.*;
 
 /**
  *
@@ -49,7 +51,7 @@ public class ComponentElementBuilderTest {
     public void testElementNameIsSimpleClassName() {
         when(attributeBuilderFactory.getAttributeBuilder(any(String.class), any(Class.class)))
                 .thenReturn(new NopAttributeBuilder());
-        XmlSchemaElement result = instance.buildElement(schema, MyFakeComponent.class);
+        XmlSchemaElement result = instance.buildElement(schema, forceCastToComponentClass(MyFakeComponent.class));
         assertEquals("MyFakeComponent", result.getName());
     }
 
@@ -62,7 +64,7 @@ public class ComponentElementBuilderTest {
         when(baseAttributeGroupMngr.findAttributeGroup(MyFakeComponent.class))
          .thenReturn(baseAttributeGroup);
 
-        XmlSchemaElement result = instance.buildElement(schema, MyFakeComponent.class);
+        XmlSchemaElement result = instance.buildElement(schema, forceCastToComponentClass(MyFakeComponent.class));
         String resultMarkup = XsdTestUtils.buildElementMarkup(schema, result);
         String expectedMarkup 
                 = "<element name=\"MyFakeComponent\">"
@@ -75,13 +77,13 @@ public class ComponentElementBuilderTest {
     }
 
     @Test
-    public void testAtttributesInsertedAlphabetically() {
+    public void testAttributesInsertedAlphabetically() {
         when(attributeBuilderFactory.getAttributeBuilder(matches("aProp"), isNull(Class.class)))
                 .thenReturn(new MockAttributeBuilder());
         when(attributeBuilderFactory.getAttributeBuilder(matches("[bc]Prop"), eq(String.class)))
                 .thenReturn(new MockAttributeBuilder());
 
-        XmlSchemaElement result = instance.buildElement(schema, MyFakeComponent.class);
+        XmlSchemaElement result = instance.buildElement(schema, forceCastToComponentClass(MyFakeComponent.class));
         String resultMarkup = XsdTestUtils.buildElementMarkup(schema, result);
         String expectedMarkup 
                 = "<element name=\"MyFakeComponent\">"
@@ -96,7 +98,7 @@ public class ComponentElementBuilderTest {
     }
 
     @Test
-    public void testInheritedAtttributesSkipped() {
+    public void testInheritedAttributesSkipped() {
         when(attributeBuilderFactory.getAttributeBuilder(matches("[bc]Prop"), eq(String.class)))
                 .thenReturn(new MockAttributeBuilder());
         //base group is "MyBaseGroup"
@@ -108,7 +110,7 @@ public class ComponentElementBuilderTest {
         when(baseAttributeGroupMngr.isAttributeInherited(baseAttributeGroup, "aProp"))
          .thenReturn(true);
 
-        XmlSchemaElement result = instance.buildElement(schema, MyFakeComponent.class);
+        XmlSchemaElement result = instance.buildElement(schema, forceCastToComponentClass(MyFakeComponent.class));
         String resultMarkup = XsdTestUtils.buildElementMarkup(schema, result);
         String expectedMarkup 
                 = "<element name=\"MyFakeComponent\">"
@@ -126,7 +128,7 @@ public class ComponentElementBuilderTest {
     public void testWrongSettersSkipped() {
         verifyZeroInteractions(attributeBuilderFactory);
 
-        XmlSchemaElement result = instance.buildElement(schema, MyFakeComponentWithWrongSetters.class);
+        XmlSchemaElement result = instance.buildElement(schema, forceCastToComponentClass(MyFakeComponentWithWrongSetters.class));
         String resultMarkup = XsdTestUtils.buildElementMarkup(schema, result);
         String expectedMarkup 
                 = "<element name=\"MyFakeComponentWithWrongSetters\">"
@@ -136,27 +138,28 @@ public class ComponentElementBuilderTest {
         assertEquals(expectedMarkup, resultMarkup);
     }
 
+    @SuppressWarnings("unchecked")
+    private Class<? extends Component> forceCastToComponentClass(Class classToCast) {
+        return (Class<? extends Component>)classToCast;
+    }
+
+    @SuppressWarnings({"UnusedParameters", "UnusedDeclaration", "EmptyMethod"})
     public static class MyFakeComponent {
         public void setCProp(String prop) {
-            
         }
         public void setAProp() {
-            
         }
         public void setbProp(String prop) {
-            
         }
     }
 
+    @SuppressWarnings({"UnusedParameters", "UnusedDeclaration", "EmptyMethod"})
     public static class MyFakeComponentWithWrongSetters {
         public void dosetCProp(String prop) {
-            
         }
         public void setAProp(String prop, String prop2) {
-            
         }
         private void setbProp(String prop) {
-            
         }
     }
     

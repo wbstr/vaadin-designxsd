@@ -5,22 +5,19 @@
  */
 package com.wcs.maven.claraxsd;
 
-import com.wcs.maven.claraxsd.SchemaLoader;
-import com.wcs.maven.claraxsd.GeneratedSchema;
-import com.wcs.maven.claraxsd.testutils.XsdTestUtils;
-import com.wcs.maven.claraxsd.testutils.DumbElementBuilder;
-import com.wcs.maven.claraxsd.elementbuilder.ElementBuilder;
+import com.vaadin.ui.AbstractComponent;
 import com.wcs.maven.claraxsd.elementbuilder.ElementBuilderFactory;
 import com.wcs.maven.claraxsd.elementbuilder.NopElementBuilder;
-import org.apache.ws.commons.schema.XmlSchema;
-import org.apache.ws.commons.schema.XmlSchemaElement;
+import com.wcs.maven.claraxsd.testutils.DumbElementBuilder;
+import com.wcs.maven.claraxsd.testutils.XsdTestUtils;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import static org.junit.Assert.*;
 
 /**
  *
@@ -29,14 +26,13 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class GeneratedSchemaTest {
 
-    GeneratedSchema instance;
-    SchemaLoader schemaLoader;
+    private GeneratedSchema instance;
     @Mock
     ElementBuilderFactory elementBuilderFactory;
 
     @Before
     public void setUp() {
-        schemaLoader = new SchemaLoader();
+        SchemaLoader schemaLoader = new SchemaLoader();
         instance = new GeneratedSchema(getClass().getPackage(), schemaLoader, elementBuilderFactory);
     }
 
@@ -109,7 +105,7 @@ public class GeneratedSchemaTest {
         assertEquals(expected, XsdTestUtils.readGeneratedAllComponentsGroupMarkup(instance));
     }
 
-    public static class MyFakeComponent {
+    public static class MyFakeComponent extends AbstractComponent {
 
     }
     

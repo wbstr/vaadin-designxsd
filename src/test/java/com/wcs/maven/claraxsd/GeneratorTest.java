@@ -5,22 +5,25 @@
  */
 package com.wcs.maven.claraxsd;
 
-import com.wcs.maven.claraxsd.SchemaLoader;
-import com.wcs.maven.claraxsd.Generator;
-import com.wcs.maven.claraxsd.GeneratedSchema;
-import com.wcs.maven.claraxsd.testutils.DumbElementBuilder;
+import com.vaadin.ui.AbstractComponent;
+import com.vaadin.ui.Component;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 import com.wcs.maven.claraxsd.elementbuilder.ElementBuilderFactory;
 import com.wcs.maven.claraxsd.elementbuilder.NopElementBuilder;
-import java.util.Collection;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import com.wcs.maven.claraxsd.testutils.DumbElementBuilder;
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import static org.mockito.Mockito.*;
+import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import java.util.Collection;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.when;
 
 /**
  *
@@ -29,21 +32,20 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class GeneratorTest {
 
-    SchemaLoader schemaLoader;
-    Generator generator;
+    private Generator generator;
     @Mock
     ElementBuilderFactory elementBuilderFactory;
     
 
     @Before
     public void setUp() {
-        schemaLoader = new SchemaLoader();
+        SchemaLoader schemaLoader = new SchemaLoader();
         generator = new Generator(elementBuilderFactory, schemaLoader);
     }
 
     @Test
     public void testGenerateCreatesSchemaPerPackage() {
-        when(elementBuilderFactory.getElementBuilder(any(Class.class)))
+        when(elementBuilderFactory.getElementBuilder(Mockito.<Class<? extends Component>>any()))
                 .thenReturn(new DumbElementBuilder());
         generator.generate(MyFakeComponent.class);
         generator.generate(Label.class);
@@ -55,8 +57,8 @@ public class GeneratorTest {
     }
     
     @Test
-    public void testEmptyGeneratedSchemasFitered() {
-        when(elementBuilderFactory.getElementBuilder(any(Class.class)))
+    public void testEmptyGeneratedSchemasFiltered() {
+        when(elementBuilderFactory.getElementBuilder(Mockito.<Class<? extends Component>>any()))
                 .thenReturn(new NopElementBuilder());
         generator.generate(MyFakeComponent.class);
         generator.generate(Label.class);
@@ -67,7 +69,7 @@ public class GeneratorTest {
     }
     
 
-    public static class MyFakeComponent {
+    public static class MyFakeComponent extends AbstractComponent {
         
     }
 }

@@ -5,14 +5,8 @@
  */
 package com.wcs.maven.claraxsd.baseattributegroup;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import javax.xml.namespace.QName;
+import java.util.*;
 
 public class BaseAttributeGroupMngr {
 
@@ -37,7 +31,7 @@ public class BaseAttributeGroupMngr {
             while (iterator.hasNext()) {
                 Map.Entry<QName, BaseAttributeGroup> entry = iterator.next();
                 BaseAttributeGroup group = entry.getValue();
-                HashSet notStoredReference = new HashSet(group.getReferences());
+                HashSet<QName> notStoredReference = new HashSet<>(group.getReferences());
                 notStoredReference.removeAll(storedAttrGroupNames);
                 if (notStoredReference.isEmpty()) {
                     result.addFirst(group);

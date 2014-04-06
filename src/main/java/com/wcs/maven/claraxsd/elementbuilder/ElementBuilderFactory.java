@@ -11,6 +11,7 @@ import com.vaadin.ui.SingleComponentContainer;
 import com.vaadin.ui.UI;
 import com.wcs.maven.claraxsd.attributebuilder.AttributeBuilderFactory;
 import com.wcs.maven.claraxsd.baseattributegroup.BaseAttributeGroupMngr;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 
@@ -26,7 +27,7 @@ public class ElementBuilderFactory {
         this.baseAttributeGroupMngr = baseAttributeGroupMngr;
     }
 
-    public ElementBuilder getElementBuilder(Class componentClass) {
+    public ElementBuilder getElementBuilder(Class<? extends Component> componentClass) {
         if (!isVaadinComponentSupportedByClara(componentClass)) {
             return new NopElementBuilder();
         }
@@ -39,7 +40,7 @@ public class ElementBuilderFactory {
         return new ComponentElementBuilder(attributeBuilderFactory, baseAttributeGroupMngr);
     }
 
-    private boolean isVaadinComponentSupportedByClara(Class componentClass) {
+    private boolean isVaadinComponentSupportedByClara(Class<? extends Component> componentClass) {
         if (!Component.class.isAssignableFrom(componentClass)) {
             return false;
         }
@@ -53,9 +54,9 @@ public class ElementBuilderFactory {
                 || Modifier.isInterface(componentClass.getModifiers())
                 || !Modifier.isPublic(componentClass.getModifiers())) {
             return false;
-        };
+        }
         try {
-            Constructor<? extends Component> constructor = componentClass.getConstructor(new Class<?>[]{});
+            Constructor<? extends Component> constructor = componentClass.getConstructor();
             if (constructor == null || !Modifier.isPublic(constructor.getModifiers())) {
                 return false;
             }

@@ -12,6 +12,7 @@ import com.vaadin.ui.AbstractComponent;
  *
  * @author kumm
  */
+@SuppressWarnings("UnusedParameters")
 public class NoArgConstructorLess extends AbstractComponent {
 
     public NoArgConstructorLess(String gimme) {

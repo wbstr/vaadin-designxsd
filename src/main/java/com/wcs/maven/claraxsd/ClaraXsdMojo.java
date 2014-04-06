@@ -15,20 +15,18 @@ package com.wcs.maven.claraxsd;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 import com.vaadin.ui.Component;
 import com.wcs.maven.claraxsd.NamingRules.FixedName;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
-
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.plugins.annotations.ResolutionScope;
+import org.reflections.Reflections;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.Writer;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -36,15 +34,9 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.apache.maven.plugins.annotations.ResolutionScope;
-import org.reflections.Reflections;
 
 @Mojo(name = "generate", defaultPhase = LifecyclePhase.GENERATE_RESOURCES,
         requiresDependencyResolution = ResolutionScope.COMPILE)
@@ -121,7 +113,7 @@ public class ClaraXsdMojo
         }
 
         ClassLoader contextClassLoader = URLClassLoader.newInstance(
-                urls.toArray(new URL[0]),
+                (URL[]) urls.toArray(),
                 Thread.currentThread().getContextClassLoader());
         Thread.currentThread().setContextClassLoader(contextClassLoader);
     }

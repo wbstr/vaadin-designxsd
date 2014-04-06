@@ -7,16 +7,15 @@
 package com.wcs.maven.claraxsd.attributebuilder;
 
 import com.wcs.maven.claraxsd.testutils.XsdTestUtils;
-import com.wcs.maven.claraxsd.attributebuilder.EnumAttributeBuilder;
-import static com.wcs.maven.claraxsd.testutils.XsdTestUtils.writeOptions;
-import java.io.StringWriter;
-import java.util.Date;
 import org.apache.ws.commons.schema.XmlSchema;
 import org.apache.ws.commons.schema.XmlSchemaAttribute;
 import org.apache.ws.commons.schema.XmlSchemaCollection;
-import org.junit.Test;
-import static org.junit.Assert.*;
 import org.junit.Before;
+import org.junit.Test;
+
+import java.util.Date;
+
+import static org.junit.Assert.*;
 
 /**
  *
@@ -57,7 +56,8 @@ public class EnumAttributeBuilderTest {
         assertFalse(instance.isSupports(Date.class));
         assertTrue(instance.isSupports(MyEnum.class));
     }
-    
+
+    @SuppressWarnings("UnusedDeclaration")
     public enum MyEnum {
         ONE, TWO, THREE
     }

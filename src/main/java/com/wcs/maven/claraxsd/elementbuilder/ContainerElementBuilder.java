@@ -6,13 +6,15 @@
 
 package com.wcs.maven.claraxsd.elementbuilder;
 
+import com.vaadin.ui.Component;
 import com.wcs.maven.claraxsd.attributebuilder.AttributeBuilderFactory;
 import com.wcs.maven.claraxsd.baseattributegroup.BaseAttributeGroupMngr;
-import javax.xml.namespace.QName;
 import org.apache.ws.commons.schema.XmlSchema;
 import org.apache.ws.commons.schema.XmlSchemaComplexType;
 import org.apache.ws.commons.schema.XmlSchemaElement;
 import org.apache.ws.commons.schema.XmlSchemaGroupRef;
+
+import javax.xml.namespace.QName;
 
 /**
  *
@@ -25,7 +27,7 @@ public class ContainerElementBuilder extends ComponentElementBuilder {
     }
 
     @Override
-    public XmlSchemaElement buildElement(XmlSchema schema, Class componentClass) {
+    public XmlSchemaElement buildElement(XmlSchema schema, Class<? extends Component> componentClass) {
         XmlSchemaElement element = super.buildElement(schema, componentClass);
         XmlSchemaComplexType type = (XmlSchemaComplexType) element.getSchemaType();
         type.setParticle(newAllGroupRef(schema));

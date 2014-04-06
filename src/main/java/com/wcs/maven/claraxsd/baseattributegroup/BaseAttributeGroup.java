@@ -6,23 +6,24 @@
 
 package com.wcs.maven.claraxsd.baseattributegroup;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import javax.xml.namespace.QName;
 import org.apache.ws.commons.schema.XmlSchemaAttribute;
 import org.apache.ws.commons.schema.XmlSchemaAttributeGroup;
 import org.apache.ws.commons.schema.XmlSchemaAttributeGroupRef;
+
+import javax.xml.namespace.QName;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  *
  * @author kumm
  */
 public class BaseAttributeGroup {
-    private final Class groupClass;
+    private final Class<?> groupClass;
     private final List<String> attributes = new ArrayList<>();
     private final QName name;
-    private final List<QName> references = new ArrayList();
+    private final List<QName> references = new ArrayList<>();
 
     public BaseAttributeGroup(XmlSchemaAttributeGroup attrGroup) {
         for (Iterator it = attrGroup.getAttributes().getIterator(); it.hasNext();) {
@@ -49,11 +50,11 @@ public class BaseAttributeGroup {
         return name;
     }
 
-    public Class getGroupClass() {
+    public Class<?> getGroupClass() {
         return groupClass;
     }
 
-    public boolean isAppliesTo(Class componentClass) {
+    public boolean isAppliesTo(Class<?> componentClass) {
         return groupClass.isAssignableFrom(componentClass);
     }
 

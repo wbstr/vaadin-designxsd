@@ -5,22 +5,15 @@
  */
 package com.wcs.maven.claraxsd;
 
+import com.vaadin.ui.Component;
 import com.wcs.maven.claraxsd.elementbuilder.ElementBuilder;
 import com.wcs.maven.claraxsd.elementbuilder.ElementBuilderFactory;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.io.Writer;
+import org.apache.ws.commons.schema.*;
+
+import javax.xml.namespace.QName;
+import java.io.*;
 import java.util.Iterator;
 import java.util.Map;
-import javax.xml.namespace.QName;
-import org.apache.ws.commons.schema.XmlSchema;
-import org.apache.ws.commons.schema.XmlSchemaElement;
-import org.apache.ws.commons.schema.XmlSchemaGroup;
-import org.apache.ws.commons.schema.XmlSchemaGroupBase;
-import org.apache.ws.commons.schema.XmlSchemaObjectCollection;
 
 /**
  *
@@ -73,7 +66,7 @@ public class GeneratedSchema {
         return allGroupParticle.getItems();
     }
 
-    public void append(Class componentClass) {
+    public void append(Class<? extends Component> componentClass) {
         ElementBuilder elementBuilder = elementBuilderFactory.getElementBuilder(componentClass);
         XmlSchemaElement element = elementBuilder.buildElement(schema, componentClass);
         if (element != null) {

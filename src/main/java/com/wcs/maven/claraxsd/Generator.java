@@ -5,17 +5,16 @@
  */
 package com.wcs.maven.claraxsd;
 
-import static com.wcs.maven.claraxsd.NamingRules.FixedName.BASE;
+import com.vaadin.ui.Component;
 import com.wcs.maven.claraxsd.attributebuilder.AttributeBuilderFactory;
 import com.wcs.maven.claraxsd.baseattributegroup.BaseAttributeGroupMngr;
 import com.wcs.maven.claraxsd.baseattributegroup.BaseSchema;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 import com.wcs.maven.claraxsd.elementbuilder.ElementBuilderFactory;
-import java.util.LinkedList;
-import java.util.List;
 import org.apache.ws.commons.schema.XmlSchema;
+
+import java.util.*;
+
+import static com.wcs.maven.claraxsd.NamingRules.FixedName.BASE;
 
 /**
  *
@@ -43,7 +42,7 @@ public class Generator {
         this.schemaLoader = schemaLoader;
     }
 
-    public void generate(Class componentClass) {
+    public void generate(Class<? extends Component> componentClass) {
         getGeneratedSchema(componentClass.getPackage()).append(componentClass);
     }
 

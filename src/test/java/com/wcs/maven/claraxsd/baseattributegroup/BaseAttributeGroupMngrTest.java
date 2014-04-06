@@ -5,25 +5,25 @@
  */
 package com.wcs.maven.claraxsd.baseattributegroup;
 
-import com.wcs.maven.claraxsd.baseattributegroup.BaseAttributeGroupMngr;
-import com.wcs.maven.claraxsd.baseattributegroup.BaseSchema;
-import com.wcs.maven.claraxsd.baseattributegroup.BaseAttributeGroup;
 import com.vaadin.ui.Label;
 import com.wcs.maven.claraxsd.baseattributegroup.testclasses.ChildA;
 import com.wcs.maven.claraxsd.baseattributegroup.testclasses.ChildB;
 import com.wcs.maven.claraxsd.baseattributegroup.testclasses.Parent;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
+
+import javax.xml.namespace.QName;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.xml.namespace.QName;
-import org.junit.Before;
-import org.junit.Test;
+
 import static org.junit.Assert.*;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import static org.mockito.Mockito.*;
-import org.mockito.runners.MockitoJUnitRunner;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  *
@@ -32,10 +32,10 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class BaseAttributeGroupMngrTest {
 
-    BaseAttributeGroupMngr instance;
+    private BaseAttributeGroupMngr instance;
     @Mock
     BaseSchema baseSchema;
-    Map<QName, BaseAttributeGroup> attributeGroups;
+    private Map<QName, BaseAttributeGroup> attributeGroups;
 
     @Before
     public void setUp() {

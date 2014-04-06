@@ -5,23 +5,13 @@
  */
 package com.wcs.maven.claraxsd.elementbuilder;
 
-import com.wcs.maven.claraxsd.elementbuilder.ElementBuilderFactory;
-import com.wcs.maven.claraxsd.elementbuilder.ComponentElementBuilder;
-import com.wcs.maven.claraxsd.elementbuilder.SingleContainerElementBuilder;
-import com.wcs.maven.claraxsd.elementbuilder.NopElementBuilder;
-import com.wcs.maven.claraxsd.elementbuilder.ElementBuilder;
-import com.wcs.maven.claraxsd.elementbuilder.ContainerElementBuilder;
-import com.vaadin.ui.AbstractComponent;
-import com.vaadin.ui.Component;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.Panel;
-import com.vaadin.ui.UI;
-import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.*;
 import com.wcs.maven.claraxsd.elementbuilder.factorytestclasses.NoArgConstructorLess;
 import com.wcs.maven.claraxsd.elementbuilder.factorytestclasses.PublicConstructorLess;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertTrue;
 
 /**
  *
@@ -56,7 +46,8 @@ public class ElementBuilderFactoryTest {
 
     @Test
     public void testNotVaadinComponentProducesNop() {
-        ElementBuilder result = instance.getElementBuilder(getClass());
+        @SuppressWarnings("unchecked")
+        ElementBuilder result = instance.getElementBuilder((Class<? extends Component>)getClass());
         assertTrue(result instanceof NopElementBuilder);
     }
 
@@ -117,7 +108,7 @@ public class ElementBuilderFactoryTest {
     }
 }
 
-class MyPackagePrivateComponent {
+class MyPackagePrivateComponent extends AbstractComponent {
 
     public MyPackagePrivateComponent() {
     }

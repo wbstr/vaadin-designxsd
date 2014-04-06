@@ -6,6 +6,7 @@
 package com.wcs.maven.claraxsd;
 
 import com.wcs.maven.claraxsd.NamingRules.FixedName;
+
 import java.io.IOException;
 import java.io.Writer;
 import java.nio.file.Path;
@@ -42,7 +43,7 @@ public class Catalog {
         writer.write("</catalog>");
     }
 
-    private String buildSystemRow(String systemId, String fileName) throws IOException {
+    private String buildSystemRow(String systemId, String fileName) {
         StringBuilder sb = new StringBuilder();
         String uri = basePath.resolve(fileName).toUri().toString();
         sb.append("<system systemId=\"")

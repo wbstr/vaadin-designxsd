@@ -12,6 +12,7 @@ import com.vaadin.ui.AbstractComponent;
  *
  * @author kumm
  */
+@SuppressWarnings({"UnusedParameters", "UnusedDeclaration", "EmptyMethod"})
 public class MyComponent extends AbstractComponent {
 
     public void setAProp(String stringProp) {

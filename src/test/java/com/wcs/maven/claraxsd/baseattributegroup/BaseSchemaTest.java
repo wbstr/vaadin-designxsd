@@ -9,29 +9,30 @@ package com.wcs.maven.claraxsd.baseattributegroup;
 import com.wcs.maven.claraxsd.baseattributegroup.testclasses.ChildA;
 import com.wcs.maven.claraxsd.baseattributegroup.testclasses.ChildB;
 import com.wcs.maven.claraxsd.baseattributegroup.testclasses.Parent;
-import java.util.Arrays;
-import java.util.Map;
-import javax.xml.namespace.QName;
 import org.apache.ws.commons.schema.XmlSchema;
 import org.apache.ws.commons.schema.XmlSchemaCollection;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import org.xml.sax.InputSource;
+
+import javax.xml.namespace.QName;
+import java.util.Arrays;
+import java.util.Map;
+
+import static org.junit.Assert.*;
 
 /**
  *
  * @author kumm
  */
 public class BaseSchemaTest {
-    
-    XmlSchema schema;
-    BaseSchema instance;
+
+    private BaseSchema instance;
     
     @Before
     public void setUp() {
         XmlSchemaCollection schemaColl = new XmlSchemaCollection();
-        schema = schemaColl.read(new InputSource(getClass().getResourceAsStream("base_schema_test.xsd")), null);
+        XmlSchema schema = schemaColl.read(new InputSource(getClass().getResourceAsStream("base_schema_test.xsd")), null);
         instance = new BaseSchema(schema);
     }
 

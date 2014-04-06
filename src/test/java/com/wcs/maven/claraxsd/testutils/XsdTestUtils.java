@@ -6,13 +6,14 @@
 package com.wcs.maven.claraxsd.testutils;
 
 import com.wcs.maven.claraxsd.GeneratedSchema;
-import java.io.StringWriter;
-import java.util.HashMap;
-import java.util.Map;
-import javax.xml.transform.OutputKeys;
 import org.apache.ws.commons.schema.XmlSchema;
 import org.apache.ws.commons.schema.XmlSchemaAttribute;
 import org.apache.ws.commons.schema.XmlSchemaElement;
+
+import javax.xml.transform.OutputKeys;
+import java.io.StringWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -20,7 +21,7 @@ import org.apache.ws.commons.schema.XmlSchemaElement;
  */
 public class XsdTestUtils {
 
-    public static final Map writeOptions = new HashMap() {
+    private static final Map<String,String> writeOptions = new HashMap<String,String>() {
         {
             put(OutputKeys.INDENT, "no");
         }
@@ -36,13 +37,6 @@ public class XsdTestUtils {
         String markup = readMarkup(generatedSchema);
         int beginIndex = markup.indexOf("</xs:group>") + "</xs:group>".length();
         int endIndex = markup.indexOf("</xs:schema>");
-        return markup.substring(beginIndex, endIndex);
-    }
-
-    public static String readGeneratedAttributesMarkup(GeneratedSchema generatedSchema) {
-        String markup = readMarkup(generatedSchema);
-        int beginIndex = markup.indexOf("<xs:complexType>") + "<xs:complexType>".length();
-        int endIndex = markup.indexOf("</xs:complexType></xs:element>");
         return markup.substring(beginIndex, endIndex);
     }
 

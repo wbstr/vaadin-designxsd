@@ -5,6 +5,7 @@
  */
 package com.wcs.maven.claraxsd.elementbuilder;
 
+import com.vaadin.ui.Component;
 import org.apache.ws.commons.schema.XmlSchema;
 import org.apache.ws.commons.schema.XmlSchemaElement;
 
@@ -14,5 +15,5 @@ import org.apache.ws.commons.schema.XmlSchemaElement;
  */
 public interface ElementBuilder {
 
-    public XmlSchemaElement buildElement(XmlSchema schema, Class componentClass);
+    public XmlSchemaElement buildElement(XmlSchema schema, Class<? extends Component> componentClass);
 }

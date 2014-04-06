@@ -11,7 +11,7 @@ import java.util.Collection;
 public class AttributeBuilderFactory {
 
     Collection<AttributeBuilder> builders;
-    private NopAttributeBuilder nopAttributeBuilder;
+    private final NopAttributeBuilder nopAttributeBuilder;
 
     public AttributeBuilderFactory() {
         nopAttributeBuilder = new NopAttributeBuilder();

@@ -7,18 +7,19 @@
 package com.wcs.maven.claraxsd.attributebuilder;
 
 import com.wcs.maven.claraxsd.testutils.XsdTestUtils;
-import com.wcs.maven.claraxsd.attributebuilder.PrimitiveAttributeBuilder;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Date;
 import org.apache.ws.commons.schema.XmlSchema;
 import org.apache.ws.commons.schema.XmlSchemaAttribute;
 import org.apache.ws.commons.schema.XmlSchemaCollection;
-import org.junit.Test;
-import static org.junit.Assert.*;
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Date;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  *
@@ -27,10 +28,10 @@ import org.junit.runners.Parameterized;
 @RunWith(Parameterized.class)
 public class PrimitiveAttributeBuilderTest {
     
-    PrimitiveAttributeBuilder producer;
-    Class<?> type;
-    boolean supported;
-    String xsdType;
+    private PrimitiveAttributeBuilder producer;
+    private final Class<?> type;
+    private final boolean supported;
+    private final String xsdType;
     
     @Parameterized.Parameters
     public static Collection getData() {
@@ -58,7 +59,7 @@ public class PrimitiveAttributeBuilderTest {
         this.xsdType = xsdType;
         this.type = type;
     }
-    XmlSchema xmlSchema;
+    private XmlSchema xmlSchema;
     
     @Before
     public void setUp() {
