@@ -99,7 +99,7 @@ public class GeneratedSchemaTest {
                 = "<xs:group name=\"AllComponentsGroup\">"
                 + "<xs:choice>"
                 + "<xs:any namespace=\"##other\"/>"
-                + "<xs:element ref=\"a:MyFakeComponent\"/>"
+                + "<xs:element ref=\"MyFakeComponent\"/>"
                 + "</xs:choice>"
                 + "</xs:group>";
         assertEquals(expected, groupAllMarkup);
