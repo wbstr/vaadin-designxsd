@@ -50,15 +50,22 @@ public class ClaraXsdMojo
     @Parameter(property = "project.build.directory")
     private String targetDir;
 
+    @Parameter(property = "baseSystemId", defaultValue = "clara://${project.groupId}:${project.artifactId}:${project.version}/")
+    private String baseSystemId;
+
+    @Parameter(property = "destination", defaultValue = "${project.build.directory}/claraxsd")
+    private String destination;
+
     private Path destinationPath;
 
     @Override
     public void execute()
             throws MojoExecutionException {
 
-        destinationPath = FileSystems.getDefault().getPath(targetDir, "claraxsd");
-        setupContextClassLoader();
+        destinationPath = FileSystems.getDefault().getPath(destination);
+        NamingRules.setBaseSystemIdUri(baseSystemId);
 
+        setupContextClassLoader();
         Reflections reflections = new Reflections();
         Set<Class<? extends Component>> allComponentClass = reflections.getSubTypesOf(Component.class);
         Generator generator = Generator.create();

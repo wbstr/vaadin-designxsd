@@ -22,14 +22,15 @@ package com.wcs.maven.claraxsd;
 public final class NamingRules {
 
     public static final String CATALOG_FILENAME = "catalog.xml";
+    private static String BASE_SYSTEM_ID_URI = "clara://";
 
     private NamingRules() {
     }
 
     public static enum FixedName {
 
-        BASE("clara_base.xsd", "clara://lib/base.xsd"),
-        PARENT("clara_parent.xsd", "clara://lib/parent.xsd");
+        BASE("clara_base.xsd", "lib/base.xsd"),
+        PARENT("clara_parent.xsd", "lib/parent.xsd");
 
         private final String fileName;
         private final String SystemId;
@@ -44,7 +45,7 @@ public final class NamingRules {
         }
 
         public String getSystemId() {
-            return SystemId;
+            return BASE_SYSTEM_ID_URI+SystemId;
         }
 
     }
@@ -54,7 +55,10 @@ public final class NamingRules {
     }
 
     public static String getGeneratedXsdSystemId(Package componentPackage) {
-        return "clara://" + componentPackage.getName() + ".xsd";
+        return BASE_SYSTEM_ID_URI + componentPackage.getName() + ".xsd";
     }
 
+    public static void setBaseSystemIdUri(String BASE_SYSTEM_ID_URI) {
+        NamingRules.BASE_SYSTEM_ID_URI = BASE_SYSTEM_ID_URI;
+    }
 }
