@@ -23,7 +23,6 @@ import java.nio.file.Path;
 import java.util.Collection;
 
 /**
- *
  * @author kumm
  */
 public class Catalog {
@@ -39,8 +38,11 @@ public class Catalog {
     public void write(Writer writer) throws IOException {
         writer.write(
                 "<!DOCTYPE catalog PUBLIC \"-//OASIS//DTD Entity Resolution XML Catalog V1.0//EN\"\n"
-                + "         \"http://www.oasis-open.org/committees/entity/release/1.0/catalog.dtd\">\n"
-                + "<catalog xmlns=\"urn:oasis:names:tc:entity:xmlns:xml:catalog\">\n");
+                        + "         \"http://www.oasis-open.org/committees/entity/release/1.0/catalog.dtd\">\n"
+                        + "<catalog "
+                        + "xmlns=\"urn:oasis:names:tc:entity:xmlns:xml:catalog\" "
+                        + "xml:base=\"" + basePath.toUri() + "\">\n"
+        );
         for (FixedName fixed : NamingRules.FixedName.values()) {
             writer.write(buildSystemRow(fixed.getSystemId(), fixed.getFileName()));
         }
@@ -55,11 +57,10 @@ public class Catalog {
 
     private String buildSystemRow(String systemId, String fileName) {
         StringBuilder sb = new StringBuilder();
-        String uri = basePath.resolve(fileName).toUri().toString();
         sb.append("<system systemId=\"")
                 .append(systemId)
                 .append("\" uri=\"")
-                .append(uri)
+                .append(fileName)
                 .append("\"/>\n");
         return sb.toString();
     }
