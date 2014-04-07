@@ -114,7 +114,7 @@ public class ClaraXsdMojo
         }
 
         ClassLoader contextClassLoader = URLClassLoader.newInstance(
-                (URL[]) urls.toArray(),
+                urls.toArray(new URL[urls.size()]),
                 Thread.currentThread().getContextClassLoader());
         Thread.currentThread().setContextClassLoader(contextClassLoader);
     }
