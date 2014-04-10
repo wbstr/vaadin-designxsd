@@ -49,8 +49,7 @@ public class GeneratorTest {
 
     @Before
     public void setUp() {
-        SchemaLoader schemaLoader = new SchemaLoader();
-        generator = new Generator(elementBuilderFactory, schemaLoader);
+        generator = new Generator(elementBuilderFactory);
     }
 
     @Test

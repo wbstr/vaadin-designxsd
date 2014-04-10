@@ -29,15 +29,17 @@ public final class NamingRules {
 
     public static enum FixedName {
 
-        BASE("clara_base.xsd", "lib/base.xsd"),
-        PARENT("clara_parent.xsd", "lib/parent.xsd");
+        BASE("clara_base.xsd", "lib/base.xsd", "urn:clara:base"),
+        PARENT("clara_parent.xsd", "lib/parent.xsd", "urn:vaadin:parent");
 
         private final String fileName;
-        private final String SystemId;
+        private final String systemId;
+        private final String namespace;
 
-        private FixedName(String fileName, String SystemId) {
+        private FixedName(String fileName, String systemId, String namespace) {
             this.fileName = fileName;
-            this.SystemId = SystemId;
+            this.systemId = systemId;
+            this.namespace = namespace;
         }
 
         public String getFileName() {
@@ -45,9 +47,12 @@ public final class NamingRules {
         }
 
         public String getSystemId() {
-            return BASE_SYSTEM_ID_URI+SystemId;
+            return BASE_SYSTEM_ID_URI+ systemId;
         }
 
+        public String getNamespace() {
+            return namespace;
+        }
     }
 
     public static String getGeneratedXsdFileName(Package componentPackage) {
@@ -55,10 +60,31 @@ public final class NamingRules {
     }
 
     public static String getGeneratedXsdSystemId(Package componentPackage) {
-        return BASE_SYSTEM_ID_URI + componentPackage.getName() + ".xsd";
+        return getGeneratedXsdSystemId(componentPackage.getName());
     }
 
-    public static void setBaseSystemIdUri(String BASE_SYSTEM_ID_URI) {
+    private static String getGeneratedXsdSystemId(String componentPackageName) {
+        return BASE_SYSTEM_ID_URI + componentPackageName + ".xsd";
+    }
+
+    public static String getGeneratedXsdNamespace(Package componentPackage) {
+        return "urn:import:"+componentPackage.getName();
+    }
+
+    public static void initBaseSystemIdUri(String BASE_SYSTEM_ID_URI) {
         NamingRules.BASE_SYSTEM_ID_URI = BASE_SYSTEM_ID_URI;
     }
+
+    public static String resolveNamespaceToSystemId(String namespace) {
+        if (namespace.startsWith("urn:import:")) {
+            return getGeneratedXsdSystemId(namespace.substring("urn:import:".length()));
+        }
+        for(FixedName fixed : FixedName.values()) {
+            if (fixed.getNamespace().equals(namespace)) {
+                return fixed.getSystemId();
+            }
+        }
+        return null;
+    }
+
 }

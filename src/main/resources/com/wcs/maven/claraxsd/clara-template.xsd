@@ -17,10 +17,9 @@
 
 <xs:schema version="1.0"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           targetNamespace="urn:import:${package}"
            elementFormDefault="qualified">
     
-    <xs:import schemaLocation="clara://lib/base.xsd" namespace="urn:clara:base"/>
+    <xs:import namespace="urn:clara:base"/>
 
     <xs:group name="AllComponentsGroup">
         <xs:choice>

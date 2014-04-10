@@ -21,9 +21,8 @@ import com.wcs.maven.claraxsd.elementbuilder.ElementBuilderFactory;
 import org.apache.ws.commons.schema.*;
 
 import javax.xml.namespace.QName;
-import java.io.*;
+import java.io.Writer;
 import java.util.Iterator;
-import java.util.Map;
 
 /**
  *
@@ -31,7 +30,6 @@ import java.util.Map;
  */
 public class GeneratedSchema {
 
-    private final SchemaLoader schemaLoader;
     private final Package componentPackage;
     private final XmlSchemaObjectCollection allGroupItems;
     private final XmlSchema schema;
@@ -40,9 +38,7 @@ public class GeneratedSchema {
 
     public GeneratedSchema(
             Package componentPackage,
-            SchemaLoader schemaLoader,
             ElementBuilderFactory elementBuilderFactory) {
-        this.schemaLoader = schemaLoader;
         this.componentPackage = componentPackage;
         this.elementBuilderFactory = elementBuilderFactory;
         schema = buildSchemaFromTemplate();
@@ -51,23 +47,9 @@ public class GeneratedSchema {
     }
 
     private XmlSchema buildSchemaFromTemplate() {
-        StringBuilder generated = new StringBuilder();
-        InputStream templateStream = getClass().getResourceAsStream("clara-template.xsd");
-        BufferedReader r;
-        try {
-            r = new BufferedReader(new InputStreamReader(templateStream, "UTF-8"));
-        } catch (UnsupportedEncodingException ex) {
-            throw new RuntimeException(ex);
-        }
-        String line;
-        try {
-            while ((line = r.readLine()) != null) {
-                generated.append(line.replace("${package}", componentPackage.getName()));
-            }
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
-        return schemaLoader.load(generated.toString());
+        XmlSchema template = SchemaLoader.load(getClass().getResourceAsStream("clara-template.xsd"));
+        template.setTargetNamespace(NamingRules.getGeneratedXsdNamespace(componentPackage));
+        return template;
     }
 
     private XmlSchemaObjectCollection findAllGroupItems() {
@@ -92,11 +74,11 @@ public class GeneratedSchema {
     }
 
     public void write(Writer writer) {
-        schema.write(writer);
+        SchemaLoader.write(schema, writer);
     }
 
-    public void write(Writer writer, Map options) {
-        schema.write(writer, options);
+    public void writeUnFormatted(Writer writer) {
+        SchemaLoader.writeUnFormatted(schema, writer);
     }
 
     public Package getComponentPackage() {

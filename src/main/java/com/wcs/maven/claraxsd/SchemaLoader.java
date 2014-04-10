@@ -15,15 +15,18 @@
  */
 package com.wcs.maven.claraxsd;
 
-import com.wcs.maven.claraxsd.NamingRules.FixedName;
 import org.apache.ws.commons.schema.XmlSchema;
 import org.apache.ws.commons.schema.XmlSchemaCollection;
-import org.apache.ws.commons.schema.resolver.URIResolver;
-import org.xml.sax.InputSource;
+import org.apache.ws.commons.schema.XmlSchemaImport;
+import org.apache.ws.commons.schema.XmlSchemaObjectCollection;
 
+import javax.xml.transform.OutputKeys;
 import javax.xml.transform.stream.StreamSource;
 import java.io.InputStream;
-import java.io.StringReader;
+import java.io.Writer;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  *
@@ -31,30 +34,39 @@ import java.io.StringReader;
  */
 public class SchemaLoader {
 
-    private final XmlSchemaCollection schemaCol;
+    private static final Map<String,String> unFormattedWriteOptions = new HashMap<String,String>() {
+        {
+            put(OutputKeys.INDENT, "no");
+        }
+    };
 
-    public SchemaLoader() {
-        schemaCol = new XmlSchemaCollection();
-        schemaCol.setSchemaResolver(new URIResolver() {
+    private SchemaLoader() {
+    }
 
-            @Override
-            public InputSource resolveEntity(String targetNamespace, String schemaLocation, String baseUri) {
-                for (FixedName fixed : FixedName.values()) {
-                    if (fixed.getSystemId().equals(schemaLocation)) {
-                        return new InputSource(getClass().getResourceAsStream(fixed.getFileName()));
-                    }
-                }
-                return null;
+    public static XmlSchema load(InputStream xsdStream) {
+        return new XmlSchemaCollection().read(new StreamSource(xsdStream), null);
+    }
+
+    public static void write(XmlSchema schema, Writer writer) {
+        resolveSystemIds(schema);
+        schema.write(writer);
+    }
+
+    public static void writeUnFormatted(XmlSchema schema, Writer writer) {
+        resolveSystemIds(schema);
+        schema.write(writer, unFormattedWriteOptions);
+    }
+
+    private static void resolveSystemIds(XmlSchema schema) {
+        XmlSchemaObjectCollection items = schema.getItems();
+        for (Iterator i = items.getIterator();i.hasNext();) {
+            Object item = i.next();
+            if (item instanceof XmlSchemaImport) {
+                XmlSchemaImport schemaImport = (XmlSchemaImport) item;
+                String systemId = NamingRules.resolveNamespaceToSystemId(schemaImport.getNamespace());
+                schemaImport.setSchemaLocation(systemId);
             }
-        });
-    }
-
-    public XmlSchema load(String markup) {
-        return schemaCol.read(new StringReader(markup), null);
-    }
-
-    public XmlSchema load(InputStream xsdStream) {
-        return schemaCol.read(new StreamSource(xsdStream), null);
+        }
     }
 
 }

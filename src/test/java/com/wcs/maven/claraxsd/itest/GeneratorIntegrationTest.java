@@ -20,6 +20,7 @@ import com.vaadin.ui.VerticalLayout;
 import com.wcs.maven.claraxsd.GeneratedSchema;
 import com.wcs.maven.claraxsd.Generator;
 import com.wcs.maven.claraxsd.NamingRules;
+import com.wcs.maven.claraxsd.SchemaLoader;
 import org.junit.Test;
 import org.w3c.dom.bootstrap.DOMImplementationRegistry;
 import org.w3c.dom.ls.DOMImplementationLS;
@@ -47,6 +48,7 @@ public class GeneratorIntegrationTest {
 
     @Test
     public void testGenerate() throws Exception {
+        NamingRules.initBaseSystemIdUri("clara://itest/");
         Generator generator = Generator.create();
         generator.generate(Label.class);
         generator.generate(VerticalLayout.class);
@@ -54,6 +56,9 @@ public class GeneratorIntegrationTest {
         
         Collection<GeneratedSchema> generatedSchemas = generator.getGeneratedSchemas();
         assertEquals(2, generatedSchemas.size());
+        /*for (GeneratedSchema schema : generatedSchemas) {
+            schema.write(new PrintWriter(System.out));
+        }*/
 
         SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
         Validator validator = factory.newSchema().newValidator();
@@ -81,7 +86,9 @@ public class GeneratorIntegrationTest {
             for (NamingRules.FixedName fixed : NamingRules.FixedName.values()) {
                 if (fixed.getSystemId().equals(systemId)) {
                     InputStream resourceAsStream = Generator.class.getResourceAsStream(fixed.getFileName());
-                    input.setByteStream(resourceAsStream);
+                    ByteArrayOutputStream xsdBytes = new ByteArrayOutputStream();
+                    SchemaLoader.write(SchemaLoader.load(resourceAsStream), new OutputStreamWriter(xsdBytes));
+                    input.setByteStream(new ByteArrayInputStream(xsdBytes.toByteArray()));
                     return input;
                 }
             }

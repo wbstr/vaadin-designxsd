@@ -42,13 +42,23 @@ public class GeneratedSchemaTest {
 
     @Before
     public void setUp() {
-        SchemaLoader schemaLoader = new SchemaLoader();
-        instance = new GeneratedSchema(getClass().getPackage(), schemaLoader, elementBuilderFactory);
+        instance = new GeneratedSchema(getClass().getPackage(), elementBuilderFactory);
     }
 
     @Test
     public void testGetComponentPackage() {
         assertEquals(getClass().getPackage(), instance.getComponentPackage());
+    }
+
+    @Test
+    public void testTargetNamespace() {
+        String markup = XsdTestUtils.readMarkup(instance);
+        int beginIndex = markup.indexOf("<xs:schema") + "<xs:schema".length();
+        int endIndex = markup.indexOf(">", beginIndex);
+        assertTrue(beginIndex > -1);
+        assertTrue(endIndex > beginIndex);
+        String schemaElementStr = markup.substring(beginIndex, endIndex);
+        assertTrue(schemaElementStr.contains(" targetNamespace=\"urn:import:" + getClass().getPackage().getName() + "\""));
     }
 
     @Test

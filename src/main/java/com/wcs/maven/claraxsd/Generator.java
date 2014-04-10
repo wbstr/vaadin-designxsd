@@ -34,22 +34,19 @@ public class Generator {
 
     private final Map<Package, GeneratedSchema> generatedSchemas = new HashMap<>();
     private final ElementBuilderFactory elementBuilderFactory;
-    private final SchemaLoader schemaLoader;
 
     public static Generator create() {
-        SchemaLoader schemaLoader = new SchemaLoader();
-        XmlSchema baseXsd = schemaLoader.load(Generator.class.getResourceAsStream(BASE.getFileName()));
+        XmlSchema baseXsd = SchemaLoader.load(Generator.class.getResourceAsStream(BASE.getFileName()));
         BaseSchema baseSchema = new BaseSchema(baseXsd);
         BaseAttributeGroupMngr baseAttributeGroupMngr = new BaseAttributeGroupMngr(baseSchema);
         AttributeBuilderFactory attributeBuilderFactory = new AttributeBuilderFactory();
         ElementBuilderFactory elementBuilderFactory
                 = new ElementBuilderFactory(attributeBuilderFactory, baseAttributeGroupMngr);
-        return new Generator(elementBuilderFactory, schemaLoader);
+        return new Generator(elementBuilderFactory);
     }
 
-    public Generator(ElementBuilderFactory elementBuilderFactory, SchemaLoader schemaLoader) {
+    public Generator(ElementBuilderFactory elementBuilderFactory) {
         this.elementBuilderFactory = elementBuilderFactory;
-        this.schemaLoader = schemaLoader;
     }
 
     public void generate(Class<? extends Component> componentClass) {
@@ -70,7 +67,7 @@ public class Generator {
     private GeneratedSchema getGeneratedSchema(Package componentPackage) {
         GeneratedSchema generatedSchema = generatedSchemas.get(componentPackage);
         if (generatedSchema == null) {
-            generatedSchema = new GeneratedSchema(componentPackage, schemaLoader, elementBuilderFactory);
+            generatedSchema = new GeneratedSchema(componentPackage, elementBuilderFactory);
             generatedSchemas.put(componentPackage, generatedSchema);
         }
         return generatedSchema;

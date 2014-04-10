@@ -23,7 +23,7 @@
            elementFormDefault="qualified"
            attributeFormDefault="unqualified">
 
-    <xs:import schemaLocation="clara://lib/parent.xsd" namespace="urn:vaadin:parent"/>
+    <xs:import namespace="urn:vaadin:parent"/>
 
     <xs:attributeGroup name="com.vaadin.ui.Component">
         <xs:attribute name="id" type="xs:string"/>

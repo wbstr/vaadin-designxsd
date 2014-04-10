@@ -17,7 +17,6 @@
 package com.wcs.maven.claraxsd;
 
 import com.vaadin.ui.Component;
-import com.wcs.maven.claraxsd.NamingRules.FixedName;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -26,15 +25,14 @@ import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.reflections.Reflections;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -56,16 +54,13 @@ public class ClaraXsdMojo
     @Parameter(property = "destination", defaultValue = "${project.build.directory}/claraxsd")
     private String destination;
 
-    private Path destinationPath;
-
     @Override
     public void execute()
             throws MojoExecutionException {
 
-        destinationPath = FileSystems.getDefault().getPath(destination);
-        NamingRules.setBaseSystemIdUri(baseSystemId);
-
+        NamingRules.initBaseSystemIdUri(baseSystemId);
         setupContextClassLoader();
+
         Reflections reflections = new Reflections();
         Set<Class<? extends Component>> allComponentClass = reflections.getSubTypesOf(Component.class);
         Generator generator = Generator.create();
@@ -73,41 +68,12 @@ public class ClaraXsdMojo
             generator.generate(componentClass);
         }
 
+        OutputFilesWriter outputFilesWriter = new OutputFilesWriter(generator.getGeneratedSchemas(), destination);
         try {
-            writeSchemaFiles(generator);
+            outputFilesWriter.writeFiles();
         } catch (IOException ex) {
             throw new MojoExecutionException("Unable to write out files", ex);
         }
-    }
-
-    private void writeSchemaFiles(Generator generator) throws IOException {
-        Files.createDirectories(destinationPath);
-        for(FixedName fixed: NamingRules.FixedName.values()) {
-            copyResource(fixed.getFileName());
-        }
-        Collection<GeneratedSchema> generatedSchemas = generator.getGeneratedSchemas();
-        Collection<Package> packages = new ArrayList<>(generatedSchemas.size());
-        for (GeneratedSchema generatedSchema : generatedSchemas) {
-            writeGeneratedSchema(generatedSchema);
-            packages.add(generatedSchema.getComponentPackage());
-        }
-        Catalog catalog = new Catalog(packages, destinationPath);
-        FileWriter catalogFW = new FileWriter(destinationPath.resolve(NamingRules.CATALOG_FILENAME).toFile());
-        catalog.write(catalogFW);
-        catalogFW.close();
-    }
-    
-    private void copyResource(String resource) throws IOException {
-        InputStream resourceAsStream = getClass().getResourceAsStream(resource);
-        Path destination = destinationPath.resolve(resource);
-        Files.copy(resourceAsStream, destination, StandardCopyOption.REPLACE_EXISTING);
-    }
-
-    private void writeGeneratedSchema(GeneratedSchema generatedSchema) throws IOException {
-        String destFileName = NamingRules.getGeneratedXsdFileName(generatedSchema.getComponentPackage());
-        Path destXsdPath = destinationPath.resolve(destFileName);
-        Writer writer = new FileWriter(destXsdPath.toFile(), false);
-        generatedSchema.write(writer);
     }
 
     private void setupContextClassLoader() {

@@ -16,14 +16,12 @@
 package com.wcs.maven.claraxsd.testutils;
 
 import com.wcs.maven.claraxsd.GeneratedSchema;
+import com.wcs.maven.claraxsd.SchemaLoader;
 import org.apache.ws.commons.schema.XmlSchema;
 import org.apache.ws.commons.schema.XmlSchemaAttribute;
 import org.apache.ws.commons.schema.XmlSchemaElement;
 
-import javax.xml.transform.OutputKeys;
 import java.io.StringWriter;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  *
@@ -31,15 +29,9 @@ import java.util.Map;
  */
 public class XsdTestUtils {
 
-    private static final Map<String,String> writeOptions = new HashMap<String,String>() {
-        {
-            put(OutputKeys.INDENT, "no");
-        }
-    };
-
     public static String readMarkup(GeneratedSchema generatedSchema) {
         StringWriter markupWriter = new StringWriter();
-        generatedSchema.write(markupWriter, writeOptions);
+        generatedSchema.writeUnFormatted(markupWriter);
         return markupWriter.toString();
     }
 
@@ -60,7 +52,7 @@ public class XsdTestUtils {
     public static String buildAttributeMarkup(XmlSchema emptySchema, XmlSchemaAttribute attr) {
         emptySchema.getItems().add(attr);
         StringWriter markupWriter = new StringWriter();
-        emptySchema.write(markupWriter, writeOptions);
+        SchemaLoader.writeUnFormatted(emptySchema, markupWriter);
         String markup = markupWriter.toString();
         int endIndex = markup.indexOf("</schema>");
         int beginIndex = markup.indexOf("<attribute ");
@@ -70,7 +62,7 @@ public class XsdTestUtils {
     public static String buildElementMarkup(XmlSchema emptySchema, XmlSchemaElement el) {
         emptySchema.getItems().add(el);
         StringWriter markupWriter = new StringWriter();
-        emptySchema.write(markupWriter, writeOptions);
+        SchemaLoader.writeUnFormatted(emptySchema, markupWriter);
         String markup = markupWriter.toString();
         int endIndex = markup.indexOf("</schema>");
         int beginIndex = markup.indexOf("<element ");
