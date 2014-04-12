@@ -47,7 +47,7 @@ public class GeneratedSchema {
     }
 
     private XmlSchema buildSchemaFromTemplate() {
-        XmlSchema template = SchemaLoader.load(getClass().getResourceAsStream("clara-template.xsd"));
+        XmlSchema template = SchemaHandler.load(getClass().getResourceAsStream("clara-template.xsd"));
         template.setTargetNamespace(NamingRules.getGeneratedXsdNamespace(componentPackage));
         return template;
     }
@@ -74,11 +74,11 @@ public class GeneratedSchema {
     }
 
     public void write(Writer writer) {
-        SchemaLoader.write(schema, writer);
+        SchemaHandler.write(schema, writer);
     }
 
     public void writeUnFormatted(Writer writer) {
-        SchemaLoader.writeUnFormatted(schema, writer);
+        SchemaHandler.writeUnFormatted(schema, writer);
     }
 
     public Package getComponentPackage() {

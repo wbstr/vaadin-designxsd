@@ -16,7 +16,7 @@
 package com.wcs.maven.claraxsd.testutils;
 
 import com.wcs.maven.claraxsd.GeneratedSchema;
-import com.wcs.maven.claraxsd.SchemaLoader;
+import com.wcs.maven.claraxsd.SchemaHandler;
 import org.apache.ws.commons.schema.XmlSchema;
 import org.apache.ws.commons.schema.XmlSchemaAttribute;
 import org.apache.ws.commons.schema.XmlSchemaElement;
@@ -52,7 +52,7 @@ public class XsdTestUtils {
     public static String buildAttributeMarkup(XmlSchema emptySchema, XmlSchemaAttribute attr) {
         emptySchema.getItems().add(attr);
         StringWriter markupWriter = new StringWriter();
-        SchemaLoader.writeUnFormatted(emptySchema, markupWriter);
+        SchemaHandler.writeUnFormatted(emptySchema, markupWriter);
         String markup = markupWriter.toString();
         int endIndex = markup.indexOf("</schema>");
         int beginIndex = markup.indexOf("<attribute ");
@@ -62,7 +62,7 @@ public class XsdTestUtils {
     public static String buildElementMarkup(XmlSchema emptySchema, XmlSchemaElement el) {
         emptySchema.getItems().add(el);
         StringWriter markupWriter = new StringWriter();
-        SchemaLoader.writeUnFormatted(emptySchema, markupWriter);
+        SchemaHandler.writeUnFormatted(emptySchema, markupWriter);
         String markup = markupWriter.toString();
         int endIndex = markup.indexOf("</schema>");
         int beginIndex = markup.indexOf("<element ");

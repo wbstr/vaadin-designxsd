@@ -45,9 +45,6 @@ public class ClaraXsdMojo
     @Parameter(property = "project.compileClasspathElements", required = true, readonly = true)
     private List<String> classpath;
 
-    @Parameter(property = "project.build.directory")
-    private String targetDir;
-
     @Parameter(property = "baseSystemId", defaultValue = "clara://${project.groupId}:${project.artifactId}:${project.version}/")
     private String baseSystemId;
 

@@ -36,7 +36,7 @@ public class Generator {
     private final ElementBuilderFactory elementBuilderFactory;
 
     public static Generator create() {
-        XmlSchema baseXsd = SchemaLoader.load(Generator.class.getResourceAsStream(BASE.getFileName()));
+        XmlSchema baseXsd = SchemaHandler.load(Generator.class.getResourceAsStream(BASE.getFileName()));
         BaseSchema baseSchema = new BaseSchema(baseXsd);
         BaseAttributeGroupMngr baseAttributeGroupMngr = new BaseAttributeGroupMngr(baseSchema);
         AttributeBuilderFactory attributeBuilderFactory = new AttributeBuilderFactory();

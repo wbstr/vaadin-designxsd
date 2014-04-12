@@ -23,16 +23,13 @@ import java.io.StringWriter;
 
 import static org.junit.Assert.assertTrue;
 
-/**
- * Created by kumm on 2014.04.08..
- */
-public class SchemaLoaderTest {
+public class SchemaHandlerTest {
 
     @Test
     public void testLoad() throws Exception {
-        XmlSchema schema = SchemaLoader.load(getClass().getResourceAsStream("clara_base.xsd"));
+        XmlSchema schema = SchemaHandler.load(getClass().getResourceAsStream("clara_base.xsd"));
         StringWriter stringWriter = new StringWriter();
-        SchemaLoader.writeUnFormatted(schema, stringWriter);
+        SchemaHandler.writeUnFormatted(schema, stringWriter);
         String markup = stringWriter.toString();
         int beginIndex = markup.indexOf("<xs:import")+"<xs:import".length();
         int endIndex = markup.indexOf("/>", beginIndex);

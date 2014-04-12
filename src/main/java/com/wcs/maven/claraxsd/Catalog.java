@@ -56,13 +56,7 @@ public class Catalog {
     }
 
     private String buildSystemRow(String systemId, String fileName) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("<system systemId=\"")
-                .append(systemId)
-                .append("\" uri=\"")
-                .append(fileName)
-                .append("\"/>\n");
-        return sb.toString();
+        return "<system systemId=\"" + systemId + "\" uri=\"" + fileName + "\"/>\n";
     }
 
 }

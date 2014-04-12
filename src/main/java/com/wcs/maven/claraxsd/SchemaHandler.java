@@ -32,7 +32,7 @@ import java.util.Map;
  *
  * @author kumm
  */
-public class SchemaLoader {
+public class SchemaHandler {
 
     private static final Map<String,String> unFormattedWriteOptions = new HashMap<String,String>() {
         {
@@ -40,7 +40,7 @@ public class SchemaLoader {
         }
     };
 
-    private SchemaLoader() {
+    private SchemaHandler() {
     }
 
     public static XmlSchema load(InputStream xsdStream) {

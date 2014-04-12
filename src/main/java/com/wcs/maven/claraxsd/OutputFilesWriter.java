@@ -27,13 +27,10 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
 
-/**
- * Created by kumm on 2014.04.10..
- */
 public class OutputFilesWriter {
 
-    Collection<GeneratedSchema> generatedSchemas;
-    Path destinationPath;
+    private final Collection<GeneratedSchema> generatedSchemas;
+    private final Path destinationPath;
 
     public OutputFilesWriter(Collection<GeneratedSchema> generatedSchemas, String destination) {
         destinationPath = FileSystems.getDefault().getPath(destination);
@@ -42,7 +39,7 @@ public class OutputFilesWriter {
 
     public void writeFiles() throws IOException {
         Files.createDirectories(destinationPath);
-        for(NamingRules.FixedName fixed: NamingRules.FixedName.values()) {
+        for (NamingRules.FixedName fixed : NamingRules.FixedName.values()) {
             copyResource(fixed.getFileName());
         }
         Collection<Package> packages = new ArrayList<>(generatedSchemas.size());
@@ -63,7 +60,7 @@ public class OutputFilesWriter {
     private void copyResource(String resource) throws IOException {
         InputStream resourceAsStream = getClass().getResourceAsStream(resource);
         FileWriter fileWriter = new FileWriter(destinationPath.resolve(resource).toFile(), false);
-        SchemaLoader.write(SchemaLoader.load(resourceAsStream), fileWriter);
+        SchemaHandler.write(SchemaHandler.load(resourceAsStream), fileWriter);
     }
 
     private void writeGeneratedSchema(GeneratedSchema generatedSchema) throws IOException {
