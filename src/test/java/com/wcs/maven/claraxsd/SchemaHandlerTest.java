@@ -31,7 +31,7 @@ public class SchemaHandlerTest {
         StringWriter stringWriter = new StringWriter();
         SchemaHandler.writeUnFormatted(schema, stringWriter);
         String markup = stringWriter.toString();
-        int beginIndex = markup.indexOf("<xs:import")+"<xs:import".length();
+        int beginIndex = markup.indexOf("<import")+"<import".length();
         int endIndex = markup.indexOf("/>", beginIndex);
         String importElementStr = markup.substring(beginIndex, endIndex);
         assertTrue(importElementStr.contains(" schemaLocation=\""+NamingRules.FixedName.PARENT.getSystemId()+"\""));

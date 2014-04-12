@@ -15,29 +15,29 @@
   ~    limitations under the License.
   -->
 
-<xs:schema version="1.0"
-           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+<schema version="1.0"
+           xmlns="http://www.w3.org/2001/XMLSchema"
            targetNamespace="urn:vaadin:parent"
            attributeFormDefault="qualified">
 
-    <xs:attribute name="componentAlignment">
-        <xs:simpleType>
-            <xs:restriction base="xs:string">
-                <xs:enumeration value="TOP_LEFT"/>
-                <xs:enumeration value="TOP_CENTER"/>
-                <xs:enumeration value="TOP_RIGHT"/>
-                <xs:enumeration value="MIDDLE_LEFT"/>
-                <xs:enumeration value="MIDDLE_CENTER"/>
-                <xs:enumeration value="MIDDLE_RIGHT"/>
-                <xs:enumeration value="BOTTOM_LEFT"/>
-                <xs:enumeration value="BOTTOM_CENTER"/>
-                <xs:enumeration value="BOTTOM_RIGHT"/>
-            </xs:restriction>
-        </xs:simpleType>
-    </xs:attribute>
+    <attribute name="componentAlignment">
+        <simpleType>
+            <restriction base="string">
+                <enumeration value="TOP_LEFT"/>
+                <enumeration value="TOP_CENTER"/>
+                <enumeration value="TOP_RIGHT"/>
+                <enumeration value="MIDDLE_LEFT"/>
+                <enumeration value="MIDDLE_CENTER"/>
+                <enumeration value="MIDDLE_RIGHT"/>
+                <enumeration value="BOTTOM_LEFT"/>
+                <enumeration value="BOTTOM_CENTER"/>
+                <enumeration value="BOTTOM_RIGHT"/>
+            </restriction>
+        </simpleType>
+    </attribute>
 
-    <xs:attribute name="expandRatio" type="xs:float"/>
+    <attribute name="expandRatio" type="float"/>
 
-    <xs:attribute name="position"/>
+    <attribute name="position"/>
 
-</xs:schema>
+</schema>

@@ -37,15 +37,15 @@ public class XsdTestUtils {
 
     public static String readGeneratedElementsMarkup(GeneratedSchema generatedSchema) {
         String markup = readMarkup(generatedSchema);
-        int beginIndex = markup.indexOf("</xs:group>") + "</xs:group>".length();
-        int endIndex = markup.indexOf("</xs:schema>");
+        int beginIndex = markup.indexOf("</group>") + "</group>".length();
+        int endIndex = markup.indexOf("</schema>");
         return markup.substring(beginIndex, endIndex);
     }
 
     public static String readGeneratedAllComponentsGroupMarkup(GeneratedSchema generatedSchema) {
         String markup = XsdTestUtils.readMarkup(generatedSchema);
-        int beginIndex = markup.indexOf("<xs:group ");
-        int endIndex = markup.indexOf("</xs:group>") + 11;
+        int beginIndex = markup.indexOf("<group ");
+        int endIndex = markup.indexOf("</group>") + "</group>".length();
         return markup.substring(beginIndex, endIndex);
     }
 

@@ -15,24 +15,24 @@
   ~    limitations under the License.
   -->
 
-<xs:schema version="1.0"
-           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+<schema version="1.0"
+           xmlns="http://www.w3.org/2001/XMLSchema"
            xmlns:a="urn:clara:base"
            targetNamespace="urn:clara:base">
 
-    <xs:attributeGroup name="com.wcs.maven.claraxsd.baseattributegroup.testclasses.Parent">
-        <xs:attribute name="p_prop"/>
-    </xs:attributeGroup>
+    <attributeGroup name="com.wcs.maven.claraxsd.baseattributegroup.testclasses.Parent">
+        <attribute name="p_prop"/>
+    </attributeGroup>
 
-    <xs:attributeGroup name="com.wcs.maven.claraxsd.baseattributegroup.testclasses.ChildA">
-        <xs:attributeGroup ref="a:com.wcs.maven.claraxsd.baseattributegroup.testclasses.Parent"/>
-        <xs:attribute name="a_prop"/>
-    </xs:attributeGroup>
+    <attributeGroup name="com.wcs.maven.claraxsd.baseattributegroup.testclasses.ChildA">
+        <attributeGroup ref="a:com.wcs.maven.claraxsd.baseattributegroup.testclasses.Parent"/>
+        <attribute name="a_prop"/>
+    </attributeGroup>
 
-    <xs:attributeGroup name="com.wcs.maven.claraxsd.baseattributegroup.testclasses.ChildB">
-        <xs:attributeGroup ref="a:com.wcs.maven.claraxsd.baseattributegroup.testclasses.Parent"/>
-        <xs:attribute name="b_prop"/>
-    </xs:attributeGroup>
+    <attributeGroup name="com.wcs.maven.claraxsd.baseattributegroup.testclasses.ChildB">
+        <attributeGroup ref="a:com.wcs.maven.claraxsd.baseattributegroup.testclasses.Parent"/>
+        <attribute name="b_prop"/>
+    </attributeGroup>
 
 
-</xs:schema>
+</schema>

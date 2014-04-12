@@ -53,7 +53,7 @@ public class GeneratedSchemaTest {
     @Test
     public void testTargetNamespace() {
         String markup = XsdTestUtils.readMarkup(instance);
-        int beginIndex = markup.indexOf("<xs:schema") + "<xs:schema".length();
+        int beginIndex = markup.indexOf("<schema") + "<schema".length();
         int endIndex = markup.indexOf(">", beginIndex);
         assertTrue(beginIndex > -1);
         assertTrue(endIndex > beginIndex);
@@ -95,7 +95,7 @@ public class GeneratedSchemaTest {
                 .thenReturn(new DumbElementBuilder());
         instance.append(MyFakeComponent.class);
         String groupAllMarkup = XsdTestUtils.readGeneratedElementsMarkup(instance);
-        String expected = "<xs:element name=\"MyFakeComponent\"/>";
+        String expected = "<element name=\"MyFakeComponent\"/>";
         assertEquals(expected, groupAllMarkup);
     }
 
@@ -106,22 +106,22 @@ public class GeneratedSchemaTest {
         instance.append(MyFakeComponent.class);
         String groupAllMarkup = XsdTestUtils.readGeneratedAllComponentsGroupMarkup(instance);
         String expected
-                = "<xs:group name=\"AllComponentsGroup\">"
-                + "<xs:choice>"
-                + "<xs:any namespace=\"##other\"/>"
-                + "<xs:element ref=\"MyFakeComponent\"/>"
-                + "</xs:choice>"
-                + "</xs:group>";
+                = "<group name=\"AllComponentsGroup\">"
+                + "<choice>"
+                + "<any namespace=\"##other\"/>"
+                + "<element ref=\"tns:MyFakeComponent\"/>"
+                + "</choice>"
+                + "</group>";
         assertEquals(expected, groupAllMarkup);
     }
 
     private void assertAllGroupIsEmpty() {
         String expected 
-            = "<xs:group name=\"AllComponentsGroup\">"
-            + "<xs:choice>"
-            + "<xs:any namespace=\"##other\"/>"
-            + "</xs:choice>"
-            + "</xs:group>";
+            = "<group name=\"AllComponentsGroup\">"
+            + "<choice>"
+            + "<any namespace=\"##other\"/>"
+            + "</choice>"
+            + "</group>";
         assertEquals(expected, XsdTestUtils.readGeneratedAllComponentsGroupMarkup(instance));
     }
 

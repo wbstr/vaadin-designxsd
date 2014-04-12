@@ -15,53 +15,53 @@
   ~    limitations under the License.
   -->
 
-<xs:schema version="1.0"
-           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+<schema version="1.0"
+           xmlns="http://www.w3.org/2001/XMLSchema"
            xmlns:p="urn:vaadin:parent"
            xmlns:b="urn:clara:base"
            targetNamespace="urn:clara:base"
            elementFormDefault="qualified"
            attributeFormDefault="unqualified">
 
-    <xs:import namespace="urn:vaadin:parent"/>
+    <import namespace="urn:vaadin:parent"/>
 
-    <xs:attributeGroup name="com.vaadin.ui.Component">
-        <xs:attribute name="id" type="xs:string"/>
-        <xs:attribute name="caption" type="xs:string"/>
-        <xs:attribute name="enabled" type="xs:boolean"/>
-        <xs:attribute name="visible" type="xs:boolean"/>
-        <xs:attribute name="readOnly" type="xs:boolean"/>
-        <xs:attribute name="styleName" type="xs:string"/>
-        <xs:attribute name="primaryStyleName" type="xs:string"/>
-        <xs:attribute ref="p:componentAlignment"/>
-        <xs:attribute ref="p:expandRatio"/>
-    </xs:attributeGroup>
+    <attributeGroup name="com.vaadin.ui.Component">
+        <attribute name="id" type="string"/>
+        <attribute name="caption" type="string"/>
+        <attribute name="enabled" type="boolean"/>
+        <attribute name="visible" type="boolean"/>
+        <attribute name="readOnly" type="boolean"/>
+        <attribute name="styleName" type="string"/>
+        <attribute name="primaryStyleName" type="string"/>
+        <attribute ref="p:componentAlignment"/>
+        <attribute ref="p:expandRatio"/>
+    </attributeGroup>
 
-    <xs:attributeGroup name="com.vaadin.ui.AbstractComponent">
-        <xs:attributeGroup ref="b:com.vaadin.ui.Component"/>
-        <xs:attribute name="description" type="xs:string"/>
-        <xs:attribute name="immediate" type="xs:boolean"/>
-        <xs:attribute name="margin" type="xs:string"/>
-        <xs:attribute name="spacing" type="xs:boolean"/>
-        <xs:attribute name="width" type="xs:string"/>
-        <xs:attribute name="height" type="xs:string"/>
-        <xs:attribute name="sizeFull" type="xs:string" fixed=""/>
-        <xs:attribute name="sizeUndefined" type="xs:string" fixed=""/>
-        <xs:attribute name="data" type="xs:string"/>
-    </xs:attributeGroup>
+    <attributeGroup name="com.vaadin.ui.AbstractComponent">
+        <attributeGroup ref="b:com.vaadin.ui.Component"/>
+        <attribute name="description" type="string"/>
+        <attribute name="immediate" type="boolean"/>
+        <attribute name="margin" type="string"/>
+        <attribute name="spacing" type="boolean"/>
+        <attribute name="width" type="string"/>
+        <attribute name="height" type="string"/>
+        <attribute name="sizeFull" type="string" fixed=""/>
+        <attribute name="sizeUndefined" type="string" fixed=""/>
+        <attribute name="data" type="string"/>
+    </attributeGroup>
     
-    <xs:attributeGroup name="com.vaadin.ui.AbstractField">
-        <xs:attributeGroup ref="b:com.vaadin.ui.AbstractComponent"/>
-        <xs:attribute name="required" type="xs:boolean"/>
-        <xs:attribute name="buffered" type="xs:boolean"/>
-        <xs:attribute name="invalidAllowed" type="xs:boolean"/>
-        <xs:attribute name="invalidCommitted" type="xs:boolean"/>
-        <xs:attribute name="conversionError" type="xs:string"/>
-        <xs:attribute name="convertedValue" type="xs:string"/>
-        <xs:attribute name="value" type="xs:string"/>
-        <xs:attribute name="requiredError" type="xs:string"/>
-        <xs:attribute name="validationVisible" type="xs:boolean"/>
-        <xs:attribute name="tabIndex" type="xs:integer"/>
-    </xs:attributeGroup>
+    <attributeGroup name="com.vaadin.ui.AbstractField">
+        <attributeGroup ref="b:com.vaadin.ui.AbstractComponent"/>
+        <attribute name="required" type="boolean"/>
+        <attribute name="buffered" type="boolean"/>
+        <attribute name="invalidAllowed" type="boolean"/>
+        <attribute name="invalidCommitted" type="boolean"/>
+        <attribute name="conversionError" type="string"/>
+        <attribute name="convertedValue" type="string"/>
+        <attribute name="value" type="string"/>
+        <attribute name="requiredError" type="string"/>
+        <attribute name="validationVisible" type="boolean"/>
+        <attribute name="tabIndex" type="integer"/>
+    </attributeGroup>
 
-</xs:schema>
+</schema>
