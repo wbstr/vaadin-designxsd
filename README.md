@@ -4,38 +4,35 @@ This is a maven plugin to generate xml schema files for [Vaadin Clara addon](htt
 
 The main goal of the project is to generate xml schemas to make code completion, and validation possible for clara xml templates. The generated schemas should work in any IDE with OASIS XML catalog support and schema based code completion support. As far as i know this means Eclipse, and Intellij IDEA too. Currently tested only in netbeans.
 
-## What the plugin do
+## What the plugin does
 
 Scans your whole project classpath (compile + system + provided maven scopes), and generates schema for any Vaadin component it founds, and supported by Clara.
+In practice it means you get xml schema: 
 
-In practice this means you get xml schema: 
-
-1. for standard vaadin components (com.vaadin.ui package)
-
-2. for components defined in vaadin addons used by your project
-
-3. for components defined in your project.
+- for standard vaadin components (com.vaadin.ui package)
+- for components defined in vaadin addons used by your project
+- for components defined in your project.
 
 ### Generated files
 
 The plugin generates the following files:
 
-1. clara_parent.xsd
-Xml schema xsd for 'urn:vaadin:parent' namespace. 
+- clara_parent.xsd  
+XML schema xsd for 'urn:vaadin:parent' namespace.  
 Contains componentAlignment, expandRatio, and position attributes.
-
-2. clara_base.xsd
-Xml schema for base vaadin component classes. Defines attribute groups for most common component base classes. For example com.vaadin.ui.Component, com.vaadin.ui.AbstractComponent, com.vaadin.ui.AbstractField.
-
-3. clara-[java-package-name].xsd
-One xsd file per java package with vaadin component.
-All the elements in these schemas reference to the corresponding base attribute group from the previous section.
+- clara_base.xsd  
+XML schema for base vaadin component classes. Defines attribute groups for most common component base classes.  
+For example com.vaadin.ui.Component, com.vaadin.ui.AbstractComponent, com.vaadin.ui.AbstractField.
+- clara-[java-package-name].xsd  
+One xsd file per java package with vaadin component. 
+All the elements in these schemas reference to the corresponding base attribute group from the previous section. 
 The target namespace for the schema is "urn:import:[java-package-name]"
+- catalog.xml  
+The plugin also generates an OASIS XML Catalog. 
+This catalog assings a unique systemId (an url) to the generated xsd files. You can reference this systemId at schemaLocation in your clara xml template files.  
+This is the file you have to import in your ide settings somewhere.
 
-4. catalog.xml
-The plugin also generates an OASIS XML Catalog. This catalog assings a unique systemId (an url) to the generated xsd files. You can reference this systemId at schemaLocation in your clara xml template files. This is the file you have to import in your ide setting somewhere.
-
-## Plugin documentation
+## Plugin options
 
 The plugin binds to generate-resources maven phase by default. The only goal is 'generate'.
 
@@ -43,14 +40,13 @@ The plugin binds to generate-resources maven phase by default. The only goal is 
 
 ##### baseSystemId
 
-This is the base url for the systemId of the schemas.
+This is the base url for the systemId of the schemas.  
 Default: "clara://${project.groupId}:${project.artifactId}:${project.version}/"
 
 ##### destination
 
-Desintation direactory path for generated files. Plugin writes all (schemas, and catalog) files to this directory.
+Desintation direactory path for generated files. Plugin writes all (schemas, and catalog) files to this directory.  
 Default: "${project.build.directory}/claraxsd"
-
 
 ## How to use it
 
@@ -68,7 +64,6 @@ Go to your web project's directory, and run
 ```
 mvn com.wcs.maven:claraxsd-maven-plugin:1.0-SNAPSHOT:generate -D baseSystemId="clara://myproject"
 ```
-
 '-D baseSystemId=...' is optional, but i think the default is too verbose in most cases. See generate goal options.
 Or of course you can add the plugin to your pom.xml in plugins section...
 
@@ -104,7 +99,6 @@ The exact manner to do depends on your IDE. Currently i can share the netbeans h
 #### Netbeans
 
 1. Go to 'Tools/DTDs and XML Schemas' menu.
-
 2. Click 'Add Catalog', select 'OASIS Catalog Resolver', and browse the generated catalog.xml
 
 After this step it's ready. Code completion, and validation should work while editing clara xml template.
