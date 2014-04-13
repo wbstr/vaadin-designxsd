@@ -19,9 +19,11 @@ The plugin generates the following files:
 
 - clara_parent.xsd  
 XML schema xsd for 'urn:vaadin:parent' namespace.  
-Contains componentAlignment, expandRatio, and position attributes.
+Technically this file is not generated, it is just copied to destination.  
+Contains componentAlignment, expandRatio, and position attributes.  
 - clara_base.xsd  
 XML schema for base vaadin component classes. Defines attribute groups for most common component base classes.  
+Technically this file is not generated, it is just copied to destination.  
 For example com.vaadin.ui.Component, com.vaadin.ui.AbstractComponent, com.vaadin.ui.AbstractField.
 - clara-[java-package-name].xsd  
 One xsd file per java package with vaadin component. 
