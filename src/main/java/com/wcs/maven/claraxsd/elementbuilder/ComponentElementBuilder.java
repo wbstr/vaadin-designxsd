@@ -23,6 +23,7 @@ import com.wcs.maven.claraxsd.baseattributegroup.BaseAttributeGroupMngr;
 import org.apache.ws.commons.schema.*;
 
 import java.lang.reflect.Method;
+import java.util.Collection;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -32,7 +33,7 @@ import java.util.TreeMap;
  */
 public class ComponentElementBuilder implements ElementBuilder {
 
-    private BaseAttributeGroup attributeGroup;
+    private Collection<BaseAttributeGroup> attributeGroups;
     private XmlSchema schema;
     private final AttributeBuilderFactory attributeBuilderFactory;
     private final BaseAttributeGroupMngr baseAttributeGroupMngr;
@@ -45,22 +46,22 @@ public class ComponentElementBuilder implements ElementBuilder {
     @Override
     public XmlSchemaElement buildElement(XmlSchema schema, Class<? extends Component> componentClass) {
         this.schema = schema;
-        attributeGroup = baseAttributeGroupMngr.findAttributeGroup(componentClass);
+        attributeGroups = baseAttributeGroupMngr.findAttributeGroup(componentClass);
         XmlSchemaElement element = new XmlSchemaElement();
         element.setName(componentClass.getSimpleName());
         final XmlSchemaComplexType type = new XmlSchemaComplexType(schema);
         element.setType(type);
         final XmlSchemaObjectCollection typeAttributes = type.getAttributes();
-        if (attributeGroup != null) {
-            typeAttributes.add(newAttributeGroupRef());
+        for (BaseAttributeGroup baseAttributeGroup : attributeGroups) {
+            typeAttributes.add(newAttributeGroupRef(baseAttributeGroup));
         }
         appendAttributes(componentClass, typeAttributes);
         return element;
     }
     
-    public XmlSchemaAttributeGroupRef newAttributeGroupRef() {
+    private XmlSchemaAttributeGroupRef newAttributeGroupRef(BaseAttributeGroup baseAttributeGroup) {
         XmlSchemaAttributeGroupRef ref = new XmlSchemaAttributeGroupRef();
-        ref.setRefName(attributeGroup.getName());
+        ref.setRefName(baseAttributeGroup.getName());
         return ref;
     }
 
@@ -84,8 +85,10 @@ public class ComponentElementBuilder implements ElementBuilder {
             return null;
         }
         String propertyName = methodName.substring(3, 4).toLowerCase() + methodName.substring(4);
-        if (baseAttributeGroupMngr.isAttributeInherited(attributeGroup, propertyName)) {
-            return null;
+        for (BaseAttributeGroup attributeGroup : attributeGroups) {
+            if (baseAttributeGroupMngr.isAttributeInherited(attributeGroup, propertyName)) {
+                return null;
+            }
         }
         Class<?> parameterType = parameterTypes.length == 1 ? parameterTypes[0] : null;
         AttributeBuilder attributeBuilder = attributeBuilderFactory.getAttributeBuilder(propertyName, parameterType);

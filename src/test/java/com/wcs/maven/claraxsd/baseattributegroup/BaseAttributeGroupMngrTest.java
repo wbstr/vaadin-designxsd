@@ -18,7 +18,9 @@ package com.wcs.maven.claraxsd.baseattributegroup;
 import com.vaadin.ui.Label;
 import com.wcs.maven.claraxsd.baseattributegroup.testclasses.ChildA;
 import com.wcs.maven.claraxsd.baseattributegroup.testclasses.ChildB;
+import com.wcs.maven.claraxsd.baseattributegroup.testclasses.ChildC;
 import com.wcs.maven.claraxsd.baseattributegroup.testclasses.Parent;
+import com.wcs.maven.claraxsd.baseattributegroup.testclasses.Parent.Interf;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -56,19 +58,24 @@ public class BaseAttributeGroupMngrTest {
     @Test
     public void testFindAttributeGroup() {
         BaseAttributeGroup childA
-                = putBaseAttributeGroup("childA", new String[]{"parent"}, new Class[]{Label.class, ChildA.class});
+                = putBaseAttributeGroup("childA", new String[]{"parent"}, new Class[]{Label.class, ChildA.class, ChildC.class});
         BaseAttributeGroup childB
                 = putBaseAttributeGroup("childB", new String[]{"parent"}, new Class[]{ChildB.class});
+        BaseAttributeGroup childC
+                = putBaseAttributeGroup("childC", new String[]{"childA"}, new Class[]{ChildC.class, Interf.class});
         BaseAttributeGroup parent
                 = putBaseAttributeGroup("parent", new String[]{}, new Class[]{ChildA.class, ChildB.class, Parent.class});
+        BaseAttributeGroup interf
+                = putBaseAttributeGroup("interf", new String[]{}, new Class[]{ChildC.class});
         
         instance = new BaseAttributeGroupMngr(baseSchema);
         
-        assertEquals(childA, instance.findAttributeGroup(Label.class));
-        assertEquals(childA, instance.findAttributeGroup(ChildA.class));
-        assertEquals(childB, instance.findAttributeGroup(ChildB.class));
-        assertEquals(parent, instance.findAttributeGroup(Parent.class));
-        assertNull(instance.findAttributeGroup(getClass()));
+        assertArrayEquals(new BaseAttributeGroup[] {childA}, instance.findAttributeGroup(Label.class).toArray());
+        assertArrayEquals(new BaseAttributeGroup[] {childA}, instance.findAttributeGroup(ChildA.class).toArray());
+        assertArrayEquals(new BaseAttributeGroup[] {childB}, instance.findAttributeGroup(ChildB.class).toArray());
+        assertArrayEquals(new BaseAttributeGroup[] {childC, interf}, instance.findAttributeGroup(ChildC.class).toArray());
+        assertArrayEquals(new BaseAttributeGroup[] {parent}, instance.findAttributeGroup(Parent.class).toArray());
+        assertTrue(instance.findAttributeGroup(getClass()).isEmpty());
     }
 
     @Test

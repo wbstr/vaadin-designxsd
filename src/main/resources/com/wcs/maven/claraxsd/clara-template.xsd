@@ -22,13 +22,13 @@
     
     <import namespace="urn:clara:base"/>
     
-    <annotation>
-        <documentation>
-            Workaround for https://netbeans.org/bugzilla/show_bug.cgi?id=243785
-            We need to define all elements from this namespace, because a simple 'any' breaks code completion.
-        </documentation>
-    </annotation>
     <group name="AllComponentsGroup">
+        <annotation>
+            <documentation>
+                Workaround for https://netbeans.org/bugzilla/show_bug.cgi?id=243785
+                We need to define all elements from this namespace, because a simple 'any' breaks code completion.
+            </documentation>
+        </annotation>
         <choice>
             <any namespace="##other"/>
         </choice>

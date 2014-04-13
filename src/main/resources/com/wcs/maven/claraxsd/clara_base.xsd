@@ -96,6 +96,24 @@
                 </documentation>
             </annotation>
         </attribute>
+        <attribute name="width" type="string"/>
+        <attribute name="height" type="string"/>
+        <attribute name="sizeFull" type="string" fixed=""/>
+        <attribute name="sizeUndefined" type="string" fixed=""/>
+        <attribute name="data" type="string"/>
+    </attributeGroup>
+    
+    <attributeGroup name="com.vaadin.ui.Layout..SpacingHandler">
+        <attribute name="spacing" type="boolean">
+            <annotation>
+                <documentation>
+                    Spacing between child components within this layout.
+                </documentation>
+            </annotation>
+        </attribute>
+    </attributeGroup>
+    
+    <attributeGroup name="com.vaadin.ui.Layout..MarginHandler">
         <attribute name="margin" type="string">
             <annotation>
                 <documentation>
@@ -105,20 +123,8 @@
                 </documentation>
             </annotation>
         </attribute>
-        <attribute name="spacing" type="boolean">
-            <annotation>
-                <documentation>
-                    Spacing between child components within this layout.
-                </documentation>
-            </annotation>
-        </attribute>
-        <attribute name="width" type="string"/>
-        <attribute name="height" type="string"/>
-        <attribute name="sizeFull" type="string" fixed=""/>
-        <attribute name="sizeUndefined" type="string" fixed=""/>
-        <attribute name="data" type="string"/>
     </attributeGroup>
-    
+
     <attributeGroup name="com.vaadin.ui.AbstractField">
         <attributeGroup ref="b:com.vaadin.ui.AbstractComponent"/>
         <attribute name="required" type="boolean"/>

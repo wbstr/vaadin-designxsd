@@ -22,6 +22,7 @@ import com.wcs.maven.claraxsd.attributebuilder.NopAttributeBuilder;
 import com.wcs.maven.claraxsd.baseattributegroup.BaseAttributeGroup;
 import com.wcs.maven.claraxsd.baseattributegroup.BaseAttributeGroupMngr;
 import com.wcs.maven.claraxsd.testutils.XsdTestUtils;
+import java.util.Arrays;
 import org.apache.ws.commons.schema.XmlSchema;
 import org.apache.ws.commons.schema.XmlSchemaAttribute;
 import org.apache.ws.commons.schema.XmlSchemaCollection;
@@ -69,17 +70,20 @@ public class ComponentElementBuilderTest {
     public void testBaseGroupInserted() {
         when(attributeBuilderFactory.getAttributeBuilder(any(String.class), any(Class.class)))
                 .thenReturn(new NopAttributeBuilder());
-        BaseAttributeGroup baseAttributeGroup = mock(BaseAttributeGroup.class);
-        when(baseAttributeGroup.getName()).thenReturn(new QName("MyBaseGroup"));
+        BaseAttributeGroup baseAttributeGroup1 = mock(BaseAttributeGroup.class);
+        when(baseAttributeGroup1.getName()).thenReturn(new QName("MyBaseGroup1"));
+        BaseAttributeGroup baseAttributeGroup2 = mock(BaseAttributeGroup.class);
+        when(baseAttributeGroup2.getName()).thenReturn(new QName("MyBaseGroup2"));
         when(baseAttributeGroupMngr.findAttributeGroup(MyFakeComponent.class))
-         .thenReturn(baseAttributeGroup);
+         .thenReturn(Arrays.asList(baseAttributeGroup1, baseAttributeGroup2));
 
         XmlSchemaElement result = instance.buildElement(schema, forceCastToComponentClass(MyFakeComponent.class));
         String resultMarkup = XsdTestUtils.buildElementMarkup(schema, result);
         String expectedMarkup 
                 = "<element name=\"MyFakeComponent\">"
                 + "<complexType>"
-                + "<attributeGroup ref=\"MyBaseGroup\"/>"
+                + "<attributeGroup ref=\"MyBaseGroup1\"/>"
+                + "<attributeGroup ref=\"MyBaseGroup2\"/>"
                 + "</complexType>"
                 + "</element>";
 
@@ -113,11 +117,16 @@ public class ComponentElementBuilderTest {
                 .thenReturn(new MockAttributeBuilder());
         //base group is "MyBaseGroup"
         BaseAttributeGroup baseAttributeGroup = mock(BaseAttributeGroup.class);
-        when(baseAttributeGroup.getName()).thenReturn(new QName("MyBaseGroup"));
+        when(baseAttributeGroup.getName()).thenReturn(new QName("MyBaseGroup1"));
+        BaseAttributeGroup baseAttributeGroup2 = mock(BaseAttributeGroup.class);
+        when(baseAttributeGroup2.getName()).thenReturn(new QName("MyBaseGroup2"));
         when(baseAttributeGroupMngr.findAttributeGroup(MyFakeComponent.class))
-         .thenReturn(baseAttributeGroup);
+         .thenReturn(Arrays.asList(baseAttributeGroup, baseAttributeGroup2));
         //aProp is inherited
         when(baseAttributeGroupMngr.isAttributeInherited(baseAttributeGroup, "aProp"))
+         .thenReturn(true);
+        //bProp is inherited
+        when(baseAttributeGroupMngr.isAttributeInherited(baseAttributeGroup2, "bProp"))
          .thenReturn(true);
 
         XmlSchemaElement result = instance.buildElement(schema, forceCastToComponentClass(MyFakeComponent.class));
@@ -125,8 +134,8 @@ public class ComponentElementBuilderTest {
         String expectedMarkup 
                 = "<element name=\"MyFakeComponent\">"
                 + "<complexType>"
-                + "<attributeGroup ref=\"MyBaseGroup\"/>"
-                + "<attribute name=\"bProp\"/>"
+                + "<attributeGroup ref=\"MyBaseGroup1\"/>"
+                + "<attributeGroup ref=\"MyBaseGroup2\"/>"
                 + "<attribute name=\"cProp\"/>"
                 + "</complexType>"
                 + "</element>";

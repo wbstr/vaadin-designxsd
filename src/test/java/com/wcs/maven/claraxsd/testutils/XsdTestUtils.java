@@ -46,7 +46,8 @@ public class XsdTestUtils {
         String markup = XsdTestUtils.readMarkup(generatedSchema);
         int beginIndex = markup.indexOf("<group ");
         int endIndex = markup.indexOf("</group>") + "</group>".length();
-        return markup.substring(beginIndex, endIndex);
+        String str = markup.substring(beginIndex, endIndex);
+        return str.replaceFirst("<annotation><documentation>[^<]*</documentation></annotation>", "");
     }
 
     public static String buildAttributeMarkup(XmlSchema emptySchema, XmlSchemaAttribute attr) {

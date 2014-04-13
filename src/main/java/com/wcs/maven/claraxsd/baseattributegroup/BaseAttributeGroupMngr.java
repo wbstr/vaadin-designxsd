@@ -56,13 +56,24 @@ public class BaseAttributeGroupMngr {
         return result;
     }
 
-    public BaseAttributeGroup findAttributeGroup(Class componentClass) {
+    public Collection<BaseAttributeGroup> findAttributeGroup(Class componentClass) {
+        List<BaseAttributeGroup> result = new LinkedList<>();
+        Set<BaseAttributeGroup> referenced = new HashSet<>();
         for (BaseAttributeGroup baseAttributeGroup : attributeGroups) {
-            if (baseAttributeGroup.isAppliesTo(componentClass)) {
-                return baseAttributeGroup;
+            if (baseAttributeGroup.isAppliesTo(componentClass) && !referenced.contains(baseAttributeGroup)) {
+                result.add(baseAttributeGroup);
+                addReferencedRecursively(referenced, baseAttributeGroup);
             }
         }
-        return null;
+        return result;
+    }
+    
+    private void addReferencedRecursively(Collection<BaseAttributeGroup> groups, BaseAttributeGroup attributeGroup) {
+        for (QName ref : attributeGroup.getReferences()) {
+            BaseAttributeGroup referenced = attributeGroupsByName.get(ref);
+            groups.add(referenced);
+            addReferencedRecursively(groups, referenced);
+        }
     }
 
     public boolean isAttributeInherited(BaseAttributeGroup attributeGroup, String attribute) {

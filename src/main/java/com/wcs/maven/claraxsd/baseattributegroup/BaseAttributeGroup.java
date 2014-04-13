@@ -50,7 +50,7 @@ public class BaseAttributeGroup {
         }
         name = attrGroup.getName();
         try {
-            groupClass = Class.forName(name.getLocalPart());
+            groupClass = Class.forName(name.getLocalPart().replace("..", "$"));
         } catch (ClassNotFoundException ex) {
             throw new RuntimeException("Can't load class " + name.getLocalPart(), ex);
         }

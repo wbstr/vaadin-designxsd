@@ -20,9 +20,6 @@ package com.wcs.maven.claraxsd.baseattributegroup.testclasses;
  *
  * @author kumm
  */
-public class Parent {
-
-    public interface Interf {
-    }
+public class ChildC extends ChildA implements com.wcs.maven.claraxsd.baseattributegroup.testclasses.Parent.Interf {
     
 }
