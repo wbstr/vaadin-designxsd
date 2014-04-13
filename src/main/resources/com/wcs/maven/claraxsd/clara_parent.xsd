@@ -21,6 +21,12 @@
            attributeFormDefault="qualified">
 
     <attribute name="componentAlignment">
+        <annotation>
+            <documentation>
+                Alignment for the component in the parent Layout.
+                Parent have to implement Layout.AlignmentHandler
+            </documentation>
+        </annotation>
         <simpleType>
             <restriction base="string">
                 <enumeration value="TOP_LEFT"/>
@@ -35,9 +41,19 @@
             </restriction>
         </simpleType>
     </attribute>
-
-    <attribute name="expandRatio" type="float"/>
-
-    <attribute name="position"/>
+    <attribute name="expandRatio" type="float">
+        <annotation>
+            <documentation>
+                ExpandRatio for the component in an AbstractOrderedLayout parent.
+            </documentation>
+        </annotation>
+    </attribute>
+    <attribute name="position">
+        <annotation>
+            <documentation>
+                Position for the component in an AbsoluteLayout parent.
+            </documentation>
+        </annotation>
+    </attribute>
 
 </schema>

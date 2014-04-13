@@ -26,23 +26,92 @@
     <import namespace="urn:vaadin:parent"/>
 
     <attributeGroup name="com.vaadin.ui.Component">
-        <attribute name="id" type="string"/>
-        <attribute name="caption" type="string"/>
-        <attribute name="enabled" type="boolean"/>
-        <attribute name="visible" type="boolean"/>
-        <attribute name="readOnly" type="boolean"/>
-        <attribute name="styleName" type="string"/>
-        <attribute name="primaryStyleName" type="string"/>
+        <attribute name="id" type="string">
+            <annotation>
+                <documentation>
+                    Unique id for component that get's transferred to terminal for testing purposes.
+                    Clara binding annotations use this id.
+                </documentation>
+            </annotation>
+        </attribute>
+        <attribute name="caption" type="string">
+            <annotation>
+                <documentation>
+                    Caption of the component.
+                </documentation>
+            </annotation>
+        </attribute>
+        <attribute name="enabled" type="boolean">
+            <annotation>
+                <documentation>
+                    Enables or disables the component.
+                </documentation>
+            </annotation>
+        </attribute>
+        <attribute name="visible" type="boolean">
+            <annotation>
+                <documentation>
+                    Visibility of the component.
+                </documentation>
+            </annotation>
+        </attribute>
+        <attribute name="readOnly" type="boolean">
+            <annotation>
+                <documentation>
+                    Read-only mode of the component.
+                </documentation>
+            </annotation>
+        </attribute>
+        <attribute name="styleName" type="string">
+            <annotation>
+                <documentation>
+                     One or more user-defined style names of the component.
+                </documentation>
+            </annotation>
+        </attribute>
+        <attribute name="primaryStyleName" type="string">
+            <annotation>
+                <documentation>
+                    Primary style name of the component.
+                </documentation>
+            </annotation>
+        </attribute>
         <attribute ref="p:componentAlignment"/>
         <attribute ref="p:expandRatio"/>
     </attributeGroup>
 
     <attributeGroup name="com.vaadin.ui.AbstractComponent">
         <attributeGroup ref="b:com.vaadin.ui.Component"/>
-        <attribute name="description" type="string"/>
-        <attribute name="immediate" type="boolean"/>
-        <attribute name="margin" type="string"/>
-        <attribute name="spacing" type="boolean"/>
+        <attribute name="description" type="string">
+            <annotation>
+                <documentation>
+                     Component's description.
+                </documentation>
+            </annotation>
+        </attribute>
+        <attribute name="immediate" type="boolean">
+            <annotation>
+                <documentation>
+                    The component's immediate mode.
+                </documentation>
+            </annotation>
+        </attribute>
+        <attribute name="margin" type="string">
+            <annotation>
+                <documentation>
+                    Margin for this layout. 
+                    Use a single 'true', or 'false' to control all sides.
+                    With four boolean separated by space you can control each side in top right bottom left order.
+                </documentation>
+            </annotation>
+        </attribute>
+        <attribute name="spacing" type="boolean">
+            <annotation>
+                <documentation>
+                    Spacing between child components within this layout.
+                </documentation>
+            </annotation>
+        </attribute>
         <attribute name="width" type="string"/>
         <attribute name="height" type="string"/>
         <attribute name="sizeFull" type="string" fixed=""/>
