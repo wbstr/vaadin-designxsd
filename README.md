@@ -64,7 +64,7 @@ mvn clean install
 
 Go to your web project's directory, and run 
 ```
-mvn com.wcs.maven:claraxsd-maven-plugin:1.0-SNAPSHOT:generate -D baseSystemId="clara://myproject"
+mvn com.wcs.maven:claraxsd-maven-plugin:1.0-SNAPSHOT:generate -D baseSystemId="clara://myproject/"
 ```
 '-D baseSystemId=...' is optional, but i think the default is too verbose in most cases. See generate goal options.
 Or of course you can add the plugin to your pom.xml in plugins section...
