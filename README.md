@@ -80,7 +80,7 @@ For example:
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="
 urn:import:com.vaadin.ui clara://myproject/com.vaadin.ui.xsd
-urn:import:com.wcs.maven.claraxsd.itest clara://myproject/com.myproject.component.xsd
+urn:import:com.myproject.component clara://myproject/com.myproject.component.xsd
 "
     margin="true"
     spacing="true">
