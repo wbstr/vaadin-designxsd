@@ -31,7 +31,7 @@ All the elements in these schemas reference to the corresponding base attribute 
 The target namespace for the schema is "urn:import:[java-package-name]"
 - catalog.xml  
 The plugin also generates an OASIS XML Catalog. 
-This catalog assings a unique systemId (an url) to the generated xsd files. You can reference this systemId at schemaLocation in your clara xml template files.  
+This catalog assigns a unique systemId (an url) to the generated xsd files. You can reference this systemId at schemaLocation in your clara xml template files.
 This is the file you have to import in your ide settings somewhere.
 
 ## Plugin options
@@ -47,13 +47,13 @@ Default: "http://${project.groupId}:${project.artifactId}:${project.version}/"
 
 ##### destination
 
-Desintation direactory path for generated files. Plugin writes all (schemas, and catalog) files to this directory.  
+Destination directory path for generated files. Plugin writes all (schemas, and catalog) files to this directory.
 Default: "${project.build.directory}/claraxsd"
 
 ## How to use it
 
 ### install the maven plugin
-Clone the project from this github repository, enter it's directoy, and run a maven install.
+Clone the project from this github repository, enter it's directory, and run a maven install.
 ```
 git clone https://github.com/kumm/claraxsd-maven-plugin.git
 cd claraxsd-maven-plugin
@@ -92,7 +92,7 @@ urn:import:com.myproject.component http://myproject/com.myproject.component.xsd
 </VerticalLayout>
 ```
 
-It's necessary to define namespaces, and schameLocation in every clara xml. This is the way how xml works. If you are smart enough, you can solve it by defining a template in your IDE for clara files.
+It's necessary to define namespaces, and schemaLocation in every clara xml. This is the way how xml works. If you are smart enough, you can solve it by defining a template in your IDE for clara files.
 
 ### Inform your IDE about the generated schemas
 
