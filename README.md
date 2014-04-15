@@ -96,11 +96,21 @@ It's necessary to define namespaces, and schemaLocation in every clara xml. This
 
 ### Inform your IDE about the generated schemas
 
-The exact manner to do depends on your IDE. Currently i can share the netbeans howto only.
-
-#### Netbeans
+#### NetBeans
 
 1. Go to 'Tools/DTDs and XML Schemas' menu.
 2. Click 'Add Catalog', select 'OASIS Catalog Resolver', and browse the generated catalog.xml
+
+#### Eclipse
+
+Preferences > XML > XML Catalog > User Specified Entries > Add > Next Catalog
+
+#### IntelliJ IDEA
+
+According to [help](http://www.jetbrains.com/idea/webhelp/xml-catalog.html).
+
+1. Create a property file like [this](http://xerces.apache.org/xml-commons/components/resolver/tips.html#properties)
+I found absolute path of the generated catalog.cml works only at "catalog" property.
+2. Browse property file at File > Settings > Schemas and DTDs > XML Catalog
 
 After this step it's ready. Code completion, and validation should work while editing clara xml template.
