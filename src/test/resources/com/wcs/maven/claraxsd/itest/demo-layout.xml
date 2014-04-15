@@ -21,8 +21,8 @@
     xmlns:l="urn:vaadin:parent"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="
-urn:import:com.vaadin.ui clara://itest/com.vaadin.ui.xsd
-urn:import:com.wcs.maven.claraxsd.itest clara://itest/com.wcs.maven.claraxsd.itest.xsd
+urn:import:com.vaadin.ui http://clara/itest/com.vaadin.ui.xsd
+urn:import:com.wcs.maven.claraxsd.itest http://clara/itest/com.wcs.maven.claraxsd.itest.xsd
 "
     margin="true"
     spacing="true">

@@ -22,7 +22,7 @@ package com.wcs.maven.claraxsd;
 public final class NamingRules {
 
     public static final String CATALOG_FILENAME = "catalog.xml";
-    private static String BASE_SYSTEM_ID_URI = "clara://";
+    private static String BASE_SYSTEM_ID_URI = "http://clara/";
 
     private NamingRules() {
     }

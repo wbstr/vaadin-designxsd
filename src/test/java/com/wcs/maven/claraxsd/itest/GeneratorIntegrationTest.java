@@ -39,7 +39,7 @@ public class GeneratorIntegrationTest {
 
     @Test
     public void testGenerate() throws Exception {
-        NamingRules.initBaseSystemIdUri("clara://itest/");
+        NamingRules.initBaseSystemIdUri("http://clara/itest/");
         Generator generator = Generator.create();
         generator.generate(Label.class);
         generator.generate(VerticalLayout.class);

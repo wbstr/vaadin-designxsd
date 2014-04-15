@@ -37,9 +37,9 @@ public class CatalogTest {
         String expected = "<!DOCTYPE catalog PUBLIC \"-//OASIS//DTD Entity Resolution XML Catalog V1.0//EN\"\n"
                 + "         \"http://www.oasis-open.org/committees/entity/release/1.0/catalog.dtd\">\n"
                 + "<catalog xmlns=\"urn:oasis:names:tc:entity:xmlns:xml:catalog\">\n"
-                + "<system systemId=\"clara://lib/base.xsd\" uri=\"clara_base.xsd\"/>\n"
-                + "<system systemId=\"clara://lib/parent.xsd\" uri=\"clara_parent.xsd\"/>\n"
-                + "<system systemId=\"clara://com.wcs.maven.claraxsd.xsd\" uri=\"com.wcs.maven.claraxsd.xsd\"/>\n"
+                + "<system systemId=\"http://clara/lib/base.xsd\" uri=\"clara_base.xsd\"/>\n"
+                + "<system systemId=\"http://clara/lib/parent.xsd\" uri=\"clara_parent.xsd\"/>\n"
+                + "<system systemId=\"http://clara/com.wcs.maven.claraxsd.xsd\" uri=\"com.wcs.maven.claraxsd.xsd\"/>\n"
                 + "</catalog>";
         assertEquals(expected, result);
     }

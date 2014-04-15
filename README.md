@@ -43,7 +43,7 @@ The plugin binds to generate-resources maven phase by default. The only goal is 
 ##### baseSystemId
 
 This is the base url for the systemId of the schemas.  
-Default: "clara://${project.groupId}:${project.artifactId}:${project.version}/"
+Default: "http://${project.groupId}:${project.artifactId}:${project.version}/"
 
 ##### destination
 
@@ -64,7 +64,7 @@ mvn clean install
 
 Go to your web project's directory, and run 
 ```
-mvn com.wcs.maven:claraxsd-maven-plugin:1.0-SNAPSHOT:generate -D baseSystemId="clara://myproject/"
+mvn com.wcs.maven:claraxsd-maven-plugin:1.0-SNAPSHOT:generate -D baseSystemId="http://myproject/"
 ```
 '-D baseSystemId=...' is optional, but i think the default is too verbose in most cases. See generate goal options.
 Or of course you can add the plugin to your pom.xml in plugins section...
@@ -79,8 +79,8 @@ For example:
     xmlns:l="urn:vaadin:parent"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="
-urn:import:com.vaadin.ui clara://myproject/com.vaadin.ui.xsd
-urn:import:com.myproject.component clara://myproject/com.myproject.component.xsd
+urn:import:com.vaadin.ui http://myproject/com.vaadin.ui.xsd
+urn:import:com.myproject.component http://myproject/com.myproject.component.xsd
 "
     margin="true"
     spacing="true">
