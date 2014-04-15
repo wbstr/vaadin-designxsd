@@ -19,7 +19,6 @@ import com.wcs.maven.claraxsd.NamingRules.FixedName;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.nio.file.Path;
 import java.util.Collection;
 
 /**
@@ -28,20 +27,16 @@ import java.util.Collection;
 public class Catalog {
 
     private final Collection<Package> generatedSchemaPackages;
-    private final Path basePath;
 
-    public Catalog(Collection<Package> generatedSchemaPackages, Path basePath) {
+    public Catalog(Collection<Package> generatedSchemaPackages) {
         this.generatedSchemaPackages = generatedSchemaPackages;
-        this.basePath = basePath;
     }
 
     public void write(Writer writer) throws IOException {
         writer.write(
                 "<!DOCTYPE catalog PUBLIC \"-//OASIS//DTD Entity Resolution XML Catalog V1.0//EN\"\n"
                         + "         \"http://www.oasis-open.org/committees/entity/release/1.0/catalog.dtd\">\n"
-                        + "<catalog "
-                        + "xmlns=\"urn:oasis:names:tc:entity:xmlns:xml:catalog\" "
-                        + "xml:base=\"" + basePath.toUri() + "\">\n"
+                        + "<catalog xmlns=\"urn:oasis:names:tc:entity:xmlns:xml:catalog\">\n"
         );
         for (FixedName fixed : NamingRules.FixedName.values()) {
             writer.write(buildSystemRow(fixed.getSystemId(), fixed.getFileName()));

@@ -51,7 +51,7 @@ public class OutputFilesWriter {
     }
 
     private void writeCatalog(Collection<Package> packages) throws IOException {
-        Catalog catalog = new Catalog(packages, destinationPath);
+        Catalog catalog = new Catalog(packages);
         FileWriter catalogFW = new FileWriter(destinationPath.resolve(NamingRules.CATALOG_FILENAME).toFile());
         catalog.write(catalogFW);
         catalogFW.close();

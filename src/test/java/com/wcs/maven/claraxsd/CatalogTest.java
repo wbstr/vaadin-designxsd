@@ -18,8 +18,6 @@ package com.wcs.maven.claraxsd;
 import org.junit.Test;
 
 import java.io.StringWriter;
-import java.nio.file.FileSystems;
-import java.nio.file.Path;
 import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
@@ -33,14 +31,12 @@ public class CatalogTest {
     @Test
     public void testWrite() throws Exception {
         StringWriter writer = new StringWriter();
-        Path basePath = FileSystems.getDefault().getPath("/test", "path");
-
-        Catalog instance = new Catalog(Arrays.asList(getClass().getPackage()), basePath);
+        Catalog instance = new Catalog(Arrays.asList(getClass().getPackage()));
         instance.write(writer);
         String result = writer.getBuffer().toString();
         String expected = "<!DOCTYPE catalog PUBLIC \"-//OASIS//DTD Entity Resolution XML Catalog V1.0//EN\"\n"
                 + "         \"http://www.oasis-open.org/committees/entity/release/1.0/catalog.dtd\">\n"
-                + "<catalog xmlns=\"urn:oasis:names:tc:entity:xmlns:xml:catalog\" xml:base=\"file:///test/path\">\n"
+                + "<catalog xmlns=\"urn:oasis:names:tc:entity:xmlns:xml:catalog\">\n"
                 + "<system systemId=\"clara://lib/base.xsd\" uri=\"clara_base.xsd\"/>\n"
                 + "<system systemId=\"clara://lib/parent.xsd\" uri=\"clara_parent.xsd\"/>\n"
                 + "<system systemId=\"clara://com.wcs.maven.claraxsd.xsd\" uri=\"com.wcs.maven.claraxsd.xsd\"/>\n"
