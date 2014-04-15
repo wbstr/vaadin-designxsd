@@ -109,8 +109,8 @@ Preferences > XML > XML Catalog > User Specified Entries > Add > Next Catalog
 
 According to [help](http://www.jetbrains.com/idea/webhelp/xml-catalog.html).
 
-1. Create a property file like [this](http://xerces.apache.org/xml-commons/components/resolver/tips.html#properties)
-I found absolute path of the generated catalog.cml works only at "catalog" property.
+1. Create a property file like [this](http://xerces.apache.org/xml-commons/components/resolver/tips.html#properties)  
+I found absolute path of the generated catalog.xml works only at "catalog" property.
 2. Browse property file at File > Settings > Schemas and DTDs > XML Catalog
 
 After this step it's ready. Code completion, and validation should work while editing clara xml template.
