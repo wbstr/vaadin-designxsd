@@ -22,7 +22,8 @@ import org.apache.ws.commons.schema.*;
 
 import javax.xml.namespace.QName;
 import java.io.Writer;
-import java.util.Iterator;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  *
@@ -35,6 +36,7 @@ public class GeneratedSchema {
     private final XmlSchema schema;
     private final XmlSchemaObjectCollection items;
     private final ElementBuilderFactory elementBuilderFactory;
+    private final Map<String, XmlSchemaElement> generatedElementsMap;
 
     public GeneratedSchema(
             Package componentPackage,
@@ -44,6 +46,7 @@ public class GeneratedSchema {
         schema = buildSchemaFromTemplate();
         items = schema.getItems();
         allGroupItems = findAllGroupItems();
+        generatedElementsMap = new TreeMap<>();
     }
 
     private XmlSchema buildSchemaFromTemplate() {
@@ -62,8 +65,7 @@ public class GeneratedSchema {
         ElementBuilder elementBuilder = elementBuilderFactory.getElementBuilder(componentClass);
         XmlSchemaElement element = elementBuilder.buildElement(schema, componentClass);
         if (element != null) {
-            items.add(element);
-            appendToAllGroup(element.getName());
+            generatedElementsMap.put(element.getName(), element);
         }
     }
 
@@ -73,11 +75,20 @@ public class GeneratedSchema {
         allGroupItems.add(element);
     }
 
+    private void injectGeneratedContent() {
+        for(XmlSchemaElement generatedElement : generatedElementsMap.values()) {
+            items.add(generatedElement);
+            appendToAllGroup(generatedElement.getName());
+        }
+    }
+
     public void write(Writer writer) {
+        injectGeneratedContent();
         SchemaHandler.write(schema, writer);
     }
 
     public void writeUnFormatted(Writer writer) {
+        injectGeneratedContent();
         SchemaHandler.writeUnFormatted(schema, writer);
     }
 
@@ -86,11 +97,6 @@ public class GeneratedSchema {
     }
     
     public boolean isEmpty() {
-        for (Iterator iterator = items.getIterator(); iterator.hasNext();) {
-            if (iterator.next() instanceof XmlSchemaElement) {
-                return false;
-            }
-        }
-        return true;
+        return generatedElementsMap.isEmpty();
     }
 }

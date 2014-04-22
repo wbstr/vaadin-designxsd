@@ -16,6 +16,7 @@
 package com.wcs.maven.claraxsd;
 
 import com.vaadin.ui.AbstractComponent;
+import com.vaadin.ui.Component;
 import com.wcs.maven.claraxsd.elementbuilder.ElementBuilderFactory;
 import com.wcs.maven.claraxsd.elementbuilder.NopElementBuilder;
 import com.wcs.maven.claraxsd.testutils.DumbElementBuilder;
@@ -65,14 +66,14 @@ public class GeneratedSchemaTest {
     public void testIsEmpty() {
         assertTrue(instance.isEmpty());
 
-        Mockito.when(elementBuilderFactory.getElementBuilder(MyFakeComponent.class))
+        Mockito.when(elementBuilderFactory.getElementBuilder(MyFakeComponentA.class))
                 .thenReturn(new NopElementBuilder());
-        instance.append(MyFakeComponent.class);
+        instance.append(MyFakeComponentA.class);
         assertTrue(instance.isEmpty());
 
-        Mockito.when(elementBuilderFactory.getElementBuilder(MyFakeComponent.class))
+        Mockito.when(elementBuilderFactory.getElementBuilder(MyFakeComponentA.class))
                 .thenReturn(new DumbElementBuilder());
-        instance.append(MyFakeComponent.class);
+        instance.append(MyFakeComponentA.class);
         assertFalse(instance.isEmpty());
     }
     
@@ -83,33 +84,43 @@ public class GeneratedSchemaTest {
 
     @Test
     public void testAppendNotSupportedDoesNothing() {
-        Mockito.when(elementBuilderFactory.getElementBuilder(MyFakeComponent.class))
+        Mockito.when(elementBuilderFactory.getElementBuilder(MyFakeComponentA.class))
                 .thenReturn(new NopElementBuilder());
-        instance.append(MyFakeComponent.class);
+        instance.append(MyFakeComponentA.class);
         assertAllGroupIsEmpty();
+        assertTrue(instance.isEmpty());
     }
 
     @Test
-    public void testAppendInsertsElement() {
-        Mockito.when(elementBuilderFactory.getElementBuilder(MyFakeComponent.class))
+    public void testAppendInsertElements() {
+        Mockito.when(elementBuilderFactory.getElementBuilder(Mockito.<Class<? extends Component>>any()))
                 .thenReturn(new DumbElementBuilder());
-        instance.append(MyFakeComponent.class);
+        instance.append(MyFakeComponentB.class);
+        instance.append(MyFakeComponentA.class);
+        instance.append(MyFakeComponentC.class);
         String groupAllMarkup = XsdTestUtils.readGeneratedElementsMarkup(instance);
-        String expected = "<element name=\"MyFakeComponent\"/>";
+        String expected
+                = "<element name=\"MyFakeComponentA\"/>"
+                + "<element name=\"MyFakeComponentB\"/>"
+                + "<element name=\"MyFakeComponentC\"/>";
         assertEquals(expected, groupAllMarkup);
     }
 
     @Test
     public void testAppendManagesAllGroup() {
-        Mockito.when(elementBuilderFactory.getElementBuilder(MyFakeComponent.class))
+        Mockito.when(elementBuilderFactory.getElementBuilder(Mockito.<Class<? extends Component>>any()))
                 .thenReturn(new DumbElementBuilder());
-        instance.append(MyFakeComponent.class);
+        instance.append(MyFakeComponentB.class);
+        instance.append(MyFakeComponentA.class);
+        instance.append(MyFakeComponentC.class);
         String groupAllMarkup = XsdTestUtils.readGeneratedAllComponentsGroupMarkup(instance);
         String expected
                 = "<group name=\"AllComponentsGroup\">"
                 + "<choice>"
                 + "<any namespace=\"##other\"/>"
-                + "<element ref=\"tns:MyFakeComponent\"/>"
+                + "<element ref=\"tns:MyFakeComponentA\"/>"
+                + "<element ref=\"tns:MyFakeComponentB\"/>"
+                + "<element ref=\"tns:MyFakeComponentC\"/>"
                 + "</choice>"
                 + "</group>";
         assertEquals(expected, groupAllMarkup);
@@ -125,8 +136,15 @@ public class GeneratedSchemaTest {
         assertEquals(expected, XsdTestUtils.readGeneratedAllComponentsGroupMarkup(instance));
     }
 
-    public static class MyFakeComponent extends AbstractComponent {
+    public static class MyFakeComponentA extends AbstractComponent {
 
     }
-    
+
+    public static class MyFakeComponentB extends AbstractComponent {
+
+    }
+
+    public static class MyFakeComponentC extends AbstractComponent {
+
+    }
 }
