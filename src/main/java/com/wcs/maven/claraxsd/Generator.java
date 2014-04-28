@@ -32,7 +32,7 @@ import static com.wcs.maven.claraxsd.NamingRules.FixedName.BASE;
  */
 public class Generator {
 
-    private final Map<Package, GeneratedSchema> generatedSchemas = new HashMap<>();
+    private final Map<String, GeneratedSchema> generatedSchemas = new TreeMap<>();
     private final ElementBuilderFactory elementBuilderFactory;
 
     public static Generator create() {
@@ -65,10 +65,10 @@ public class Generator {
     }
 
     private GeneratedSchema getGeneratedSchema(Package componentPackage) {
-        GeneratedSchema generatedSchema = generatedSchemas.get(componentPackage);
+        GeneratedSchema generatedSchema = generatedSchemas.get(componentPackage.getName());
         if (generatedSchema == null) {
             generatedSchema = new GeneratedSchema(componentPackage, elementBuilderFactory);
-            generatedSchemas.put(componentPackage, generatedSchema);
+            generatedSchemas.put(componentPackage.getName(), generatedSchema);
         }
         return generatedSchema;
     }
