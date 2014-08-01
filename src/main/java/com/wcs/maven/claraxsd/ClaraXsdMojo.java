@@ -36,7 +36,7 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@Mojo(name = "generate", defaultPhase = LifecyclePhase.GENERATE_RESOURCES,
+@Mojo(name = "generate", defaultPhase = LifecyclePhase.PROCESS_CLASSES,
         requiresDependencyResolution = ResolutionScope.COMPILE)
 public class ClaraXsdMojo
         extends AbstractMojo {
