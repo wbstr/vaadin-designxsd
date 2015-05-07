@@ -112,5 +112,6 @@ According to [help](http://www.jetbrains.com/idea/webhelp/xml-catalog.html).
 1. Create a property file like [this](http://xerces.apache.org/xml-commons/components/resolver/tips.html#properties)  
 I found absolute path of the generated catalog.xml works only at "catalog" property.
 2. Browse property file at File > Settings > Schemas and DTDs > XML Catalog
+3. Exlude the claraxsd destination directory at Project Structure. By default it's in target, so it is excluded.
 
 After this step it's ready. Code completion, and validation should work while editing clara xml template.
