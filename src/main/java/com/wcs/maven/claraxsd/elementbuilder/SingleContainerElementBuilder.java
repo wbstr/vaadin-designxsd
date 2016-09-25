@@ -16,6 +16,7 @@
 
 package com.wcs.maven.claraxsd.elementbuilder;
 
+import com.vaadin.ui.declarative.DesignContext;
 import com.wcs.maven.claraxsd.attributebuilder.AttributeBuilderFactory;
 import com.wcs.maven.claraxsd.baseattributegroup.BaseAttributeGroupMngr;
 
@@ -25,8 +26,8 @@ import com.wcs.maven.claraxsd.baseattributegroup.BaseAttributeGroupMngr;
  */
 public class SingleContainerElementBuilder extends ContainerElementBuilder {
 
-    public SingleContainerElementBuilder(AttributeBuilderFactory attributeBuilderFactory, BaseAttributeGroupMngr baseAttributeGroupMngr) {
-        super(attributeBuilderFactory, baseAttributeGroupMngr);
+    public SingleContainerElementBuilder(AttributeBuilderFactory attributeBuilderFactory, BaseAttributeGroupMngr baseAttributeGroupMngr, DesignContext designContext) {
+        super(attributeBuilderFactory, baseAttributeGroupMngr, designContext);
     }
 
     @Override

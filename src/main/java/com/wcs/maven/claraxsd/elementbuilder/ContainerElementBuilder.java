@@ -17,6 +17,7 @@
 package com.wcs.maven.claraxsd.elementbuilder;
 
 import com.vaadin.ui.Component;
+import com.vaadin.ui.declarative.DesignContext;
 import com.wcs.maven.claraxsd.attributebuilder.AttributeBuilderFactory;
 import com.wcs.maven.claraxsd.baseattributegroup.BaseAttributeGroupMngr;
 import org.apache.ws.commons.schema.XmlSchema;
@@ -32,8 +33,8 @@ import javax.xml.namespace.QName;
  */
 public class ContainerElementBuilder extends ComponentElementBuilder {
 
-    public ContainerElementBuilder(AttributeBuilderFactory attributeBuilderFactory, BaseAttributeGroupMngr baseAttributeGroupMngr) {
-        super(attributeBuilderFactory, baseAttributeGroupMngr);
+    public ContainerElementBuilder(AttributeBuilderFactory attributeBuilderFactory, BaseAttributeGroupMngr baseAttributeGroupMngr, DesignContext designContext) {
+        super(attributeBuilderFactory, baseAttributeGroupMngr, designContext);
     }
 
     @Override

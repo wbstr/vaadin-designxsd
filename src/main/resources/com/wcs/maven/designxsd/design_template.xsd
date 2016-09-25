@@ -1,0 +1,144 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           attributeFormDefault="unqualified"
+           elementFormDefault="qualified">
+
+    <xs:include schemaLocation="design_base.xsd"/>
+
+    <xs:element name="html">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="head"/>
+                <xs:element ref="body"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="head">
+        <xs:complexType>
+            <xs:choice>
+                <xs:element ref="meta"/>
+            </xs:choice>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="meta">
+        <xs:complexType>
+            <xs:attribute name="charset"/>
+            <xs:attribute name="name"/>
+            <xs:attribute name="content" use="required"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="body">
+        <xs:complexType>
+            <xs:group maxOccurs="unbounded" minOccurs="0" ref="AllComponentsGroup"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:group name="AllComponentsGroup">
+        <xs:annotation>
+            <xs:documentation>
+                Workaround for https://netbeans.org/bugzilla/show_bug.cgi?id=243785
+                We need to define all elements from this namespace, because a simple 'any' breaks code completion.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:choice>
+            <!--
+                        <xs:element ref="AbsoluteLayout"/>
+                        <xs:element ref="Accordion"/>
+                        <xs:element ref="Audio"/>
+                        <xs:element ref="BrowserFrame"/>
+                        <xs:element ref="Button"/>
+                        <xs:element ref="Calendar"/>
+                        <xs:element ref="CheckBox"/>
+                        <xs:element ref="ColorPicker"/>
+                        <xs:element ref="ColorPickerArea"/>
+                        <xs:element ref="ComboBox"/>
+                        <xs:element ref="CssLayout"/>
+                        <xs:element ref="CustomComponent"/>
+                        <xs:element ref="DateField"/>
+                        <xs:element ref="Embedded"/>
+                        <xs:element ref="Flash"/>
+                        <xs:element ref="Form"/>
+                        <xs:element ref="FormLayout"/>
+                        <xs:element ref="Grid"/>
+                        <xs:element ref="GridLayout"/>
+                        <xs:element ref="HorizontalLayout"/>
+                        <xs:element ref="HorizontalSplitPanel"/>
+                        <xs:element ref="Image"/>
+                        <xs:element ref="InlineDateField"/>
+                        <xs:element ref="Label"/>
+                        <xs:element ref="Link"/>
+                        <xs:element ref="ListSelect"/>
+                        <xs:element ref="LoginForm"/>
+                        <xs:element ref="MenuBar"/>
+                        <xs:element ref="NativeButton"/>
+                        <xs:element ref="NativeSelect"/>
+                        <xs:element ref="OptionGroup"/>
+                        <xs:element ref="Panel"/>
+                        <xs:element ref="PasswordField"/>
+                        <xs:element ref="PopupDateField"/>
+                        <xs:element ref="ProgressBar"/>
+                        <xs:element ref="ProgressIndicator"/>
+                        <xs:element ref="RichTextArea"/>
+                        <xs:element ref="Select"/>
+                        <xs:element ref="Slider"/>
+                        <xs:element ref="TabSheet"/>
+                        <xs:element ref="Table"/>
+                        <xs:element ref="TextArea"/>
+                        <xs:element ref="TextField"/>
+                        <xs:element ref="Tree"/>
+                        <xs:element ref="TreeTable"/>
+                        <xs:element ref="TwinColSelect"/>
+                        <xs:element ref="Upload"/>
+                        <xs:element ref="VerticalLayout"/>
+                        <xs:element ref="VerticalSplitPanel"/>
+                        <xs:element ref="Video"/>
+                        <xs:element ref="Window"/>
+            -->
+            <xs:element ref="vaadin-grid"/>
+            <xs:element ref="vaadin-form-layout"/>
+            <xs:element ref="vaadin-horizontal-layout"/>
+            <xs:element ref="vaadin-vertical-layout"/>
+            <xs:element ref="vaadin-text-field"/>
+        </xs:choice>
+    </xs:group>
+
+
+
+    <xs:element name="vaadin-grid">
+        <xs:complexType>
+            <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="vaadin-text-field">
+        <xs:complexType>
+            <xs:attributeGroup ref="com.vaadin.ui.AbstractField"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="vaadin-vertical-layout">
+        <xs:complexType>
+            <xs:group maxOccurs="unbounded" minOccurs="0" ref="AllComponentsGroup"/>
+            <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
+            <xs:attributeGroup ref="com.vaadin.ui.Layout..MarginHandler"/>
+            <xs:attributeGroup ref="com.vaadin.ui.Layout..SpacingHandler"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="vaadin-form-layout">
+        <xs:complexType>
+            <xs:group maxOccurs="unbounded" minOccurs="0" ref="AllComponentsGroup"/>
+            <xs:attributeGroup ref="com.vaadin.ui.Layout..MarginHandler"/>
+            <xs:attributeGroup ref="com.vaadin.ui.Layout..SpacingHandler"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="vaadin-horizontal-layout">
+        <xs:complexType>
+            <xs:group maxOccurs="unbounded" minOccurs="0" ref="AllComponentsGroup"/>
+            <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
+            <xs:attributeGroup ref="com.vaadin.ui.Layout..MarginHandler"/>
+            <xs:attributeGroup ref="com.vaadin.ui.Layout..SpacingHandler"/>
+        </xs:complexType>
+    </xs:element>
+
+
+</xs:schema>

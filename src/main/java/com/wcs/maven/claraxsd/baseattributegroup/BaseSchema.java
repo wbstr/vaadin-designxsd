@@ -44,8 +44,11 @@ public class BaseSchema {
         for (Iterator it = base.getAttributeGroups().getValues(); it.hasNext();) {
             Object attributeGroup = it.next();
             if (attributeGroup instanceof XmlSchemaAttributeGroup) {
-                BaseAttributeGroup group = new BaseAttributeGroup((XmlSchemaAttributeGroup) attributeGroup);
-                attributeGroupsByName.put(group.getName(), group);
+                XmlSchemaAttributeGroup xmlSchemaAttributeGroup = (XmlSchemaAttributeGroup) attributeGroup;
+                if (!xmlSchemaAttributeGroup.getName().getLocalPart().startsWith("_")) {
+                    BaseAttributeGroup group = new BaseAttributeGroup(xmlSchemaAttributeGroup);
+                    attributeGroupsByName.put(group.getName(), group);
+                }
             } else {
                 throw new RuntimeException("This is not an attributeGroup: " + attributeGroup);
             }

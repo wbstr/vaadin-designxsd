@@ -19,6 +19,7 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.ComponentContainer;
 import com.vaadin.ui.SingleComponentContainer;
 import com.vaadin.ui.UI;
+import com.vaadin.ui.declarative.DesignContext;
 import com.wcs.maven.claraxsd.attributebuilder.AttributeBuilderFactory;
 import com.wcs.maven.claraxsd.baseattributegroup.BaseAttributeGroupMngr;
 
@@ -42,12 +43,12 @@ public class ElementBuilderFactory {
             return new NopElementBuilder();
         }
         if (ComponentContainer.class.isAssignableFrom(componentClass)) {
-            return new ContainerElementBuilder(attributeBuilderFactory, baseAttributeGroupMngr);
+            return new ContainerElementBuilder(attributeBuilderFactory, baseAttributeGroupMngr, new DesignContext());
         }
         if (SingleComponentContainer.class.isAssignableFrom(componentClass)) {
-            return new SingleContainerElementBuilder(attributeBuilderFactory, baseAttributeGroupMngr);
+            return new SingleContainerElementBuilder(attributeBuilderFactory, baseAttributeGroupMngr, new DesignContext());
         }
-        return new ComponentElementBuilder(attributeBuilderFactory, baseAttributeGroupMngr);
+        return new ComponentElementBuilder(attributeBuilderFactory, baseAttributeGroupMngr, new DesignContext());
     }
 
     private boolean isVaadinComponentSupportedByClara(Class<? extends Component> componentClass) {

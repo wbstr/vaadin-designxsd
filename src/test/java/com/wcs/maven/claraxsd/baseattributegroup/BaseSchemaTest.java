@@ -78,7 +78,7 @@ public class BaseSchemaTest {
     }
 
     private QName getGroupQName(Class componentClass) {
-        return new QName("urn:clara:base", componentClass.getCanonicalName());
+        return new QName(componentClass.getCanonicalName());
     }
     
 }

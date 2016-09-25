@@ -16,6 +16,8 @@
 package com.wcs.maven.claraxsd.elementbuilder;
 
 import com.vaadin.ui.Component;
+import com.vaadin.ui.declarative.Design;
+import com.vaadin.ui.declarative.DesignContext;
 import com.wcs.maven.claraxsd.attributebuilder.AttributeBuilder;
 import com.wcs.maven.claraxsd.attributebuilder.AttributeBuilderFactory;
 import com.wcs.maven.claraxsd.baseattributegroup.BaseAttributeGroup;
@@ -37,10 +39,12 @@ public class ComponentElementBuilder implements ElementBuilder {
     private XmlSchema schema;
     private final AttributeBuilderFactory attributeBuilderFactory;
     private final BaseAttributeGroupMngr baseAttributeGroupMngr;
+    private final DesignContext designContext;
 
-    public ComponentElementBuilder(AttributeBuilderFactory attributeBuilderFactory, BaseAttributeGroupMngr baseAttributeGroupMngr) {
+    public ComponentElementBuilder(AttributeBuilderFactory attributeBuilderFactory, BaseAttributeGroupMngr baseAttributeGroupMngr, DesignContext designContext) {
         this.attributeBuilderFactory = attributeBuilderFactory;
         this.baseAttributeGroupMngr = baseAttributeGroupMngr;
+        this.designContext = designContext;
     }
     
     @Override
@@ -48,14 +52,20 @@ public class ComponentElementBuilder implements ElementBuilder {
         this.schema = schema;
         attributeGroups = baseAttributeGroupMngr.findAttributeGroup(componentClass);
         XmlSchemaElement element = new XmlSchemaElement();
-        element.setName(componentClass.getSimpleName());
+        Component component;
+        try {
+            component = componentClass.newInstance();
+        } catch (InstantiationException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+        element.setName(Design.getComponentMapper().componentToTag(component, designContext));
         final XmlSchemaComplexType type = new XmlSchemaComplexType(schema);
         element.setType(type);
         final XmlSchemaObjectCollection typeAttributes = type.getAttributes();
         for (BaseAttributeGroup baseAttributeGroup : attributeGroups) {
             typeAttributes.add(newAttributeGroupRef(baseAttributeGroup));
         }
-        appendAttributes(componentClass, typeAttributes);
+//        appendAttributes(componentClass, typeAttributes);
         return element;
     }
     

@@ -16,6 +16,8 @@
 package com.wcs.maven.claraxsd.elementbuilder;
 
 import com.vaadin.ui.AbstractComponent;
+import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.declarative.DesignContext;
 import com.wcs.maven.claraxsd.attributebuilder.AttributeBuilderFactory;
 import com.wcs.maven.claraxsd.attributebuilder.NopAttributeBuilder;
 import com.wcs.maven.claraxsd.baseattributegroup.BaseAttributeGroupMngr;
@@ -51,25 +53,23 @@ public class ContainerElementBuilderTest {
     public void setUp() {
         when(attributeBuilderFactory.getAttributeBuilder(any(String.class), any(Class.class)))
                 .thenReturn(new NopAttributeBuilder());
-        instance = new ContainerElementBuilder(attributeBuilderFactory, baseAttributeGroupMngr);
+
+        instance = new ContainerElementBuilder(attributeBuilderFactory, baseAttributeGroupMngr, new DesignContext());
         schema = new XmlSchema(null, null, new XmlSchemaCollection());
     }
 
     @Test
     public void testAllComponentsGroupInserted() {
-        XmlSchemaElement result = instance.buildElement(schema, MyFakeComponent.class);
+        XmlSchemaElement result = instance.buildElement(schema, VerticalLayout.class);
         String resultMarkup = XsdTestUtils.buildElementMarkup(schema, result);
         String expectedMarkup
-                = "<element name=\"MyFakeComponent\">"
+                = "<element name=\"vaadin-vertical-layout\">"
                 + "<complexType>"
                 + "<group maxOccurs=\"unbounded\" minOccurs=\"0\" ref=\"AllComponentsGroup\"/>"
                 + "</complexType>"
                 + "</element>";
 
         assertEquals(expectedMarkup, resultMarkup);
-    }
-
-    public static class MyFakeComponent extends AbstractComponent {
     }
 
 }
