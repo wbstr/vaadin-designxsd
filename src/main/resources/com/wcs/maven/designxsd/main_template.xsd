@@ -1,0 +1,13 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           attributeFormDefault="unqualified"
+           elementFormDefault="qualified">
+
+    <xs:include schemaLocation="design-base.xsd"/>
+    <xs:include schemaLocation="design-html.xsd"/>
+
+    <xs:group name="AllComponentsGroup">
+        <xs:choice>
+        </xs:choice>
+    </xs:group>
+
+</xs:schema>

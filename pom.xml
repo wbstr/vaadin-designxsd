@@ -23,7 +23,7 @@
     <version>1.0.1</version>
     <packaging>maven-plugin</packaging>
 
-    <name>ClaraXSD Maven Plugin</name>
+    <name>DesignXSD Maven Plugin</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -98,7 +98,7 @@
                 <artifactId>maven-plugin-plugin</artifactId>
                 <version>3.1</version>
                 <configuration>
-                    <goalPrefix>claraxsd</goalPrefix>
+                    <goalPrefix>designxsd</goalPrefix>
                     <skipErrorNoDescriptorsFound>true</skipErrorNoDescriptorsFound>
                 </configuration>
                 <executions>
@@ -121,8 +121,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.3.2</version>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
         </plugins>
