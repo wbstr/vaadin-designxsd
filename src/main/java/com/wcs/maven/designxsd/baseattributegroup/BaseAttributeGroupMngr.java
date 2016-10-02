@@ -17,6 +17,7 @@ package com.wcs.maven.designxsd.baseattributegroup;
 
 import javax.xml.namespace.QName;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class BaseAttributeGroupMngr {
 
@@ -42,6 +43,7 @@ public class BaseAttributeGroupMngr {
                 Map.Entry<QName, BaseAttributeGroup> entry = iterator.next();
                 BaseAttributeGroup group = entry.getValue();
                 HashSet<QName> notStoredReference = new HashSet<>(group.getReferences());
+                notStoredReference.retainAll(attributeGroupsByName.keySet());
                 notStoredReference.removeAll(storedAttrGroupNames);
                 if (notStoredReference.isEmpty()) {
                     result.addFirst(group);
@@ -71,8 +73,10 @@ public class BaseAttributeGroupMngr {
     private void addReferencedRecursively(Collection<BaseAttributeGroup> groups, BaseAttributeGroup attributeGroup) {
         for (QName ref : attributeGroup.getReferences()) {
             BaseAttributeGroup referenced = attributeGroupsByName.get(ref);
-            groups.add(referenced);
-            addReferencedRecursively(groups, referenced);
+            if (referenced != null) {
+                groups.add(referenced);
+                addReferencedRecursively(groups, referenced);
+            }
         }
     }
 

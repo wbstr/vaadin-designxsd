@@ -26,33 +26,32 @@ import java.io.Writer;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
 
 public class OutputFilesWriter {
 
-    private final List<GeneratedSchema> generatedSchemas;
     private final Path destinationPath;
     private final XmlSchema mainXsd;
 
-    public OutputFilesWriter(List<GeneratedSchema> generatedSchemas, String destination) {
+    public OutputFilesWriter(String destination) {
         destinationPath = FileSystems.getDefault().getPath(destination);
-        this.generatedSchemas = generatedSchemas;
         mainXsd = SchemaLoader.load(Generator.class.getResourceAsStream("main_template.xsd"));
     }
 
-    public void writeFiles() throws IOException {
+    public void wirteMainXsd() throws IOException {
+        write(mainXsd, "design.xsd");
+    }
+
+    public void prepareDestination() throws IOException {
         Files.createDirectories(destinationPath);
         copyResource("design-html.xsd");
         copyResource("design-base.xsd");
+    }
 
-        for (GeneratedSchema generatedSchema : generatedSchemas) {
-            String destFileName = generatedSchema.getTagPrefix() + ".xsd";
-            XmlSchema xmlSchema = generatedSchema.build();
-            write(xmlSchema, destFileName);
-            generatedSchema.includeToMain(mainXsd, destFileName);
-        }
-
-        write(mainXsd, "design.xsd");
+    public void writeGeneratedXsd(GeneratedSchema generatedSchema, String tagPrefix) throws IOException {
+        String destFileName = tagPrefix + ".xsd";
+        XmlSchema xmlSchema = generatedSchema.build();
+        write(xmlSchema, destFileName);
+        generatedSchema.includeToMain(mainXsd, destFileName);
     }
 
     private void write(XmlSchema xmlSchema, String fileName) throws IOException {

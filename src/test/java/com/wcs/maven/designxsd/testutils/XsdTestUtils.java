@@ -15,13 +15,18 @@
  */
 package com.wcs.maven.designxsd.testutils;
 
-import com.wcs.maven.claraxsd.GeneratedSchema;
-import com.wcs.maven.claraxsd.SchemaHandler;
+import com.wcs.maven.designxsd.GeneratedSchema;
 import org.apache.ws.commons.schema.XmlSchema;
 import org.apache.ws.commons.schema.XmlSchemaAttribute;
 import org.apache.ws.commons.schema.XmlSchemaElement;
 
+import javax.xml.transform.OutputKeys;
 import java.io.StringWriter;
+import java.io.Writer;
+import java.util.HashMap;
+import java.util.Map;
+
+import static javax.swing.UIManager.put;
 
 /**
  *
@@ -29,15 +34,10 @@ import java.io.StringWriter;
  */
 public class XsdTestUtils {
 
-    public static String readMarkup(GeneratedSchema generatedSchema) {
-        StringWriter markupWriter = new StringWriter();
-        generatedSchema.writeUnFormatted(markupWriter);
-        return markupWriter.toString();
-    }
 
     public static String readGeneratedElementsMarkup(XmlSchema generatedSchema) {
         StringWriter markupWriter = new StringWriter();
-        SchemaHandler.writeUnFormatted(generatedSchema, markupWriter);
+        writeUnFormatted(generatedSchema, markupWriter);
         String markup = markupWriter.toString();
         int beginIndex = markup.indexOf("<xs:element");
         int endIndex = markup.indexOf("</xs:schema>");
@@ -46,32 +46,17 @@ public class XsdTestUtils {
 
     public static String readGeneratedAllComponentsGroupMarkup(XmlSchema schema) {
         StringWriter markupWriter = new StringWriter();
-        SchemaHandler.writeUnFormatted(schema, markupWriter);
+        writeUnFormatted(schema, markupWriter);
         String markup = markupWriter.toString();
         int beginIndex = markup.indexOf("<xs:group ");
         int endIndex = markup.indexOf("</xs:group>") + "</xs:group>".length();
         return markup.substring(beginIndex, endIndex);
     }
 
-    public static String readGeneratedElementsMarkup(GeneratedSchema generatedSchema) {
-        String markup = readMarkup(generatedSchema);
-        int beginIndex = markup.indexOf("</group>") + "</group>".length();
-        int endIndex = markup.indexOf("</schema>");
-        return markup.substring(beginIndex, endIndex);
-    }
-
-    public static String readGeneratedAllComponentsGroupMarkup(GeneratedSchema generatedSchema) {
-        String markup = XsdTestUtils.readMarkup(generatedSchema);
-        int beginIndex = markup.indexOf("<group ");
-        int endIndex = markup.indexOf("</group>") + "</group>".length();
-        String str = markup.substring(beginIndex, endIndex);
-        return str.replaceFirst("<annotation><documentation>[^<]*</documentation></annotation>", "");
-    }
-
     public static String buildAttributeMarkup(XmlSchema emptySchema, XmlSchemaAttribute attr) {
         emptySchema.getItems().add(attr);
         StringWriter markupWriter = new StringWriter();
-        SchemaHandler.writeUnFormatted(emptySchema, markupWriter);
+        writeUnFormatted(emptySchema, markupWriter);
         String markup = markupWriter.toString();
         int endIndex = markup.indexOf("</schema>");
         int beginIndex = markup.indexOf("<attribute ");
@@ -81,10 +66,20 @@ public class XsdTestUtils {
     public static String buildElementMarkup(XmlSchema emptySchema, XmlSchemaElement el) {
         emptySchema.getItems().add(el);
         StringWriter markupWriter = new StringWriter();
-        SchemaHandler.writeUnFormatted(emptySchema, markupWriter);
+        writeUnFormatted(emptySchema, markupWriter);
         String markup = markupWriter.toString();
         int endIndex = markup.indexOf("</schema>");
         int beginIndex = markup.indexOf("<element ");
         return markup.substring(beginIndex, endIndex);
+    }
+
+    private static final Map<String,String> unFormattedWriteOptions = new HashMap<String,String>() {
+        {
+            put(OutputKeys.INDENT, "no");
+        }
+    };
+
+    private static void writeUnFormatted(XmlSchema schema, Writer writer) {
+        schema.write(writer, unFormattedWriteOptions);
     }
 }

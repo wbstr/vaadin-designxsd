@@ -48,12 +48,6 @@ public class GeneratedSchema {
         }
     }
 
-    public String getTagPrefix() {
-        final String firstName = generatedElementsMap.keySet().iterator().next();
-        final String[] parts = firstName.split("-");
-        return parts[0];
-    }
-
     public boolean isEmpty() {
         return generatedElementsMap.isEmpty();
     }
@@ -84,4 +78,7 @@ public class GeneratedSchema {
         allGroupItems.add(element);
     }
 
+    Map<String, XmlSchemaElement> getGeneratedElementsMap() {
+        return generatedElementsMap;
+    }
 }

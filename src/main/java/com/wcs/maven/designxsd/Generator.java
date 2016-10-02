@@ -22,52 +22,47 @@ import com.wcs.maven.designxsd.baseattributegroup.BaseAttributeGroupMngr;
 import com.wcs.maven.designxsd.baseattributegroup.BaseSchema;
 import com.wcs.maven.designxsd.elementbuilder.ElementBuilderFactory;
 import org.apache.ws.commons.schema.*;
+import org.reflections.Reflections;
+import org.reflections.scanners.SubTypesScanner;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
- *
  * @author kumm
  */
 public class Generator {
 
-    private final Map<String, GeneratedSchema> generatedSchemas = new TreeMap<>();
-    private final ElementBuilderFactory elementBuilderFactory;
+    private final GeneratedSchemaFactory generatedSchemaFactory;
 
-    public static Generator create() {
-        XmlSchema baseXsd = SchemaLoader.load(Generator.class.getResourceAsStream("design-base.xsd"));
-        BaseSchema baseSchema = new BaseSchema(baseXsd);
-        BaseAttributeGroupMngr baseAttributeGroupMngr = new BaseAttributeGroupMngr(baseSchema);
-        AttributeBuilderFactory attributeBuilderFactory = new AttributeBuilderFactory();
-        ElementBuilderFactory elementBuilderFactory
-                = new ElementBuilderFactory(attributeBuilderFactory, baseAttributeGroupMngr, new DesignContext());
-        return new Generator(elementBuilderFactory);
+    public Generator(GeneratedSchemaFactory generatedSchemaFactory) {
+        this.generatedSchemaFactory = generatedSchemaFactory;
     }
 
-    public Generator(ElementBuilderFactory elementBuilderFactory) {
-        this.elementBuilderFactory = elementBuilderFactory;
-    }
-
-    public void generate(Class<? extends Component> componentClass) {
-        getGeneratedSchema(componentClass.getPackage()).append(componentClass);
-    }
-
-
-    public List<GeneratedSchema> getGeneratedSchemas() {
-        return generatedSchemas.values().stream()
-                .filter(generatedSchema -> !generatedSchema.isEmpty())
-                .sorted((o1, o2) -> o1.getTagPrefix().compareTo(o2.getTagPrefix()))
-                .collect(Collectors.toList());
-    }
-
-    private GeneratedSchema getGeneratedSchema(Package componentPackage) {
-        GeneratedSchema generatedSchema = generatedSchemas.get(componentPackage.getName());
-        if (generatedSchema == null) {
-            generatedSchema = new GeneratedSchema(elementBuilderFactory);
-            generatedSchemas.put(componentPackage.getName(), generatedSchema);
-        }
+    public GeneratedSchema generate(String packageName) {
+        Reflections reflections = new Reflections(packageName, new SubTypesScanner());
+        Set<Class<? extends Component>> allComponentClass = reflections.getSubTypesOf(Component.class);
+        GeneratedSchema generatedSchema = generatedSchemaFactory.newGeneratedSchema();
+        allComponentClass.stream()
+                .filter(c -> c.getPackage().getName().equals(packageName)) //filter subpackages out
+                .forEach(generatedSchema::append);
         return generatedSchema;
+    }
+
+    public static class GeneratedSchemaFactory {
+        private final ElementBuilderFactory elementBuilderFactory;
+
+        public GeneratedSchemaFactory(DesignContext designContext) {
+            XmlSchema baseXsd = SchemaLoader.load(Generator.class.getResourceAsStream("design-base.xsd"));
+            BaseSchema baseSchema = new BaseSchema(baseXsd);
+            BaseAttributeGroupMngr baseAttributeGroupMngr = new BaseAttributeGroupMngr(baseSchema);
+            AttributeBuilderFactory attributeBuilderFactory = new AttributeBuilderFactory();
+            elementBuilderFactory
+                    = new ElementBuilderFactory(attributeBuilderFactory, baseAttributeGroupMngr, designContext);
+        }
+
+        public GeneratedSchema newGeneratedSchema() {
+            return new GeneratedSchema(elementBuilderFactory);
+        }
     }
 
 }

@@ -19,10 +19,13 @@ import com.vaadin.ui.AbstractComponent;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
+import com.wcs.maven.designxsd.elementbuilder.ElementBuilder;
 import com.wcs.maven.designxsd.elementbuilder.ElementBuilderFactory;
 import com.wcs.maven.designxsd.elementbuilder.NopElementBuilder;
 import com.wcs.maven.designxsd.itest.MyComponent;
 import com.wcs.maven.designxsd.testutils.DumbElementBuilder;
+import org.apache.ws.commons.schema.XmlSchema;
+import org.apache.ws.commons.schema.XmlSchemaElement;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,6 +34,7 @@ import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -45,56 +49,41 @@ public class GeneratorTest {
 
     private Generator generator;
     @Mock
+    Generator.GeneratedSchemaFactory generatedSchemaFactory;
+    @Mock
     ElementBuilderFactory elementBuilderFactory;
-
-    private List<GeneratedSchema> doGenerate() {
-        generator.generate(MyFakeComponent.class);
-        generator.generate(Label.class);
-        generator.generate(VerticalLayout.class);
-        generator.generate(MyComponent.class);
-        return generator.getGeneratedSchemas();
-    }
+    GeneratedSchema generatedSchema;
+    private TestElementBuilder testElementBuilder;
 
     @Before
     public void setUp() {
-        generator = new Generator(elementBuilderFactory);
+        generator = new Generator(generatedSchemaFactory);
+        generatedSchema = new GeneratedSchema(elementBuilderFactory);
+        when(generatedSchemaFactory.newGeneratedSchema()).thenReturn(generatedSchema);
+        testElementBuilder = new TestElementBuilder();
+        when(elementBuilderFactory.getElementBuilder(Mockito.any())).thenReturn(testElementBuilder);
     }
 
     @Test
-    public void testGenerateCreatesSchemaPerPackage() {
-        when(elementBuilderFactory.getElementBuilder(Mockito.<Class<? extends Component>>any()))
-                .thenReturn(new DumbElementBuilder());
-        List<GeneratedSchema> generatedSchemas = doGenerate();
-        assertEquals(3, generatedSchemas.size());
+    public void testPackageScan() {
+        generator.generate("com.vaadin.ui");
+
+        for (Class<? extends Component> aClass : testElementBuilder.classes) {
+            String packageName = aClass.getPackage().getName();
+            assertEquals("com.vaadin.ui", packageName);
+        }
+
     }
 
+    private class TestElementBuilder extends DumbElementBuilder {
+        List<Class<? extends Component>> classes = new LinkedList<>();
 
-    @Test
-    public void testGeneratedSchemasReturnedAlphabetically() {
-        when(elementBuilderFactory.getElementBuilder(Mockito.<Class<? extends Component>>any()))
-                .thenReturn(new DumbElementBuilder());
-        Iterator<GeneratedSchema> schemaIterator = doGenerate().iterator();
-        assertArrayEquals(
-                new String[] {
-                        Label.class.getSimpleName(),
-                        MyComponent.class.getSimpleName(),
-                        MyFakeComponent.class.getSimpleName()
-                },
-                new String[] {
-                        schemaIterator.next().getTagPrefix(),
-                        schemaIterator.next().getTagPrefix(),
-                        schemaIterator.next().getTagPrefix()
-                });
+        public XmlSchemaElement buildElement(XmlSchema schema, Class componentClass) {
+            classes.add(componentClass);
+            return super.buildElement(schema, componentClass);
+        }
     }
-    
-    @Test
-    public void testEmptyGeneratedSchemasFiltered() {
-        when(elementBuilderFactory.getElementBuilder(Mockito.<Class<? extends Component>>any()))
-                .thenReturn(new NopElementBuilder());
-        List<GeneratedSchema> generatedSchemas = doGenerate();
-        
-        assertEquals(0, generatedSchemas.size());
-    }
+
 
     public static class MyFakeComponent extends AbstractComponent {
         

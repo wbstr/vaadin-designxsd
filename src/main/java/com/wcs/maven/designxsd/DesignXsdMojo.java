@@ -16,14 +16,13 @@
 
 package com.wcs.maven.designxsd;
 
-import com.vaadin.ui.Component;
+import com.vaadin.ui.declarative.DesignContext;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.plugins.annotations.ResolutionScope;
-import org.reflections.Reflections;
 
 import java.io.File;
 import java.io.IOException;
@@ -38,8 +37,7 @@ import java.util.logging.Logger;
 
 @Mojo(name = "generate", defaultPhase = LifecyclePhase.PROCESS_CLASSES,
         requiresDependencyResolution = ResolutionScope.COMPILE)
-public class DesignXsdMojo
-        extends AbstractMojo {
+public class DesignXsdMojo extends AbstractMojo {
 
     @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
     @Parameter(property = "project.compileClasspathElements", required = true, readonly = true)
@@ -54,14 +52,18 @@ public class DesignXsdMojo
 
         setupContextClassLoader();
 
-        Reflections reflections = new Reflections();
-        Set<Class<? extends Component>> allComponentClass = reflections.getSubTypesOf(Component.class);
-        Generator generator = Generator.create();
-        allComponentClass.forEach(generator::generate);
+        OutputFilesWriter outputFilesWriter = new OutputFilesWriter(destination);
+        DesignContext designContext = new DesignContext();
+        Generator generator = new Generator(new Generator.GeneratedSchemaFactory(designContext));
 
-        OutputFilesWriter outputFilesWriter = new OutputFilesWriter(generator.getGeneratedSchemas(), destination);
         try {
-            outputFilesWriter.writeFiles();
+            outputFilesWriter.prepareDestination();
+
+//            designContext.addPackagePrefix();
+            GeneratedSchema generatedSchema = generator.generate("com.vaadin.ui");
+            outputFilesWriter.writeGeneratedXsd(generatedSchema, "vaadin");
+
+            outputFilesWriter.wirteMainXsd();
         } catch (IOException ex) {
             throw new MojoExecutionException("Unable to write out files", ex);
         }

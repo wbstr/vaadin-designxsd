@@ -17,19 +17,14 @@ package com.wcs.maven.designxsd.itest;
 
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.declarative.DesignContext;
 import com.wcs.maven.designxsd.GeneratedSchema;
 import com.wcs.maven.designxsd.Generator;
 import com.wcs.maven.designxsd.OutputFilesWriter;
-import org.apache.xerces.util.XMLCatalogResolver;
 import org.junit.Test;
 
-import javax.xml.XMLConstants;
-import javax.xml.transform.stream.StreamSource;
-import javax.xml.validation.SchemaFactory;
-import javax.xml.validation.Validator;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Collection;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -42,17 +37,16 @@ public class GeneratorIntegrationTest {
 
     @Test
     public void testGenerate() throws Exception {
-        Generator generator = Generator.create();
-        generator.generate(Label.class);
-        generator.generate(VerticalLayout.class);
-        generator.generate(MyComponent.class);
-
-        List<GeneratedSchema> generatedSchemas = generator.getGeneratedSchemas();
-        assertEquals(2, generatedSchemas.size());
-
         Path tempDirectory = Files.createTempDirectory("designxsd-test");
-        OutputFilesWriter outputFilesWriter = new OutputFilesWriter(generatedSchemas, tempDirectory.toString());
-        outputFilesWriter.writeFiles();
+        String destination = tempDirectory.toString();
+        System.out.println(destination);
+
+        OutputFilesWriter outputFilesWriter = new OutputFilesWriter(destination);
+        outputFilesWriter.prepareDestination();
+        Generator generator = new Generator(new Generator.GeneratedSchemaFactory(new DesignContext()));
+        GeneratedSchema generatedSchema = generator.generate("com.vaadin.ui");
+        outputFilesWriter.writeGeneratedXsd(generatedSchema, "vaadin");
+        outputFilesWriter.wirteMainXsd();
 
 /*        SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
         Validator validator = factory.newSchema().newValidator();
