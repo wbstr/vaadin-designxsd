@@ -8,5 +8,6 @@
         <vaadin-horizontal-layout size-full="" _expand="1">
 
         </vaadin-horizontal-layout>        
+        <vaadin-absolute-layout caption=""></vaadin-absolute-layout>
     </body>
 </html>

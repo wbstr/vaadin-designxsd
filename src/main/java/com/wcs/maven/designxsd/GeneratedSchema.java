@@ -18,11 +18,10 @@ package com.wcs.maven.designxsd;
 import com.vaadin.ui.Component;
 import com.wcs.maven.designxsd.elementbuilder.ElementBuilder;
 import com.wcs.maven.designxsd.elementbuilder.ElementBuilderFactory;
-import org.apache.ws.commons.schema.*;
-
-import javax.xml.namespace.QName;
 import java.util.Map;
 import java.util.TreeMap;
+import javax.xml.namespace.QName;
+import org.apache.ws.commons.schema.*;
 
 /**
  *
@@ -52,18 +51,17 @@ public class GeneratedSchema {
         return generatedElementsMap.isEmpty();
     }
 
-    public XmlSchema build() {
-        final XmlSchemaObjectCollection items = schema.getItems();
+    public XmlSchema getXmlSchema() {
+        XmlSchema templateXsd = SchemaLoader.load(Generator.class.getResourceAsStream("generated-template.xsd"));
+        appendToAllGroup(templateXsd);
+        XmlSchemaObjectCollection items = templateXsd.getItems();
         generatedElementsMap.values().forEach(items::add);
-        return schema;
+        return templateXsd;
     }
 
-    public void includeToMain(XmlSchema mainXsd, String selfSchemaLocation) {
-        final XmlSchemaObjectCollection allGroupItems = findAllGroupItems(mainXsd);
+    private void appendToAllGroup(XmlSchema templateXsd) {
+        XmlSchemaObjectCollection allGroupItems = findAllGroupItems(templateXsd);
         generatedElementsMap.keySet().forEach(name -> appendToAllGroup(allGroupItems, name));
-        XmlSchemaInclude include = new XmlSchemaInclude();
-        include.setSchemaLocation(selfSchemaLocation);
-        mainXsd.getItems().add(include);
     }
 
     private XmlSchemaObjectCollection findAllGroupItems(XmlSchema mainXsd) {
@@ -76,9 +74,5 @@ public class GeneratedSchema {
         XmlSchemaElement element = new XmlSchemaElement();
         element.setRefName(new QName(name));
         allGroupItems.add(element);
-    }
-
-    Map<String, XmlSchemaElement> getGeneratedElementsMap() {
-        return generatedElementsMap;
     }
 }

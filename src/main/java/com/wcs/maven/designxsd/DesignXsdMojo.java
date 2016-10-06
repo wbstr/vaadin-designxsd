@@ -13,17 +13,9 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-
 package com.wcs.maven.designxsd;
 
 import com.vaadin.ui.declarative.DesignContext;
-import org.apache.maven.plugin.AbstractMojo;
-import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugins.annotations.LifecyclePhase;
-import org.apache.maven.plugins.annotations.Mojo;
-import org.apache.maven.plugins.annotations.Parameter;
-import org.apache.maven.plugins.annotations.ResolutionScope;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -34,6 +26,12 @@ import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.plugins.annotations.ResolutionScope;
 
 @Mojo(name = "generate", defaultPhase = LifecyclePhase.PROCESS_CLASSES,
         requiresDependencyResolution = ResolutionScope.COMPILE)
@@ -56,13 +54,10 @@ public class DesignXsdMojo extends AbstractMojo {
         DesignContext designContext = new DesignContext();
         Generator generator = new Generator(new Generator.GeneratedSchemaFactory(designContext));
 
+        GeneratedSchema generatedSchema = generator.generate("com.vaadin.ui");
+        outputFilesWriter.writeToMainXsd(generatedSchema.getXmlSchema());
+
         try {
-            outputFilesWriter.prepareDestination();
-
-//            designContext.addPackagePrefix();
-            GeneratedSchema generatedSchema = generator.generate("com.vaadin.ui");
-            outputFilesWriter.writeGeneratedXsd(generatedSchema, "vaadin");
-
             outputFilesWriter.wirteMainXsd();
         } catch (IOException ex) {
             throw new MojoExecutionException("Unable to write out files", ex);

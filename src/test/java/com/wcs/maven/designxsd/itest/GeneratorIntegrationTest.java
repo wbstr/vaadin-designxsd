@@ -15,19 +15,11 @@
  */
 package com.wcs.maven.designxsd.itest;
 
-import com.vaadin.ui.Label;
-import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.declarative.DesignContext;
 import com.wcs.maven.designxsd.GeneratedSchema;
 import com.wcs.maven.designxsd.Generator;
 import com.wcs.maven.designxsd.OutputFilesWriter;
 import org.junit.Test;
-
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  *
@@ -37,18 +29,17 @@ public class GeneratorIntegrationTest {
 
     @Test
     public void testGenerate() throws Exception {
-        Path tempDirectory = Files.createTempDirectory("designxsd-test");
-        String destination = tempDirectory.toString();
-        System.out.println(destination);
+        String destination = "target";
 
         OutputFilesWriter outputFilesWriter = new OutputFilesWriter(destination);
-        outputFilesWriter.prepareDestination();
+
         Generator generator = new Generator(new Generator.GeneratedSchemaFactory(new DesignContext()));
         GeneratedSchema generatedSchema = generator.generate("com.vaadin.ui");
-        outputFilesWriter.writeGeneratedXsd(generatedSchema, "vaadin");
+        outputFilesWriter.writeToMainXsd(generatedSchema.getXmlSchema());
+
         outputFilesWriter.wirteMainXsd();
 
-/*        SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+        /*        SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
         Validator validator = factory.newSchema().newValidator();
         validator.setResourceResolver(catalogResolver);
         validator.validate(new StreamSource(getClass().getResourceAsStream("demo-layout.xml")));*/

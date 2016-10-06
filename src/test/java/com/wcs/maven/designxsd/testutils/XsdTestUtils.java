@@ -15,18 +15,14 @@
  */
 package com.wcs.maven.designxsd.testutils;
 
-import com.wcs.maven.designxsd.GeneratedSchema;
-import org.apache.ws.commons.schema.XmlSchema;
-import org.apache.ws.commons.schema.XmlSchemaAttribute;
-import org.apache.ws.commons.schema.XmlSchemaElement;
-
-import javax.xml.transform.OutputKeys;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
-
-import static javax.swing.UIManager.put;
+import javax.xml.transform.OutputKeys;
+import org.apache.ws.commons.schema.XmlSchema;
+import org.apache.ws.commons.schema.XmlSchemaAttribute;
+import org.apache.ws.commons.schema.XmlSchemaElement;
 
 /**
  *
@@ -34,12 +30,16 @@ import static javax.swing.UIManager.put;
  */
 public class XsdTestUtils {
 
-
-    public static String readGeneratedElementsMarkup(XmlSchema generatedSchema) {
+    public static String readGeneratedElementsMarkup(XmlSchema generatedSchema, String... attributes) {
         StringWriter markupWriter = new StringWriter();
         writeUnFormatted(generatedSchema, markupWriter);
         String markup = markupWriter.toString();
-        int beginIndex = markup.indexOf("<xs:element");
+        String startMarker = "<xs:element";
+        for (String attribute : attributes) {
+            startMarker = startMarker.concat(" ");
+            startMarker = startMarker.concat(attribute);
+        }
+        int beginIndex = markup.indexOf(startMarker);
         int endIndex = markup.indexOf("</xs:schema>");
         return markup.substring(beginIndex, endIndex);
     }
@@ -73,13 +73,13 @@ public class XsdTestUtils {
         return markup.substring(beginIndex, endIndex);
     }
 
-    private static final Map<String,String> unFormattedWriteOptions = new HashMap<String,String>() {
+    private static final Map<String, String> UN_FORMATTED_WRITE_OPTIONS = new HashMap<String, String>() {
         {
             put(OutputKeys.INDENT, "no");
         }
     };
 
     private static void writeUnFormatted(XmlSchema schema, Writer writer) {
-        schema.write(writer, unFormattedWriteOptions);
+        schema.write(writer, UN_FORMATTED_WRITE_OPTIONS);
     }
 }

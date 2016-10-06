@@ -13,19 +13,15 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-
 package com.wcs.maven.designxsd;
-
-
-import org.apache.ws.commons.schema.XmlSchema;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.Writer;
 import java.nio.file.FileSystems;
-import java.nio.file.Files;
 import java.nio.file.Path;
+import org.apache.ws.commons.schema.XmlSchema;
+import org.apache.ws.commons.schema.XmlSchemaObjectCollection;
 
 public class OutputFilesWriter {
 
@@ -34,35 +30,26 @@ public class OutputFilesWriter {
 
     public OutputFilesWriter(String destination) {
         destinationPath = FileSystems.getDefault().getPath(destination);
-        mainXsd = SchemaLoader.load(Generator.class.getResourceAsStream("main_template.xsd"));
+        mainXsd = SchemaLoader.load(Generator.class.getResourceAsStream("empty.xsd"));
+
+        XmlSchema htmlXsd = SchemaLoader.load(Generator.class.getResourceAsStream("design-html.xsd"));
+        writeToMainXsd(htmlXsd);
+
+        XmlSchema baseXsd = SchemaLoader.load(Generator.class.getResourceAsStream("design-base.xsd"));
+        writeToMainXsd(baseXsd);
+    }
+
+    public final void writeToMainXsd(XmlSchema xmlSchema) {
+        XmlSchemaObjectCollection items = xmlSchema.getItems();
+        for (int i = 0; i < items.getCount(); i++) {
+            mainXsd.getItems().add(items.getItem(i));
+        }
     }
 
     public void wirteMainXsd() throws IOException {
-        write(mainXsd, "design.xsd");
-    }
-
-    public void prepareDestination() throws IOException {
-        Files.createDirectories(destinationPath);
-        copyResource("design-html.xsd");
-        copyResource("design-base.xsd");
-    }
-
-    public void writeGeneratedXsd(GeneratedSchema generatedSchema, String tagPrefix) throws IOException {
-        String destFileName = tagPrefix + ".xsd";
-        XmlSchema xmlSchema = generatedSchema.build();
-        write(xmlSchema, destFileName);
-        generatedSchema.includeToMain(mainXsd, destFileName);
-    }
-
-    private void write(XmlSchema xmlSchema, String fileName) throws IOException {
-        Path destXsdPath = destinationPath.resolve(fileName);
+        Path destXsdPath = destinationPath.resolve("design.xsd");
         Writer writer = new FileWriter(destXsdPath.toFile(), false);
-        xmlSchema.write(writer);
-    }
-
-    private void copyResource(String resource) throws IOException {
-        InputStream resourceAsStream = getClass().getResourceAsStream(resource);
-        Files.copy(resourceAsStream, destinationPath.resolve(resource));
+        mainXsd.write(writer);
     }
 
 }
