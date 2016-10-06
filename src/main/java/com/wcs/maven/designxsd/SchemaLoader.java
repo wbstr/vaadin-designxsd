@@ -15,12 +15,11 @@
  */
 package com.wcs.maven.designxsd;
 
+import java.io.InputStream;
+import javax.xml.transform.stream.StreamSource;
 import org.apache.ws.commons.schema.XmlSchema;
 import org.apache.ws.commons.schema.XmlSchemaCollection;
 import org.xml.sax.InputSource;
-
-import javax.xml.transform.stream.StreamSource;
-import java.io.InputStream;
 
 /**
  *
@@ -28,9 +27,10 @@ import java.io.InputStream;
  */
 public class SchemaLoader {
 
-    public static XmlSchema load(InputStream xsdStream) {
+    public static XmlSchema load(String xsdName) {
         XmlSchemaCollection xmlSchemaCollection = new XmlSchemaCollection();
         xmlSchemaCollection.setSchemaResolver(SchemaLoader::resolveEntity);
+        InputStream xsdStream = Generator.class.getResourceAsStream(xsdName);
         return xmlSchemaCollection.read(new StreamSource(xsdStream), null);
     }
 

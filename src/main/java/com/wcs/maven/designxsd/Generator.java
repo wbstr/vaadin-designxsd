@@ -21,11 +21,10 @@ import com.wcs.maven.designxsd.attributebuilder.AttributeBuilderFactory;
 import com.wcs.maven.designxsd.baseattributegroup.BaseAttributeGroupMngr;
 import com.wcs.maven.designxsd.baseattributegroup.BaseSchema;
 import com.wcs.maven.designxsd.elementbuilder.ElementBuilderFactory;
+import java.util.*;
 import org.apache.ws.commons.schema.*;
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
-
-import java.util.*;
 
 /**
  * @author kumm
@@ -52,7 +51,7 @@ public class Generator {
         private final ElementBuilderFactory elementBuilderFactory;
 
         public GeneratedSchemaFactory(DesignContext designContext) {
-            XmlSchema baseXsd = SchemaLoader.load(Generator.class.getResourceAsStream("design-base.xsd"));
+            XmlSchema baseXsd = SchemaLoader.load("design-base.xsd");
             BaseSchema baseSchema = new BaseSchema(baseXsd);
             BaseAttributeGroupMngr baseAttributeGroupMngr = new BaseAttributeGroupMngr(baseSchema);
             AttributeBuilderFactory attributeBuilderFactory = new AttributeBuilderFactory();

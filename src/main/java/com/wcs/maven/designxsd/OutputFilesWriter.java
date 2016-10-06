@@ -30,12 +30,12 @@ public class OutputFilesWriter {
 
     public OutputFilesWriter(String destination) {
         destinationPath = FileSystems.getDefault().getPath(destination);
-        mainXsd = SchemaLoader.load(Generator.class.getResourceAsStream("empty.xsd"));
+        mainXsd = SchemaLoader.load("empty.xsd");
 
-        XmlSchema htmlXsd = SchemaLoader.load(Generator.class.getResourceAsStream("design-html.xsd"));
+        XmlSchema htmlXsd = SchemaLoader.load("design-html.xsd");
         writeToMainXsd(htmlXsd);
 
-        XmlSchema baseXsd = SchemaLoader.load(Generator.class.getResourceAsStream("design-base.xsd"));
+        XmlSchema baseXsd = SchemaLoader.load("design-base.xsd");
         writeToMainXsd(baseXsd);
     }
 

@@ -36,7 +36,7 @@ public class GeneratedSchema {
     public GeneratedSchema(ElementBuilderFactory elementBuilderFactory) {
         this.elementBuilderFactory = elementBuilderFactory;
         generatedElementsMap = new TreeMap<>();
-        schema = SchemaLoader.load(getClass().getResourceAsStream("empty.xsd"));
+        schema = SchemaLoader.load("empty.xsd");
     }
 
     public void append(Class<? extends Component> componentClass) {
@@ -52,7 +52,7 @@ public class GeneratedSchema {
     }
 
     public XmlSchema getXmlSchema() {
-        XmlSchema templateXsd = SchemaLoader.load(Generator.class.getResourceAsStream("generated-template.xsd"));
+        XmlSchema templateXsd = SchemaLoader.load("generated-template.xsd");
         appendToAllGroup(templateXsd);
         XmlSchemaObjectCollection items = templateXsd.getItems();
         generatedElementsMap.values().forEach(items::add);
