@@ -18,16 +18,14 @@ package com.wcs.maven.designxsd.elementbuilder;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.declarative.Design;
 import com.vaadin.ui.declarative.DesignContext;
+import com.wcs.maven.designxsd.AttributeDiscoverer;
 import com.wcs.maven.designxsd.attributebuilder.AttributeBuilder;
 import com.wcs.maven.designxsd.attributebuilder.AttributeBuilderFactory;
 import com.wcs.maven.designxsd.baseattributegroup.BaseAttributeGroup;
 import com.wcs.maven.designxsd.baseattributegroup.BaseAttributeGroupMngr;
-import org.apache.ws.commons.schema.*;
-
-import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.Map;
-import java.util.TreeMap;
+import org.apache.ws.commons.schema.*;
 
 /**
  *
@@ -46,7 +44,7 @@ public class ComponentElementBuilder implements ElementBuilder {
         this.baseAttributeGroupMngr = baseAttributeGroupMngr;
         this.designContext = designContext;
     }
-    
+
     @Override
     public XmlSchemaElement buildElement(XmlSchema schema, Class<? extends Component> componentClass) {
         this.schema = schema;
@@ -65,10 +63,10 @@ public class ComponentElementBuilder implements ElementBuilder {
         for (BaseAttributeGroup baseAttributeGroup : attributeGroups) {
             typeAttributes.add(newAttributeGroupRef(baseAttributeGroup));
         }
-//        appendAttributes(componentClass, typeAttributes);
+        appendAttributes(componentClass, typeAttributes);
         return element;
     }
-    
+
     private XmlSchemaAttributeGroupRef newAttributeGroupRef(BaseAttributeGroup baseAttributeGroup) {
         XmlSchemaAttributeGroupRef ref = new XmlSchemaAttributeGroupRef();
         ref.setRefName(baseAttributeGroup.getName());
@@ -76,33 +74,33 @@ public class ComponentElementBuilder implements ElementBuilder {
     }
 
     private void appendAttributes(Class componentClass, XmlSchemaObjectCollection typeAttributes) {
-        Map<String, XmlSchemaAttribute> generatedAttributes = new TreeMap<>();
-        for (Method method : componentClass.getMethods()) {
-            XmlSchemaAttribute attribute = buildAttribute(method);
-            if (attribute != null) {
-                generatedAttributes.put(attribute.getName(), attribute);
+        try {
+            Component component = (Component) componentClass.newInstance();
+            AttributeDiscoverer attributeDiscoverer = new AttributeDiscoverer();
+            Map<String, Class> attributes = attributeDiscoverer.discovery(component);
+            
+            for (Map.Entry<String, Class> entry : attributes.entrySet()) {
+                String propertyName = entry.getKey();
+                Class parameterType = entry.getValue();
+                
+                if (!hasAttributeGroup(propertyName)) {
+                    AttributeBuilder attributeBuilder = attributeBuilderFactory.getAttributeBuilder(propertyName, parameterType);
+                    XmlSchemaAttribute xmlSchemaAttribute = attributeBuilder.buildAttribute(schema, propertyName, parameterType);
+                    typeAttributes.add(xmlSchemaAttribute);
+                }
             }
-        }
-        for (XmlSchemaAttribute attribute : generatedAttributes.values()) {
-            typeAttributes.add(attribute);
+        } catch (InstantiationException | IllegalAccessException ex) {
+            throw new RuntimeException(ex);
         }
     }
 
-    private XmlSchemaAttribute buildAttribute(Method method) {
-        String methodName = method.getName();
-        Class<?>[] parameterTypes = method.getParameterTypes();
-        if (parameterTypes.length > 1 || !methodName.startsWith("set")) {
-            return null;
-        }
-        String propertyName = methodName.substring(3, 4).toLowerCase() + methodName.substring(4);
+    private boolean hasAttributeGroup(String propertyName) {
         for (BaseAttributeGroup attributeGroup : attributeGroups) {
             if (baseAttributeGroupMngr.isAttributeInherited(attributeGroup, propertyName)) {
-                return null;
+                return true;
             }
         }
-        Class<?> parameterType = parameterTypes.length == 1 ? parameterTypes[0] : null;
-        AttributeBuilder attributeBuilder = attributeBuilderFactory.getAttributeBuilder(propertyName, parameterType);
-        return attributeBuilder.buildAttribute(schema, propertyName, parameterType);
-    }
 
+        return false;
+    }
 }

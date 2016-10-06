@@ -1,12 +1,12 @@
 <html
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="designtest.xsd">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://design.xsd">
     <head>
         <meta content=""></meta>
     </head>
-    <body>
-        <vaadin-horizontal-layout size-full="" expand="1">
+    <body>        
+        <vaadin-horizontal-layout size-full="" _expand="1">
 
-        </vaadin-horizontal-layout>
+        </vaadin-horizontal-layout>        
     </body>
 </html>
