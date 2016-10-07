@@ -55,7 +55,7 @@ public class DesignXsdMojo extends AbstractMojo {
         Generator generator = new Generator(new Generator.GeneratedSchemaFactory(designContext));
 
         GeneratedSchema generatedSchema = generator.generate("com.vaadin.ui");
-        outputFilesWriter.writeToMainXsd(generatedSchema.getXmlSchema());
+        outputFilesWriter.appendToMainXsd(generatedSchema);
 
         try {
             outputFilesWriter.wirteMainXsd();

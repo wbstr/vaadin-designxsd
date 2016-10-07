@@ -35,8 +35,7 @@ public class GeneratorIntegrationTest {
 
         Generator generator = new Generator(new Generator.GeneratedSchemaFactory(new DesignContext()));
         GeneratedSchema generatedSchema = generator.generate("com.vaadin.ui");
-        outputFilesWriter.writeToMainXsd(generatedSchema.getXmlSchema());
-
+        outputFilesWriter.appendToMainXsd(generatedSchema);
         outputFilesWriter.wirteMainXsd();
 
         /*        SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
@@ -44,5 +43,5 @@ public class GeneratorIntegrationTest {
         validator.setResourceResolver(catalogResolver);
         validator.validate(new StreamSource(getClass().getResourceAsStream("demo-layout.xml")));*/
     }
-
+    
 }

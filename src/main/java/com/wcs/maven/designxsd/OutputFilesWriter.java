@@ -33,23 +33,26 @@ public class OutputFilesWriter {
         mainXsd = SchemaLoader.load("empty.xsd");
 
         XmlSchema htmlXsd = SchemaLoader.load("design-html.xsd");
-        writeToMainXsd(htmlXsd);
+        appendToMainXsd(htmlXsd);
 
         XmlSchema baseXsd = SchemaLoader.load("design-base.xsd");
-        writeToMainXsd(baseXsd);
-    }
+        appendToMainXsd(baseXsd);
+    }    
 
-    public final void writeToMainXsd(XmlSchema xmlSchema) {
-        XmlSchemaObjectCollection items = xmlSchema.getItems();
-        for (int i = 0; i < items.getCount(); i++) {
-            mainXsd.getItems().add(items.getItem(i));
-        }
-    }
-
+    public void appendToMainXsd(GeneratedSchema generatedSchema) {
+        generatedSchema.appendXmlSchema(mainXsd);
+    }    
+    
     public void wirteMainXsd() throws IOException {
         Path destXsdPath = destinationPath.resolve("design.xsd");
         Writer writer = new FileWriter(destXsdPath.toFile(), false);
         mainXsd.write(writer);
     }
 
+    private void appendToMainXsd(XmlSchema xmlSchema) {
+        XmlSchemaObjectCollection items = xmlSchema.getItems();
+        for (int i = 0; i < items.getCount(); i++) {
+            mainXsd.getItems().add(items.getItem(i));
+        }
+    }
 }

@@ -72,19 +72,31 @@ public class GeneratedSchemaTest {
     }
 
     @Test
-    public void testAppendInsertElements() {
+    public void testWithoutGroup() {
+        XmlSchema xmlSchema = insertElements("empty.xsd");
+        assertEquals(1, xmlSchema.getGroups().getCount());
+    }
+
+    @Test
+    public void testWithGroup() {
+        XmlSchema xmlSchema = insertElements("hasAllComponentsGroup.xsd");
+        assertEquals(1, xmlSchema.getGroups().getCount());
+    }
+
+    private XmlSchema insertElements(String xsdName) {
         appendComponents();
 
-        XmlSchema schema = instance.getXmlSchema();
+        XmlSchema xmlSchema = SchemaLoader.load(xsdName);
+        instance.appendXmlSchema(xmlSchema);
 
-        String elementsMarkup = XsdTestUtils.readGeneratedElementsMarkup(schema, "name=\"");
+        String elementsMarkup = XsdTestUtils.readGeneratedElementsMarkup(xmlSchema, "name=\"");
         String expected
                 = "<xs:element name=\"MyFakeComponentA\"/>"
                 + "<xs:element name=\"MyFakeComponentB\"/>"
                 + "<xs:element name=\"MyFakeComponentC\"/>";
         assertEquals(expected, elementsMarkup);
 
-        String groupMarkup = XsdTestUtils.readGeneratedAllComponentsGroupMarkup(schema);
+        String groupMarkup = XsdTestUtils.readGeneratedAllComponentsGroupMarkup(xmlSchema);
         expected
                 = "<xs:group name=\"AllComponentsGroup\">"
                 + "<xs:choice><xs:element ref=\"MyFakeComponentA\"/>"
@@ -94,7 +106,8 @@ public class GeneratedSchemaTest {
                 + "</xs:group>";
         assertEquals(expected, groupMarkup);
 
-        schema.write(System.out);
+        xmlSchema.write(System.out);
+        return xmlSchema;
     }
 
     private void appendComponents() {

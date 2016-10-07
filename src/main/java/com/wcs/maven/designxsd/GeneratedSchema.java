@@ -29,6 +29,8 @@ import org.apache.ws.commons.schema.*;
  */
 public class GeneratedSchema {
 
+    public static final QName ALL_COMPONENT_GROUP_QNAME = new QName("AllComponentsGroup");
+
     private final ElementBuilderFactory elementBuilderFactory;
     private final Map<String, XmlSchemaElement> generatedElementsMap;
     private final XmlSchema schema;
@@ -51,23 +53,32 @@ public class GeneratedSchema {
         return generatedElementsMap.isEmpty();
     }
 
-    public XmlSchema getXmlSchema() {
-        XmlSchema templateXsd = SchemaLoader.load("generated-template.xsd");
-        appendToAllGroup(templateXsd);
-        XmlSchemaObjectCollection items = templateXsd.getItems();
+    public void appendXmlSchema(XmlSchema xmlSchema) {
+        appendToAllGroup(xmlSchema);
+        XmlSchemaObjectCollection items = xmlSchema.getItems();
         generatedElementsMap.values().forEach(items::add);
-        return templateXsd;
     }
 
-    private void appendToAllGroup(XmlSchema templateXsd) {
-        XmlSchemaObjectCollection allGroupItems = findAllGroupItems(templateXsd);
-        generatedElementsMap.keySet().forEach(name -> appendToAllGroup(allGroupItems, name));
+    private void appendToAllGroup(XmlSchema xmlSchema) {
+        XmlSchemaGroup allComponentGroup = findOrCreateAllComponentGroup(xmlSchema);
+        XmlSchemaGroupBase particle = allComponentGroup.getParticle();
+        XmlSchemaObjectCollection items = particle.getItems();
+        generatedElementsMap.keySet().forEach(name -> appendToAllGroup(items, name));
     }
 
-    private XmlSchemaObjectCollection findAllGroupItems(XmlSchema mainXsd) {
-        XmlSchemaGroup allGroup = (XmlSchemaGroup) mainXsd.getGroups().getValues().next();
-        XmlSchemaGroupBase allGroupParticle = allGroup.getParticle();
-        return allGroupParticle.getItems();
+    private XmlSchemaGroup findOrCreateAllComponentGroup(XmlSchema xmlSchema) {
+        XmlSchemaObjectTable groups = xmlSchema.getGroups();
+        XmlSchemaGroup allComponentGroup = (XmlSchemaGroup) groups.getItem(ALL_COMPONENT_GROUP_QNAME);
+        
+        if (allComponentGroup == null) {
+            allComponentGroup = new XmlSchemaGroup();
+            allComponentGroup.setName(ALL_COMPONENT_GROUP_QNAME);
+            allComponentGroup.setParticle(new XmlSchemaChoice());
+            groups.add(ALL_COMPONENT_GROUP_QNAME, allComponentGroup);
+            xmlSchema.getItems().add(allComponentGroup);
+        }
+
+        return allComponentGroup;
     }
 
     private void appendToAllGroup(XmlSchemaObjectCollection allGroupItems, String name) {
