@@ -24,7 +24,6 @@ import com.wcs.maven.designxsd.elementbuilder.ElementBuilderFactory;
 import java.util.*;
 import org.apache.ws.commons.schema.*;
 import org.reflections.Reflections;
-import org.reflections.scanners.SubTypesScanner;
 
 /**
  * @author kumm
@@ -38,7 +37,7 @@ public class Generator {
     }
 
     public GeneratedSchema generate(String packageName) {
-        Reflections reflections = new Reflections(packageName, new SubTypesScanner());
+        Reflections reflections = new Reflections("com.vaadin.ui", "com.wcs.maven.designxsd.maven.plugin.demo");
         Set<Class<? extends Component>> allComponentClass = reflections.getSubTypesOf(Component.class);
         GeneratedSchema generatedSchema = generatedSchemaFactory.newGeneratedSchema();
         allComponentClass.stream()

@@ -13,24 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.wcs.maven.designxsd;
+package com.wcs.maven.designxsd.maven.plugin.demo;
 
-import java.util.Collection;
-import org.junit.Assert;
-import org.junit.Test;
+import com.vaadin.annotations.DesignRoot;
+import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.declarative.Design;
 
 /**
  *
  * @author lali
  */
-public class PackageDiscovererTest {
-    
-    @Test
-    public void testDiscover() {
-        PackageDiscoverer discoverer = new PackageDiscoverer("com.wcs.maven.designxsd.maven.plugin.demo");
-        Collection<String> packageNames = discoverer.discovery();
-        Assert.assertEquals(1, packageNames.size());
-        Assert.assertEquals("com.wcs.maven.designxsd.maven.plugin.demo", packageNames.iterator().next());
+@DesignRoot(value = "root-design.xml")
+public class RootDesign extends VerticalLayout {
+
+    public RootDesign() {
+        Design.read(this);
     }
     
 }

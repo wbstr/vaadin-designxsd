@@ -34,7 +34,7 @@ public class GeneratorIntegrationTest {
         OutputFilesWriter outputFilesWriter = new OutputFilesWriter(destination);
 
         Generator generator = new Generator(new Generator.GeneratedSchemaFactory(new DesignContext()));
-        GeneratedSchema generatedSchema = generator.generate("com.vaadin.ui");
+        GeneratedSchema generatedSchema = generator.generate("com.wcs.maven.designxsd.maven.plugin.demo");
         outputFilesWriter.appendToMainXsd(generatedSchema);
         outputFilesWriter.wirteMainXsd();
 

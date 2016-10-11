@@ -45,16 +45,9 @@ public class PackageDiscoverer {
 
     private Map<String, String> packages;
     private final String rootPackage;
-    private final String extension;
 
     public PackageDiscoverer(String rootPackage) {
         this.rootPackage = rootPackage;
-        this.extension = ".html";
-    }
-
-    public PackageDiscoverer(String rootPackage, String extension) {
-        this.rootPackage = rootPackage;
-        this.extension = extension;
     }
 
     public Collection<String> discovery() {
@@ -71,8 +64,7 @@ public class PackageDiscoverer {
     }
 
     private void collectPrefixes(Component c) {
-        String fileName = c.getClass().getSimpleName() + extension;
-        DesignContext designContext = Design.read(fileName, c);
+        DesignContext designContext = Design.read(c);
         for (String packagePrefix : designContext.getPackagePrefixes()) {
             if (!DEFAULT_PREFIXES.contains(packagePrefix)) {
                 String packageName = designContext.getPackage(packagePrefix);
