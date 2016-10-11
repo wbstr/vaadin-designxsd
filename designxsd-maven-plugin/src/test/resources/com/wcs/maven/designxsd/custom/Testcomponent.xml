@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="vaadindesign"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="vaadindesign vaadindesign.xsd">
+    <head>
+        <meta charset="UTF-8" name="design-properties" content="{&quot;RULERS_VISIBLE&quot;:true,&quot;GUIDELINES_VISIBLE&quot;:false,&quot;SNAP_TO_OBJECTS&quot;:true,&quot;SNAP_TO_GRID&quot;:true,&quot;SNAPPING_DISTANCE&quot;:10,&quot;THEME&quot;:&quot;mytheme&quot;}">
+            <meta charset="UTF-8" name="vaadin-version" content="7.7.0">
+    </head> 
+    <body> 
+        <vaadin-vertical-layout spacing="true" caption="{msg:customComponent}">
+            <!--<vaadin-vertical-layout spacing>-->
+            <vaadin-text-field caption="{msg:fieldCaption}" input-prompt="{msg:fieldPrompt}"/>
+            <vaadin-button>{msg:buttonCaption}</vaadin-button>
+        </vaadin-vertical-layout>    
+    </body>
+</html>
