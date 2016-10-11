@@ -1,0 +1,5 @@
+- Kellene egy XDesign modul
+- Msg?
+- Demóba bekötni, maven pluginként
+- html() metódus figyelése
+- option tag kezelés
