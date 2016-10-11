@@ -44,15 +44,10 @@ public class PackageDiscoverer {
     };
 
     private Map<String, String> packages;
-    private final String rootPackage;
 
-    public PackageDiscoverer(String rootPackage) {
-        this.rootPackage = rootPackage;
-    }
-
-    public Collection<String> discovery() {
+    public DesignContext discovery(String rootPackage) {
         packages = new HashMap<>();
-        Set<Class<?>> designRoots = collectDesignRoots();
+        Set<Class<?>> designRoots = collectDesignRoots(rootPackage);
         for (Class<?> designRoot : designRoots) {
             Component c = newIstance(designRoot);
             if (c != null) {
@@ -60,7 +55,7 @@ public class PackageDiscoverer {
             }
         }
 
-        return packages.values();
+        return buildDesignContext();
     }
 
     private void collectPrefixes(Component c) {
@@ -83,23 +78,28 @@ public class PackageDiscoverer {
     }
 
     private Component newIstance(Class clazz) {
-        Constructor constructor = null;
         try {
-            constructor = clazz.getConstructor();
-        } catch (NoSuchMethodException ex) {
-            LOGGER.warning("Xsd attribute generation skipped. No default constructor found in class: " + clazz.getName());
-            return null;
-        }
-
-        try {
+            Constructor constructor = clazz.getConstructor();
             return (Component) constructor.newInstance();
-        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+        } catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
             throw new RuntimeException(ex);
         }
     }
 
-    private Set<Class<?>> collectDesignRoots() {
+    private Set<Class<?>> collectDesignRoots(String rootPackage) {
         Reflections reflections = new Reflections(rootPackage);
         return reflections.getTypesAnnotatedWith(DesignRoot.class);
+    }
+
+    private DesignContext buildDesignContext() {
+        DesignContext designContext = new DesignContext();
+        for (Map.Entry<String, String> entry : packages.entrySet()) {
+            String packagePrefix = entry.getKey();
+            String packageName = entry.getValue();
+
+            designContext.addPackagePrefix(packagePrefix, packageName);
+        }
+
+        return designContext;
     }
 }

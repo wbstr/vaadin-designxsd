@@ -19,6 +19,7 @@ import com.vaadin.ui.declarative.DesignContext;
 import com.wcs.maven.designxsd.GeneratedSchema;
 import com.wcs.maven.designxsd.Generator;
 import com.wcs.maven.designxsd.OutputFilesWriter;
+import com.wcs.maven.designxsd.PackageDiscoverer;
 import org.junit.Test;
 
 /**
@@ -34,8 +35,17 @@ public class GeneratorIntegrationTest {
         OutputFilesWriter outputFilesWriter = new OutputFilesWriter(destination);
 
         Generator generator = new Generator(new Generator.GeneratedSchemaFactory(new DesignContext()));
-        GeneratedSchema generatedSchema = generator.generate("com.wcs.maven.designxsd.maven.plugin.demo");
+        GeneratedSchema generatedSchema = generator.generate("com.vaadin.ui");
         outputFilesWriter.appendToMainXsd(generatedSchema);
+        
+        String customComponentPackage = "com.wcs.maven.designxsd.customcomponent.simple";
+        PackageDiscoverer packageDiscoverer = new PackageDiscoverer();
+        DesignContext designContext = packageDiscoverer.discovery(customComponentPackage);
+        generator = new Generator(new Generator.GeneratedSchemaFactory(designContext));
+        generatedSchema = generator.generate(customComponentPackage);
+        outputFilesWriter.appendToMainXsd(generatedSchema);
+        
+        
         outputFilesWriter.wirteMainXsd();
 
         /*        SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);

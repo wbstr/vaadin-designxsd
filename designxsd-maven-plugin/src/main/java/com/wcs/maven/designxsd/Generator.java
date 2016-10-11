@@ -37,7 +37,7 @@ public class Generator {
     }
 
     public GeneratedSchema generate(String packageName) {
-        Reflections reflections = new Reflections("com.vaadin.ui", "com.wcs.maven.designxsd.maven.plugin.demo");
+        Reflections reflections = new Reflections(Component.class.getPackage().getName(), packageName);
         Set<Class<? extends Component>> allComponentClass = reflections.getSubTypesOf(Component.class);
         GeneratedSchema generatedSchema = generatedSchemaFactory.newGeneratedSchema();
         allComponentClass.stream()

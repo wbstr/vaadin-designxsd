@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://design.xsd">
+    <head>
+        <meta content=""/>
+        <meta charset="UTF-8" name="package-mapping" content="custom:com.wcs.maven.designxsd.customcomponent.simple"/>
+    </head>
+    <body>        
+        <vaadin-horizontal-layout size-full="" _expand="1">
+            <custom-subdesign/>
+        </vaadin-horizontal-layout>
+    </body>
+</html>
