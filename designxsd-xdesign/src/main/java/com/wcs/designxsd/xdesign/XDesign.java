@@ -1,4 +1,4 @@
-package com.wcs.designxsd.designxsd.xdesign;
+package com.wcs.designxsd.xdesign;
 
 import com.vaadin.ui.AbstractOrderedLayout;
 import com.vaadin.ui.Alignment;

@@ -1,4 +1,4 @@
-package com.wcs.maven.designxsd.maven.plugin.demo;
+package com.wcs.designxsd.demo;
 
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinRequest;
