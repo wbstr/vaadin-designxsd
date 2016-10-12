@@ -41,7 +41,7 @@ public class DesignXsdMojo extends AbstractMojo {
     @Parameter(property = "project.compileClasspathElements", required = true, readonly = true)
     private List<String> classpath;
 
-    @Parameter(property = "destination", defaultValue = "${project.build.directory}/designxsd")
+    @Parameter(property = "destination", defaultValue = "${project.build.directory}")
     private String destination;
 
     @Override

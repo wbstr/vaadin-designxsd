@@ -2,9 +2,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.wcs.designxsd</groupId>
+    <parent>
+        <groupId>com.wcs.designxsd</groupId>
+        <artifactId>designxsd-parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    
     <artifactId>designxsd-demo</artifactId>
-    <version>1.0.1</version>
     <packaging>war</packaging>
 
     <name>DesignXSD Demo</name>
@@ -15,7 +19,6 @@
     </prerequisites>
 
     <properties>
-        <vaadin.version>7.7.2</vaadin.version>
         <vaadin.plugin.version>7.7.2</vaadin.plugin.version>
         <jetty.plugin.version>9.3.9.v20160517</jetty.plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -31,18 +34,6 @@
             <url>http://maven.vaadin.com/vaadin-addons</url>
         </repository>
     </repositories>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>com.vaadin</groupId>
-                <artifactId>vaadin-bom</artifactId>
-                <version>${vaadin.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <dependencies>
         <dependency>
@@ -151,6 +142,28 @@
     </build>
 
     <profiles>
+        <profile>
+            <id>designxsd</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.wcs.designxsd</groupId>
+                        <artifactId>designxsd-maven-plugin</artifactId>
+                        <version>${project.version}</version>
+                        <executions>
+                            <execution>
+                                <configuration>
+                                    <destination>${basedir}/src/main/designxsd</destination>
+                                </configuration>
+                                <goals>
+                                    <goal>generate</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
         <profile>
             <!-- Vaadin pre-release repositories -->
             <id>vaadin-prerelease</id>
