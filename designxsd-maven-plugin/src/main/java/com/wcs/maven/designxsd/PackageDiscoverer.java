@@ -72,7 +72,6 @@ public class PackageDiscoverer {
         if (packages.get(packagePrefix) == null) {
             packages.put(packagePrefix, packageName);
         } else {
-            packages.remove(packagePrefix);
             LOGGER.warning("Xsd attribute generation skipped. PackagePrefix " + packagePrefix + " is ambigous.");
         }
     }

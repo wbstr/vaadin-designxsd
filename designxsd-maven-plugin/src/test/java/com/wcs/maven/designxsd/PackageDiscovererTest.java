@@ -54,7 +54,7 @@ public class PackageDiscovererTest {
         Mockito.verify(logger, Mockito.times(1)).warning(Mockito.anyString());
         Mockito.verify(logger, Mockito.only()).warning(Mockito.anyString());
 
-        Assert.assertFalse(packagePrefixes.contains("custom"));
+        Assert.assertTrue(packagePrefixes.contains("custom"));
     }    
 
     static void setFinalStatic(Field field, Object newValue) throws Exception {
