@@ -69,10 +69,11 @@ public class PackageDiscoverer {
     }
 
     private void putToPackageNames(String packagePrefix, String packageName) {
-        if (packages.get(packagePrefix) == null) {
-            packages.put(packagePrefix, packageName);
-        } else {
+        String processedPackageName = packages.get(packagePrefix);
+        if (processedPackageName != null && !processedPackageName.equals(packageName)) {
             LOGGER.warning("Xsd attribute generation skipped. PackagePrefix " + packagePrefix + " is ambigous.");
+        } else {
+            packages.put(packagePrefix, packageName);
         }
     }
 

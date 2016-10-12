@@ -55,7 +55,24 @@ public class PackageDiscovererTest {
         Mockito.verify(logger, Mockito.only()).warning(Mockito.anyString());
 
         Assert.assertTrue(packagePrefixes.contains("custom"));
-    }    
+    }
+
+    @Test
+    public void testSamepackageprefix() throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException, Exception {
+        Logger logger = Mockito.mock(Logger.class);
+        setFinalStatic(PackageDiscoverer.class.getDeclaredField("LOGGER"), logger);
+
+        PackageDiscoverer discoverer = new PackageDiscoverer();
+        DesignContext designContext = discoverer.discovery("com.wcs.maven.designxsd.customcomponent.samepackageprefix");
+        Collection<String> packagePrefixes = designContext.getPackagePrefixes();
+
+        Mockito.verify(logger, Mockito.never()).warning(Mockito.anyString());
+
+        Assert.assertTrue(packagePrefixes.contains("custom"));
+
+        String packageName = designContext.getPackage("custom");
+        Assert.assertEquals("com.wcs.maven.designxsd.customcomponent.samepackageprefix", packageName);
+    }
 
     static void setFinalStatic(Field field, Object newValue) throws Exception {
         field.setAccessible(true);
