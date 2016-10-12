@@ -22,40 +22,38 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.plugins.annotations.ResolutionScope;
+import org.apache.maven.project.MavenProject;
 
 @Mojo(name = "generate", defaultPhase = LifecyclePhase.PROCESS_CLASSES,
         requiresDependencyResolution = ResolutionScope.COMPILE)
 public class DesignXsdMojo extends AbstractMojo {
 
-    @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
-    @Parameter(property = "project.compileClasspathElements", required = true, readonly = true)
-    private List<String> classpath;
+    @Component
+    private MavenProject project;
 
     @Parameter(property = "destination", defaultValue = "${project.build.directory}")
     private String destination;
+
+    @Parameter(property = "projectRootPackage")
+    private String projectRootPackage;
 
     @Override
     public void execute()
             throws MojoExecutionException {
 
         setupContextClassLoader();
-
         OutputFilesWriter outputFilesWriter = new OutputFilesWriter(destination);
-        DesignContext designContext = new DesignContext();
-        Generator generator = new Generator(new Generator.GeneratedSchemaFactory(designContext));
-
-        GeneratedSchema generatedSchema = generator.generate("com.vaadin.ui");
-        outputFilesWriter.appendToMainXsd(generatedSchema);
+        generateToVaadinComponents(outputFilesWriter);
+        generateToProjectComponents(outputFilesWriter);
 
         try {
             outputFilesWriter.wirteMainXsd();
@@ -64,20 +62,54 @@ public class DesignXsdMojo extends AbstractMojo {
         }
     }
 
-    private void setupContextClassLoader() {
+    private void setupContextClassLoader() throws MojoExecutionException {
         Set<URL> urls = new HashSet<>();
         try {
-            for (String element : classpath) {
-                urls.add(new File(element).toURI().toURL());
+            // TODO: Lehetne szebben is
+            for (String element : project.getCompileClasspathElements()) {
+                File file = new File(element);
+                if (file.isDirectory()) {
+                    listFilesForFolder(urls, file);
+                } else {
+                    urls.add(new File(element).toURI().toURL());
+                }
             }
-        } catch (MalformedURLException ex) {
-            Logger.getLogger(DesignXsdMojo.class.getName()).log(Level.SEVERE, null, ex);
-        }
 
-        ClassLoader contextClassLoader = URLClassLoader.newInstance(
-                urls.toArray(new URL[urls.size()]),
-                Thread.currentThread().getContextClassLoader());
-        Thread.currentThread().setContextClassLoader(contextClassLoader);
+            ClassLoader contextClassLoader = URLClassLoader.newInstance(
+                    urls.toArray(new URL[0]),
+                    Thread.currentThread().getContextClassLoader());
+            Thread.currentThread().setContextClassLoader(contextClassLoader);
+        } catch (MalformedURLException | DependencyResolutionRequiredException ex) {
+            throw new MojoExecutionException("Dependency resolution failed", ex);
+        }
+    }
+
+    private void listFilesForFolder(Set<URL> urls, File folder) throws MalformedURLException {
+        for (File fileEntry : folder.listFiles()) {
+            if (fileEntry.isDirectory()) {
+                listFilesForFolder(urls, fileEntry);
+            } else {
+                urls.add(fileEntry.toURI().toURL());
+            }
+        }
+    }
+
+    private void generateToVaadinComponents(OutputFilesWriter outputFilesWriter) {
+        DesignContext designContext = new DesignContext();
+        Generator generator = new Generator(new Generator.GeneratedSchemaFactory(designContext));
+        GeneratedSchema generatedSchema = generator.generate("com.vaadin.ui");
+        outputFilesWriter.appendToMainXsd(generatedSchema);
+    }
+
+    private void generateToProjectComponents(OutputFilesWriter outputFilesWriter) {
+        PackageDiscoverer packageDiscoverer = new PackageDiscoverer();
+        DesignContext designContext = packageDiscoverer.discovery(projectRootPackage);
+        for (String packagePrefixe : designContext.getPackagePrefixes()) {
+            String packageName = designContext.getPackage(packagePrefixe);            
+            Generator generator = new Generator(new Generator.GeneratedSchemaFactory(designContext));
+            GeneratedSchema generatedSchema = generator.generate(packageName);
+            outputFilesWriter.appendToMainXsd(generatedSchema);
+        }
     }
 
 }

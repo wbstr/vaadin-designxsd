@@ -24,9 +24,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import org.reflections.Reflections;
 
 /**
@@ -47,8 +49,8 @@ public class PackageDiscoverer {
 
     public DesignContext discovery(String rootPackage) {
         packages = new HashMap<>();
-        Set<Class<?>> designRoots = collectDesignRoots(rootPackage);
-        for (Class<?> designRoot : designRoots) {
+        List<Class<Component>> designRoots = collectDesignRoots(rootPackage);
+        for (Class<Component> designRoot : designRoots) {
             Component c = newIstance(designRoot);
             if (c != null) {
                 collectPrefixes(c);
@@ -86,9 +88,21 @@ public class PackageDiscoverer {
         }
     }
 
-    private Set<Class<?>> collectDesignRoots(String rootPackage) {
-        Reflections reflections = new Reflections(rootPackage);
-        return reflections.getTypesAnnotatedWith(DesignRoot.class);
+    private List<Class<Component>> collectDesignRoots(String rootPackage) {
+        System.out.println("Collect design files from " + rootPackage + " and " + Component.class.getPackage().getName());
+
+        Reflections reflections = new Reflections(Component.class.getPackage().getName(), rootPackage);
+        Set<Class<?>> annotatedWith = reflections.getTypesAnnotatedWith(DesignRoot.class);
+
+        System.out.println("Found:" + annotatedWith);
+
+        List<Class<Component>> resutl = annotatedWith.stream()
+                .filter(c -> c.getPackage().getName().startsWith(rootPackage))
+                .map(c -> (Class<Component>) c)
+                .collect(Collectors.toList());
+
+        System.out.println("Result: " + resutl);
+        return resutl;
     }
 
     private DesignContext buildDesignContext() {

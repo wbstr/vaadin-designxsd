@@ -154,6 +154,7 @@
                             <execution>
                                 <configuration>
                                     <destination>${basedir}/src/main/designxsd</destination>
+                                    <projectRootPackage>com.wcs.designxsd.demo</projectRootPackage>
                                 </configuration>
                                 <goals>
                                     <goal>generate</goal>
