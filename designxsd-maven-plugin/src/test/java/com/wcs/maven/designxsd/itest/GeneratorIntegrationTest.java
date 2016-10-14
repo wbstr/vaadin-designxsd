@@ -15,11 +15,6 @@
  */
 package com.wcs.maven.designxsd.itest;
 
-import com.vaadin.ui.declarative.DesignContext;
-import com.wcs.maven.designxsd.GeneratedSchema;
-import com.wcs.maven.designxsd.Generator;
-import com.wcs.maven.designxsd.OutputFilesWriter;
-import com.wcs.maven.designxsd.PackageDiscoverer;
 import org.junit.Test;
 
 /**
@@ -30,28 +25,27 @@ public class GeneratorIntegrationTest {
 
     @Test
     public void testGenerate() throws Exception {
-        String destination = "target";
-
-        OutputFilesWriter outputFilesWriter = new OutputFilesWriter(destination);
-
-        Generator generator = new Generator(new Generator.GeneratedSchemaFactory(new DesignContext()));
-        GeneratedSchema generatedSchema = generator.generate("com.vaadin.ui");
-        outputFilesWriter.appendToMainXsd(generatedSchema);
-        
-        String customComponentPackage = "com.wcs.maven.designxsd.customcomponent.simple";
-        PackageDiscoverer packageDiscoverer = new PackageDiscoverer();
-        DesignContext designContext = packageDiscoverer.discovery(customComponentPackage);
-        generator = new Generator(new Generator.GeneratedSchemaFactory(designContext));
-        generatedSchema = generator.generate(customComponentPackage);
-        outputFilesWriter.appendToMainXsd(generatedSchema);
-        
-        
-        outputFilesWriter.wirteMainXsd();
+//        String destination = "target";
+//
+//        OutputFilesWriter outputFilesWriter = new OutputFilesWriter(destination);
+//
+//        Generator generator = new Generator(new Generator.GeneratedSchemaFactory(new DesignContext()));
+//        GeneratedSchema generatedSchema = generator.generate("com.vaadin.ui");
+//        outputFilesWriter.appendToMainXsd(generatedSchema);
+//        
+//        PackageDiscoverer packageDiscoverer = new PackageDiscoverer();
+//        DesignContext designContext = packageDiscoverer.discovery();
+//        generator = new Generator(new Generator.GeneratedSchemaFactory(designContext));
+//        generatedSchema = generator.generate();
+//        outputFilesWriter.appendToMainXsd(generatedSchema);
+//        
+//        
+//        outputFilesWriter.wirteMainXsd();
 
         /*        SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
         Validator validator = factory.newSchema().newValidator();
         validator.setResourceResolver(catalogResolver);
         validator.validate(new StreamSource(getClass().getResourceAsStream("demo-layout.xml")));*/
     }
-    
+
 }

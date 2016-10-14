@@ -22,13 +22,12 @@ import com.vaadin.ui.declarative.DesignContext;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 import org.reflections.Reflections;
 
 /**
@@ -47,11 +46,12 @@ public class PackageDiscoverer {
 
     private Map<String, String> packages;
 
-    public DesignContext discovery(String rootPackage) {
+    public DesignContext discovery(ClassLoader testLoader) {
         packages = new HashMap<>();
-        List<Class<Component>> designRoots = collectDesignRoots(rootPackage);
-        for (Class<Component> designRoot : designRoots) {
+        Set<Class<? extends Component>> designRoots = collectDesignRoots(testLoader);
+        for (Class<? extends Component> designRoot : designRoots) {
             Component c = newIstance(designRoot);
+            System.out.println("Call by: " + c.getClass().getName());
             if (c != null) {
                 collectPrefixes(c);
             }
@@ -61,9 +61,11 @@ public class PackageDiscoverer {
     }
 
     private void collectPrefixes(Component c) {
+        System.out.println("Call by2: " + c.getClass().getName());
         DesignContext designContext = Design.read(c);
         for (String packagePrefix : designContext.getPackagePrefixes()) {
             if (!DEFAULT_PREFIXES.contains(packagePrefix)) {
+                System.out.println("Discover: " + packagePrefix);
                 String packageName = designContext.getPackage(packagePrefix);
                 putToPackageNames(packagePrefix, packageName);
             }
@@ -79,30 +81,60 @@ public class PackageDiscoverer {
         }
     }
 
-    private Component newIstance(Class clazz) {
+    private Component newIstance(Class<? extends Component> componentClass) {
         try {
-            Constructor constructor = clazz.getConstructor();
-            return (Component) constructor.newInstance();
+            Constructor<? extends Component> constructor = componentClass.getConstructor();
+            return constructor.newInstance();
         } catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
             throw new RuntimeException(ex);
         }
     }
 
-    private List<Class<Component>> collectDesignRoots(String rootPackage) {
-        System.out.println("Collect design files from " + rootPackage + " and " + Component.class.getPackage().getName());
+    private Set<Class<? extends Component>> collectDesignRoots(ClassLoader testLoader) {
+        System.out.println("ClassLoader: " + testLoader);
+        
+        Reflections reflections = new Reflections();
+        Set<Class<? extends Component>> allComponents = reflections.getSubTypesOf(Component.class);
+        Class<? extends DesignRoot> rootDesignClass;
+        try {
+            rootDesignClass = (Class<? extends DesignRoot>) testLoader.loadClass("com.vaadin.annotations.DesignRoot");
+        } catch (ClassNotFoundException ex) {
+            throw new RuntimeException(ex);
+        }
 
-        Reflections reflections = new Reflections(Component.class.getPackage().getName(), rootPackage);
-        Set<Class<?>> annotatedWith = reflections.getTypesAnnotatedWith(DesignRoot.class);
+        System.out.println("???????????????" + rootDesignClass.getName());
+        for (Class<?> c : allComponents) {
+            System.out.println("******************" + c.getName());
+            System.out.println("******************" + c.isAnnotationPresent(rootDesignClass));
+        }
 
-        System.out.println("Found:" + annotatedWith);
+        Class<? extends Component> vaadinComponentClass;
+        try {
+            vaadinComponentClass = (Class<? extends Component>) testLoader.loadClass("com.vaadin.ui.Component");
+        } catch (ClassNotFoundException ex) {
+            throw new RuntimeException(ex);
+        }
 
-        List<Class<Component>> resutl = annotatedWith.stream()
-                .filter(c -> c.getPackage().getName().startsWith(rootPackage))
-                .map(c -> (Class<Component>) c)
-                .collect(Collectors.toList());
+        try {
+            for (Class<?> c : allComponents) {
+                if (c.isAnnotationPresent(rootDesignClass)) {
+                    Class<? extends Component> customComponent = c.asSubclass(vaadinComponentClass);
+                    Constructor<? extends Component> constructor;
+                    constructor = customComponent.getConstructor();
+                    
+                    System.out.println("Ki kit töltött be?");
+                    System.out.println("rootDesignClass" + rootDesignClass.getClassLoader());
+                    System.out.println("vaadinComponentClass" + vaadinComponentClass.getClassLoader());
+                    System.out.println("customComponent" + customComponent.getClassLoader());
+                    
+                    Component newInstance = constructor.newInstance();
+                }
+            }
+        } catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+            throw new RuntimeException(ex);
+        }
 
-        System.out.println("Result: " + resutl);
-        return resutl;
+        return Collections.EMPTY_SET;
     }
 
     private DesignContext buildDesignContext() {

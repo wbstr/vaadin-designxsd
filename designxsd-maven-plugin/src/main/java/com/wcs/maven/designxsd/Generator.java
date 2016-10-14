@@ -37,11 +37,11 @@ public class Generator {
     }
 
     public GeneratedSchema generate(String packageName) {
-        Reflections reflections = new Reflections(Component.class.getPackage().getName(), packageName);
+        Reflections reflections = new Reflections();
         Set<Class<? extends Component>> allComponentClass = reflections.getSubTypesOf(Component.class);
         GeneratedSchema generatedSchema = generatedSchemaFactory.newGeneratedSchema();
         allComponentClass.stream()
-                .filter(c -> c.getPackage().getName().equals(packageName)) //filter subpackages out
+//                .filter(c -> c.getPackage().getName().equals(packageName)) //filter subpackages out
                 .forEach(generatedSchema::append);
         return generatedSchema;
     }
