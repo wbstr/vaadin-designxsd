@@ -22,18 +22,18 @@
         <xs:attribute name="asd"/>
     </xs:attributeGroup>
 
-    <xs:attributeGroup name="com.wcs.maven.claraxsd.baseattributegroup.testclasses.Parent">
+    <xs:attributeGroup name="com.wcs.maven.designxsd.baseattributegroup.testclasses.Parent">
         <xs:attributeGroup ref="_parent"/>
         <xs:attribute name="p_prop"/>
     </xs:attributeGroup>
 
-    <xs:attributeGroup name="com.wcs.maven.claraxsd.baseattributegroup.testclasses.ChildA">
-        <xs:attributeGroup ref="com.wcs.maven.claraxsd.baseattributegroup.testclasses.Parent"/>
+    <xs:attributeGroup name="com.wcs.maven.designxsd.baseattributegroup.testclasses.ChildA">
+        <xs:attributeGroup ref="com.wcs.maven.designxsd.baseattributegroup.testclasses.Parent"/>
         <xs:attribute name="a_prop"/>
     </xs:attributeGroup>
 
-    <xs:attributeGroup name="com.wcs.maven.claraxsd.baseattributegroup.testclasses.ChildB">
-        <xs:attributeGroup ref="com.wcs.maven.claraxsd.baseattributegroup.testclasses.Parent"/>
+    <xs:attributeGroup name="com.wcs.maven.designxsd.baseattributegroup.testclasses.ChildB">
+        <xs:attributeGroup ref="com.wcs.maven.designxsd.baseattributegroup.testclasses.Parent"/>
         <xs:attribute name="b_prop"/>
     </xs:attributeGroup>
 
