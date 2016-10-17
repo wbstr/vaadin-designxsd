@@ -40,7 +40,7 @@
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute default="1" name="_align" type="xs:double">
+        <xs:attribute name="_align" type="xs:string">
             <xs:annotation>
                 <xs:documentation>
                     ComponentAlignment on parent. Use in ":align" form

@@ -66,14 +66,7 @@ public class XDesign {
     }
 
     private static void processExpand(String value, Component c) {
-        float ratio;
-        if (value == null || value.isEmpty()) {
-            ratio = 1;
-        }
-        else {
-            ratio = Float.valueOf(value);
-        }
-        
+        float ratio = Float.valueOf(value);        
         HasComponents parent = c.getParent();
         if (parent instanceof AbstractOrderedLayout) {
             AbstractOrderedLayout layout = (AbstractOrderedLayout) parent;
