@@ -3,7 +3,6 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://design.xsd">
     <head>
-        <meta content=""/>
         <meta charset="UTF-8" name="package-mapping" content="custom:com.wcs.designxsd.demo"/>
     </head>
     <body>        
