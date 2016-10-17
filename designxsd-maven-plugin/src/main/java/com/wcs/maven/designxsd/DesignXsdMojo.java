@@ -15,31 +15,27 @@
  */
 package com.wcs.maven.designxsd;
 
-import com.vaadin.ui.declarative.DesignContext;//TODO
-
+import com.vaadin.ui.Component;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.plugins.annotations.ResolutionScope;
-import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.classworlds.realm.ClassRealm;
+import org.reflections.Reflections;
 
 @Mojo(name = "generate", defaultPhase = LifecyclePhase.PROCESS_CLASSES,
         requiresDependencyResolution = ResolutionScope.COMPILE)
 public class DesignXsdMojo extends AbstractMojo {
-
-    @Component
-    private MavenProject mavenProject;
 
     @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
     @Parameter(property = "project.compileClasspathElements", required = true, readonly = true)
@@ -53,8 +49,19 @@ public class DesignXsdMojo extends AbstractMojo {
             throws MojoExecutionException {
 
         setupClassLoader();
+
+        Reflections reflections = new Reflections();
+        Set<Class<? extends Component>> allComponentClass = reflections.getSubTypesOf(Component.class);
+        Generator generator = Generator.create();
+        for (Class<? extends Component> componentClass : allComponentClass) {
+            generator.generate(componentClass);
+        }
+
         OutputFilesWriter outputFilesWriter = new OutputFilesWriter(destination);
-        generateToProjectComponents(outputFilesWriter);
+        Collection<GeneratedSchema> generatedSchemas = generator.getGeneratedSchemas();
+        for (GeneratedSchema generatedSchema : generatedSchemas) {
+            outputFilesWriter.appendToMainXsd(generatedSchema);
+        }
 
         try {
             outputFilesWriter.wirteMainXsd();
@@ -73,19 +80,4 @@ public class DesignXsdMojo extends AbstractMojo {
             Logger.getLogger(DesignXsdMojo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    private void generateToProjectComponents(OutputFilesWriter outputFilesWriter) {
-        PackageDiscoverer packageDiscoverer = new PackageDiscoverer();
-        DesignContext designContext = packageDiscoverer.discovery();//TODO
-        Generator.GeneratedSchemaFactory generatedSchemaFactory = new Generator.GeneratedSchemaFactory(designContext);
-        Generator generator = new Generator(generatedSchemaFactory);
-        designContext.getPackagePrefixes().stream()
-                .filter(packagePrefixe -> !"v".equals(packagePrefixe))
-                .forEach(packagePrefixe -> {
-                    String packageName = designContext.getPackage(packagePrefixe);
-                    GeneratedSchema generatedSchema = generator.generate(packageName);
-                    outputFilesWriter.appendToMainXsd(generatedSchema);
-                });
-    }
-
 }
