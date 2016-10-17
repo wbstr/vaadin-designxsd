@@ -7,9 +7,13 @@
         <meta charset="UTF-8" name="package-mapping" content="custom:com.wcs.designxsd.demo"/>
     </head>
     <body>        
-        <vaadin-horizontal-layout size-full="" _expand="1">
+        <vaadin-horizontal-layout size-full="">
             <vaadin-label caption="TODO_VALUE"/>
-            <custom-democustomcomponent></custom-democustomcomponent>
+            <custom-democustomcomponent _expand="1"/>
+            <vaadin-horizontal-layout width-full="">
+                <vaadin-button align="middle_left" _expand="">Left button</vaadin-button>
+                <vaadin-button align="middle_right">Right button</vaadin-button>
+        </vaadin-horizontal-layout>
         </vaadin-horizontal-layout>
     </body>
 </html>

@@ -17,22 +17,22 @@ import org.jsoup.nodes.Attributes;
  */
 public class XDesign {
 
-    private static final String EXPAND_ATTRIBUTE_NAME = "expand";
-    private static final String ALIGNMENT_ATTRIBUTE_NAME = "align";
+    private static final String EXPAND_ATTRIBUTE_NAME = "_expand";
+    private static final String ALIGNMENT_ATTRIBUTE_NAME = "_align";
     private static final String ALIGN_SEPARATOR = "_";
 
-    public DesignContext build(Component component) {
+    public static DesignContext read(Component component) {
         DesignContext designContext = Design.read(component);
         processCustomAttributes(designContext);
         return designContext;
     }
 
-    private void processCustomAttributes(DesignContext designContext) {
+    private static void processCustomAttributes(DesignContext designContext) {
         Component rootComponent = designContext.getRootComponent();
         stepNext(rootComponent, designContext);
     }
 
-    private void stepNext(Component component, DesignContext designContext) {
+    private static void stepNext(Component component, DesignContext designContext) {
         if (component instanceof HasComponents) {
             HasComponents hc = (HasComponents) component;
             Iterator<Component> iterator = hc.iterator();
@@ -44,7 +44,7 @@ public class XDesign {
         }
     }
 
-    public void processCustomAttributes(Component c, DesignContext designContext) {
+    public static void processCustomAttributes(Component c, DesignContext designContext) {
         Map<String, String> customAttribute = designContext.getCustomAttributes(c);
         if (customAttribute == null) {
             return;
@@ -65,8 +65,15 @@ public class XDesign {
         }
     }
 
-    private void processExpand(String value, Component c) {
-        float ratio = Float.valueOf(value);
+    private static void processExpand(String value, Component c) {
+        float ratio;
+        if (value == null || value.isEmpty()) {
+            ratio = 1;
+        }
+        else {
+            ratio = Float.valueOf(value);
+        }
+        
         HasComponents parent = c.getParent();
         if (parent instanceof AbstractOrderedLayout) {
             AbstractOrderedLayout layout = (AbstractOrderedLayout) parent;
@@ -77,7 +84,7 @@ public class XDesign {
         }
     }
 
-    private void processAlignment(String value, Component c) {
+    private static void processAlignment(String value, Component c) {
         HasComponents parent = c.getParent();
         if (parent instanceof AbstractOrderedLayout) {
             String horizontalAlign = value.substring(0, value.indexOf(ALIGN_SEPARATOR));

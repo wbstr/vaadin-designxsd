@@ -17,7 +17,7 @@ package com.wcs.designxsd.demo;
 
 import com.vaadin.annotations.DesignRoot;
 import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.declarative.Design;
+import com.wcs.designxsd.xdesign.XDesign;
 
 /**
  *
@@ -27,7 +27,7 @@ import com.vaadin.ui.declarative.Design;
 public class Democustomcomponent extends VerticalLayout {
 
     public Democustomcomponent() {
-        Design.read(this);
+        XDesign.read(this);
         
     }
     
