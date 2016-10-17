@@ -11,9 +11,9 @@
             <vaadin-label caption="TODO_VALUE"/>
             <custom-democustomcomponent _expand="1"/>
             <vaadin-horizontal-layout width-full="">
-                <vaadin-button align="middle_left" _expand="">Left button</vaadin-button>
-                <vaadin-button align="middle_right">Right button</vaadin-button>
-        </vaadin-horizontal-layout>
+                <vaadin-button _align="middle_left" _expand="">Left button</vaadin-button>
+                <vaadin-button _align="middle_right">Right button</vaadin-button>
+            </vaadin-horizontal-layout>
         </vaadin-horizontal-layout>
     </body>
 </html>

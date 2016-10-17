@@ -40,6 +40,13 @@
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
+        <xs:attribute default="1" name="_align" type="xs:double">
+            <xs:annotation>
+                <xs:documentation>
+                    ComponentAlignment on parent. Use in ":align" form
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
         <xs:attribute fixed="" name="_right" type="xs:string"/>
         <xs:attribute fixed="" name="_center" type="xs:string"/>
         <xs:attribute fixed="" name="_middle" type="xs:string"/>
