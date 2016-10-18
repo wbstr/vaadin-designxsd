@@ -85,10 +85,10 @@
             </vaadin-label>
             <custom-democustomcomponent _expand="1"/>
             <vaadin-horizontal-layout width-full="">
-                <vaadin-button _align="middle_left" _expand="1">
+                <vaadin-button _middle="" _expand="1">
                     Left button
                 </vaadin-button>
-                <vaadin-button _align="middle_right">
+                <vaadin-button _middle="" _right="">
                     Right button
                 </vaadin-button>
             </vaadin-horizontal-layout>

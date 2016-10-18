@@ -16,13 +16,6 @@
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute name="_align" type="xs:string">
-            <xs:annotation>
-                <xs:documentation>
-                    ComponentAlignment on parent. Use in ":align" form
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
         <xs:attribute fixed="" name="_right" type="xs:string"/>
         <xs:attribute fixed="" name="_center" type="xs:string"/>
         <xs:attribute fixed="" name="_middle" type="xs:string"/>

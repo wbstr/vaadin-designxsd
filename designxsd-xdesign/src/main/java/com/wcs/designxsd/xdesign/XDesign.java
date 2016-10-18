@@ -18,8 +18,10 @@ import org.jsoup.nodes.Attributes;
 public class XDesign {
 
     private static final String EXPAND_ATTRIBUTE_NAME = "_expand";
-    private static final String ALIGNMENT_ATTRIBUTE_NAME = "_align";
-    private static final String ALIGN_SEPARATOR = "_";
+    private static final String ALIGN_MIDDLE = "_middle";
+    private static final String ALIGN_BOTTOM = "_bottom";
+    private static final String ALIGN_CENTER = "_center";
+    private static final String ALIGN_RIGHT = "_right";
 
     public static DesignContext read(Component component) {
         DesignContext designContext = Design.read(component);
@@ -50,6 +52,7 @@ public class XDesign {
             return;
         }
 
+        Attributes attributes = new Attributes();
         for (Map.Entry<String, String> entry : customAttribute.entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();
@@ -58,15 +61,20 @@ public class XDesign {
                 case EXPAND_ATTRIBUTE_NAME:
                     processExpand(value, c);
                     break;
-                case ALIGNMENT_ATTRIBUTE_NAME:
-                    processAlignment(value, c);
+                case ALIGN_MIDDLE:
+                case ALIGN_BOTTOM:
+                case ALIGN_CENTER:
+                case ALIGN_RIGHT:
+                    attributes.put(key, value);
                     break;
             }
         }
+
+        processAlignment(attributes, c);
     }
 
     private static void processExpand(String value, Component c) {
-        float ratio = Float.valueOf(value);        
+        float ratio = Float.valueOf(value);
         HasComponents parent = c.getParent();
         if (parent instanceof AbstractOrderedLayout) {
             AbstractOrderedLayout layout = (AbstractOrderedLayout) parent;
@@ -77,21 +85,16 @@ public class XDesign {
         }
     }
 
-    private static void processAlignment(String value, Component c) {
+    private static void processAlignment(Attributes attributes, Component c) {
+        Alignment alignment = DesignAttributeHandler.readAlignment(attributes);
+
         HasComponents parent = c.getParent();
         if (parent instanceof AbstractOrderedLayout) {
-            String horizontalAlign = value.substring(0, value.indexOf(ALIGN_SEPARATOR));
-            String verticalAlign = value.substring(value.indexOf(ALIGN_SEPARATOR) + 1);
-            Attributes attr = new Attributes();
-            attr.put(":" + horizontalAlign, "");
-            attr.put(":" + verticalAlign, "");
-            Alignment alignment = DesignAttributeHandler.readAlignment(attr);
-
             AbstractOrderedLayout layout = (AbstractOrderedLayout) parent;
             layout.setComponentAlignment(c, alignment);
         } else {
             throw new IllegalArgumentException(
-                    "Component must be added to layout before using " + ALIGNMENT_ATTRIBUTE_NAME + " attribute.");
+                    "Component must be added to layout before using alignment attributes.");
         }
     }
 }
