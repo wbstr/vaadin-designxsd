@@ -15,6 +15,7 @@
  */
 package com.wcs.maven.designxsd;
 
+import com.wcs.maven.designxsd.discoverer.AttributeDiscoverer;
 import com.vaadin.ui.ColorPicker;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Flash;

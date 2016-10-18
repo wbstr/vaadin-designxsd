@@ -15,6 +15,7 @@
  */
 package com.wcs.maven.designxsd;
 
+import com.wcs.maven.designxsd.discoverer.PackageDiscoverer;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.declarative.DesignContext;
 import com.wcs.maven.designxsd.attributebuilder.AttributeBuilderFactory;

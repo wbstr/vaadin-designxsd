@@ -83,7 +83,36 @@
                     <dd>White cold drink</dd>
                 </dl> 
             </vaadin-label>
-            <custom-democustomcomponent _expand="1"/>
+            <vaadin-table caption="teszt" width="100%">
+                <table>
+                    <colgroup>
+                        <col property-id="firstName"/>
+                        <col property-id="lastName"/>
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <td>First name</td>
+                            <td>Last name</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>B</td>
+                            <td>2</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td>Footer 1</td>
+                            <td>Footer 2</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </vaadin-table>
             <vaadin-horizontal-layout width-full="">
                 <vaadin-button _middle="" _expand="1">
                     Left button
@@ -92,6 +121,14 @@
                     Right button
                 </vaadin-button>
             </vaadin-horizontal-layout>
+            <vaadin-vertical-layout>
+                <vaadin-option-group _id="options" multi-select>
+                    <option>First option</option>
+                    <option>Second option</option>
+                    <option>Third option</option>
+                </vaadin-option-group>
+            </vaadin-vertical-layout>
+            <custom-democustomcomponent _expand="1"/>
         </vaadin-horizontal-layout>
     </body>
 </html>
