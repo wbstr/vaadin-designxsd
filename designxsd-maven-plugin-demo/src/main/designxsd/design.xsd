@@ -1888,9 +1888,6 @@
             <xs:element ref="vaadin-vertical-split-panel"/>
             <xs:element ref="vaadin-video"/>
             <xs:element ref="vaadin-window"/>
-            <xs:element ref="com_vaadin_ui_components_colorpicker-color-picker-grid"/>
-            <xs:element ref="com_vaadin_ui_components_colorpicker-color-picker-history"/>
-            <xs:element ref="com_vaadin_ui_components_colorpicker-color-picker-select"/>
             <xs:element ref="custom-democustomcomponent"/>
             <xs:element ref="custom-root-design"/>
         </xs:choice>
@@ -2999,33 +2996,6 @@
                     </xs:restriction>
                 </xs:simpleType>
             </xs:attribute>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="com_vaadin_ui_components_colorpicker-color-picker-grid">
-        <xs:complexType>
-            <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
-            <xs:attribute fixed="" name="tabindex" type="xs:string"/>
-            <xs:attribute name="responsive" type="xs:boolean"/>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="com_vaadin_ui_components_colorpicker-color-picker-history">
-        <xs:complexType>
-            <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
-            <xs:attribute fixed="" name="tabindex" type="xs:string"/>
-            <xs:attribute name="responsive" type="xs:boolean"/>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="com_vaadin_ui_components_colorpicker-color-picker-select">
-        <xs:complexType>
-            <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
-            <xs:attribute fixed="" name="tabindex" type="xs:string"/>
-            <xs:attribute name="responsive" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="custom-democustomcomponent">

@@ -29,6 +29,8 @@ import org.apache.ws.commons.schema.*;
  */
 public class Generator {
 
+    private static DesignContext designContext;
+
     private final Map<String, GeneratedSchema> generatedSchemas = new TreeMap<>();
     private final ElementBuilderFactory elementBuilderFactory;
 
@@ -38,18 +40,24 @@ public class Generator {
         BaseAttributeGroupMngr baseAttributeGroupMngr = new BaseAttributeGroupMngr(baseSchema);
         AttributeBuilderFactory attributeBuilderFactory = new AttributeBuilderFactory();
         PackageDiscoverer packageDiscoverer = new PackageDiscoverer();
-        DesignContext designContext = packageDiscoverer.discovery();
+        designContext = packageDiscoverer.discovery();
         ElementBuilderFactory elementBuilderFactory
                 = new ElementBuilderFactory(attributeBuilderFactory, baseAttributeGroupMngr, designContext);
         return new Generator(elementBuilderFactory);
     }
-    
+
     public Generator(ElementBuilderFactory elementBuilderFactory) {
         this.elementBuilderFactory = elementBuilderFactory;
     }
 
     public void generate(Class<? extends Component> componentClass) {
-        getGeneratedSchema(componentClass.getPackage()).append(componentClass);
+        Package componentPackage = componentClass.getPackage();
+
+        boolean hasPrefix = designContext.getPackagePrefix(componentPackage.getName()) != null;
+        if (hasPrefix) {
+            GeneratedSchema generatedSchema = getGeneratedSchema(componentPackage);
+            generatedSchema.append(componentClass);
+        }
     }
 
     public Collection<GeneratedSchema> getGeneratedSchemas() {
