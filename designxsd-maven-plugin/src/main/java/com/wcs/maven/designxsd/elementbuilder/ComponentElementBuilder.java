@@ -18,12 +18,13 @@ package com.wcs.maven.designxsd.elementbuilder;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.declarative.Design;
 import com.vaadin.ui.declarative.DesignContext;
-import com.wcs.maven.designxsd.discoverer.AttributeDiscoverer;
-import com.wcs.maven.designxsd.discoverer.HtmlContentDiscoverer;
 import com.wcs.maven.designxsd.attributebuilder.AttributeBuilder;
 import com.wcs.maven.designxsd.attributebuilder.AttributeBuilderFactory;
 import com.wcs.maven.designxsd.baseattributegroup.BaseAttributeGroup;
 import com.wcs.maven.designxsd.baseattributegroup.BaseAttributeGroupMngr;
+import com.wcs.maven.designxsd.discoverer.AttributeDiscoverer;
+import com.wcs.maven.designxsd.discoverer.HtmlContentDiscoverer;
+import com.wcs.maven.designxsd.discoverer.OptionDiscoverer;
 import java.util.Collection;
 import java.util.Map;
 import javax.xml.namespace.QName;
@@ -36,6 +37,7 @@ import org.apache.ws.commons.schema.*;
 public class ComponentElementBuilder implements ElementBuilder {
     
     private static final QName HTML_TAGS_GROUP = new QName("html-tags");
+    private static final QName OPTION_TAG = new QName("option");
 
     private Collection<BaseAttributeGroup> attributeGroups;
     private XmlSchema schema;
@@ -117,6 +119,17 @@ public class ComponentElementBuilder implements ElementBuilder {
             XmlSchemaGroupRef groupRef = new XmlSchemaGroupRef();
             groupRef.setRefName(HTML_TAGS_GROUP);
             type.setParticle(groupRef);
+        }
+        
+        boolean hasOptionTag = new OptionDiscoverer().discover(component);
+        if (hasOptionTag) {
+            XmlSchemaSequence sequence = new XmlSchemaSequence();
+            XmlSchemaElement element = new XmlSchemaElement();
+            element.setRefName(OPTION_TAG);
+            element.setMinOccurs(0);
+            element.setMaxOccurs(1000); // TODO Ezt végtelenre kellene venni.
+            sequence.getItems().add(element);
+            type.setParticle(sequence);
         }
         
         return type;

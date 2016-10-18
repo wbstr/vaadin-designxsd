@@ -2412,6 +2412,9 @@
     </xs:element>
     <xs:element name="vaadin-option-group">
         <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="1000" minOccurs="0" ref="option"/>
+            </xs:sequence>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractField"/>
             <xs:attribute name="caption-as-html" type="xs:boolean"/>
             <xs:attribute name="data" type="xs:string"/>
