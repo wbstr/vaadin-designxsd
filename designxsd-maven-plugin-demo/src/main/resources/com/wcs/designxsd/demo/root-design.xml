@@ -5,13 +5,92 @@
     <head>
         <meta charset="UTF-8" name="package-mapping" content="custom:com.wcs.designxsd.demo"/>
     </head>
-    <body>        
-        <vaadin-horizontal-layout size-full="">
-            <vaadin-label caption="TODO_VALUE"/>
+    <body>
+        <vaadin-horizontal-layout size-full="" spacing="true">
+            <vaadin-label>
+                Simple text
+                <p>Paragraph</p>
+                <b>Bold</b>
+                <u>Underline</u>
+            </vaadin-label>
+            <vaadin-label>
+                <table style="border-collapse: collapse;" border = "1" cellpadding = "5" cellspacing = "5">
+                    <tr>
+                        <th colspan = "6" align = "center">time table</th>
+                    </tr>
+                    <tr>
+                        <th rowspan = "6">hours</th>
+                        <th>mon</th>
+                        <th>tue</th>
+                        <th>wed</th>
+                        <th>thu</th>
+                        <th>fri</th>
+                    </tr>
+                    <tr>
+                        <td>science</td
+                        >
+                        <td>maths</td>
+                        <td>science</td>
+                        <td>maths</td>
+                        <td>arts</td>
+                    </tr>
+                    <tr>
+                        <td>social</td>
+                        <td>history</td>
+                        <td>english</td>
+                        <td>social</td>
+                        <td>sports</td>
+                    </tr>
+                    <tr>
+                        <th colspan = "5" align = "center">lunch</th>
+                    </tr>
+                    <tr>
+                        <td>science</td>
+                        <td>maths</td>
+                        <td>science</td>
+                        <td>maths</td>
+                        <td rowspan = "2">project</td>
+                    </tr>
+                    <tr>
+                        <td>social</td>
+                        <td>history</td>
+                        <td>english</td>
+                        <td>social</td>
+                    </tr>
+                </table> 
+            </vaadin-label>
+            <vaadin-label>
+                <p>
+                    Paragraph<b>bold</b>
+                    <u>underline</u>
+                    <i>italic</i>
+                    <a href="https://github.com/kumm/claraxsd-maven-plugin">Read me text</a>
+                </p>
+                <ul>
+                    <li>Coffee</li>
+                    <li>Tea</li>
+                    <li>Milk</li>
+                </ul>
+                <ol>
+                    <li>First</li>
+                    <li>second</li>
+                    <li>third</li>
+                </ol>
+                <dl>
+                    <dt>Coffee</dt>
+                    <dd>Black hot drink</dd>
+                    <dt>Milk</dt>
+                    <dd>White cold drink</dd>
+                </dl> 
+            </vaadin-label>
             <custom-democustomcomponent _expand="1"/>
             <vaadin-horizontal-layout width-full="">
-                <vaadin-button _align="middle_left" _expand="1">Left button</vaadin-button>
-                <vaadin-button _align="middle_right">Right button</vaadin-button>
+                <vaadin-button _align="middle_left" _expand="1">
+                    Left button
+                </vaadin-button>
+                <vaadin-button _align="middle_right">
+                    Right button
+                </vaadin-button>
             </vaadin-horizontal-layout>
         </vaadin-horizontal-layout>
     </body>

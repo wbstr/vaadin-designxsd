@@ -62,9 +62,7 @@ public class AttributeDiscoverer {
     }
 
     private Element readStubDesign() {
-//        Tag tag = Mockito.mock(Tag.class);
-        Tag tag = Tag.valueOf("teszt");
-
+        Tag tag = Tag.valueOf(component.getClass().getName());
         Element stubDesign = new Element(tag, "", attributes);
         for (String attribute : supportedAttributes) {
             stubDesign.attributes().put(attribute, attribute);

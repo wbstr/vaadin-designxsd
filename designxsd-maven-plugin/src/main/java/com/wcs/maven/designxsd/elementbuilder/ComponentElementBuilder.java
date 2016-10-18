@@ -19,12 +19,14 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.declarative.Design;
 import com.vaadin.ui.declarative.DesignContext;
 import com.wcs.maven.designxsd.AttributeDiscoverer;
+import com.wcs.maven.designxsd.HtmlContentDiscoverer;
 import com.wcs.maven.designxsd.attributebuilder.AttributeBuilder;
 import com.wcs.maven.designxsd.attributebuilder.AttributeBuilderFactory;
 import com.wcs.maven.designxsd.baseattributegroup.BaseAttributeGroup;
 import com.wcs.maven.designxsd.baseattributegroup.BaseAttributeGroupMngr;
 import java.util.Collection;
 import java.util.Map;
+import javax.xml.namespace.QName;
 import org.apache.ws.commons.schema.*;
 
 /**
@@ -32,6 +34,8 @@ import org.apache.ws.commons.schema.*;
  * @author kumm
  */
 public class ComponentElementBuilder implements ElementBuilder {
+    
+    private static final QName HTML_TAGS_GROUP = new QName("html-tags");
 
     private Collection<BaseAttributeGroup> attributeGroups;
     private XmlSchema schema;
@@ -57,7 +61,7 @@ public class ComponentElementBuilder implements ElementBuilder {
             throw new RuntimeException(e);
         }
         element.setName(Design.getComponentMapper().componentToTag(component, designContext));
-        final XmlSchemaComplexType type = new XmlSchemaComplexType(schema);
+        XmlSchemaComplexType type = createElementType(component);
         element.setType(type);
         final XmlSchemaObjectCollection typeAttributes = type.getAttributes();
         for (BaseAttributeGroup baseAttributeGroup : attributeGroups) {
@@ -102,5 +106,19 @@ public class ComponentElementBuilder implements ElementBuilder {
         }
 
         return false;
+    }
+    
+    private XmlSchemaComplexType createElementType(Component component) {
+        XmlSchemaComplexType type = new XmlSchemaComplexType(schema);
+        boolean hasHtmlContent = new HtmlContentDiscoverer().hasHtmlContent(component);
+        
+        if (hasHtmlContent) {
+            type.setMixed(true);
+            XmlSchemaGroupRef groupRef = new XmlSchemaGroupRef();
+            groupRef.setRefName(HTML_TAGS_GROUP);
+            type.setParticle(groupRef);
+        }
+        
+        return type;
     }
 }
