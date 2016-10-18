@@ -14,7 +14,7 @@
     <xs:element name="head">
         <xs:complexType>
             <xs:choice>
-                <xs:element ref="meta"/>
+                <xs:element ref="meta" maxOccurs="unbounded" minOccurs="0"/>
             </xs:choice>
         </xs:complexType>
     </xs:element>

@@ -2,8 +2,6 @@
 <html xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:noNamespaceSchemaLocation="http://design.xsd">
     <head>
-        <meta charset="UTF-8" name="design-properties" content="{&quot;RULERS_VISIBLE&quot;:true,&quot;GUIDELINES_VISIBLE&quot;:false,&quot;SNAP_TO_OBJECTS&quot;:true,&quot;SNAP_TO_GRID&quot;:true,&quot;SNAPPING_DISTANCE&quot;:10,&quot;THEME&quot;:&quot;mytheme&quot;}">
-            <meta charset="UTF-8" name="vaadin-version" content="7.7.0">
     </head> 
     <body> 
         <vaadin-vertical-layout spacing="true">

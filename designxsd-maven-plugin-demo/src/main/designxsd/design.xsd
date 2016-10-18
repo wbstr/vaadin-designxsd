@@ -10,7 +10,7 @@
     <xs:element name="head">
         <xs:complexType>
             <xs:choice>
-                <xs:element ref="meta"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="meta"/>
             </xs:choice>
         </xs:complexType>
     </xs:element>
