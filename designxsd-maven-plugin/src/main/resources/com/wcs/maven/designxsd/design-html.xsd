@@ -1235,6 +1235,9 @@
             </xs:attribute>
             <xs:attribute name="label" type="Text"/>
             <xs:attribute name="value"/>
+            <!--Vaadin attributes-->
+            <xs:attribute name="item-id" type="xs:string"/>
+            <xs:attribute name="icon" type="URI"/>
         </xs:complexType>
     </xs:element>
       

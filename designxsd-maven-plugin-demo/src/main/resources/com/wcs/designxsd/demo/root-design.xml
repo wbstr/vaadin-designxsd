@@ -93,9 +93,9 @@
             </vaadin-horizontal-layout>
             <vaadin-vertical-layout>
                 <vaadin-option-group _id="options" multi-select="true">
-                    <option>First option</option>
-                    <option>Second option</option>
-                    <option>Third option</option>
+                    <option item-id="first_id" selected="selected">First option</option>
+                    <option item-id="secound_id">Second option</option>
+                    <option item-id="third_id">Third option</option>
                 </vaadin-option-group>
             </vaadin-vertical-layout>
             <custom-democustomcomponent _expand="1"/>

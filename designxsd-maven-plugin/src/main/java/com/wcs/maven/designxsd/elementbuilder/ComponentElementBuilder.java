@@ -127,7 +127,7 @@ public class ComponentElementBuilder implements ElementBuilder {
             XmlSchemaElement element = new XmlSchemaElement();
             element.setRefName(OPTION_TAG);
             element.setMinOccurs(0);
-            element.setMaxOccurs(1000); // TODO Ezt végtelenre kellene venni.
+            element.setMaxOccurs(Long.MAX_VALUE); // maxOccurs="unbounded"
             sequence.getItems().add(element);
             type.setParticle(sequence);
         }

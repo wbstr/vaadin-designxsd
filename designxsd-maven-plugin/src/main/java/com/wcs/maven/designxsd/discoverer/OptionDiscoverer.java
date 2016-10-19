@@ -25,21 +25,19 @@ import java.util.Set;
  */
 public class OptionDiscoverer {
 
-    Set<String> optionComponentNames = new HashSet<String>() {
+    private static final Set<String> OPTION_COMPONENT_NAMES = new HashSet<String>() {
         {
             add("com.vaadin.ui.OptionGroup");
-            /*
-            TODO
-            1 Felsorolni a többit is, aminél van értelme az option tag-nek
-            2 Mivel ez egy html tag így amik megjelennek az xsd-ben, azok valójában nem relevánsak számunkra
-            Bővítsük ki a vaadinos attribútumokkal is és a felhasználóra bízzuk, hogy tudja melyik mikor értelmes?
-            Más ötlet?            
-            */
+            add("com.vaadin.ui.ListSelect");
+            add("com.vaadin.ui.ComboBox");
+            add("com.vaadin.ui.TwinColSelect");
+            add("com.vaadin.ui.Select");
+            add("com.vaadin.ui.NativeSelect");
         }
     };
 
     public boolean discover(Component component) {
-        return optionComponentNames.contains(component.getClass().getName());
+        return OPTION_COMPONENT_NAMES.contains(component.getClass().getName());
     }
 
 }

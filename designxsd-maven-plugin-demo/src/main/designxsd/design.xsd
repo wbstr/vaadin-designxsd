@@ -1149,6 +1149,8 @@
             </xs:attribute>
             <xs:attribute name="label" type="Text"/>
             <xs:attribute name="value"/>
+            <xs:attribute name="item-id" type="xs:string"/>
+            <xs:attribute name="icon" type="URI"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="h1">
@@ -2005,6 +2007,9 @@
     </xs:element>
     <xs:element name="vaadin-combo-box">
         <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="option"/>
+            </xs:sequence>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractField"/>
             <xs:attribute name="caption-as-html" type="xs:boolean"/>
             <xs:attribute name="data" type="xs:string"/>
@@ -2317,6 +2322,9 @@
     </xs:element>
     <xs:element name="vaadin-list-select">
         <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="option"/>
+            </xs:sequence>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractField"/>
             <xs:attribute name="caption-as-html" type="xs:boolean"/>
             <xs:attribute name="data" type="xs:string"/>
@@ -2383,6 +2391,9 @@
     </xs:element>
     <xs:element name="vaadin-native-select">
         <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="option"/>
+            </xs:sequence>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractField"/>
             <xs:attribute name="caption-as-html" type="xs:boolean"/>
             <xs:attribute name="data" type="xs:string"/>
@@ -2413,7 +2424,7 @@
     <xs:element name="vaadin-option-group">
         <xs:complexType>
             <xs:sequence>
-                <xs:element maxOccurs="1000" minOccurs="0" ref="option"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="option"/>
             </xs:sequence>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractField"/>
             <xs:attribute name="caption-as-html" type="xs:boolean"/>
@@ -2548,6 +2559,9 @@
     </xs:element>
     <xs:element name="vaadin-select">
         <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="option"/>
+            </xs:sequence>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractField"/>
             <xs:attribute name="caption-as-html" type="xs:boolean"/>
             <xs:attribute name="data" type="xs:string"/>
@@ -2872,6 +2886,9 @@
     </xs:element>
     <xs:element name="vaadin-twin-col-select">
         <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="option"/>
+            </xs:sequence>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractField"/>
             <xs:attribute name="caption-as-html" type="xs:boolean"/>
             <xs:attribute name="data" type="xs:string"/>
