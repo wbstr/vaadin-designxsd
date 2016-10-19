@@ -23,7 +23,7 @@ import com.wcs.designxsd.xdesign.XDesign;
  *
  * @author lali
  */
-@DesignRoot(value = "demo-custom-component.xml")
+@DesignRoot(value = "demo-custom-component.xhtml")
 public class Democustomcomponent extends VerticalLayout {
 
     public Democustomcomponent() {

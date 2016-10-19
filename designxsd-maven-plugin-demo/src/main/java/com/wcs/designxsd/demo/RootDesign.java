@@ -23,7 +23,7 @@ import com.wcs.designxsd.xdesign.XDesign;
  *
  * @author lali
  */
-@DesignRoot(value = "root-design.xml")
+@DesignRoot(value = "root-design.xhtml")
 public class RootDesign extends VerticalLayout {
 
     public RootDesign() {
