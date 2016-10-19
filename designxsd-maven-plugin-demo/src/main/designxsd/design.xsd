@@ -1692,6 +1692,16 @@
             </xs:attribute>
         </xs:complexType>
     </xs:element>
+    <xs:element name="node">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="node"/>
+            </xs:sequence>
+            <xs:attribute name="text" type="Text"/>
+            <xs:attribute name="icon" type="URI"/>
+            <xs:attribute fixed="" name="selected" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
     <xs:attributeGroup name="_parent">
         <xs:annotation>
             <xs:documentation>
@@ -2767,6 +2777,9 @@
     </xs:element>
     <xs:element name="vaadin-tree">
         <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="node"/>
+            </xs:sequence>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractField"/>
             <xs:attribute name="caption-as-html" type="xs:boolean"/>
             <xs:attribute name="data" type="xs:string"/>

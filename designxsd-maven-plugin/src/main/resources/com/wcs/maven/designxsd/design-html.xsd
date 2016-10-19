@@ -1789,4 +1789,14 @@
             </xs:attribute>
         </xs:complexType>
     </xs:element>
+    <xs:element name="node">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="node" maxOccurs="unbounded" minOccurs="0"/>
+            </xs:sequence>
+            <xs:attribute name="text" type="Text"/>
+            <xs:attribute name="icon" type="URI"/>
+            <xs:attribute name="selected" type="xs:string" fixed=""/>
+        </xs:complexType>
+    </xs:element>
 </xs:schema>

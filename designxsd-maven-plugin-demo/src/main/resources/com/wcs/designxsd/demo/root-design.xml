@@ -124,6 +124,16 @@
                     </tbody>
                 </table>
             </vaadin-table>
+            <vaadin-tree>
+                <node text="A">
+                    <node text="B"/>
+                    <node text="C"/>
+                    <node text="D">
+                        <node text="E"/>
+                        <node text="F"/>
+                    </node>
+                </node>
+            </vaadin-tree>
             <custom-democustomcomponent _expand="1"/>
         </vaadin-horizontal-layout>
     </body>
