@@ -80,4 +80,7 @@ public class ElementBuilderFactory {
         return true;
     }
 
+    public boolean isPackageRegistered(Package componentPackage) {
+        return designContext.getPackagePrefix(componentPackage.getName()) != null;
+    }
 }
