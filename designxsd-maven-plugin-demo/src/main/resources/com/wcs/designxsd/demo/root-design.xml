@@ -98,6 +98,32 @@
                     <option item-id="third_id">Third option</option>
                 </vaadin-option-group>
             </vaadin-vertical-layout>
+            <vaadin-table caption="teszt" width="100%">
+                <table>
+                    <colgroup>
+                        <col center=""/>
+                        <col property-id="lastName"/>
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <td>First name</td>
+                            <td>Last name</td>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <td>Footer 1</td>
+                            <td>Footer 2</td>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </vaadin-table>
             <custom-democustomcomponent _expand="1"/>
         </vaadin-horizontal-layout>
     </body>

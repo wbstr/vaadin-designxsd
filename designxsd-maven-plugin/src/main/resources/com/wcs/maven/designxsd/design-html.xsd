@@ -1647,6 +1647,13 @@
             <xs:attribute name="width" type="MultiLength"/>
             <xs:attributeGroup ref="cellhalign"/>
             <xs:attributeGroup ref="cellvalign"/>
+            <!--vaadin attribute-->
+            <xs:attribute name="property-id" type="xs:string"/>
+            <xs:attribute name="center" type="xs:string" fixed=""/>
+            <xs:attribute name="right" type="xs:string" fixed=""/>
+            <xs:attribute name="expand" type="xs:string" default="1"/>
+            <xs:attribute name="collapsible" type="xs:boolean"/>
+            <xs:attribute name="collapsed" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="colgroup">

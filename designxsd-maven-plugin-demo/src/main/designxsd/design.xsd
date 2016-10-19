@@ -1551,6 +1551,12 @@
             <xs:attribute name="width" type="MultiLength"/>
             <xs:attributeGroup ref="cellhalign"/>
             <xs:attributeGroup ref="cellvalign"/>
+            <xs:attribute name="property-id" type="xs:string"/>
+            <xs:attribute fixed="" name="center" type="xs:string"/>
+            <xs:attribute fixed="" name="right" type="xs:string"/>
+            <xs:attribute default="1" name="expand" type="xs:string"/>
+            <xs:attribute name="collapsible" type="xs:boolean"/>
+            <xs:attribute name="collapsed" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="colgroup">
@@ -2628,6 +2634,9 @@
     </xs:element>
     <xs:element name="vaadin-table">
         <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="table"/>
+            </xs:sequence>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractField"/>
             <xs:attribute name="sort-container-property-id" type="xs:string"/>
             <xs:attribute name="caption-as-html" type="xs:boolean"/>
@@ -2804,6 +2813,9 @@
     </xs:element>
     <xs:element name="vaadin-tree-table">
         <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="table"/>
+            </xs:sequence>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractField"/>
             <xs:attribute name="animations-enabled" type="xs:boolean"/>
             <xs:attribute name="sort-container-property-id" type="xs:string"/>

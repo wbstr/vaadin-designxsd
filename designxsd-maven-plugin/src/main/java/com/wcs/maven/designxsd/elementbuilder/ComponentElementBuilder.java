@@ -23,6 +23,7 @@ import com.wcs.maven.designxsd.attributebuilder.AttributeBuilderFactory;
 import com.wcs.maven.designxsd.baseattributegroup.BaseAttributeGroup;
 import com.wcs.maven.designxsd.baseattributegroup.BaseAttributeGroupMngr;
 import com.wcs.maven.designxsd.discoverer.AttributeDiscoverer;
+import com.wcs.maven.designxsd.discoverer.ColGroupDiscoverer;
 import com.wcs.maven.designxsd.discoverer.HtmlContentDiscoverer;
 import com.wcs.maven.designxsd.discoverer.OptionDiscoverer;
 import java.util.Collection;
@@ -35,9 +36,10 @@ import org.apache.ws.commons.schema.*;
  * @author kumm
  */
 public class ComponentElementBuilder implements ElementBuilder {
-    
+
     private static final QName HTML_TAGS_GROUP = new QName("html-tags");
     private static final QName OPTION_TAG = new QName("option");
+    private static final QName TABLE_TAG = new QName("table");
 
     private Collection<BaseAttributeGroup> attributeGroups;
     private XmlSchema schema;
@@ -84,11 +86,11 @@ public class ComponentElementBuilder implements ElementBuilder {
             Component component = (Component) componentClass.newInstance();
             AttributeDiscoverer attributeDiscoverer = new AttributeDiscoverer();
             Map<String, Class> attributes = attributeDiscoverer.discovery(component);
-            
+
             for (Map.Entry<String, Class> entry : attributes.entrySet()) {
                 String propertyName = entry.getKey();
                 Class parameterType = entry.getValue();
-                
+
                 if (!hasAttributeGroup(propertyName)) {
                     AttributeBuilder attributeBuilder = attributeBuilderFactory.getAttributeBuilder(propertyName, parameterType);
                     XmlSchemaAttribute xmlSchemaAttribute = attributeBuilder.buildAttribute(schema, propertyName, parameterType);
@@ -109,29 +111,43 @@ public class ComponentElementBuilder implements ElementBuilder {
 
         return false;
     }
-    
+
     private XmlSchemaComplexType createElementType(Component component) {
         XmlSchemaComplexType type = new XmlSchemaComplexType(schema);
         boolean hasHtmlContent = new HtmlContentDiscoverer().hasHtmlContent(component);
-        
+
         if (hasHtmlContent) {
             type.setMixed(true);
             XmlSchemaGroupRef groupRef = new XmlSchemaGroupRef();
             groupRef.setRefName(HTML_TAGS_GROUP);
             type.setParticle(groupRef);
         }
-        
+
         boolean hasOptionTag = new OptionDiscoverer().discover(component);
-        if (hasOptionTag) {
+        boolean hasColGroup = new ColGroupDiscoverer().discover(component);
+
+        if (hasOptionTag || hasColGroup) {
             XmlSchemaSequence sequence = new XmlSchemaSequence();
-            XmlSchemaElement element = new XmlSchemaElement();
-            element.setRefName(OPTION_TAG);
-            element.setMinOccurs(0);
-            element.setMaxOccurs(Long.MAX_VALUE); // maxOccurs="unbounded"
-            sequence.getItems().add(element);
+
+            if (hasOptionTag) {
+                XmlSchemaElement element = new XmlSchemaElement();
+                element.setRefName(OPTION_TAG);
+                element.setMinOccurs(0);
+                element.setMaxOccurs(Long.MAX_VALUE); // maxOccurs="unbounded"
+                sequence.getItems().add(element);
+            }
+            
+            if (hasColGroup) {
+                XmlSchemaElement element = new XmlSchemaElement();
+                element.setRefName(TABLE_TAG);
+                element.setMinOccurs(0);
+                element.setMaxOccurs(Long.MAX_VALUE); // maxOccurs="unbounded"
+                sequence.getItems().add(element);
+            }
+
             type.setParticle(sequence);
         }
-        
+
         return type;
     }
 }
