@@ -28,7 +28,7 @@ import org.jsoup.parser.Tag;
 public class HtmlContentDiscoverer {
 
     public boolean hasHtmlContent(Component component) {
-        Tag tag = Tag.valueOf(component.getClass().getName());
+        Tag tag = Tag.valueOf(component.getClass().getSimpleName());
         StubElement stubDesign = new StubElement(tag, "");
         component.readDesign(stubDesign, new DesignContext());
 

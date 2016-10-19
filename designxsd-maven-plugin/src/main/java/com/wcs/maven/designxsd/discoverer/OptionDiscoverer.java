@@ -30,7 +30,7 @@ public class OptionDiscoverer {
     
     public boolean discover(Component component) {
         if (AbstractSelect.class.isAssignableFrom(component.getClass())) {
-            Tag abstractSelectTag = Tag.valueOf(component.getClass().getName());
+            Tag abstractSelectTag = Tag.valueOf(component.getClass().getSimpleName());
             Element abstractSelect = new Element(abstractSelectTag, "");
 
             Tag optionTag = Tag.valueOf("option");

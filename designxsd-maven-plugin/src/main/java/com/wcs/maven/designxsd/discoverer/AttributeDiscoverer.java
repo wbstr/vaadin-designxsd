@@ -62,7 +62,7 @@ public class AttributeDiscoverer {
     }
 
     private Element readStubDesign() {
-        Tag tag = Tag.valueOf(component.getClass().getName());
+        Tag tag = Tag.valueOf(component.getClass().getSimpleName());
         Element stubDesign = new Element(tag, "", attributes);
         for (String attribute : supportedAttributes) {
             stubDesign.attributes().put(attribute, attribute);
