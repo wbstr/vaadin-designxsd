@@ -15,29 +15,55 @@
  */
 package com.wcs.maven.designxsd.discoverer;
 
+import com.vaadin.ui.AbstractSelect;
 import com.vaadin.ui.Component;
-import java.util.HashSet;
-import java.util.Set;
+import com.vaadin.ui.declarative.DesignContext;
+import org.jsoup.nodes.Attributes;
+import org.jsoup.nodes.Element;
+import org.jsoup.parser.Tag;
 
 /**
  *
  * @author lali
  */
 public class OptionDiscoverer {
-
-    private static final Set<String> OPTION_COMPONENT_NAMES = new HashSet<String>() {
-        {
-            add("com.vaadin.ui.OptionGroup");
-            add("com.vaadin.ui.ListSelect");
-            add("com.vaadin.ui.ComboBox");
-            add("com.vaadin.ui.TwinColSelect");
-            add("com.vaadin.ui.Select");
-            add("com.vaadin.ui.NativeSelect");
-        }
-    };
-
+    
     public boolean discover(Component component) {
-        return OPTION_COMPONENT_NAMES.contains(component.getClass().getName());
+        if (AbstractSelect.class.isAssignableFrom(component.getClass())) {
+            Tag abstractSelectTag = Tag.valueOf(component.getClass().getName());
+            Element abstractSelect = new Element(abstractSelectTag, "");
+
+            Tag optionTag = Tag.valueOf("option");
+            StubElement optionElement = new StubElement(optionTag, "");
+            abstractSelect.appendChild(optionElement);
+
+            try {
+                component.readDesign(abstractSelect, new DesignContext());
+            } catch (Exception ignore) {
+            }
+
+            return optionElement.searchItemId;
+        }
+
+        return false;
     }
 
+    private class StubElement extends Element {
+
+        boolean searchItemId;
+
+        public StubElement(Tag tag, String baseUri, Attributes attributes) {
+            super(tag, baseUri, attributes);
+        }
+
+        public StubElement(Tag tag, String baseUri) {
+            super(tag, baseUri);
+        }
+
+        @Override
+        public boolean hasAttr(String attributeKey) {
+            searchItemId = true;
+            return super.hasAttr(attributeKey);
+        }
+    }
 }
