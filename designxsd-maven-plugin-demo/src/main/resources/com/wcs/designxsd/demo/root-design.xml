@@ -6,14 +6,14 @@
         <meta charset="UTF-8" name="package-mapping" content="custom:com.wcs.designxsd.demo"/>
     </head>
     <body>
-        <vaadin-horizontal-layout size-full="" spacing="true">
-            <vaadin-label>
+        <v-horizontal-layout size-full="" spacing="true">
+            <v-label>
                 Simple text
                 <p>Paragraph</p>
                 <b>Bold</b>
                 <u>Underline</u>
-            </vaadin-label>
-            <vaadin-label>
+            </v-label>
+            <v-label>
                 <table style="border-collapse: collapse;" border = "1" cellpadding = "5" cellspacing = "5">
                     <tr>
                         <th colspan = "6" align = "center">time table</th>
@@ -58,8 +58,8 @@
                         <td>social</td>
                     </tr>
                 </table> 
-            </vaadin-label>
-            <vaadin-label>
+            </v-label>
+            <v-label>
                 <p>
                     Paragraph<b>bold</b>
                     <u>underline</u>
@@ -82,23 +82,23 @@
                     <dt>Milk</dt>
                     <dd>White cold drink</dd>
                 </dl> 
-            </vaadin-label>
-            <vaadin-horizontal-layout width-full="">
-                <vaadin-button _middle="" _expand="1">
+            </v-label>
+            <v-horizontal-layout width-full="">
+                <v-button _middle="" _expand="1">
                     Left button
-                </vaadin-button>
-                <vaadin-button _middle="" _right="">
+                </v-button>
+                <v-button _middle="" _right="">
                     Right button
-                </vaadin-button>
-            </vaadin-horizontal-layout>
-            <vaadin-vertical-layout>
-                <vaadin-option-group _id="options" multi-select="true">
+                </v-button>
+            </v-horizontal-layout>
+            <v-vertical-layout>
+                <v-option-group _id="options" multi-select="true">
                     <option item-id="first_id" selected="selected">First option</option>
                     <option item-id="secound_id">Second option</option>
                     <option item-id="third_id">Third option</option>
-                </vaadin-option-group>
-            </vaadin-vertical-layout>
-            <vaadin-table caption="teszt" width="100%">
+                </v-option-group>
+            </v-vertical-layout>
+            <v-table caption="teszt" width="100%">
                 <table>
                     <colgroup>
                         <col center=""/>
@@ -123,8 +123,8 @@
                         </tr>
                     </tbody>
                 </table>
-            </vaadin-table>
-            <vaadin-tree>
+            </v-table>
+            <v-tree>
                 <node text="A">
                     <node text="B"/>
                     <node text="C"/>
@@ -133,8 +133,8 @@
                         <node text="F"/>
                     </node>
                 </node>
-            </vaadin-tree>
+            </v-tree>
             <custom-democustomcomponent _expand="1"/>
-        </vaadin-horizontal-layout>
+        </v-horizontal-layout>
     </body>
 </html>

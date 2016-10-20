@@ -4,9 +4,9 @@
     <head>
     </head> 
     <body> 
-        <vaadin-vertical-layout spacing="true">
-            <vaadin-text-field caption="fieldCaption" input-prompt="fieldPrompt"/>
-            <vaadin-button>buttonCaption</vaadin-button>
-        </vaadin-vertical-layout>    
+        <v-vertical-layout spacing="true">
+            <v-text-field caption="fieldCaption" input-prompt="fieldPrompt"/>
+            <v-button>buttonCaption</v-button>
+        </v-vertical-layout>    
     </body>
 </html>
