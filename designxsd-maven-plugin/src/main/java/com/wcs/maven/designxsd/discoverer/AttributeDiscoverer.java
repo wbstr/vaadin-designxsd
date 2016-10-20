@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Logger;
 import org.jsoup.nodes.Attributes;
 import org.jsoup.nodes.Element;
 import org.jsoup.parser.Tag;
@@ -67,10 +68,8 @@ public class AttributeDiscoverer {
         for (String attribute : supportedAttributes) {
             stubDesign.attributes().put(attribute, attribute);
         }
-        try {
-            component.readDesign(stubDesign, new DesignContext());
-        } catch (Exception ignore) {
-        }
+
+        readDesignWithoutLogger(stubDesign);
 
         return stubDesign;
     }
@@ -81,10 +80,9 @@ public class AttributeDiscoverer {
 
         for (String s : customAttributes) {
             stubDesign.attributes().put(s, s);
-            try {
-                component.readDesign(stubDesign, new DesignContext());
-            } catch (Exception ignore) {
-            }
+
+            readDesignWithoutLogger(stubDesign);
+
             stubDesign.attributes().remove(s);
         }
 
@@ -101,6 +99,16 @@ public class AttributeDiscoverer {
         specialAttributes.forEach(key -> discoveredAttributes.put(key, null));
 
         return discoveredAttributes;
+    }
+    
+    private void readDesignWithoutLogger(Element stubDesign) {
+        Logger logger = Logger.getLogger(DesignAttributeHandler.class.getName());
+        logger.setUseParentHandlers(false);
+        try {
+            component.readDesign(stubDesign, new DesignContext());
+        } catch (Exception ignore) {
+        }
+        logger.setUseParentHandlers(true);
     }
 
     private class StubDesignFormatter extends DesignFormatter {

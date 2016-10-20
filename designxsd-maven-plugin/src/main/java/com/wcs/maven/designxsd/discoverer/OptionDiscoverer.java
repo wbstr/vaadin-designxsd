@@ -18,6 +18,7 @@ package com.wcs.maven.designxsd.discoverer;
 import com.vaadin.ui.AbstractSelect;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.declarative.DesignContext;
+import com.vaadin.ui.declarative.DesignException;
 import org.jsoup.nodes.Attributes;
 import org.jsoup.nodes.Element;
 import org.jsoup.parser.Tag;
@@ -27,7 +28,7 @@ import org.jsoup.parser.Tag;
  * @author lali
  */
 public class OptionDiscoverer {
-    
+
     public boolean discover(Component component) {
         if (AbstractSelect.class.isAssignableFrom(component.getClass())) {
             Tag abstractSelectTag = Tag.valueOf(component.getClass().getSimpleName());
@@ -39,7 +40,7 @@ public class OptionDiscoverer {
 
             try {
                 component.readDesign(abstractSelect, new DesignContext());
-            } catch (Exception ignore) {
+            } catch (DesignException ignore) {
             }
 
             return optionElement.searchItemId;

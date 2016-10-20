@@ -1845,65 +1845,65 @@
     </xs:attributeGroup>
     <xs:group name="AllComponentsGroup">
         <xs:choice>
-            <xs:element ref="vaadin-absolute-layout"/>
-            <xs:element ref="vaadin-accordion"/>
-            <xs:element ref="vaadin-audio"/>
-            <xs:element ref="vaadin-browser-frame"/>
-            <xs:element ref="vaadin-button"/>
-            <xs:element ref="vaadin-calendar"/>
-            <xs:element ref="vaadin-check-box"/>
-            <xs:element ref="vaadin-color-picker"/>
-            <xs:element ref="vaadin-color-picker-area"/>
-            <xs:element ref="vaadin-combo-box"/>
-            <xs:element ref="vaadin-css-layout"/>
-            <xs:element ref="vaadin-custom-component"/>
-            <xs:element ref="vaadin-custom-layout"/>
-            <xs:element ref="vaadin-date-field"/>
-            <xs:element ref="vaadin-drag-and-drop-wrapper"/>
-            <xs:element ref="vaadin-embedded"/>
-            <xs:element ref="vaadin-flash"/>
-            <xs:element ref="vaadin-form"/>
-            <xs:element ref="vaadin-form-layout"/>
-            <xs:element ref="vaadin-grid"/>
-            <xs:element ref="vaadin-grid-layout"/>
-            <xs:element ref="vaadin-horizontal-layout"/>
-            <xs:element ref="vaadin-horizontal-split-panel"/>
-            <xs:element ref="vaadin-image"/>
-            <xs:element ref="vaadin-inline-date-field"/>
-            <xs:element ref="vaadin-label"/>
-            <xs:element ref="vaadin-link"/>
-            <xs:element ref="vaadin-list-select"/>
-            <xs:element ref="vaadin-login-form"/>
-            <xs:element ref="vaadin-menu-bar"/>
-            <xs:element ref="vaadin-native-button"/>
-            <xs:element ref="vaadin-native-select"/>
-            <xs:element ref="vaadin-option-group"/>
-            <xs:element ref="vaadin-panel"/>
-            <xs:element ref="vaadin-password-field"/>
-            <xs:element ref="vaadin-popup-date-field"/>
-            <xs:element ref="vaadin-popup-view"/>
-            <xs:element ref="vaadin-progress-bar"/>
-            <xs:element ref="vaadin-progress-indicator"/>
-            <xs:element ref="vaadin-rich-text-area"/>
-            <xs:element ref="vaadin-select"/>
-            <xs:element ref="vaadin-slider"/>
-            <xs:element ref="vaadin-tab-sheet"/>
-            <xs:element ref="vaadin-table"/>
-            <xs:element ref="vaadin-text-area"/>
-            <xs:element ref="vaadin-text-field"/>
-            <xs:element ref="vaadin-tree"/>
-            <xs:element ref="vaadin-tree-table"/>
-            <xs:element ref="vaadin-twin-col-select"/>
-            <xs:element ref="vaadin-upload"/>
-            <xs:element ref="vaadin-vertical-layout"/>
-            <xs:element ref="vaadin-vertical-split-panel"/>
-            <xs:element ref="vaadin-video"/>
-            <xs:element ref="vaadin-window"/>
+            <xs:element ref="v-absolute-layout"/>
+            <xs:element ref="v-accordion"/>
+            <xs:element ref="v-audio"/>
+            <xs:element ref="v-browser-frame"/>
+            <xs:element ref="v-button"/>
+            <xs:element ref="v-calendar"/>
+            <xs:element ref="v-check-box"/>
+            <xs:element ref="v-color-picker"/>
+            <xs:element ref="v-color-picker-area"/>
+            <xs:element ref="v-combo-box"/>
+            <xs:element ref="v-css-layout"/>
+            <xs:element ref="v-custom-component"/>
+            <xs:element ref="v-custom-layout"/>
+            <xs:element ref="v-date-field"/>
+            <xs:element ref="v-drag-and-drop-wrapper"/>
+            <xs:element ref="v-embedded"/>
+            <xs:element ref="v-flash"/>
+            <xs:element ref="v-form"/>
+            <xs:element ref="v-form-layout"/>
+            <xs:element ref="v-grid"/>
+            <xs:element ref="v-grid-layout"/>
+            <xs:element ref="v-horizontal-layout"/>
+            <xs:element ref="v-horizontal-split-panel"/>
+            <xs:element ref="v-image"/>
+            <xs:element ref="v-inline-date-field"/>
+            <xs:element ref="v-label"/>
+            <xs:element ref="v-link"/>
+            <xs:element ref="v-list-select"/>
+            <xs:element ref="v-login-form"/>
+            <xs:element ref="v-menu-bar"/>
+            <xs:element ref="v-native-button"/>
+            <xs:element ref="v-native-select"/>
+            <xs:element ref="v-option-group"/>
+            <xs:element ref="v-panel"/>
+            <xs:element ref="v-password-field"/>
+            <xs:element ref="v-popup-date-field"/>
+            <xs:element ref="v-popup-view"/>
+            <xs:element ref="v-progress-bar"/>
+            <xs:element ref="v-progress-indicator"/>
+            <xs:element ref="v-rich-text-area"/>
+            <xs:element ref="v-select"/>
+            <xs:element ref="v-slider"/>
+            <xs:element ref="v-tab-sheet"/>
+            <xs:element ref="v-table"/>
+            <xs:element ref="v-text-area"/>
+            <xs:element ref="v-text-field"/>
+            <xs:element ref="v-tree"/>
+            <xs:element ref="v-tree-table"/>
+            <xs:element ref="v-twin-col-select"/>
+            <xs:element ref="v-upload"/>
+            <xs:element ref="v-vertical-layout"/>
+            <xs:element ref="v-vertical-split-panel"/>
+            <xs:element ref="v-video"/>
+            <xs:element ref="v-window"/>
             <xs:element ref="custom-democustomcomponent"/>
             <xs:element ref="custom-root-design"/>
         </xs:choice>
     </xs:group>
-    <xs:element name="vaadin-absolute-layout">
+    <xs:element name="v-absolute-layout">
         <xs:complexType>
             <xs:group maxOccurs="unbounded" minOccurs="0" ref="AllComponentsGroup"/>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
@@ -1913,7 +1913,7 @@
             <xs:attribute name="responsive" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-accordion">
+    <xs:element name="v-accordion">
         <xs:complexType>
             <xs:group maxOccurs="unbounded" minOccurs="0" ref="AllComponentsGroup"/>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
@@ -1925,7 +1925,7 @@
             <xs:attribute name="responsive" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-audio">
+    <xs:element name="v-audio">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attribute name="caption-as-html" type="xs:boolean"/>
@@ -1938,7 +1938,7 @@
             <xs:attribute name="responsive" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-browser-frame">
+    <xs:element name="v-browser-frame">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attribute name="caption-as-html" type="xs:boolean"/>
@@ -1948,7 +1948,7 @@
             <xs:attribute name="responsive" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-button">
+    <xs:element name="v-button">
         <xs:complexType mixed="true">
             <xs:group ref="html-tags"/>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
@@ -1960,7 +1960,7 @@
             <xs:attribute name="responsive" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-calendar">
+    <xs:element name="v-calendar">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attribute name="caption-as-html" type="xs:boolean"/>
@@ -1976,7 +1976,7 @@
             <xs:attribute name="event-caption-as-html" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-check-box">
+    <xs:element name="v-check-box">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractField"/>
             <xs:attribute name="caption-as-html" type="xs:boolean"/>
@@ -1985,7 +1985,7 @@
             <xs:attribute name="responsive" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-color-picker">
+    <xs:element name="v-color-picker">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attribute name="caption-as-html" type="xs:boolean"/>
@@ -2003,7 +2003,7 @@
             <xs:attribute name="swatches-visibility" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-color-picker-area">
+    <xs:element name="v-color-picker-area">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attribute name="caption-as-html" type="xs:boolean"/>
@@ -2021,7 +2021,7 @@
             <xs:attribute name="swatches-visibility" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-combo-box">
+    <xs:element name="v-combo-box">
         <xs:complexType>
             <xs:sequence>
                 <xs:element maxOccurs="unbounded" minOccurs="0" ref="option"/>
@@ -2066,7 +2066,7 @@
             </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-css-layout">
+    <xs:element name="v-css-layout">
         <xs:complexType>
             <xs:group maxOccurs="unbounded" minOccurs="0" ref="AllComponentsGroup"/>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
@@ -2076,7 +2076,7 @@
             <xs:attribute name="responsive" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-custom-component">
+    <xs:element name="v-custom-component">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attribute name="caption-as-html" type="xs:boolean"/>
@@ -2085,7 +2085,7 @@
             <xs:attribute name="responsive" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-custom-layout">
+    <xs:element name="v-custom-layout">
         <xs:complexType>
             <xs:group maxOccurs="unbounded" minOccurs="0" ref="AllComponentsGroup"/>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
@@ -2097,7 +2097,7 @@
             <xs:attribute name="template-name" type="xs:string"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-date-field">
+    <xs:element name="v-date-field">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractField"/>
             <xs:attribute name="caption-as-html" type="xs:boolean"/>
@@ -2122,7 +2122,7 @@
             <xs:attribute name="responsive" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-drag-and-drop-wrapper">
+    <xs:element name="v-drag-and-drop-wrapper">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attribute name="caption-as-html" type="xs:boolean"/>
@@ -2142,7 +2142,7 @@
             <xs:attribute name="responsive" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-embedded">
+    <xs:element name="v-embedded">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attribute name="caption-as-html" type="xs:boolean"/>
@@ -2159,7 +2159,7 @@
             <xs:attribute name="responsive" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-flash">
+    <xs:element name="v-flash">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attribute name="caption-as-html" type="xs:boolean"/>
@@ -2173,7 +2173,7 @@
             <xs:attribute name="responsive" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-form">
+    <xs:element name="v-form">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractField"/>
             <xs:attribute name="caption-as-html" type="xs:boolean"/>
@@ -2182,7 +2182,7 @@
             <xs:attribute name="responsive" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-form-layout">
+    <xs:element name="v-form-layout">
         <xs:complexType>
             <xs:group maxOccurs="unbounded" minOccurs="0" ref="AllComponentsGroup"/>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
@@ -2198,7 +2198,7 @@
             <xs:attribute name="margin-bottom" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-grid">
+    <xs:element name="v-grid">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attribute name="caption-as-html" type="xs:boolean"/>
@@ -2223,7 +2223,7 @@
             </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-grid-layout">
+    <xs:element name="v-grid-layout">
         <xs:complexType>
             <xs:group maxOccurs="unbounded" minOccurs="0" ref="AllComponentsGroup"/>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
@@ -2240,7 +2240,7 @@
             <xs:attribute name="hide-empty-rows-and-columns" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-horizontal-layout">
+    <xs:element name="v-horizontal-layout">
         <xs:complexType>
             <xs:group maxOccurs="unbounded" minOccurs="0" ref="AllComponentsGroup"/>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
@@ -2256,7 +2256,7 @@
             <xs:attribute name="margin-bottom" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-horizontal-split-panel">
+    <xs:element name="v-horizontal-split-panel">
         <xs:complexType>
             <xs:group maxOccurs="unbounded" minOccurs="0" ref="AllComponentsGroup"/>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
@@ -2269,7 +2269,7 @@
             <xs:attribute name="reversed" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-image">
+    <xs:element name="v-image">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attribute name="caption-as-html" type="xs:boolean"/>
@@ -2279,7 +2279,7 @@
             <xs:attribute name="responsive" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-inline-date-field">
+    <xs:element name="v-inline-date-field">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractField"/>
             <xs:attribute name="caption-as-html" type="xs:boolean"/>
@@ -2304,7 +2304,7 @@
             <xs:attribute name="responsive" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-label">
+    <xs:element name="v-label">
         <xs:complexType mixed="true">
             <xs:group ref="html-tags"/>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
@@ -2315,7 +2315,7 @@
             <xs:attribute name="responsive" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-link">
+    <xs:element name="v-link">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attribute name="caption-as-html" type="xs:boolean"/>
@@ -2336,7 +2336,7 @@
             </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-list-select">
+    <xs:element name="v-list-select">
         <xs:complexType>
             <xs:sequence>
                 <xs:element maxOccurs="unbounded" minOccurs="0" ref="option"/>
@@ -2369,7 +2369,7 @@
             </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-login-form">
+    <xs:element name="v-login-form">
         <xs:complexType>
             <xs:group minOccurs="0" ref="AllComponentsGroup"/>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
@@ -2382,7 +2382,7 @@
             <xs:attribute name="responsive" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-menu-bar">
+    <xs:element name="v-menu-bar">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attribute name="caption-as-html" type="xs:boolean"/>
@@ -2393,7 +2393,7 @@
             <xs:attribute name="responsive" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-native-button">
+    <xs:element name="v-native-button">
         <xs:complexType mixed="true">
             <xs:group ref="html-tags"/>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
@@ -2405,7 +2405,7 @@
             <xs:attribute name="responsive" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-native-select">
+    <xs:element name="v-native-select">
         <xs:complexType>
             <xs:sequence>
                 <xs:element maxOccurs="unbounded" minOccurs="0" ref="option"/>
@@ -2437,7 +2437,7 @@
             </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-option-group">
+    <xs:element name="v-option-group">
         <xs:complexType>
             <xs:sequence>
                 <xs:element maxOccurs="unbounded" minOccurs="0" ref="option"/>
@@ -2469,7 +2469,7 @@
             </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-panel">
+    <xs:element name="v-panel">
         <xs:complexType>
             <xs:group minOccurs="0" ref="AllComponentsGroup"/>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
@@ -2481,7 +2481,7 @@
             <xs:attribute name="responsive" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-password-field">
+    <xs:element name="v-password-field">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractField"/>
             <xs:attribute name="caption-as-html" type="xs:boolean"/>
@@ -2504,7 +2504,7 @@
             <xs:attribute name="null-setting-allowed" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-popup-date-field">
+    <xs:element name="v-popup-date-field">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractField"/>
             <xs:attribute name="text-field-enabled" type="xs:boolean"/>
@@ -2532,7 +2532,7 @@
             <xs:attribute name="responsive" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-popup-view">
+    <xs:element name="v-popup-view">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attribute name="caption-as-html" type="xs:boolean"/>
@@ -2543,7 +2543,7 @@
             <xs:attribute name="responsive" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-progress-bar">
+    <xs:element name="v-progress-bar">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractField"/>
             <xs:attribute name="caption-as-html" type="xs:boolean"/>
@@ -2552,7 +2552,7 @@
             <xs:attribute name="responsive" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-progress-indicator">
+    <xs:element name="v-progress-indicator">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractField"/>
             <xs:attribute name="caption-as-html" type="xs:boolean"/>
@@ -2562,7 +2562,7 @@
             <xs:attribute name="responsive" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-rich-text-area">
+    <xs:element name="v-rich-text-area">
         <xs:complexType mixed="true">
             <xs:group ref="html-tags"/>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractField"/>
@@ -2573,7 +2573,7 @@
             <xs:attribute name="null-setting-allowed" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-select">
+    <xs:element name="v-select">
         <xs:complexType>
             <xs:sequence>
                 <xs:element maxOccurs="unbounded" minOccurs="0" ref="option"/>
@@ -2618,7 +2618,7 @@
             </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-slider">
+    <xs:element name="v-slider">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractField"/>
             <xs:attribute name="caption-as-html" type="xs:boolean"/>
@@ -2630,7 +2630,7 @@
             <xs:attribute name="responsive" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-tab-sheet">
+    <xs:element name="v-tab-sheet">
         <xs:complexType>
             <xs:group maxOccurs="unbounded" minOccurs="0" ref="AllComponentsGroup"/>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
@@ -2642,7 +2642,7 @@
             <xs:attribute name="responsive" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-table">
+    <xs:element name="v-table">
         <xs:complexType>
             <xs:sequence>
                 <xs:element minOccurs="0" ref="table"/>
@@ -2726,7 +2726,7 @@
             <xs:attribute name="responsive" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-text-area">
+    <xs:element name="v-text-area">
         <xs:complexType mixed="true">
             <xs:group ref="html-tags"/>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractField"/>
@@ -2752,7 +2752,7 @@
             <xs:attribute name="null-setting-allowed" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-text-field">
+    <xs:element name="v-text-field">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractField"/>
             <xs:attribute name="caption-as-html" type="xs:boolean"/>
@@ -2775,7 +2775,7 @@
             <xs:attribute name="null-setting-allowed" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-tree">
+    <xs:element name="v-tree">
         <xs:complexType>
             <xs:sequence>
                 <xs:element maxOccurs="unbounded" minOccurs="0" ref="node"/>
@@ -2824,7 +2824,7 @@
             </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-tree-table">
+    <xs:element name="v-tree-table">
         <xs:complexType>
             <xs:sequence>
                 <xs:element minOccurs="0" ref="table"/>
@@ -2909,7 +2909,7 @@
             <xs:attribute name="responsive" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-twin-col-select">
+    <xs:element name="v-twin-col-select">
         <xs:complexType>
             <xs:sequence>
                 <xs:element maxOccurs="unbounded" minOccurs="0" ref="option"/>
@@ -2944,7 +2944,7 @@
             </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-upload">
+    <xs:element name="v-upload">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attribute name="caption-as-html" type="xs:boolean"/>
@@ -2954,7 +2954,7 @@
             <xs:attribute name="responsive" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-vertical-layout">
+    <xs:element name="v-vertical-layout">
         <xs:complexType>
             <xs:group maxOccurs="unbounded" minOccurs="0" ref="AllComponentsGroup"/>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
@@ -2970,7 +2970,7 @@
             <xs:attribute name="margin-bottom" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-vertical-split-panel">
+    <xs:element name="v-vertical-split-panel">
         <xs:complexType>
             <xs:group maxOccurs="unbounded" minOccurs="0" ref="AllComponentsGroup"/>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
@@ -2983,7 +2983,7 @@
             <xs:attribute name="reversed" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-video">
+    <xs:element name="v-video">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attribute name="caption-as-html" type="xs:boolean"/>
@@ -2996,7 +2996,7 @@
             <xs:attribute name="responsive" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="vaadin-window">
+    <xs:element name="v-window">
         <xs:complexType>
             <xs:group minOccurs="0" ref="AllComponentsGroup"/>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
