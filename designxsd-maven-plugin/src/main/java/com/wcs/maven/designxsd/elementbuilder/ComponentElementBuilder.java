@@ -144,7 +144,7 @@ public class ComponentElementBuilder implements ElementBuilder {
                 XmlSchemaElement element = new XmlSchemaElement();
                 element.setRefName(TABLE_TAG);
                 element.setMinOccurs(0);
-                element.setMaxOccurs(Long.MAX_VALUE); // maxOccurs="unbounded"
+                element.setMaxOccurs(1);
                 sequence.getItems().add(element);
             }
             
