@@ -15,6 +15,8 @@
  */
 package com.wcs.maven.designxsd.discoverer;
 
+import com.vaadin.ui.Window;
+import com.vaadin.ui.declarative.Design;
 import com.vaadin.ui.declarative.DesignContext;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -35,7 +37,7 @@ public class PackageDiscovererTest {
     public void testSimpleDiscover() {
         Reflections reflections = new Reflections("com.wcs.maven.designxsd.customcomponent.simple");
         PackageDiscoverer discoverer = new PackageDiscoverer(reflections);
-        DesignContext designContext = discoverer.discovery();
+        DesignContext designContext = discoverer.discovery(true);
         Collection<String> packagePrefixes = designContext.getPackagePrefixes();
 
         Assert.assertTrue(packagePrefixes.contains("custom"));
@@ -51,7 +53,7 @@ public class PackageDiscovererTest {
 
         Reflections reflections = new Reflections("com.wcs.maven.designxsd.customcomponent.notambigous");
         PackageDiscoverer discoverer = new PackageDiscoverer(reflections);
-        DesignContext designContext = discoverer.discovery();
+        DesignContext designContext = discoverer.discovery(true);
         Collection<String> packagePrefixes = designContext.getPackagePrefixes();
 
         Mockito.verify(logger, Mockito.times(1)).warning(Mockito.anyString());
@@ -67,7 +69,7 @@ public class PackageDiscovererTest {
 
         Reflections reflections = new Reflections("com.wcs.maven.designxsd.customcomponent.samepackageprefix");
         PackageDiscoverer discoverer = new PackageDiscoverer(reflections);
-        DesignContext designContext = discoverer.discovery();
+        DesignContext designContext = discoverer.discovery(true);
         Collection<String> packagePrefixes = designContext.getPackagePrefixes();
 
         Mockito.verify(logger, Mockito.never()).warning(Mockito.anyString());
@@ -76,6 +78,26 @@ public class PackageDiscovererTest {
 
         String packageName = designContext.getPackage("custom");
         Assert.assertEquals("com.wcs.maven.designxsd.customcomponent.samepackageprefix", packageName);
+    }
+
+    @Test
+    public void testlegacyPrefixEnabled() {
+        Reflections reflections = new Reflections("com.ui.vaadin");
+        PackageDiscoverer discoverer = new PackageDiscoverer(reflections);
+        DesignContext designContext = discoverer.discovery(true);
+
+        String tagName = Design.getComponentMapper().componentToTag(new Window(), designContext);
+        Assert.assertEquals("v-window", tagName);
+    }
+
+    @Test
+    public void testlegacyPrefixDisabled() {
+        Reflections reflections = new Reflections("com.ui.vaadin");
+        PackageDiscoverer discoverer = new PackageDiscoverer(reflections);
+        DesignContext designContext = discoverer.discovery(false);
+
+        String tagName = Design.getComponentMapper().componentToTag(new Window(), designContext);
+        Assert.assertEquals("vaadin-window", tagName);
     }
 
     static void setFinalStatic(Field field, Object newValue) throws Exception {

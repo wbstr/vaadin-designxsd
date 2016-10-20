@@ -43,6 +43,9 @@ public class DesignXsdMojo extends AbstractMojo {
 
     @Parameter(property = "destination", defaultValue = "${project.build.directory}")
     private String destination;
+    
+    @Parameter(property = "legacyPrefixEnabled", defaultValue = "false")
+    private boolean legacyPrefixEnabled;
 
     @Override
     public void execute()
@@ -52,7 +55,7 @@ public class DesignXsdMojo extends AbstractMojo {
 
         Reflections reflections = new Reflections();
         Set<Class<? extends Component>> allComponentClass = reflections.getSubTypesOf(Component.class);
-        Generator generator = Generator.create(reflections);
+        Generator generator = Generator.create(reflections, legacyPrefixEnabled);
         for (Class<? extends Component> componentClass : allComponentClass) {
             generator.generate(componentClass);
         }

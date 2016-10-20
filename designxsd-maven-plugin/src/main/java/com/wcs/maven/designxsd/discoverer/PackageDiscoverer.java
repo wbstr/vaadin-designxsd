@@ -60,7 +60,7 @@ public class PackageDiscoverer {
         return gamble;
     }
     
-    public DesignContext discovery() {
+    public DesignContext discovery(boolean legacyPrefixEnabled) {
         packages = new HashMap<>();
         Set<Class<?>> designRoots = collectDesignRoots();
         designRoots.stream()
@@ -70,7 +70,7 @@ public class PackageDiscoverer {
                     collectPrefixes(c);
                 });
 
-        return buildDesignContext();
+        return buildDesignContext(legacyPrefixEnabled);
     }
     
     private void collectPrefixes(Component c) {
@@ -104,8 +104,8 @@ public class PackageDiscoverer {
         return reflections.getTypesAnnotatedWith(DesignRoot.class);
     }
 
-    private DesignContext buildDesignContext() {
-        DesignContext designContext = new DesignContext();
+    private DesignContext buildDesignContext(boolean legacyPrefixEnabled) {
+        DesignContext designContext = new LegacyDesignContext(legacyPrefixEnabled);
         for (Map.Entry<String, String> entry : packages.entrySet()) {
             String packagePrefix = entry.getKey();
             String packageName = entry.getValue();
@@ -113,5 +113,20 @@ public class PackageDiscoverer {
             designContext.addPackagePrefix(packagePrefix, packageName);
         }
         return designContext;
+    }
+    
+    private class LegacyDesignContext extends DesignContext {
+
+        final boolean legacyPrefixEnabled;
+
+        public LegacyDesignContext(boolean legacyPrefixEnabled) {
+            this.legacyPrefixEnabled = legacyPrefixEnabled;
+        }
+        
+        @Override
+        protected boolean isLegacyPrefixEnabled() {
+            return legacyPrefixEnabled;
+        }
+        
     }
 }

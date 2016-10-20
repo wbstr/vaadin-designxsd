@@ -158,6 +158,7 @@
                             <execution>
                                 <configuration>
                                     <destination>${basedir}/src/main/designxsd</destination>
+                                    <legacyPrefixEnabled>true</legacyPrefixEnabled>
                                 </configuration>
                                 <goals>
                                     <goal>generate</goal>

@@ -34,13 +34,13 @@ public class Generator {
     private final Map<String, GeneratedSchema> generatedSchemas = new TreeMap<>();
     private final ElementBuilderFactory elementBuilderFactory;
 
-    public static Generator create(Reflections reflections) {
+    public static Generator create(Reflections reflections, boolean legacyPrefixEnabled) {
         XmlSchema baseXsd = SchemaLoader.load("design-base.xsd");
         BaseSchema baseSchema = new BaseSchema(baseXsd);
         BaseAttributeGroupMngr baseAttributeGroupMngr = new BaseAttributeGroupMngr(baseSchema);
         AttributeBuilderFactory attributeBuilderFactory = new AttributeBuilderFactory();
         PackageDiscoverer packageDiscoverer = new PackageDiscoverer(reflections);
-        DesignContext designContext = packageDiscoverer.discovery();
+        DesignContext designContext = packageDiscoverer.discovery(legacyPrefixEnabled);
         ElementBuilderFactory elementBuilderFactory
                 = new ElementBuilderFactory(attributeBuilderFactory, baseAttributeGroupMngr, designContext);
         return new Generator(elementBuilderFactory);

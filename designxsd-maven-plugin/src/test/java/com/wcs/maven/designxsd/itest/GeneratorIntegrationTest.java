@@ -36,7 +36,7 @@ public class GeneratorIntegrationTest {
 
         Reflections reflections = new Reflections("com.vaadin.ui");
         Set<Class<? extends Component>> allComponentClass = reflections.getSubTypesOf(Component.class);
-        Generator generator = Generator.create(reflections);
+        Generator generator = Generator.create(reflections, true);
         for (Class<? extends Component> componentClass : allComponentClass) {
             generator.generate(componentClass);
         }
