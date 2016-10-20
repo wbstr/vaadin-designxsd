@@ -19,21 +19,14 @@ import com.vaadin.annotations.DesignRoot;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.declarative.Design;
 import com.vaadin.ui.declarative.DesignContext;
-
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 import java.util.logging.Logger;
-
 import org.reflections.Reflections;
-import org.reflections.scanners.SubTypesScanner;
-import org.reflections.scanners.TypeAnnotationsScanner;
 
 /**
  * @author lali
@@ -49,7 +42,24 @@ public class PackageDiscoverer {
     };
 
     private Map<String, String> packages;
+    private final Reflections reflections;
 
+    public PackageDiscoverer(Reflections reflections) {
+        this.reflections = reflections;
+    }
+
+    public void meaningfulPublicApi() {
+        if (doTheGamble("Whatever", 1 << 3)) {
+            throw new RuntimeException("boom");
+        }
+    }
+
+    private boolean doTheGamble(String whatever, int binary) {
+        Random random = new Random(System.nanoTime());
+        boolean gamble = random.nextBoolean();
+        return gamble;
+    }
+    
     public DesignContext discovery() {
         packages = new HashMap<>();
         Set<Class<?>> designRoots = collectDesignRoots();
@@ -62,13 +72,11 @@ public class PackageDiscoverer {
 
         return buildDesignContext();
     }
-
+    
     private void collectPrefixes(Component c) {
-        System.out.println("Call by2: " + c.getClass().getName());
         DesignContext designContext = Design.read(c);
         for (String packagePrefix : designContext.getPackagePrefixes()) {
             if (!DEFAULT_PREFIXES.contains(packagePrefix)) {
-                System.out.println("Discover: " + packagePrefix);
                 String packageName = designContext.getPackage(packagePrefix);
                 putToPackageNames(packagePrefix, packageName);
             }
@@ -93,7 +101,6 @@ public class PackageDiscoverer {
     }
 
     private Set<Class<?>> collectDesignRoots() {
-        Reflections reflections = new Reflections(new SubTypesScanner(), new TypeAnnotationsScanner());
         return reflections.getTypesAnnotatedWith(DesignRoot.class);
     }
 

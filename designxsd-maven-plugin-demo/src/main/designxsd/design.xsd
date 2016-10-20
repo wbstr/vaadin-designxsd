@@ -2645,7 +2645,7 @@
     <xs:element name="vaadin-table">
         <xs:complexType>
             <xs:sequence>
-                <xs:element maxOccurs="unbounded" minOccurs="0" ref="table"/>
+                <xs:element minOccurs="0" ref="table"/>
             </xs:sequence>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractField"/>
             <xs:attribute name="sort-container-property-id" type="xs:string"/>
@@ -2827,7 +2827,7 @@
     <xs:element name="vaadin-tree-table">
         <xs:complexType>
             <xs:sequence>
-                <xs:element maxOccurs="unbounded" minOccurs="0" ref="table"/>
+                <xs:element minOccurs="0" ref="table"/>
             </xs:sequence>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractField"/>
             <xs:attribute name="animations-enabled" type="xs:boolean"/>

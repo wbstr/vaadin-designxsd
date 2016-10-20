@@ -15,61 +15,74 @@
  */
 package com.wcs.maven.designxsd.discoverer;
 
+import com.vaadin.ui.declarative.DesignContext;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.Collection;
+import java.util.logging.Logger;
+import org.junit.Assert;
+import org.junit.Test;
+import org.mockito.Mockito;
+import org.reflections.Reflections;
+
 /**
  *
  * @author lali
  */
 public class PackageDiscovererTest {
 
-//    @Test
-//    public void testSimpleDiscover() {
-//        PackageDiscoverer discoverer = new PackageDiscoverer();
-//        DesignContext designContext = discoverer.discovery();
-//        Collection<String> packagePrefixes = designContext.getPackagePrefixes();
-//
-//        Assert.assertTrue(packagePrefixes.contains("custom"));
-//
-//        String packageName = designContext.getPackage("custom");
-//        Assert.assertEquals("com.wcs.maven.designxsd.customcomponent.simple", packageName);
-//    }
-//
-//    @Test
-//    public void testNotAmbigous() throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException, Exception {
-//        Logger logger = Mockito.mock(Logger.class);
-//        setFinalStatic(PackageDiscoverer.class.getDeclaredField("LOGGER"), logger);
-//
-//        PackageDiscoverer discoverer = new PackageDiscoverer();
-//        DesignContext designContext = discoverer.discovery();
-//        Collection<String> packagePrefixes = designContext.getPackagePrefixes();
-//
-//        Mockito.verify(logger, Mockito.times(1)).warning(Mockito.anyString());
-//        Mockito.verify(logger, Mockito.only()).warning(Mockito.anyString());
-//
-//        Assert.assertTrue(packagePrefixes.contains("custom"));
-//    }
-//
-//    @Test
-//    public void testSamepackageprefix() throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException, Exception {
-//        Logger logger = Mockito.mock(Logger.class);
-//        setFinalStatic(PackageDiscoverer.class.getDeclaredField("LOGGER"), logger);
-//
-//        PackageDiscoverer discoverer = new PackageDiscoverer();
-//        DesignContext designContext = discoverer.discovery();
-//        Collection<String> packagePrefixes = designContext.getPackagePrefixes();
-//
-//        Mockito.verify(logger, Mockito.never()).warning(Mockito.anyString());
-//
-//        Assert.assertTrue(packagePrefixes.contains("custom"));
-//
-//        String packageName = designContext.getPackage("custom");
-//        Assert.assertEquals("com.wcs.maven.designxsd.customcomponent.samepackageprefix", packageName);
-//    }
-//
-//    static void setFinalStatic(Field field, Object newValue) throws Exception {
-//        field.setAccessible(true);
-//        Field modifiersField = Field.class.getDeclaredField("modifiers");
-//        modifiersField.setAccessible(true);
-//        modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
-//        field.set(null, newValue);
-//    }
+    @Test
+    public void testSimpleDiscover() {
+        Reflections reflections = new Reflections("com.wcs.maven.designxsd.customcomponent.simple");
+        PackageDiscoverer discoverer = new PackageDiscoverer(reflections);
+        DesignContext designContext = discoverer.discovery();
+        Collection<String> packagePrefixes = designContext.getPackagePrefixes();
+
+        Assert.assertTrue(packagePrefixes.contains("custom"));
+
+        String packageName = designContext.getPackage("custom");
+        Assert.assertEquals("com.wcs.maven.designxsd.customcomponent.simple", packageName);
+    }
+
+    @Test
+    public void testNotAmbigous() throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException, Exception {
+        Logger logger = Mockito.mock(Logger.class);
+        setFinalStatic(PackageDiscoverer.class.getDeclaredField("LOGGER"), logger);
+
+        Reflections reflections = new Reflections("com.wcs.maven.designxsd.customcomponent.notambigous");
+        PackageDiscoverer discoverer = new PackageDiscoverer(reflections);
+        DesignContext designContext = discoverer.discovery();
+        Collection<String> packagePrefixes = designContext.getPackagePrefixes();
+
+        Mockito.verify(logger, Mockito.times(1)).warning(Mockito.anyString());
+        Mockito.verify(logger, Mockito.only()).warning(Mockito.anyString());
+
+        Assert.assertTrue(packagePrefixes.contains("custom"));
+    }
+
+    @Test
+    public void testSamepackageprefix() throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException, Exception {
+        Logger logger = Mockito.mock(Logger.class);
+        setFinalStatic(PackageDiscoverer.class.getDeclaredField("LOGGER"), logger);
+
+        Reflections reflections = new Reflections("com.wcs.maven.designxsd.customcomponent.samepackageprefix");
+        PackageDiscoverer discoverer = new PackageDiscoverer(reflections);
+        DesignContext designContext = discoverer.discovery();
+        Collection<String> packagePrefixes = designContext.getPackagePrefixes();
+
+        Mockito.verify(logger, Mockito.never()).warning(Mockito.anyString());
+
+        Assert.assertTrue(packagePrefixes.contains("custom"));
+
+        String packageName = designContext.getPackage("custom");
+        Assert.assertEquals("com.wcs.maven.designxsd.customcomponent.samepackageprefix", packageName);
+    }
+
+    static void setFinalStatic(Field field, Object newValue) throws Exception {
+        field.setAccessible(true);
+        Field modifiersField = Field.class.getDeclaredField("modifiers");
+        modifiersField.setAccessible(true);
+        modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+        field.set(null, newValue);
+    }
 }

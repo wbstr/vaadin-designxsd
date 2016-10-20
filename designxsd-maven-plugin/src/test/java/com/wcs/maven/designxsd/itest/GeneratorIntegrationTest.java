@@ -15,7 +15,14 @@
  */
 package com.wcs.maven.designxsd.itest;
 
+import com.vaadin.ui.Component;
+import com.wcs.maven.designxsd.GeneratedSchema;
+import com.wcs.maven.designxsd.Generator;
+import com.wcs.maven.designxsd.OutputFilesWriter;
+import java.util.Collection;
+import java.util.Set;
 import org.junit.Test;
+import org.reflections.Reflections;
 
 /**
  *
@@ -25,22 +32,22 @@ public class GeneratorIntegrationTest {
 
     @Test
     public void testGenerate() throws Exception {
-//        String destination = "target";
-//
-//        OutputFilesWriter outputFilesWriter = new OutputFilesWriter(destination);
-//
-//        Generator generator = new Generator(new Generator.GeneratedSchemaFactory(new DesignContext()));
-//        GeneratedSchema generatedSchema = generator.generate("com.vaadin.ui");
-//        outputFilesWriter.appendToMainXsd(generatedSchema);
-//        
-//        PackageDiscoverer packageDiscoverer = new PackageDiscoverer();
-//        DesignContext designContext = packageDiscoverer.discovery();
-//        generator = new Generator(new Generator.GeneratedSchemaFactory(designContext));
-//        generatedSchema = generator.generate();
-//        outputFilesWriter.appendToMainXsd(generatedSchema);
-//        
-//        
-//        outputFilesWriter.wirteMainXsd();
+        String destination = "target";
+
+        Reflections reflections = new Reflections("com.vaadin.ui");
+        Set<Class<? extends Component>> allComponentClass = reflections.getSubTypesOf(Component.class);
+        Generator generator = Generator.create(reflections);
+        for (Class<? extends Component> componentClass : allComponentClass) {
+            generator.generate(componentClass);
+        }
+
+        OutputFilesWriter outputFilesWriter = new OutputFilesWriter(destination);
+        Collection<GeneratedSchema> generatedSchemas = generator.getGeneratedSchemas();
+        for (GeneratedSchema generatedSchema : generatedSchemas) {
+            outputFilesWriter.appendToMainXsd(generatedSchema);
+        }
+
+        outputFilesWriter.wirteMainXsd();
 
         /*        SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
         Validator validator = factory.newSchema().newValidator();

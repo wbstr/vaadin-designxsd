@@ -52,7 +52,7 @@ public class DesignXsdMojo extends AbstractMojo {
 
         Reflections reflections = new Reflections();
         Set<Class<? extends Component>> allComponentClass = reflections.getSubTypesOf(Component.class);
-        Generator generator = Generator.create();
+        Generator generator = Generator.create(reflections);
         for (Class<? extends Component> componentClass : allComponentClass) {
             generator.generate(componentClass);
         }

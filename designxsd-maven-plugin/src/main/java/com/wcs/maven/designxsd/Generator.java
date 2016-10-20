@@ -15,15 +15,16 @@
  */
 package com.wcs.maven.designxsd;
 
-import com.wcs.maven.designxsd.discoverer.PackageDiscoverer;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.declarative.DesignContext;
 import com.wcs.maven.designxsd.attributebuilder.AttributeBuilderFactory;
 import com.wcs.maven.designxsd.baseattributegroup.BaseAttributeGroupMngr;
 import com.wcs.maven.designxsd.baseattributegroup.BaseSchema;
+import com.wcs.maven.designxsd.discoverer.PackageDiscoverer;
 import com.wcs.maven.designxsd.elementbuilder.ElementBuilderFactory;
 import java.util.*;
 import org.apache.ws.commons.schema.*;
+import org.reflections.Reflections;
 
 /**
  * @author kumm
@@ -33,12 +34,12 @@ public class Generator {
     private final Map<String, GeneratedSchema> generatedSchemas = new TreeMap<>();
     private final ElementBuilderFactory elementBuilderFactory;
 
-    public static Generator create() {
+    public static Generator create(Reflections reflections) {
         XmlSchema baseXsd = SchemaLoader.load("design-base.xsd");
         BaseSchema baseSchema = new BaseSchema(baseXsd);
         BaseAttributeGroupMngr baseAttributeGroupMngr = new BaseAttributeGroupMngr(baseSchema);
         AttributeBuilderFactory attributeBuilderFactory = new AttributeBuilderFactory();
-        PackageDiscoverer packageDiscoverer = new PackageDiscoverer();
+        PackageDiscoverer packageDiscoverer = new PackageDiscoverer(reflections);
         DesignContext designContext = packageDiscoverer.discovery();
         ElementBuilderFactory elementBuilderFactory
                 = new ElementBuilderFactory(attributeBuilderFactory, baseAttributeGroupMngr, designContext);

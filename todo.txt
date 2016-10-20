@@ -1,4 +1,3 @@
 - Msg?
 - logok megszüntetése
-- tesztek életre keltése
 - v prefix bekapcsolása
