@@ -1,3 +1,4 @@
 - Msg?
-- option tag kezelés
-- xhtml jobb lenne?
+- logok megszüntetése
+- tesztek életre keltése
+- v prefix bekapcsolása
