@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.reflections.Reflections;
 
@@ -46,7 +47,7 @@ public class PackageDiscoverer {
     public PackageDiscoverer(Reflections reflections) {
         this.reflections = reflections;
     }
-    
+
     public DesignContext discovery(boolean legacyPrefixEnabled) {
         packages = new HashMap<>();
         Set<Class<?>> designRoots = collectDesignRoots();
@@ -59,9 +60,18 @@ public class PackageDiscoverer {
 
         return buildDesignContext(legacyPrefixEnabled);
     }
-    
+
     private void collectPrefixes(Component c) {
-        DesignContext designContext = Design.read(c);
+        DesignContext designContext;
+        try {
+            designContext = Design.read(c);
+        } catch (Exception ex) {
+            String msg = "Xsd attribute generation skipped. Can not read component."
+                    + "Component name: " + c.getClass().getName();
+            LOGGER.log(Level.WARNING, msg, ex);
+            return;
+        }
+
         for (String packagePrefix : designContext.getPackagePrefixes()) {
             if (!DEFAULT_PREFIXES.contains(packagePrefix)) {
                 String packageName = designContext.getPackage(packagePrefix);
@@ -101,7 +111,7 @@ public class PackageDiscoverer {
         }
         return designContext;
     }
-    
+
     private class LegacyDesignContext extends DesignContext {
 
         final boolean legacyPrefixEnabled;
@@ -109,11 +119,11 @@ public class PackageDiscoverer {
         public LegacyDesignContext(boolean legacyPrefixEnabled) {
             this.legacyPrefixEnabled = legacyPrefixEnabled;
         }
-        
+
         @Override
         protected boolean isLegacyPrefixEnabled() {
             return legacyPrefixEnabled;
         }
-        
+
     }
 }
