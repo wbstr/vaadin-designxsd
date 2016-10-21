@@ -51,12 +51,18 @@ public class PackageDiscoverer {
     public DesignContext discovery(boolean legacyPrefixEnabled) {
         packages = new HashMap<>();
         Set<Class<?>> designRoots = collectDesignRoots();
-        designRoots.stream()
-                .filter(Component.class::isAssignableFrom)
-                .forEach(designRoot -> {
+        for (Class<?> designRoot : designRoots) {
+            if (Component.class.isAssignableFrom(designRoot)) {
+                try {
                     Component c = newIstance((Class<? extends Component>) designRoot);
                     collectPrefixes(c);
-                });
+                } catch (Exception ex) {
+                    String msg = "Xsd attribute generation skipped. Can not read component."
+                            + "Component name: " + designRoot.getClass().getName();
+                    LOGGER.log(Level.WARNING, msg, ex);
+                }
+            }
+        }
 
         return buildDesignContext(legacyPrefixEnabled);
     }
@@ -66,10 +72,7 @@ public class PackageDiscoverer {
         try {
             designContext = Design.read(c);
         } catch (Exception ex) {
-            String msg = "Xsd attribute generation skipped. Can not read component."
-                    + "Component name: " + c.getClass().getName();
-            LOGGER.log(Level.WARNING, msg, ex);
-            return;
+            throw ex;
         }
 
         for (String packagePrefix : designContext.getPackagePrefixes()) {

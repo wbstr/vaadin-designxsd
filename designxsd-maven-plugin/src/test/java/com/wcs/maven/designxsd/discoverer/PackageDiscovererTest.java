@@ -99,6 +99,19 @@ public class PackageDiscovererTest {
         String tagName = Design.getComponentMapper().componentToTag(new Window(), designContext);
         Assert.assertEquals("vaadin-window", tagName);
     }
+    
+    @Test
+    public void testExceptionHandle() throws Exception {
+        Logger logger = Mockito.mock(Logger.class);
+        setFinalStatic(PackageDiscoverer.class.getDeclaredField("LOGGER"), logger);
+        
+        Reflections reflections = new Reflections("com.wcs.maven.designxsd.customcomponent.exception");
+        PackageDiscoverer discoverer = new PackageDiscoverer(reflections);
+        DesignContext designContext = discoverer.discovery(false);
+        
+        Assert.assertNotNull(designContext);
+    }
+    
 
     static void setFinalStatic(Field field, Object newValue) throws Exception {
         field.setAccessible(true);
