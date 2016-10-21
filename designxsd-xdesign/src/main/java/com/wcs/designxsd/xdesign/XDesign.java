@@ -46,7 +46,7 @@ public class XDesign {
         }
     }
 
-    public static void processCustomAttributes(Component c, DesignContext designContext) {
+    private static void processCustomAttributes(Component c, DesignContext designContext) {
         Map<String, String> customAttribute = designContext.getCustomAttributes(c);
         if (customAttribute == null) {
             return;
