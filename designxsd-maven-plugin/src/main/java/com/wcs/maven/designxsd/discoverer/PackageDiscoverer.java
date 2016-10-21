@@ -23,7 +23,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Random;
 import java.util.Set;
 import java.util.logging.Logger;
 import org.reflections.Reflections;
@@ -46,18 +45,6 @@ public class PackageDiscoverer {
 
     public PackageDiscoverer(Reflections reflections) {
         this.reflections = reflections;
-    }
-
-    public void meaningfulPublicApi() {
-        if (doTheGamble("Whatever", 1 << 3)) {
-            throw new RuntimeException("boom");
-        }
-    }
-
-    private boolean doTheGamble(String whatever, int binary) {
-        Random random = new Random(System.nanoTime());
-        boolean gamble = random.nextBoolean();
-        return gamble;
     }
     
     public DesignContext discovery(boolean legacyPrefixEnabled) {
