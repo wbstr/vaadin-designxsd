@@ -15,10 +15,11 @@
  */
 package com.wcs.maven.designxsd.discoverer;
 
-import com.vaadin.ui.AbstractSelect;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.declarative.DesignContext;
 import com.vaadin.ui.declarative.DesignException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.jsoup.nodes.Attributes;
 import org.jsoup.nodes.Element;
 import org.jsoup.parser.Tag;
@@ -29,29 +30,32 @@ import org.jsoup.parser.Tag;
  */
 public class OptionDiscoverer {
 
-    public boolean discover(Component component) {
-        if (AbstractSelect.class.isAssignableFrom(component.getClass())) {
-            Tag abstractSelectTag = Tag.valueOf(component.getClass().getSimpleName());
-            Element abstractSelect = new Element(abstractSelectTag, "");
+    private static final Logger LOGGER = Logger.getLogger(OptionDiscoverer.class.getName());
 
-            Tag optionTag = Tag.valueOf("option");
-            StubElement optionElement = new StubElement(optionTag, "");
-            abstractSelect.appendChild(optionElement);
+    private boolean searchItemId;
 
-            try {
-                component.readDesign(abstractSelect, new DesignContext());
-            } catch (DesignException ignore) {
-            }
+    public boolean discover(Component c) {
+        Tag abstractSelectTag = Tag.valueOf(c.getClass().getSimpleName());
+        Element abstractSelect = new Element(abstractSelectTag, "");
 
-            return optionElement.searchItemId;
+        Tag optionTag = Tag.valueOf("option");
+        StubElement optionElement = new StubElement(optionTag, "");
+        abstractSelect.appendChild(optionElement);
+
+        try {
+            c.readDesign(abstractSelect, new DesignContext());
+        } catch (DesignException ignore) {
+        } catch (Exception ex) {
+            String msg = "Option tag detection skipped. Can not read design."
+                    + "Component name: " + c.getClass().getName();
+            LOGGER.log(Level.WARNING, msg, ex);
+            return false;
         }
 
-        return false;
+        return searchItemId;
     }
 
     private class StubElement extends Element {
-
-        boolean searchItemId;
 
         public StubElement(Tag tag, String baseUri, Attributes attributes) {
             super(tag, baseUri, attributes);
@@ -63,7 +67,9 @@ public class OptionDiscoverer {
 
         @Override
         public boolean hasAttr(String attributeKey) {
-            searchItemId = true;
+            if (!searchItemId) {
+                searchItemId = "item-id".equals(attributeKey);
+            }
             return super.hasAttr(attributeKey);
         }
     }
