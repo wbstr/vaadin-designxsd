@@ -16,16 +16,60 @@
 package com.wcs.maven.designxsd.discoverer;
 
 import com.vaadin.ui.Component;
-import com.vaadin.ui.Tree;
+import com.vaadin.ui.declarative.DesignContext;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.jsoup.nodes.Attributes;
+import org.jsoup.nodes.Element;
+import org.jsoup.parser.Tag;
 
 /**
  *
  * @author lali
  */
 public class NodeDiscoverer {
-    
+
+    private static final Logger LOGGER = Logger.getLogger(NodeDiscoverer.class.getName());
+
+    private boolean searchNode;
+
     public boolean discover(Component component) {
-        return Tree.class.isAssignableFrom(component.getClass());
+        Tag componentTag = Tag.valueOf("v-" + component.getClass().getSimpleName());
+        Element componentElement = new Element(componentTag, "");
+
+        Tag nodeTag = Tag.valueOf("node");
+        StubElement nodeElement = new StubElement(nodeTag, "");
+        componentElement.appendChild(nodeElement);
+
+        try {
+            component.readDesign(componentElement, new DesignContext());
+        } catch (Exception ex) {
+            String msg = "Node tag detection skipped. Can not read design."
+                    + "Component name: " + component.getClass().getName();
+            LOGGER.log(Level.WARNING, msg, ex);
+            return false;
+        }
+
+        return searchNode;
     }
-    
+
+    private class StubElement extends Element {
+
+        public StubElement(Tag tag, String baseUri, Attributes attributes) {
+            super(tag, baseUri, attributes);
+        }
+
+        public StubElement(Tag tag, String baseUri) {
+            super(tag, baseUri);
+        }
+
+        @Override
+        public String attr(String attributeKey) {
+            if (!searchNode) {
+                // text attribute lesz az item-id
+                searchNode = "text".equals(attributeKey);
+            }
+            return super.attr(attributeKey);
+        }
+    }
 }
