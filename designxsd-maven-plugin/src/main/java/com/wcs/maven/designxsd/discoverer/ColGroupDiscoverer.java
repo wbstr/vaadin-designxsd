@@ -16,42 +16,53 @@
 package com.wcs.maven.designxsd.discoverer;
 
 import com.vaadin.ui.Component;
-import com.vaadin.ui.Table;
 import com.vaadin.ui.declarative.DesignContext;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.jsoup.nodes.Attributes;
 import org.jsoup.nodes.Element;
 import org.jsoup.parser.Tag;
+import org.jsoup.select.Elements;
 
 /**
  *
  * @author lali
  */
 public class ColGroupDiscoverer {
+    
+    private static final Logger LOGGER = Logger.getLogger(ColGroupDiscoverer.class.getName());
+    
+    private boolean searchColGroup;
 
     public boolean discover(Component component) {
-        if(Table.class.isAssignableFrom(component.getClass())) {
-            Tag tableTag = Tag.valueOf(component.getClass().getSimpleName());
-            Element tableElement = new Element(tableTag, "");
-            
-            Tag colgroupTag = Tag.valueOf("colgroup");
-            Element colgroupElement = new Element(colgroupTag, "");
-            tableElement.appendChild(colgroupElement);
-            
-            Tag colTag = Tag.valueOf("col");
-            StubElement colElement = new StubElement(colTag, "");
-            colgroupElement.appendChild(colElement);
-            
-            component.readDesign(colElement, new DesignContext());
-            
-            return colElement.searchItemId;
+        Tag componentTag = Tag.valueOf("v-" + component.getClass().getSimpleName());
+        StubElement componentElement = new StubElement(componentTag, "");
+
+        Tag tableTag = Tag.valueOf("table");
+        StubElement tableElement = new StubElement(tableTag, "");
+        componentElement.appendChild(tableElement);
+
+        Tag colgroupTag = Tag.valueOf("colgroup");
+        StubElement colgroupElement = new StubElement(colgroupTag, "");
+        tableElement.appendChild(colgroupElement);
+
+        Tag colTag = Tag.valueOf("col");
+        StubElement colElement = new StubElement(colTag, "");
+        colgroupElement.appendChild(colElement);
+
+        try {
+            component.readDesign(componentElement, new DesignContext());
+        } catch (Exception ex) {
+            String msg = "Colgroup search skipped. Can not read component."
+                    + "Component name: " + component.getClass().getName();
+            LOGGER.log(Level.WARNING, msg, ex);
+            return false;
         }
-        
-        return false;
+
+        return searchColGroup;
     }
 
     private class StubElement extends Element {
-
-        boolean searchItemId;
 
         public StubElement(Tag tag, String baseUri, Attributes attributes) {
             super(tag, baseUri, attributes);
@@ -62,9 +73,19 @@ public class ColGroupDiscoverer {
         }
 
         @Override
-        public boolean hasAttr(String attributeKey) {
-            searchItemId = true;
-            return super.hasAttr(attributeKey);
+        public Elements getElementsByTag(String tagName) {
+            if (!searchColGroup) {
+                searchColGroup = "colgroup".equals(tagName);
+            }
+            return super.getElementsByTag(tagName);
+        }
+
+        @Override
+        public Elements select(String cssQuery) {
+            if (!searchColGroup) {
+                searchColGroup = cssQuery.contains("colgroup");
+            }
+            return super.select(cssQuery);
         }
     }
 }
