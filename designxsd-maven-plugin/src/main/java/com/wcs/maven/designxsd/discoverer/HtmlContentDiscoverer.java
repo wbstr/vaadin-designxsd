@@ -17,6 +17,8 @@ package com.wcs.maven.designxsd.discoverer;
 
 import com.vaadin.ui.Component;
 import com.vaadin.ui.declarative.DesignContext;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.jsoup.nodes.Attributes;
 import org.jsoup.nodes.Element;
 import org.jsoup.parser.Tag;
@@ -27,10 +29,20 @@ import org.jsoup.parser.Tag;
  */
 public class HtmlContentDiscoverer {
 
-    public boolean hasHtmlContent(Component component) {
+    private static final Logger LOGGER = Logger.getLogger(HtmlContentDiscoverer.class.getName());
+    
+    public boolean discover(Component component) {
         Tag tag = Tag.valueOf(component.getClass().getSimpleName());
         StubElement stubDesign = new StubElement(tag, "");
-        component.readDesign(stubDesign, new DesignContext());
+
+        try {
+            component.readDesign(stubDesign, new DesignContext());
+        } catch (Exception ex) {
+            String msg = "Html content search skipped. Can not read component."
+                    + "Component name: " + component.getClass().getName();
+            LOGGER.log(Level.WARNING, msg, ex);
+            return false;
+        }
 
         return stubDesign.htmlContentAllowed;
     }

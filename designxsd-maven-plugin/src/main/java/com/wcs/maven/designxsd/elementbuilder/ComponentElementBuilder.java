@@ -116,7 +116,7 @@ public class ComponentElementBuilder implements ElementBuilder {
 
     private XmlSchemaComplexType createElementType(Component component) {
         XmlSchemaComplexType type = new XmlSchemaComplexType(schema);
-        boolean hasHtmlContent = new HtmlContentDiscoverer().hasHtmlContent(component);
+        boolean hasHtmlContent = new HtmlContentDiscoverer().discover(component);
 
         if (hasHtmlContent) {
             type.setMixed(true);
