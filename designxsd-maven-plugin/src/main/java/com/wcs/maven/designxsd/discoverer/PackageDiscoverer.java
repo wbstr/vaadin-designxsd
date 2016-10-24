@@ -58,7 +58,7 @@ public class PackageDiscoverer {
                     collectPrefixes(c);
                 } catch (Exception ex) {
                     String msg = "Xsd attribute generation skipped. Can not read component."
-                            + "Component name: " + designRoot.getClass().getName();
+                            + "Component name: " + designRoot.getName();
                     LOGGER.log(Level.WARNING, msg, ex);
                 }
             }
