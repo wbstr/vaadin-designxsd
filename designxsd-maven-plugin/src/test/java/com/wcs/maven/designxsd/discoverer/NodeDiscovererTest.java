@@ -15,6 +15,7 @@
  */
 package com.wcs.maven.designxsd.discoverer;
 
+import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.Tree;
 import org.junit.Assert;
 import org.junit.Test;
@@ -24,13 +25,20 @@ import org.junit.Test;
  * @author lali
  */
 public class NodeDiscovererTest {
-    
+
     @Test
     public void testTree() {
         NodeDiscoverer discoverer = new NodeDiscoverer();
         boolean useNodeTag = discoverer.discover(new Tree());
-        
+
         Assert.assertTrue(useNodeTag);
     }
-    
+
+    @Test
+    public void testTabSheet() {
+        NodeDiscoverer discoverer = new NodeDiscoverer();
+        boolean useNodeTag = discoverer.discover(new TabSheet());
+
+        Assert.assertFalse(useNodeTag);
+    }
 }
