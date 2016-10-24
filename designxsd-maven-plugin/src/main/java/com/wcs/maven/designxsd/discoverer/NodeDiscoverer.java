@@ -17,7 +17,6 @@ package com.wcs.maven.designxsd.discoverer;
 
 import com.vaadin.ui.Component;
 import com.vaadin.ui.declarative.DesignContext;
-import com.vaadin.ui.declarative.DesignException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.jsoup.nodes.Attributes;
@@ -44,11 +43,13 @@ public class NodeDiscoverer {
 
         try {
             component.readDesign(componentElement, new DesignContext());
-        } catch (DesignException ignore) { // TabSheet
         } catch (Exception ex) {
-            String msg = "Node tag detection skipped. Can not read design."
-                    + "Component name: " + component.getClass().getName();
-            LOGGER.log(Level.WARNING, msg, ex);
+            String packageName = component.getClass().getPackage().getName();
+            if (!packageName.startsWith("com.vaadin.ui")) {
+                String msg = "Node tag detection skipped. Can not read design."
+                        + "Component name: " + component.getClass().getName();
+                LOGGER.log(Level.WARNING, msg, ex);
+            }
             return false;
         }
 

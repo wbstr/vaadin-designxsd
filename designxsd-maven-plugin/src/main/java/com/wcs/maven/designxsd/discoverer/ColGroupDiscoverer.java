@@ -29,9 +29,9 @@ import org.jsoup.select.Elements;
  * @author lali
  */
 public class ColGroupDiscoverer {
-    
+
     private static final Logger LOGGER = Logger.getLogger(ColGroupDiscoverer.class.getName());
-    
+
     private boolean searchColGroup;
 
     public boolean discover(Component component) {
@@ -53,9 +53,12 @@ public class ColGroupDiscoverer {
         try {
             component.readDesign(componentElement, new DesignContext());
         } catch (Exception ex) {
-            String msg = "Colgroup search skipped. Can not read component."
-                    + "Component name: " + component.getClass().getName();
-            LOGGER.log(Level.WARNING, msg, ex);
+            String packageName = component.getClass().getPackage().getName();
+            if (!packageName.startsWith("com.vaadin.ui")) {
+                String msg = "Colgroup search skipped. Can not read component."
+                        + "Component name: " + component.getClass().getName();
+                LOGGER.log(Level.WARNING, msg, ex);
+            }
             return false;
         }
 

@@ -16,8 +16,10 @@
 package com.wcs.maven.designxsd.discoverer;
 
 import com.vaadin.ui.Grid;
+import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.TreeTable;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
@@ -26,28 +28,36 @@ import org.junit.Test;
  * @author lali
  */
 public class ColGroupDiscovererTest {
-    
+
     @Test
     public void testTable() {
         ColGroupDiscoverer discoverer = new ColGroupDiscoverer();
         boolean hasColGroup = discoverer.discover(new Table());
-        
+
         assertTrue(hasColGroup);
     }
-    
+
     @Test
     public void testTreeTable() {
         ColGroupDiscoverer discoverer = new ColGroupDiscoverer();
         boolean hasColGroup = discoverer.discover(new TreeTable());
-        
+
         assertTrue(hasColGroup);
     }
-    
+
     @Test
     public void testGrid() {
         ColGroupDiscoverer discoverer = new ColGroupDiscoverer();
         boolean hasColGroup = discoverer.discover(new Grid());
-        
+
         assertTrue(hasColGroup);
+    }
+
+    @Test
+    public void testHorizontalLayout() {
+        ColGroupDiscoverer discoverer = new ColGroupDiscoverer();
+        boolean hasColGroup = discoverer.discover(new HorizontalLayout());
+
+        assertFalse(hasColGroup);
     }
 }
