@@ -18,11 +18,13 @@ import org.jsoup.nodes.Attributes;
  */
 public class XDesign {
 
-    private static final String EXPAND_ATTRIBUTE_NAME = "_expand";
-    private static final String ALIGN_MIDDLE = "_middle";
-    private static final String ALIGN_BOTTOM = "_bottom";
-    private static final String ALIGN_CENTER = "_center";
-    private static final String ALIGN_RIGHT = "_right";
+    private static final String X_PARENT_PREFIX = "_";
+    private static final String V_PARENT_PREFIX = ":";
+    private static final String EXPAND_ATTRIBUTE_NAME = X_PARENT_PREFIX + "expand";
+    private static final String ALIGN_MIDDLE = X_PARENT_PREFIX + "middle";
+    private static final String ALIGN_BOTTOM = X_PARENT_PREFIX + "bottom";
+    private static final String ALIGN_CENTER = X_PARENT_PREFIX + "center";
+    private static final String ALIGN_RIGHT = X_PARENT_PREFIX + "right";
 
     public static DesignContext read(Component rootComponent) {
         DesignContext designContext = Design.read(rootComponent);
@@ -84,6 +86,7 @@ public class XDesign {
                 case ALIGN_BOTTOM:
                 case ALIGN_CENTER:
                 case ALIGN_RIGHT:
+                    key = key.replace(X_PARENT_PREFIX, V_PARENT_PREFIX);
                     attributes.put(key, value);
                     break;
             }
