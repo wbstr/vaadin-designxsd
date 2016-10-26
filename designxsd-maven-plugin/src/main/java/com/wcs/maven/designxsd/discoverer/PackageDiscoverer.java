@@ -19,6 +19,7 @@ import com.vaadin.annotations.DesignRoot;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.declarative.Design;
 import com.vaadin.ui.declarative.DesignContext;
+import java.io.InputStream;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -51,28 +52,46 @@ public class PackageDiscoverer {
     public DesignContext discovery(boolean legacyPrefixEnabled) {
         packages = new HashMap<>();
         Set<Class<?>> designRoots = collectDesignRoots();
-        for (Class<?> designRoot : designRoots) {
-            if (Component.class.isAssignableFrom(designRoot)) {
-                try {
-                    Component c = newIstance((Class<? extends Component>) designRoot);
-                    collectPrefixes(c);
-                } catch (Exception ex) {
-                    String msg = "Xsd attribute generation skipped. Can not read component."
-                            + "Component name: " + designRoot.getName();
-                    LOGGER.log(Level.WARNING, msg, ex);
-                }
+        for (Class<?> annotatedClass : designRoots) {
+            InputStream stream = openDesignFile(annotatedClass);
+            if (stream != null) {
+                collectPrefixes(stream, annotatedClass);
             }
         }
 
         return buildDesignContext(legacyPrefixEnabled);
     }
 
-    private void collectPrefixes(Component c) {
+    private InputStream openDesignFile(Class<?> annotatedClass) {
+        DesignRoot designAnnotation = annotatedClass
+                .getAnnotation(DesignRoot.class);
+
+        String filename = designAnnotation.value();
+        if (filename.equals("")) {
+            // No value, assume the html file is named as the class
+            filename = annotatedClass.getSimpleName() + ".html";
+        }
+
+        InputStream stream = annotatedClass.getResourceAsStream(filename);
+        if (stream == null) {
+            String msg = "Unable to find design file " + filename
+                    + " in " + annotatedClass.getPackage().getName();
+            LOGGER.log(Level.WARNING, msg);
+        }
+
+        return stream;
+    }
+
+    private void collectPrefixes(InputStream stream, Class<?> annotatedClass) {
         DesignContext designContext;
         try {
-            designContext = Design.read(c);
+            designContext = Design.read(stream, null);
         } catch (Exception ex) {
-            throw ex;
+            LOGGER.log(Level.WARNING,
+                    "Package discover skipped. Component name: "
+                    + annotatedClass.getName(),
+                    ex);
+            return;
         }
 
         for (String packagePrefix : designContext.getPackagePrefixes()) {
