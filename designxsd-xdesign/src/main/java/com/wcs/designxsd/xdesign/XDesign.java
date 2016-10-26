@@ -7,6 +7,7 @@ import com.vaadin.ui.HasComponents;
 import com.vaadin.ui.declarative.Design;
 import com.vaadin.ui.declarative.DesignAttributeHandler;
 import com.vaadin.ui.declarative.DesignContext;
+import java.io.InputStream;
 import java.util.Iterator;
 import java.util.Map;
 import org.jsoup.nodes.Attributes;
@@ -23,12 +24,30 @@ public class XDesign {
     private static final String ALIGN_CENTER = "_center";
     private static final String ALIGN_RIGHT = "_right";
 
-    public static DesignContext read(Component component) {
-        DesignContext designContext = Design.read(component);
+    public static DesignContext read(Component rootComponent) {
+        DesignContext designContext = Design.read(rootComponent);
+        processCustomAttributes(designContext);
+        return designContext;
+    }
+    
+    public static DesignContext read(String filename, Component rootComponent) {
+        DesignContext designContext = Design.read(filename, rootComponent);
+        processCustomAttributes(designContext);
+        return designContext;
+    }
+    
+    public static DesignContext read(InputStream stream, Component rootComponent) {
+        DesignContext designContext = Design.read(stream, rootComponent);
         processCustomAttributes(designContext);
         return designContext;
     }
 
+    public static Component read(InputStream design) {
+        DesignContext designContext = read(design, null);
+        processCustomAttributes(designContext);
+        return designContext.getRootComponent();
+    }
+    
     private static void processCustomAttributes(DesignContext designContext) {
         Component rootComponent = designContext.getRootComponent();
         stepNext(rootComponent, designContext);
