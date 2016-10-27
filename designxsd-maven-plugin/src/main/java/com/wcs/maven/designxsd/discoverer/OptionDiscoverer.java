@@ -17,7 +17,6 @@ package com.wcs.maven.designxsd.discoverer;
 
 import com.vaadin.ui.Component;
 import com.vaadin.ui.declarative.DesignContext;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.jsoup.nodes.Attributes;
 import org.jsoup.nodes.Element;
@@ -45,12 +44,6 @@ public class OptionDiscoverer {
             c.readDesign(abstractSelect, new DesignContext());
 
         } catch (Exception ex) {
-            String packageName = c.getClass().getPackage().getName();
-            if (!packageName.startsWith("com.vaadin.ui")) {
-                String msg = "Option tag detection skipped. Can not read design."
-                        + "Component name: " + c.getClass().getName();
-                LOGGER.log(Level.WARNING, msg, ex);
-            }
             return false;
         }
 

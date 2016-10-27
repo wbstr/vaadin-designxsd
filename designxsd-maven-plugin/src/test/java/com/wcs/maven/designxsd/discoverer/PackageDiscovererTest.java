@@ -21,6 +21,7 @@ import com.vaadin.ui.declarative.DesignContext;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Collection;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.Assert;
 import org.junit.Test;
@@ -56,8 +57,8 @@ public class PackageDiscovererTest {
         DesignContext designContext = discoverer.discovery(true);
         Collection<String> packagePrefixes = designContext.getPackagePrefixes();
 
-        Mockito.verify(logger, Mockito.times(1)).warning(Mockito.anyString());
-        Mockito.verify(logger, Mockito.only()).warning(Mockito.anyString());
+        Mockito.verify(logger, Mockito.times(1)).log(Mockito.any(Level.class), Mockito.anyString(), Mockito.any(PackageDiscovererException.class));
+        Mockito.verify(logger, Mockito.only()).log(Mockito.any(Level.class), Mockito.anyString(), Mockito.any(PackageDiscovererException.class));
 
         Assert.assertTrue(packagePrefixes.contains("custom"));
     }

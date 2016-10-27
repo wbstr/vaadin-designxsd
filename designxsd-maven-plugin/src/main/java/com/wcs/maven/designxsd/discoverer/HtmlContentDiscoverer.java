@@ -17,7 +17,6 @@ package com.wcs.maven.designxsd.discoverer;
 
 import com.vaadin.ui.Component;
 import com.vaadin.ui.declarative.DesignContext;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.jsoup.nodes.Attributes;
 import org.jsoup.nodes.Element;
@@ -38,9 +37,6 @@ public class HtmlContentDiscoverer {
         try {
             component.readDesign(stubDesign, new DesignContext());
         } catch (Exception ex) {
-            String msg = "Html content search skipped. Can not read component."
-                    + "Component name: " + component.getClass().getName();
-            LOGGER.log(Level.WARNING, msg, ex);
             return false;
         }
 

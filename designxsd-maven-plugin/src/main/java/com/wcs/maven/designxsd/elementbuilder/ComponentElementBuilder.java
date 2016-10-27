@@ -29,6 +29,8 @@ import com.wcs.maven.designxsd.discoverer.NodeDiscoverer;
 import com.wcs.maven.designxsd.discoverer.OptionDiscoverer;
 import java.util.Collection;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.xml.namespace.QName;
 import org.apache.ws.commons.schema.*;
 
@@ -38,6 +40,7 @@ import org.apache.ws.commons.schema.*;
  */
 public class ComponentElementBuilder implements ElementBuilder {
 
+    private static final Logger LOGGER = Logger.getLogger(ComponentElementBuilder.class.getName());
     private static final QName HTML_TAGS_GROUP = new QName("html-tags");
     private static final QName OPTION_TAG = new QName("option");
     private static final QName TABLE_TAG = new QName("table");
@@ -63,18 +66,22 @@ public class ComponentElementBuilder implements ElementBuilder {
         Component component;
         try {
             component = componentClass.newInstance();
-        } catch (InstantiationException | IllegalAccessException e) {
-            throw new RuntimeException(e);
+            element.setName(Design.getComponentMapper().componentToTag(component, designContext));
+            XmlSchemaComplexType type = createElementType(component);
+            element.setType(type);
+            final XmlSchemaObjectCollection typeAttributes = type.getAttributes();
+            for (BaseAttributeGroup baseAttributeGroup : attributeGroups) {
+                typeAttributes.add(newAttributeGroupRef(baseAttributeGroup));
+            }
+            appendAttributes(componentClass, typeAttributes);
+            return element;
+        } catch (Exception e) {
+            LOGGER.log(
+                    Level.WARNING,
+                    "Component build skipped. Component name: "
+                    + componentClass.getName(), e);
+            return null;
         }
-        element.setName(Design.getComponentMapper().componentToTag(component, designContext));
-        XmlSchemaComplexType type = createElementType(component);
-        element.setType(type);
-        final XmlSchemaObjectCollection typeAttributes = type.getAttributes();
-        for (BaseAttributeGroup baseAttributeGroup : attributeGroups) {
-            typeAttributes.add(newAttributeGroupRef(baseAttributeGroup));
-        }
-        appendAttributes(componentClass, typeAttributes);
-        return element;
     }
 
     private XmlSchemaAttributeGroupRef newAttributeGroupRef(BaseAttributeGroup baseAttributeGroup) {
@@ -83,24 +90,20 @@ public class ComponentElementBuilder implements ElementBuilder {
         return ref;
     }
 
-    private void appendAttributes(Class componentClass, XmlSchemaObjectCollection typeAttributes) {
-        try {
-            Component component = (Component) componentClass.newInstance();
-            AttributeDiscoverer attributeDiscoverer = new AttributeDiscoverer();
-            Map<String, Class> attributes = attributeDiscoverer.discovery(component);
+    private void appendAttributes(Class componentClass, XmlSchemaObjectCollection typeAttributes) throws InstantiationException, IllegalAccessException {
+        Component component = (Component) componentClass.newInstance();
+        AttributeDiscoverer attributeDiscoverer = new AttributeDiscoverer();
+        Map<String, Class> attributes = attributeDiscoverer.discovery(component);
 
-            for (Map.Entry<String, Class> entry : attributes.entrySet()) {
-                String propertyName = entry.getKey();
-                Class parameterType = entry.getValue();
+        for (Map.Entry<String, Class> entry : attributes.entrySet()) {
+            String propertyName = entry.getKey();
+            Class parameterType = entry.getValue();
 
-                if (!hasAttributeGroup(propertyName)) {
-                    AttributeBuilder attributeBuilder = attributeBuilderFactory.getAttributeBuilder(propertyName, parameterType);
-                    XmlSchemaAttribute xmlSchemaAttribute = attributeBuilder.buildAttribute(schema, propertyName, parameterType);
-                    typeAttributes.add(xmlSchemaAttribute);
-                }
+            if (!hasAttributeGroup(propertyName)) {
+                AttributeBuilder attributeBuilder = attributeBuilderFactory.getAttributeBuilder(propertyName, parameterType);
+                XmlSchemaAttribute xmlSchemaAttribute = attributeBuilder.buildAttribute(schema, propertyName, parameterType);
+                typeAttributes.add(xmlSchemaAttribute);
             }
-        } catch (InstantiationException | IllegalAccessException ex) {
-            throw new RuntimeException(ex);
         }
     }
 
@@ -139,7 +142,7 @@ public class ComponentElementBuilder implements ElementBuilder {
                 element.setMaxOccurs(Long.MAX_VALUE); // maxOccurs="unbounded"
                 sequence.getItems().add(element);
             }
-            
+
             if (hasColGroup) {
                 XmlSchemaElement element = new XmlSchemaElement();
                 element.setRefName(TABLE_TAG);
@@ -147,7 +150,7 @@ public class ComponentElementBuilder implements ElementBuilder {
                 element.setMaxOccurs(1);
                 sequence.getItems().add(element);
             }
-            
+
             if (hasNode) {
                 XmlSchemaElement element = new XmlSchemaElement();
                 element.setRefName(NODE_TAG);
