@@ -16,10 +16,9 @@
 package com.wcs.maven.designxsd.discoverer;
 
 import com.vaadin.annotations.DesignRoot;
-import com.vaadin.ui.Component;
 import com.vaadin.ui.declarative.Design;
 import com.vaadin.ui.declarative.DesignContext;
-import java.lang.reflect.Constructor;
+import java.io.InputStream;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -55,7 +54,8 @@ public class PackageDiscoverer {
         Set<Class<?>> designRoots = reflections.getTypesAnnotatedWith(DesignRoot.class);
         for (Class<?> annotatedClass : designRoots) {
             try {
-                DesignContext designContext = readDesign(annotatedClass);
+                InputStream designFile = readDesignFile(annotatedClass);
+                DesignContext designContext = createDesignContext(designFile);
                 collectPrefixes(designContext);
             } catch (PackageDiscovererException ex) {
                 LOGGER.log(Level.WARNING,
@@ -68,13 +68,29 @@ public class PackageDiscoverer {
         return buildDesignContext(legacyPrefixEnabled);
     }
 
-    private DesignContext readDesign(Class<?> annotatedClass) throws PackageDiscovererException {
+    private InputStream readDesignFile(Class<?> annotatedClass) throws PackageDiscovererException {
+        DesignRoot designAnnotation = annotatedClass
+                .getAnnotation(DesignRoot.class);
+        String filename = designAnnotation.value();
+        if (filename.equals("")) {
+            // No value, assume the html file is named as the class
+            filename = annotatedClass.getSimpleName() + ".html";
+        }
+
+        InputStream stream = annotatedClass.getResourceAsStream(filename);
+        if (stream == null) {
+            throw new PackageDiscovererException("Unable to find design file " + filename
+                    + " in " + annotatedClass.getPackage().getName());
+        }
+
+        return stream;
+    }
+    
+    private DesignContext createDesignContext(InputStream designFile) throws PackageDiscovererException {
         try {
-            Constructor<?> constructor = annotatedClass.getConstructor();
-            Component component = (Component) constructor.newInstance();
-            return Design.read(component);
-        } catch (Exception ex) {
-            throw new PackageDiscovererException(ex);
+            return Design.read(designFile, null);
+        } catch (Exception e) {
+            throw new PackageDiscovererException(e);
         }
     }
 
