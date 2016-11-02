@@ -29,7 +29,7 @@ public class NodeDiscovererTest {
     @Test
     public void testTree() {
         NodeDiscoverer discoverer = new NodeDiscoverer();
-        boolean useNodeTag = discoverer.discover(new Tree());
+        boolean useNodeTag = discoverer.discover(Tree.class);
 
         Assert.assertTrue(useNodeTag);
     }
@@ -37,7 +37,7 @@ public class NodeDiscovererTest {
     @Test
     public void testTabSheet() {
         NodeDiscoverer discoverer = new NodeDiscoverer();
-        boolean useNodeTag = discoverer.discover(new TabSheet());
+        boolean useNodeTag = discoverer.discover(TabSheet.class);
 
         Assert.assertFalse(useNodeTag);
     }

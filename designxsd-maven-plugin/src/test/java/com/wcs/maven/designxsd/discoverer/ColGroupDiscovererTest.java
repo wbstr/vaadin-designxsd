@@ -32,7 +32,7 @@ public class ColGroupDiscovererTest {
     @Test
     public void testTable() {
         ColGroupDiscoverer discoverer = new ColGroupDiscoverer();
-        boolean hasColGroup = discoverer.discover(new Table());
+        boolean hasColGroup = discoverer.discover(Table.class);
 
         assertTrue(hasColGroup);
     }
@@ -40,7 +40,7 @@ public class ColGroupDiscovererTest {
     @Test
     public void testTreeTable() {
         ColGroupDiscoverer discoverer = new ColGroupDiscoverer();
-        boolean hasColGroup = discoverer.discover(new TreeTable());
+        boolean hasColGroup = discoverer.discover(TreeTable.class);
 
         assertTrue(hasColGroup);
     }
@@ -48,7 +48,7 @@ public class ColGroupDiscovererTest {
     @Test
     public void testGrid() {
         ColGroupDiscoverer discoverer = new ColGroupDiscoverer();
-        boolean hasColGroup = discoverer.discover(new Grid());
+        boolean hasColGroup = discoverer.discover(Grid.class);
 
         assertTrue(hasColGroup);
     }
@@ -56,7 +56,7 @@ public class ColGroupDiscovererTest {
     @Test
     public void testHorizontalLayout() {
         ColGroupDiscoverer discoverer = new ColGroupDiscoverer();
-        boolean hasColGroup = discoverer.discover(new HorizontalLayout());
+        boolean hasColGroup = discoverer.discover(HorizontalLayout.class);
 
         assertFalse(hasColGroup);
     }

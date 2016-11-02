@@ -17,7 +17,6 @@ package com.wcs.maven.designxsd.discoverer;
 
 import com.vaadin.ui.Component;
 import com.vaadin.ui.declarative.DesignContext;
-import java.util.logging.Logger;
 import org.jsoup.nodes.Attributes;
 import org.jsoup.nodes.Element;
 import org.jsoup.parser.Tag;
@@ -28,10 +27,15 @@ import org.jsoup.parser.Tag;
  */
 public class HtmlContentDiscoverer {
 
-    private static final Logger LOGGER = Logger.getLogger(HtmlContentDiscoverer.class.getName());
-    
-    public boolean discover(Component component) {
-        Tag tag = Tag.valueOf(component.getClass().getSimpleName());
+    public boolean discover(Class<? extends Component> componentClass) {
+        Component component;
+        try {
+            component = componentClass.newInstance();
+        } catch (InstantiationException | IllegalAccessException ex) {
+            return false;
+        }
+        
+        Tag tag = Tag.valueOf("mock-" + component.getClass().getSimpleName().toLowerCase());
         StubElement stubDesign = new StubElement(tag, "");
 
         try {

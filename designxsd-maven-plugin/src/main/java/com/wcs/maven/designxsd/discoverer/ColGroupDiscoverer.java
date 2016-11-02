@@ -17,7 +17,6 @@ package com.wcs.maven.designxsd.discoverer;
 
 import com.vaadin.ui.Component;
 import com.vaadin.ui.declarative.DesignContext;
-import java.util.logging.Logger;
 import org.jsoup.nodes.Attributes;
 import org.jsoup.nodes.Element;
 import org.jsoup.parser.Tag;
@@ -29,12 +28,17 @@ import org.jsoup.select.Elements;
  */
 public class ColGroupDiscoverer {
 
-    private static final Logger LOGGER = Logger.getLogger(ColGroupDiscoverer.class.getName());
-
     private boolean searchColGroup;
 
-    public boolean discover(Component component) {
-        Tag componentTag = Tag.valueOf("v-" + component.getClass().getSimpleName());
+    public boolean discover(Class<? extends Component> componentClass) {
+        Component component;
+        try {
+            component = componentClass.newInstance();
+        } catch (InstantiationException | IllegalAccessException ex) {
+            return false;
+        }
+        
+        Tag componentTag = Tag.valueOf("mock-" + component.getClass().getSimpleName().toLowerCase());
         StubElement componentElement = new StubElement(componentTag, "");
 
         Tag tableTag = Tag.valueOf("table");

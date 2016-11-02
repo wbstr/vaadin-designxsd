@@ -22,7 +22,10 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.declarative.DesignContext;
 import com.wcs.maven.designxsd.attributebuilder.AttributeBuilderFactory;
 import com.wcs.maven.designxsd.baseattributegroup.BaseAttributeGroupMngr;
-
+import com.wcs.maven.designxsd.discoverer.ColGroupDiscoverer;
+import com.wcs.maven.designxsd.discoverer.HtmlContentDiscoverer;
+import com.wcs.maven.designxsd.discoverer.NodeDiscoverer;
+import com.wcs.maven.designxsd.discoverer.OptionDiscoverer;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 
@@ -42,19 +45,38 @@ public class ElementBuilderFactory {
     }
 
     public ElementBuilder getElementBuilder(Class<? extends Component> componentClass) {
-        if (!isVaadinComponentSupportedByClara(componentClass)) {
+        if (!isVaadinComponentSupportedByDesign(componentClass)) {
             return new NopElementBuilder();
         }
+
         if (ComponentContainer.class.isAssignableFrom(componentClass)) {
             return new ContainerElementBuilder(attributeBuilderFactory, baseAttributeGroupMngr, designContext);
         }
+
         if (SingleComponentContainer.class.isAssignableFrom(componentClass)) {
             return new SingleContainerElementBuilder(attributeBuilderFactory, baseAttributeGroupMngr, designContext);
         }
+
+        if (new HtmlContentDiscoverer().discover(componentClass)) {
+            return new HtmlComponentElementBuilder(attributeBuilderFactory, baseAttributeGroupMngr, designContext);
+        }
+
+        if (new OptionDiscoverer().discover(componentClass)) {
+            return new OptionComponentElementBuilder(attributeBuilderFactory, baseAttributeGroupMngr, designContext);
+        }
+
+        if (new ColGroupDiscoverer().discover(componentClass)) {
+            return new ColGroupComponentElementBuilder(attributeBuilderFactory, baseAttributeGroupMngr, designContext);
+        }
+
+        if (new NodeDiscoverer().discover(componentClass)) {
+            return new NodeComponentElementBuilder(attributeBuilderFactory, baseAttributeGroupMngr, designContext);
+        }
+
         return new ComponentElementBuilder(attributeBuilderFactory, baseAttributeGroupMngr, designContext);
     }
 
-    private boolean isVaadinComponentSupportedByClara(Class<? extends Component> componentClass) {
+    private boolean isVaadinComponentSupportedByDesign(Class<? extends Component> componentClass) {
         if (!Component.class.isAssignableFrom(componentClass)) {
             return false;
         }

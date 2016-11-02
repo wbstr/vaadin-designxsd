@@ -29,7 +29,7 @@ public class HtmlContentDiscovererTest {
     @Test
     public void testButton() {
         HtmlContentDiscoverer discoverer = new HtmlContentDiscoverer();
-        boolean hasHtmlContent = discoverer.discover(new Button());
+        boolean hasHtmlContent = discoverer.discover(Button.class);
 
         Assert.assertTrue(hasHtmlContent);
     }
@@ -37,7 +37,7 @@ public class HtmlContentDiscovererTest {
     @Test
     public void testLabel() {
         HtmlContentDiscoverer discoverer = new HtmlContentDiscoverer();
-        boolean hasHtmlContent = discoverer.discover(new Label());
+        boolean hasHtmlContent = discoverer.discover(Label.class);
 
         Assert.assertTrue(hasHtmlContent);
     }

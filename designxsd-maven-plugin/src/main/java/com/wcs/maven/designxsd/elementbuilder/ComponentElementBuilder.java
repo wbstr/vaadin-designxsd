@@ -23,15 +23,10 @@ import com.wcs.maven.designxsd.attributebuilder.AttributeBuilderFactory;
 import com.wcs.maven.designxsd.baseattributegroup.BaseAttributeGroup;
 import com.wcs.maven.designxsd.baseattributegroup.BaseAttributeGroupMngr;
 import com.wcs.maven.designxsd.discoverer.AttributeDiscoverer;
-import com.wcs.maven.designxsd.discoverer.ColGroupDiscoverer;
-import com.wcs.maven.designxsd.discoverer.HtmlContentDiscoverer;
-import com.wcs.maven.designxsd.discoverer.NodeDiscoverer;
-import com.wcs.maven.designxsd.discoverer.OptionDiscoverer;
 import java.util.Collection;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.xml.namespace.QName;
 import org.apache.ws.commons.schema.*;
 
 /**
@@ -41,10 +36,6 @@ import org.apache.ws.commons.schema.*;
 public class ComponentElementBuilder implements ElementBuilder {
 
     private static final Logger LOGGER = Logger.getLogger(ComponentElementBuilder.class.getName());
-    private static final QName HTML_TAGS_GROUP = new QName("html-tags");
-    private static final QName OPTION_TAG = new QName("option");
-    private static final QName TABLE_TAG = new QName("table");
-    private static final QName NODE_TAG = new QName("node");
 
     private Collection<BaseAttributeGroup> attributeGroups;
     private XmlSchema schema;
@@ -84,6 +75,10 @@ public class ComponentElementBuilder implements ElementBuilder {
         }
     }
 
+    protected XmlSchemaComplexType createElementType(Component component) {
+        return new XmlSchemaComplexType(schema);
+    }
+
     private XmlSchemaAttributeGroupRef newAttributeGroupRef(BaseAttributeGroup baseAttributeGroup) {
         XmlSchemaAttributeGroupRef ref = new XmlSchemaAttributeGroupRef();
         ref.setRefName(baseAttributeGroup.getName());
@@ -115,53 +110,5 @@ public class ComponentElementBuilder implements ElementBuilder {
         }
 
         return false;
-    }
-
-    private XmlSchemaComplexType createElementType(Component component) {
-        XmlSchemaComplexType type = new XmlSchemaComplexType(schema);
-        boolean hasHtmlContent = new HtmlContentDiscoverer().discover(component);
-
-        if (hasHtmlContent) {
-            type.setMixed(true);
-            XmlSchemaGroupRef groupRef = new XmlSchemaGroupRef();
-            groupRef.setRefName(HTML_TAGS_GROUP);
-            type.setParticle(groupRef);
-        }
-
-        boolean hasOptionTag = new OptionDiscoverer().discover(component);
-        boolean hasColGroup = new ColGroupDiscoverer().discover(component);
-        boolean hasNode = new NodeDiscoverer().discover(component);
-
-        if (hasOptionTag || hasColGroup || hasNode) {
-            XmlSchemaSequence sequence = new XmlSchemaSequence();
-
-            if (hasOptionTag) {
-                XmlSchemaElement element = new XmlSchemaElement();
-                element.setRefName(OPTION_TAG);
-                element.setMinOccurs(0);
-                element.setMaxOccurs(Long.MAX_VALUE); // maxOccurs="unbounded"
-                sequence.getItems().add(element);
-            }
-
-            if (hasColGroup) {
-                XmlSchemaElement element = new XmlSchemaElement();
-                element.setRefName(TABLE_TAG);
-                element.setMinOccurs(0);
-                element.setMaxOccurs(1);
-                sequence.getItems().add(element);
-            }
-
-            if (hasNode) {
-                XmlSchemaElement element = new XmlSchemaElement();
-                element.setRefName(NODE_TAG);
-                element.setMinOccurs(0);
-                element.setMaxOccurs(Long.MAX_VALUE); // maxOccurs="unbounded"
-                sequence.getItems().add(element);
-            }
-
-            type.setParticle(sequence);
-        }
-
-        return type;
     }
 }

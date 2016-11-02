@@ -36,70 +36,70 @@ public class OptionDiscovererTest {
 
     @Test
     public void testTable() {
-        boolean useOptionTag = testOption(new Table());
+        boolean useOptionTag = testOption(Table.class);
 
         Assert.assertFalse(useOptionTag);
     }
 
     @Test
     public void testTree() {
-        boolean useOptionTag = testOption(new Tree());
+        boolean useOptionTag = testOption(Tree.class);
 
         Assert.assertFalse(useOptionTag);
     }
 
     @Test
     public void testNativeSelect() {
-        boolean useOptionTag = testOption(new NativeSelect());
+        boolean useOptionTag = testOption(NativeSelect.class);
 
         Assert.assertTrue(useOptionTag);
     }
 
     @Test
     public void testSelect() {
-        boolean useOptionTag = testOption(new Select());
+        boolean useOptionTag = testOption(Select.class);
 
         Assert.assertTrue(useOptionTag);
     }
 
     @Test
     public void testTwinColSelect() {
-        boolean useOptionTag = testOption(new TwinColSelect());
+        boolean useOptionTag = testOption(TwinColSelect.class);
 
         Assert.assertTrue(useOptionTag);
     }
 
     @Test
     public void testComboBox() {
-        boolean useOptionTag = testOption(new ComboBox());
+        boolean useOptionTag = testOption(ComboBox.class);
 
         Assert.assertTrue(useOptionTag);
     }
 
     @Test
     public void testListSelect() {
-        boolean useOptionTag = testOption(new ListSelect());
+        boolean useOptionTag = testOption(ListSelect.class);
 
         Assert.assertTrue(useOptionTag);
     }
 
     @Test
     public void testTreeTable() {
-        boolean useOptionTag = testOption(new TreeTable());
+        boolean useOptionTag = testOption(TreeTable.class);
 
         Assert.assertFalse(useOptionTag);
     }
 
     @Test
     public void testOptionGroup() {
-        boolean useOptionTag = testOption(new OptionGroup());
+        boolean useOptionTag = testOption(OptionGroup.class);
 
         Assert.assertTrue(useOptionTag);
     }
 
-    private boolean testOption(Component component) {
+    private boolean testOption(Class<? extends Component> componentClass) {
         OptionDiscoverer od = new OptionDiscoverer();
-        return od.discover(component);
+        return od.discover(componentClass);
     }
 
 }

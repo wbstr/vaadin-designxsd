@@ -17,7 +17,6 @@ package com.wcs.maven.designxsd.discoverer;
 
 import com.vaadin.ui.Component;
 import com.vaadin.ui.declarative.DesignContext;
-import java.util.logging.Logger;
 import org.jsoup.nodes.Attributes;
 import org.jsoup.nodes.Element;
 import org.jsoup.parser.Tag;
@@ -28,12 +27,17 @@ import org.jsoup.parser.Tag;
  */
 public class OptionDiscoverer {
 
-    private static final Logger LOGGER = Logger.getLogger(OptionDiscoverer.class.getName());
-
     private boolean searchItemId;
 
-    public boolean discover(Component c) {
-        Tag abstractSelectTag = Tag.valueOf(c.getClass().getSimpleName());
+    public boolean discover(Class<? extends Component> componentClass) {
+        Component component;
+        try {
+            component = componentClass.newInstance();
+        } catch (InstantiationException | IllegalAccessException ex) {
+            return false;
+        }
+
+        Tag abstractSelectTag = Tag.valueOf("mock-" + component.getClass().getSimpleName().toLowerCase());
         Element abstractSelect = new Element(abstractSelectTag, "");
 
         Tag optionTag = Tag.valueOf("option");
@@ -41,7 +45,7 @@ public class OptionDiscoverer {
         abstractSelect.appendChild(optionElement);
 
         try {
-            c.readDesign(abstractSelect, new DesignContext());
+            component.readDesign(abstractSelect, new DesignContext());
 
         } catch (Exception ex) {
             return false;
