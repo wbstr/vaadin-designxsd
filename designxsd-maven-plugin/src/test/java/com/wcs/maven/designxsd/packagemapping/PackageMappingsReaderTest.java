@@ -13,8 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.wcs.maven.designxsd.discoverer;
+package com.wcs.maven.designxsd.packagemapping;
 
+import com.wcs.maven.designxsd.packagemapping.PackageMappingsReader;
+import com.wcs.maven.designxsd.packagemapping.PackageMappingsReaderException;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.declarative.Design;
 import com.vaadin.ui.declarative.DesignContext;
@@ -32,12 +34,12 @@ import org.reflections.Reflections;
  *
  * @author lali
  */
-public class PackageDiscovererTest {
+public class PackageMappingsReaderTest {
 
     @Test
     public void testSimpleDiscover() {
         Reflections reflections = new Reflections("com.wcs.maven.designxsd.customcomponent.simple");
-        PackageDiscoverer discoverer = new PackageDiscoverer(reflections);
+        PackageMappingsReader discoverer = new PackageMappingsReader(reflections);
         DesignContext designContext = discoverer.discovery(true);
         Collection<String> packagePrefixes = designContext.getPackagePrefixes();
 
@@ -50,15 +52,15 @@ public class PackageDiscovererTest {
     @Test
     public void testNotAmbigous() throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException, Exception {
         Logger logger = Mockito.mock(Logger.class);
-        setFinalStatic(PackageDiscoverer.class.getDeclaredField("LOGGER"), logger);
+        setFinalStatic(PackageMappingsReader.class.getDeclaredField("LOGGER"), logger);
 
         Reflections reflections = new Reflections("com.wcs.maven.designxsd.customcomponent.notambigous");
-        PackageDiscoverer discoverer = new PackageDiscoverer(reflections);
+        PackageMappingsReader discoverer = new PackageMappingsReader(reflections);
         DesignContext designContext = discoverer.discovery(true);
         Collection<String> packagePrefixes = designContext.getPackagePrefixes();
 
-        Mockito.verify(logger, Mockito.times(1)).log(Mockito.any(Level.class), Mockito.anyString(), Mockito.any(PackageDiscovererException.class));
-        Mockito.verify(logger, Mockito.only()).log(Mockito.any(Level.class), Mockito.anyString(), Mockito.any(PackageDiscovererException.class));
+        Mockito.verify(logger, Mockito.times(1)).log(Mockito.any(Level.class), Mockito.anyString(), Mockito.any(PackageMappingsReaderException.class));
+        Mockito.verify(logger, Mockito.only()).log(Mockito.any(Level.class), Mockito.anyString(), Mockito.any(PackageMappingsReaderException.class));
 
         Assert.assertTrue(packagePrefixes.contains("custom"));
     }
@@ -66,10 +68,10 @@ public class PackageDiscovererTest {
     @Test
     public void testSamepackageprefix() throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException, Exception {
         Logger logger = Mockito.mock(Logger.class);
-        setFinalStatic(PackageDiscoverer.class.getDeclaredField("LOGGER"), logger);
+        setFinalStatic(PackageMappingsReader.class.getDeclaredField("LOGGER"), logger);
 
         Reflections reflections = new Reflections("com.wcs.maven.designxsd.customcomponent.samepackageprefix");
-        PackageDiscoverer discoverer = new PackageDiscoverer(reflections);
+        PackageMappingsReader discoverer = new PackageMappingsReader(reflections);
         DesignContext designContext = discoverer.discovery(true);
         Collection<String> packagePrefixes = designContext.getPackagePrefixes();
 
@@ -84,7 +86,7 @@ public class PackageDiscovererTest {
     @Test
     public void testlegacyPrefixEnabled() {
         Reflections reflections = new Reflections("com.ui.vaadin");
-        PackageDiscoverer discoverer = new PackageDiscoverer(reflections);
+        PackageMappingsReader discoverer = new PackageMappingsReader(reflections);
         DesignContext designContext = discoverer.discovery(true);
 
         String tagName = Design.getComponentMapper().componentToTag(new Window(), designContext);
@@ -94,7 +96,7 @@ public class PackageDiscovererTest {
     @Test
     public void testlegacyPrefixDisabled() {
         Reflections reflections = new Reflections("com.ui.vaadin");
-        PackageDiscoverer discoverer = new PackageDiscoverer(reflections);
+        PackageMappingsReader discoverer = new PackageMappingsReader(reflections);
         DesignContext designContext = discoverer.discovery(false);
 
         String tagName = Design.getComponentMapper().componentToTag(new Window(), designContext);
@@ -104,10 +106,10 @@ public class PackageDiscovererTest {
     @Test
     public void testExceptionHandle() throws Exception {
         Logger logger = Mockito.mock(Logger.class);
-        setFinalStatic(PackageDiscoverer.class.getDeclaredField("LOGGER"), logger);
+        setFinalStatic(PackageMappingsReader.class.getDeclaredField("LOGGER"), logger);
         
         Reflections reflections = new Reflections("com.wcs.maven.designxsd.customcomponent.exception");
-        PackageDiscoverer discoverer = new PackageDiscoverer(reflections);
+        PackageMappingsReader discoverer = new PackageMappingsReader(reflections);
         DesignContext designContext = discoverer.discovery(false);
         
         Assert.assertNotNull(designContext);

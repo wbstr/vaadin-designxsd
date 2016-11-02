@@ -13,30 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.wcs.maven.designxsd.discoverer;
+package com.wcs.maven.designxsd.packagemapping;
 
 /**
  *
  * @author lali
  */
-public class PackageDiscovererException extends Exception {
+public class PackageMappingsReaderException extends Exception {
 
-    public PackageDiscovererException() {
+    public PackageMappingsReaderException() {
     }
 
-    public PackageDiscovererException(String message) {
+    public PackageMappingsReaderException(String message) {
         super(message);
     }
 
-    public PackageDiscovererException(String message, Throwable cause) {
+    public PackageMappingsReaderException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public PackageDiscovererException(Throwable cause) {
+    public PackageMappingsReaderException(Throwable cause) {
         super(cause);
     }
 
-    public PackageDiscovererException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    public PackageMappingsReaderException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
     

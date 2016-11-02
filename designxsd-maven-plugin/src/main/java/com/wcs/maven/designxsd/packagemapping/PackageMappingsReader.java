@@ -13,11 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.wcs.maven.designxsd.discoverer;
+package com.wcs.maven.designxsd.packagemapping;
 
 import com.vaadin.annotations.DesignRoot;
 import com.vaadin.ui.declarative.DesignContext;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.HashMap;
@@ -26,18 +25,14 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.parser.Parser;
 import org.reflections.Reflections;
 
 /**
  * @author lali
  */
-public class PackageDiscoverer {
+public class PackageMappingsReader {
 
-    private static final String UTF8 = "UTF-8";
-    private static final Logger LOGGER = Logger.getLogger(PackageDiscoverer.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(PackageMappingsReader.class.getName());
     private final static Collection<String> DEFAULT_PREFIXES = new HashSet<String>() {
         {
             add("v");
@@ -48,7 +43,7 @@ public class PackageDiscoverer {
     private Map<String, String> packages;
     private final Reflections reflections;
 
-    public PackageDiscoverer(Reflections reflections) {
+    public PackageMappingsReader(Reflections reflections) {
         this.reflections = reflections;
     }
 
@@ -60,7 +55,7 @@ public class PackageDiscoverer {
                 InputStream designFile = readDesignFile(annotatedClass);
                 DesignContext designContext = new PackageDesignContext(designFile);
                 collectPrefixes(designContext);
-            } catch (PackageDiscovererException ex) {
+            } catch (PackageMappingsReaderException ex) {
                 LOGGER.log(Level.WARNING,
                         "Package discover skipped. Component name: "
                         + annotatedClass.getName(),
@@ -71,7 +66,7 @@ public class PackageDiscoverer {
         return buildDesignContext(legacyPrefixEnabled);
     }
 
-    private InputStream readDesignFile(Class<?> annotatedClass) throws PackageDiscovererException {
+    private InputStream readDesignFile(Class<?> annotatedClass) throws PackageMappingsReaderException {
         DesignRoot designAnnotation = annotatedClass
                 .getAnnotation(DesignRoot.class);
         String filename = designAnnotation.value();
@@ -82,14 +77,14 @@ public class PackageDiscoverer {
 
         InputStream stream = annotatedClass.getResourceAsStream(filename);
         if (stream == null) {
-            throw new PackageDiscovererException("Unable to find design file " + filename
+            throw new PackageMappingsReaderException("Unable to find design file " + filename
                     + " in " + annotatedClass.getPackage().getName());
         }
 
         return stream;
     }
 
-    private void collectPrefixes(DesignContext designContext) throws PackageDiscovererException {
+    private void collectPrefixes(DesignContext designContext) throws PackageMappingsReaderException {
         for (String packagePrefix : designContext.getPackagePrefixes()) {
             if (!DEFAULT_PREFIXES.contains(packagePrefix)) {
                 String packageName = designContext.getPackage(packagePrefix);
@@ -98,10 +93,10 @@ public class PackageDiscoverer {
         }
     }
 
-    private void putToPackageNames(String packagePrefix, String packageName) throws PackageDiscovererException {
+    private void putToPackageNames(String packagePrefix, String packageName) throws PackageMappingsReaderException {
         String processedPackageName = packages.get(packagePrefix);
         if (processedPackageName != null && !processedPackageName.equals(packageName)) {
-            throw new PackageDiscovererException(
+            throw new PackageMappingsReaderException(
                     "Xsd attribute generation skipped. PackagePrefix "
                     + packagePrefix
                     + " is ambigous.");
@@ -122,33 +117,4 @@ public class PackageDiscoverer {
 
     }
 
-    private class PackageDesignContext extends DesignContext {
-
-        public PackageDesignContext(InputStream designFile) throws PackageDiscovererException {
-            Document doc;
-            try {
-                doc = Jsoup.parse(designFile, UTF8, "", Parser.htmlParser());
-            } catch (IOException ex) {
-                throw new PackageDiscovererException("The html document cannot be parsed.", ex);
-            }
-
-            super.readPackageMappings(doc);
-        }
-
-    }
-
-    private class LegacyDesignContext extends DesignContext {
-
-        final boolean legacyPrefixEnabled;
-
-        public LegacyDesignContext(boolean legacyPrefixEnabled) {
-            this.legacyPrefixEnabled = legacyPrefixEnabled;
-        }
-
-        @Override
-        protected boolean isLegacyPrefixEnabled() {
-            return legacyPrefixEnabled;
-        }
-
-    }
 }

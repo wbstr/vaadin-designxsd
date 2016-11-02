@@ -15,12 +15,12 @@
  */
 package com.wcs.maven.designxsd;
 
+import com.wcs.maven.designxsd.packagemapping.PackageMappingsReader;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.declarative.DesignContext;
 import com.wcs.maven.designxsd.attributebuilder.AttributeBuilderFactory;
 import com.wcs.maven.designxsd.baseattributegroup.BaseAttributeGroupMngr;
 import com.wcs.maven.designxsd.baseattributegroup.BaseSchema;
-import com.wcs.maven.designxsd.discoverer.PackageDiscoverer;
 import com.wcs.maven.designxsd.elementbuilder.ElementBuilderFactory;
 import java.util.*;
 import org.apache.ws.commons.schema.*;
@@ -39,7 +39,7 @@ public class Generator {
         BaseSchema baseSchema = new BaseSchema(baseXsd);
         BaseAttributeGroupMngr baseAttributeGroupMngr = new BaseAttributeGroupMngr(baseSchema);
         AttributeBuilderFactory attributeBuilderFactory = new AttributeBuilderFactory();
-        PackageDiscoverer packageDiscoverer = new PackageDiscoverer(reflections);
+        PackageMappingsReader packageDiscoverer = new PackageMappingsReader(reflections);
         DesignContext designContext = packageDiscoverer.discovery(legacyPrefixEnabled);
         ElementBuilderFactory elementBuilderFactory
                 = new ElementBuilderFactory(attributeBuilderFactory, baseAttributeGroupMngr, designContext);
