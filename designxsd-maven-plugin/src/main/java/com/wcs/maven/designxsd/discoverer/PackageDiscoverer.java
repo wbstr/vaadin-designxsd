@@ -16,8 +16,8 @@
 package com.wcs.maven.designxsd.discoverer;
 
 import com.vaadin.annotations.DesignRoot;
-import com.vaadin.ui.declarative.Design;
 import com.vaadin.ui.declarative.DesignContext;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.HashMap;
@@ -26,6 +26,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.parser.Parser;
 import org.reflections.Reflections;
 
 /**
@@ -55,7 +58,7 @@ public class PackageDiscoverer {
         for (Class<?> annotatedClass : designRoots) {
             try {
                 InputStream designFile = readDesignFile(annotatedClass);
-                DesignContext designContext = createDesignContext(designFile);
+                DesignContext designContext = new PackageDesignContext(designFile);
                 collectPrefixes(designContext);
             } catch (PackageDiscovererException ex) {
                 LOGGER.log(Level.WARNING,
@@ -84,14 +87,6 @@ public class PackageDiscoverer {
         }
 
         return stream;
-    }
-    
-    private DesignContext createDesignContext(InputStream designFile) throws PackageDiscovererException {
-        try {
-            return Design.read(designFile, null);
-        } catch (Exception e) {
-            throw new PackageDiscovererException(e);
-        }
     }
 
     private void collectPrefixes(DesignContext designContext) throws PackageDiscovererException {
@@ -124,6 +119,22 @@ public class PackageDiscoverer {
             designContext.addPackagePrefix(packagePrefix, packageName);
         }
         return designContext;
+
+    }
+
+    private class PackageDesignContext extends DesignContext {
+
+        public PackageDesignContext(InputStream designFile) throws PackageDiscovererException {
+            Document doc;
+            try {
+                doc = Jsoup.parse(designFile, UTF8, "", Parser.htmlParser());
+            } catch (IOException ex) {
+                throw new PackageDiscovererException("The html document cannot be parsed.", ex);
+            }
+
+            super.readPackageMappings(doc);
+        }
+
     }
 
     private class LegacyDesignContext extends DesignContext {
