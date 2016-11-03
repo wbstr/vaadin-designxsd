@@ -38,13 +38,6 @@
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute name="caption" type="xs:string">
-            <xs:annotation>
-                <xs:documentation>
-                    Caption of the component.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
         <xs:attribute name="description" type="xs:string">
             <xs:annotation>
                 <xs:documentation>
@@ -63,13 +56,6 @@
             <xs:annotation>
                 <xs:documentation>
                     Visibility of the component.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute name="readonly" type="xs:boolean"><!-- TODO. nem kezeli minden-->
-            <xs:annotation>
-                <xs:documentation>
-                    Read-only mode of the component.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
