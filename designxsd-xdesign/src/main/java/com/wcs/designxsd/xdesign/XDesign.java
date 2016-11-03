@@ -1,5 +1,6 @@
 package com.wcs.designxsd.xdesign;
 
+import com.vaadin.annotations.DesignRoot;
 import com.vaadin.ui.AbstractOrderedLayout;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Component;
@@ -7,7 +8,9 @@ import com.vaadin.ui.HasComponents;
 import com.vaadin.ui.declarative.Design;
 import com.vaadin.ui.declarative.DesignAttributeHandler;
 import com.vaadin.ui.declarative.DesignContext;
+import com.vaadin.ui.declarative.DesignException;
 import java.io.InputStream;
+import java.lang.annotation.Annotation;
 import java.util.Iterator;
 import java.util.Map;
 import org.jsoup.nodes.Attributes;
@@ -48,6 +51,52 @@ public class XDesign {
         DesignContext designContext = read(design, null);
         processCustomAttributes(designContext);
         return designContext.getRootComponent();
+    }
+    
+    public static InputStream readXDesignFile(Component rootComponent) throws IllegalArgumentException, DesignException {
+        Class<? extends Component> annotatedClass = findClassWithAnnotation(
+                rootComponent.getClass(), DesignRoot.class);
+        if (annotatedClass == null) {
+            throw new IllegalArgumentException(
+                    "The class "
+                    + rootComponent.getClass().getName()
+                    + " or any of its superclasses do not have an @DesignRoot annotation");
+        }
+
+        DesignRoot designAnnotation = annotatedClass
+                .getAnnotation(DesignRoot.class);
+        String filename = designAnnotation.value();
+        if (filename.equals("")) {
+            // No value, assume the html file is named as the class
+            filename = annotatedClass.getSimpleName() + ".xml";
+        }
+        InputStream stream = annotatedClass.getResourceAsStream(filename);
+        if (stream == null) {
+            throw new DesignException("Unable to find design file " + filename
+                    + " in " + annotatedClass.getPackage().getName());
+        }
+
+        return stream;
+    }
+
+    private static Class<? extends Component> findClassWithAnnotation(
+            Class<? extends Component> componentClass,
+            Class<? extends Annotation> annotationClass) {
+        if (componentClass == null) {
+            return null;
+        }
+
+        if (componentClass.isAnnotationPresent(annotationClass)) {
+            return componentClass;
+        }
+
+        Class<?> superClass = componentClass.getSuperclass();
+        if (!Component.class.isAssignableFrom(superClass)) {
+            return null;
+        }
+
+        return findClassWithAnnotation(superClass.asSubclass(Component.class),
+                annotationClass);
     }
     
     private static void processCustomAttributes(DesignContext designContext) {

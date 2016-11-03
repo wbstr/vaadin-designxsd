@@ -3,7 +3,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://design.xsd">
     <head>
-        <meta charset="UTF-8" name="package-mapping" content="custom:com.wcs.designxsd.demo"/>
+        <meta charset="UTF-8" name="package-mapping" content="demo:com.wcs.designxsd.demo"/>
     </head>
     <body>
         <v-horizontal-layout size-full="" spacing="true">
@@ -134,7 +134,7 @@
                     </node>
                 </node>
             </v-tree>
-            <custom-democustomcomponent _expand="1"/>
+            <demo-custom-component></demo-custom-component>
         </v-horizontal-layout>
     </body>
 </html>

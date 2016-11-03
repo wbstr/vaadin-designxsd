@@ -18,17 +18,18 @@ package com.wcs.designxsd.demo;
 import com.vaadin.annotations.DesignRoot;
 import com.vaadin.ui.VerticalLayout;
 import com.wcs.designxsd.xdesign.XDesign;
+import java.io.InputStream;
 
 /**
  *
  * @author lali
  */
-@DesignRoot(value = "demo-custom-component.xml")
-public class Democustomcomponent extends VerticalLayout {
+@DesignRoot
+public class CustomComponent extends VerticalLayout {
 
-    public Democustomcomponent() {
-        XDesign.read(this);
-        
+    public CustomComponent() {
+        InputStream stream = XDesign.readXDesignFile(this);
+        XDesign.read(stream, this);
     }
     
 }
