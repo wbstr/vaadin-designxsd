@@ -18,7 +18,6 @@ package com.wcs.designxsd.demo;
 import com.vaadin.annotations.DesignRoot;
 import com.vaadin.ui.VerticalLayout;
 import com.wcs.designxsd.xdesign.XDesign;
-import java.io.InputStream;
 
 /**
  *
@@ -28,8 +27,7 @@ import java.io.InputStream;
 public class RootDesign extends VerticalLayout {
 
     public RootDesign() {
-        InputStream stream = XDesign.readXDesignFile(this);
-        XDesign.read(stream, this);
+        XDesign.read(this);
     }
     
 }

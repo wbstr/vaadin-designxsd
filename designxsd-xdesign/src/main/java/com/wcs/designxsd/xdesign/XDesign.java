@@ -30,7 +30,8 @@ public class XDesign {
     private static final String ALIGN_RIGHT = X_PARENT_PREFIX + "right";
 
     public static DesignContext read(Component rootComponent) {
-        DesignContext designContext = Design.read(rootComponent);
+        InputStream xDesignFile = readXDesignFile(rootComponent);
+        DesignContext designContext = Design.read(xDesignFile, rootComponent);
         processCustomAttributes(designContext);
         return designContext;
     }
