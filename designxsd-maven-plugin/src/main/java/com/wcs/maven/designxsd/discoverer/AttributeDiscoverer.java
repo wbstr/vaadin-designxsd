@@ -49,9 +49,9 @@ public class AttributeDiscoverer {
 
         spyDesignAttributeHandler();
         Element stubDesign = readStubDesign();
-        Map<String, Class> attributes = collectAttributes(stubDesign);
-        fixTabindexAttribute(attributes);
-        return attributes;
+        Map<String, Class> collectedAttributes = collectAttributes(stubDesign);
+        fixTabindexAttribute(collectedAttributes);
+        return collectedAttributes;
     }
     
     private void fixTabindexAttribute(Map<String, Class> attributes) {
