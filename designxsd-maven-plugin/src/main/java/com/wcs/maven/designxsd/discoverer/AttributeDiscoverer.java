@@ -49,7 +49,15 @@ public class AttributeDiscoverer {
 
         spyDesignAttributeHandler();
         Element stubDesign = readStubDesign();
-        return collectAttributes(stubDesign);
+        Map<String, Class> attributes = collectAttributes(stubDesign);
+        fixTabindexAttribute(attributes);
+        return attributes;
+    }
+    
+    private void fixTabindexAttribute(Map<String, Class> attributes) {
+        if (!component.getClass().isAssignableFrom(Component.Focusable.class)) {
+            attributes.remove("tabindex");
+        }
     }
 
     private void spyDesignAttributeHandler() {
@@ -100,7 +108,7 @@ public class AttributeDiscoverer {
 
         return discoveredAttributes;
     }
-    
+
     private void readDesignWithoutLogger(Element stubDesign) {
         Logger logger = Logger.getLogger(DesignAttributeHandler.class.getName());
         logger.setUseParentHandlers(false);
