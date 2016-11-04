@@ -134,7 +134,7 @@
                     </node>
                 </node>
             </v-tree>
-            <demo-custom-component></demo-custom-component>
+            <demo-custom-component/>
         </v-horizontal-layout>
     </body>
 </html>

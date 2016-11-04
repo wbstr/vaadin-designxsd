@@ -1885,6 +1885,8 @@
             <xs:element ref="v-vertical-split-panel"/>
             <xs:element ref="v-video"/>
             <xs:element ref="v-window"/>
+            <xs:element ref="demo-custom-component"/>
+            <xs:element ref="demo-root-design"/>
         </xs:choice>
     </xs:group>
     <xs:element name="v-absolute-layout">
@@ -3094,6 +3096,40 @@
                     </xs:restriction>
                 </xs:simpleType>
             </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="demo-custom-component">
+        <xs:complexType>
+            <xs:group maxOccurs="unbounded" minOccurs="0" ref="AllComponentsGroup"/>
+            <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
+            <xs:attributeGroup ref="com.vaadin.ui.Layout..MarginHandler"/>
+            <xs:attributeGroup ref="com.vaadin.ui.Layout..SpacingHandler"/>
+            <xs:attribute name="caption-as-html" type="xs:boolean"/>
+            <xs:attribute name="data" type="xs:string"/>
+            <xs:attribute name="caption" type="xs:string"/>
+            <xs:attribute name="margin-left" type="xs:boolean"/>
+            <xs:attribute name="margin-top" type="xs:boolean"/>
+            <xs:attribute fixed="" name="tabindex" type="xs:string"/>
+            <xs:attribute name="margin-right" type="xs:boolean"/>
+            <xs:attribute name="responsive" type="xs:boolean"/>
+            <xs:attribute name="margin-bottom" type="xs:boolean"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="demo-root-design">
+        <xs:complexType>
+            <xs:group maxOccurs="unbounded" minOccurs="0" ref="AllComponentsGroup"/>
+            <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
+            <xs:attributeGroup ref="com.vaadin.ui.Layout..MarginHandler"/>
+            <xs:attributeGroup ref="com.vaadin.ui.Layout..SpacingHandler"/>
+            <xs:attribute name="caption-as-html" type="xs:boolean"/>
+            <xs:attribute name="data" type="xs:string"/>
+            <xs:attribute name="caption" type="xs:string"/>
+            <xs:attribute name="margin-left" type="xs:boolean"/>
+            <xs:attribute name="margin-top" type="xs:boolean"/>
+            <xs:attribute fixed="" name="tabindex" type="xs:string"/>
+            <xs:attribute name="margin-right" type="xs:boolean"/>
+            <xs:attribute name="responsive" type="xs:boolean"/>
+            <xs:attribute name="margin-bottom" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
 </xs:schema>

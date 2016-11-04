@@ -99,6 +99,11 @@
             <artifactId>vaadin-server</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>com.wcs.designxsd</groupId>
+            <artifactId>designxsd-xdesign</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
     <build>

@@ -16,8 +16,10 @@
 package com.wcs.maven.designxsd.packagemapping;
 
 import com.vaadin.annotations.DesignRoot;
+import com.vaadin.ui.Component;
 import com.vaadin.ui.declarative.DesignContext;
-import java.io.InputStream;
+import com.wcs.designxsd.xdesign.XDesign;
+import java.lang.reflect.Constructor;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -52,8 +54,7 @@ public class PackageMappingsReader {
         Set<Class<?>> designRoots = reflections.getTypesAnnotatedWith(DesignRoot.class);
         for (Class<?> annotatedClass : designRoots) {
             try {
-                InputStream designFile = readDesignFile(annotatedClass);
-                DesignContext designContext = new PackageDesignContext(designFile);
+                DesignContext designContext = readDesign(annotatedClass);
                 collectPrefixes(designContext);
             } catch (PackageMappingsReaderException ex) {
                 LOGGER.log(Level.WARNING,
@@ -65,23 +66,15 @@ public class PackageMappingsReader {
 
         return buildDesignContext(legacyPrefixEnabled);
     }
-
-    private InputStream readDesignFile(Class<?> annotatedClass) throws PackageMappingsReaderException {
-        DesignRoot designAnnotation = annotatedClass
-                .getAnnotation(DesignRoot.class);
-        String filename = designAnnotation.value();
-        if (filename.equals("")) {
-            // No value, assume the html file is named as the class
-            filename = annotatedClass.getSimpleName() + ".html";
+    
+    private DesignContext readDesign(Class<?> annotatedClass) throws PackageMappingsReaderException {
+        try {
+            Constructor<?> constructor = annotatedClass.getConstructor();
+            Component component = (Component) constructor.newInstance();
+            return XDesign.read(component);
+        } catch (Exception ex) {
+            throw new PackageMappingsReaderException(ex);
         }
-
-        InputStream stream = annotatedClass.getResourceAsStream(filename);
-        if (stream == null) {
-            throw new PackageMappingsReaderException("Unable to find design file " + filename
-                    + " in " + annotatedClass.getPackage().getName());
-        }
-
-        return stream;
     }
 
     private void collectPrefixes(DesignContext designContext) throws PackageMappingsReaderException {
