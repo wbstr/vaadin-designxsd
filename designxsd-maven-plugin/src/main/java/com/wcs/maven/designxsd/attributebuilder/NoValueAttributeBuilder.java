@@ -16,11 +16,10 @@
 
 package com.wcs.maven.designxsd.attributebuilder;
 
-import org.apache.ws.commons.schema.XmlSchema;
-import org.apache.ws.commons.schema.XmlSchemaAttribute;
-
 import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
+import org.apache.ws.commons.schema.XmlSchema;
+import org.apache.ws.commons.schema.XmlSchemaAttribute;
 
 /**
  *
@@ -33,7 +32,6 @@ public class NoValueAttributeBuilder implements AttributeBuilder {
         XmlSchemaAttribute attr = new XmlSchemaAttribute();
         attr.setName(name);
         attr.setSchemaTypeName(new QName(XMLConstants.W3C_XML_SCHEMA_NS_URI, "string"));
-        attr.setFixedValue("");
         return attr;
     }
 

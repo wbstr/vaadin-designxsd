@@ -1895,7 +1895,7 @@
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attribute name="caption-as-html" type="xs:boolean"/>
             <xs:attribute name="data" type="xs:string"/>
-            <xs:attribute fixed="" name="tabindex" type="xs:string"/>
+            <xs:attribute name="tabindex" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="responsive" type="xs:boolean"/>
         </xs:complexType>
@@ -1922,7 +1922,7 @@
             <xs:attribute name="html-content-allowed" type="xs:boolean"/>
             <xs:attribute name="show-controls" type="xs:boolean"/>
             <xs:attribute name="muted" type="xs:boolean"/>
-            <xs:attribute fixed="" name="tabindex" type="xs:string"/>
+            <xs:attribute name="tabindex" type="xs:string"/>
             <xs:attribute name="autoplay" type="xs:boolean"/>
             <xs:attribute name="responsive" type="xs:boolean"/>
         </xs:complexType>
@@ -1933,7 +1933,7 @@
             <xs:attribute name="caption-as-html" type="xs:boolean"/>
             <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
-            <xs:attribute fixed="" name="tabindex" type="xs:string"/>
+            <xs:attribute name="tabindex" type="xs:string"/>
             <xs:attribute name="alt" type="xs:string"/>
             <xs:attribute name="responsive" type="xs:boolean"/>
         </xs:complexType>
@@ -1958,8 +1958,8 @@
             <xs:attribute name="last-visible-day-of-week" type="xs:int"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="first-visible-hour-of-day" type="xs:int"/>
-            <xs:attribute fixed="" name="time-format" type="xs:string"/>
-            <xs:attribute fixed="" name="tabindex" type="xs:string"/>
+            <xs:attribute name="time-format" type="xs:string"/>
+            <xs:attribute name="tabindex" type="xs:string"/>
             <xs:attribute name="weekly-caption-format" type="xs:string"/>
             <xs:attribute name="first-visible-day-of-week" type="xs:int"/>
             <xs:attribute name="last-visible-hour-of-day" type="xs:int"/>
@@ -1988,8 +1988,8 @@
             <xs:attribute name="html-content-allowed" type="xs:boolean"/>
             <xs:attribute name="hsv-visibility" type="xs:boolean"/>
             <xs:attribute name="default-caption-enabled" type="xs:boolean"/>
-            <xs:attribute fixed="" name="popup-style" type="xs:string"/>
-            <xs:attribute fixed="" name="tabindex" type="xs:string"/>
+            <xs:attribute name="popup-style" type="xs:string"/>
+            <xs:attribute name="tabindex" type="xs:string"/>
             <xs:attribute name="textfield-visibility" type="xs:boolean"/>
             <xs:attribute name="history-visibility" type="xs:boolean"/>
             <xs:attribute name="rgb-visibility" type="xs:boolean"/>
@@ -2007,8 +2007,8 @@
             <xs:attribute name="html-content-allowed" type="xs:boolean"/>
             <xs:attribute name="hsv-visibility" type="xs:boolean"/>
             <xs:attribute name="default-caption-enabled" type="xs:boolean"/>
-            <xs:attribute fixed="" name="popup-style" type="xs:string"/>
-            <xs:attribute fixed="" name="tabindex" type="xs:string"/>
+            <xs:attribute name="popup-style" type="xs:string"/>
+            <xs:attribute name="tabindex" type="xs:string"/>
             <xs:attribute name="textfield-visibility" type="xs:boolean"/>
             <xs:attribute name="history-visibility" type="xs:boolean"/>
             <xs:attribute name="rgb-visibility" type="xs:boolean"/>
@@ -2069,7 +2069,7 @@
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attribute name="caption-as-html" type="xs:boolean"/>
             <xs:attribute name="data" type="xs:string"/>
-            <xs:attribute fixed="" name="tabindex" type="xs:string"/>
+            <xs:attribute name="tabindex" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="responsive" type="xs:boolean"/>
         </xs:complexType>
@@ -2079,7 +2079,7 @@
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attribute name="caption-as-html" type="xs:boolean"/>
             <xs:attribute name="data" type="xs:string"/>
-            <xs:attribute fixed="" name="tabindex" type="xs:string"/>
+            <xs:attribute name="tabindex" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="responsive" type="xs:boolean"/>
         </xs:complexType>
@@ -2091,7 +2091,7 @@
             <xs:attribute name="caption-as-html" type="xs:boolean"/>
             <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
-            <xs:attribute fixed="" name="tabindex" type="xs:string"/>
+            <xs:attribute name="tabindex" type="xs:string"/>
             <xs:attribute name="template-contents" type="xs:string"/>
             <xs:attribute name="responsive" type="xs:boolean"/>
             <xs:attribute name="template-name" type="xs:string"/>
@@ -2140,7 +2140,7 @@
                     </xs:restriction>
                 </xs:simpleType>
             </xs:attribute>
-            <xs:attribute fixed="" name="tabindex" type="xs:string"/>
+            <xs:attribute name="tabindex" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="responsive" type="xs:boolean"/>
         </xs:complexType>
@@ -2155,7 +2155,7 @@
             <xs:attribute name="type" type="xs:int"/>
             <xs:attribute name="class-id" type="xs:string"/>
             <xs:attribute name="mime-type" type="xs:string"/>
-            <xs:attribute fixed="" name="tabindex" type="xs:string"/>
+            <xs:attribute name="tabindex" type="xs:string"/>
             <xs:attribute name="archive" type="xs:string"/>
             <xs:attribute name="alternate-text" type="xs:string"/>
             <xs:attribute name="codetype" type="xs:string"/>
@@ -2170,7 +2170,7 @@
             <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="standby" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
-            <xs:attribute fixed="" name="tabindex" type="xs:string"/>
+            <xs:attribute name="tabindex" type="xs:string"/>
             <xs:attribute name="alt" type="xs:string"/>
             <xs:attribute name="archive" type="xs:string"/>
             <xs:attribute name="codetype" type="xs:string"/>
@@ -2200,7 +2200,7 @@
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="margin-left" type="xs:boolean"/>
             <xs:attribute name="margin-top" type="xs:boolean"/>
-            <xs:attribute fixed="" name="tabindex" type="xs:string"/>
+            <xs:attribute name="tabindex" type="xs:string"/>
             <xs:attribute name="margin-right" type="xs:boolean"/>
             <xs:attribute name="responsive" type="xs:boolean"/>
             <xs:attribute name="margin-bottom" type="xs:boolean"/>
@@ -2246,7 +2246,7 @@
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="margin-left" type="xs:boolean"/>
             <xs:attribute name="margin-top" type="xs:boolean"/>
-            <xs:attribute fixed="" name="tabindex" type="xs:string"/>
+            <xs:attribute name="tabindex" type="xs:string"/>
             <xs:attribute name="margin-right" type="xs:boolean"/>
             <xs:attribute name="responsive" type="xs:boolean"/>
             <xs:attribute name="margin-bottom" type="xs:boolean"/>
@@ -2264,7 +2264,7 @@
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="margin-left" type="xs:boolean"/>
             <xs:attribute name="margin-top" type="xs:boolean"/>
-            <xs:attribute fixed="" name="tabindex" type="xs:string"/>
+            <xs:attribute name="tabindex" type="xs:string"/>
             <xs:attribute name="margin-right" type="xs:boolean"/>
             <xs:attribute name="responsive" type="xs:boolean"/>
             <xs:attribute name="margin-bottom" type="xs:boolean"/>
@@ -2278,8 +2278,8 @@
             <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="locked" type="xs:boolean"/>
-            <xs:attribute fixed="" name="tabindex" type="xs:string"/>
-            <xs:attribute fixed="" name="split-position" type="xs:string"/>
+            <xs:attribute name="tabindex" type="xs:string"/>
+            <xs:attribute name="split-position" type="xs:string"/>
             <xs:attribute name="responsive" type="xs:boolean"/>
             <xs:attribute name="reversed" type="xs:boolean"/>
         </xs:complexType>
@@ -2290,7 +2290,7 @@
             <xs:attribute name="caption-as-html" type="xs:boolean"/>
             <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
-            <xs:attribute fixed="" name="tabindex" type="xs:string"/>
+            <xs:attribute name="tabindex" type="xs:string"/>
             <xs:attribute name="alt" type="xs:string"/>
             <xs:attribute name="responsive" type="xs:boolean"/>
         </xs:complexType>
@@ -2328,9 +2328,9 @@
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attribute name="caption-as-html" type="xs:boolean"/>
             <xs:attribute name="data" type="xs:string"/>
-            <xs:attribute fixed="" name="tabindex" type="xs:string"/>
+            <xs:attribute name="tabindex" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
-            <xs:attribute fixed="" name="plain-text" type="xs:string"/>
+            <xs:attribute name="plain-text" type="xs:string"/>
             <xs:attribute name="responsive" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
@@ -2341,7 +2341,7 @@
             <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="target-width" type="xs:int"/>
-            <xs:attribute fixed="" name="tabindex" type="xs:string"/>
+            <xs:attribute name="tabindex" type="xs:string"/>
             <xs:attribute name="target-height" type="xs:int"/>
             <xs:attribute name="target" type="xs:string"/>
             <xs:attribute name="responsive" type="xs:boolean"/>
@@ -2400,7 +2400,7 @@
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="password-caption" type="xs:string"/>
             <xs:attribute name="login-button-caption" type="xs:string"/>
-            <xs:attribute fixed="" name="tabindex" type="xs:string"/>
+            <xs:attribute name="tabindex" type="xs:string"/>
             <xs:attribute name="username-caption" type="xs:string"/>
             <xs:attribute name="responsive" type="xs:boolean"/>
         </xs:complexType>
@@ -2413,7 +2413,7 @@
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="tabindex" type="xs:int"/>
             <xs:attribute name="auto-open" type="xs:boolean"/>
-            <xs:attribute fixed="" name="plain-text" type="xs:string"/>
+            <xs:attribute name="plain-text" type="xs:string"/>
             <xs:attribute name="responsive" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
@@ -2573,7 +2573,7 @@
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="hide-on-mouse-out" type="xs:boolean"/>
             <xs:attribute name="popup-visible" type="xs:boolean"/>
-            <xs:attribute fixed="" name="tabindex" type="xs:string"/>
+            <xs:attribute name="tabindex" type="xs:string"/>
             <xs:attribute name="responsive" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
@@ -2666,7 +2666,7 @@
             <xs:attribute name="caption-as-html" type="xs:boolean"/>
             <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
-            <xs:attribute fixed="" name="vertical" type="xs:string"/>
+            <xs:attribute name="vertical" type="xs:string"/>
             <xs:attribute name="resolution" type="xs:int"/>
             <xs:attribute name="min" type="xs:double"/>
             <xs:attribute name="readonly" type="xs:boolean"/>
@@ -3023,7 +3023,7 @@
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="margin-left" type="xs:boolean"/>
             <xs:attribute name="margin-top" type="xs:boolean"/>
-            <xs:attribute fixed="" name="tabindex" type="xs:string"/>
+            <xs:attribute name="tabindex" type="xs:string"/>
             <xs:attribute name="margin-right" type="xs:boolean"/>
             <xs:attribute name="responsive" type="xs:boolean"/>
             <xs:attribute name="margin-bottom" type="xs:boolean"/>
@@ -3037,8 +3037,8 @@
             <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="locked" type="xs:boolean"/>
-            <xs:attribute fixed="" name="tabindex" type="xs:string"/>
-            <xs:attribute fixed="" name="split-position" type="xs:string"/>
+            <xs:attribute name="tabindex" type="xs:string"/>
+            <xs:attribute name="split-position" type="xs:string"/>
             <xs:attribute name="responsive" type="xs:boolean"/>
             <xs:attribute name="reversed" type="xs:boolean"/>
         </xs:complexType>
@@ -3052,7 +3052,7 @@
             <xs:attribute name="html-content-allowed" type="xs:boolean"/>
             <xs:attribute name="show-controls" type="xs:boolean"/>
             <xs:attribute name="muted" type="xs:boolean"/>
-            <xs:attribute fixed="" name="tabindex" type="xs:string"/>
+            <xs:attribute name="tabindex" type="xs:string"/>
             <xs:attribute name="autoplay" type="xs:boolean"/>
             <xs:attribute name="responsive" type="xs:boolean"/>
         </xs:complexType>
@@ -3074,7 +3074,7 @@
             <xs:attribute name="tab-stop-top-assistive-text" type="xs:string"/>
             <xs:attribute name="resizable" type="xs:boolean"/>
             <xs:attribute name="tabindex" type="xs:int"/>
-            <xs:attribute fixed="" name="center" type="xs:string"/>
+            <xs:attribute name="center" type="xs:string"/>
             <xs:attribute name="tab-stop-enabled" type="xs:boolean"/>
             <xs:attribute name="scroll-top" type="xs:int"/>
             <xs:attribute name="tab-stop-bottom-assistive-text" type="xs:string"/>
@@ -3087,7 +3087,7 @@
                 </xs:simpleType>
             </xs:attribute>
             <xs:attribute name="responsive" type="xs:boolean"/>
-            <xs:attribute fixed="" name="position" type="xs:string"/>
+            <xs:attribute name="position" type="xs:string"/>
             <xs:attribute name="window-mode">
                 <xs:simpleType>
                     <xs:restriction base="xs:string">
@@ -3109,7 +3109,7 @@
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="margin-left" type="xs:boolean"/>
             <xs:attribute name="margin-top" type="xs:boolean"/>
-            <xs:attribute fixed="" name="tabindex" type="xs:string"/>
+            <xs:attribute name="tabindex" type="xs:string"/>
             <xs:attribute name="margin-right" type="xs:boolean"/>
             <xs:attribute name="responsive" type="xs:boolean"/>
             <xs:attribute name="margin-bottom" type="xs:boolean"/>
@@ -3126,7 +3126,7 @@
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="margin-left" type="xs:boolean"/>
             <xs:attribute name="margin-top" type="xs:boolean"/>
-            <xs:attribute fixed="" name="tabindex" type="xs:string"/>
+            <xs:attribute name="tabindex" type="xs:string"/>
             <xs:attribute name="margin-right" type="xs:boolean"/>
             <xs:attribute name="responsive" type="xs:boolean"/>
             <xs:attribute name="margin-bottom" type="xs:boolean"/>
