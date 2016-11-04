@@ -1787,6 +1787,8 @@
     <xs:attributeGroup name="com.vaadin.ui.AbstractComponent">
         <xs:attributeGroup ref="com.vaadin.server.Sizeable"/>
         <xs:attributeGroup ref="com.vaadin.ui.Component"/>
+        <xs:attribute name="caption-as-html" type="xs:boolean"/>
+        <xs:attribute name="data" type="xs:string"/>
         <xs:attribute name="immediate" type="xs:boolean">
             <xs:annotation>
                 <xs:documentation>
@@ -1893,8 +1895,6 @@
         <xs:complexType>
             <xs:group maxOccurs="unbounded" minOccurs="0" ref="AllComponentsGroup"/>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="tabindex" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="responsive" type="xs:boolean"/>
@@ -1904,8 +1904,6 @@
         <xs:complexType>
             <xs:group maxOccurs="unbounded" minOccurs="0" ref="AllComponentsGroup"/>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="tab-captions-as-html" type="xs:boolean"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="tabs-visible" type="xs:boolean"/>
@@ -1916,8 +1914,6 @@
     <xs:element name="v-audio">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="html-content-allowed" type="xs:boolean"/>
             <xs:attribute name="show-controls" type="xs:boolean"/>
@@ -1930,8 +1926,6 @@
     <xs:element name="v-browser-frame">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="tabindex" type="xs:string"/>
             <xs:attribute name="alt" type="xs:string"/>
@@ -1942,7 +1936,6 @@
         <xs:complexType mixed="true">
             <xs:group ref="html-tags"/>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="disable-on-click" type="xs:boolean"/>
             <xs:attribute name="tabindex" type="xs:int"/>
             <xs:attribute name="icon-alt" type="xs:string"/>
@@ -1953,8 +1946,6 @@
     <xs:element name="v-calendar">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="last-visible-day-of-week" type="xs:int"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="first-visible-hour-of-day" type="xs:int"/>
@@ -1970,8 +1961,6 @@
     <xs:element name="v-check-box">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractField"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="readonly" type="xs:boolean"/>
             <xs:attribute name="checked" type="xs:boolean"/>
@@ -1981,8 +1970,6 @@
     <xs:element name="v-color-picker">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="color" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="html-content-allowed" type="xs:boolean"/>
@@ -2000,8 +1987,6 @@
     <xs:element name="v-color-picker-area">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="color" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="html-content-allowed" type="xs:boolean"/>
@@ -2022,8 +2007,6 @@
                 <xs:element maxOccurs="unbounded" minOccurs="0" ref="option"/>
             </xs:sequence>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractField"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="null-selection-item-id" type="xs:string"/>
             <xs:attribute name="item-caption-property-id" type="xs:string"/>
@@ -2067,8 +2050,6 @@
         <xs:complexType>
             <xs:group maxOccurs="unbounded" minOccurs="0" ref="AllComponentsGroup"/>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="tabindex" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="responsive" type="xs:boolean"/>
@@ -2077,8 +2058,6 @@
     <xs:element name="v-custom-component">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="tabindex" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="responsive" type="xs:boolean"/>
@@ -2088,8 +2067,6 @@
         <xs:complexType>
             <xs:group maxOccurs="unbounded" minOccurs="0" ref="AllComponentsGroup"/>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="tabindex" type="xs:string"/>
             <xs:attribute name="template-contents" type="xs:string"/>
@@ -2100,8 +2077,6 @@
     <xs:element name="v-date-field">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractField"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="resolution">
                 <xs:simpleType>
@@ -2127,8 +2102,6 @@
     <xs:element name="v-drag-and-drop-wrapper">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="drag-start-mode">
                 <xs:simpleType>
                     <xs:restriction base="xs:string">
@@ -2148,8 +2121,6 @@
     <xs:element name="v-embedded">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="standby" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="type" type="xs:int"/>
@@ -2166,8 +2137,6 @@
     <xs:element name="v-flash">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="standby" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="tabindex" type="xs:string"/>
@@ -2181,8 +2150,6 @@
     <xs:element name="v-form">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractField"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="readonly" type="xs:boolean"/>
             <xs:attribute name="validation-visible-on-commit" type="xs:boolean"/>
@@ -2195,8 +2162,6 @@
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attributeGroup ref="com.vaadin.ui.Layout..MarginHandler"/>
             <xs:attributeGroup ref="com.vaadin.ui.Layout..SpacingHandler"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="margin-left" type="xs:boolean"/>
             <xs:attribute name="margin-top" type="xs:boolean"/>
@@ -2212,8 +2177,6 @@
                 <xs:element minOccurs="0" ref="table"/>
             </xs:sequence>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="editor-save-caption" type="xs:string"/>
             <xs:attribute name="editor-buffered" type="xs:boolean"/>
@@ -2241,8 +2204,6 @@
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attributeGroup ref="com.vaadin.ui.Layout..MarginHandler"/>
             <xs:attributeGroup ref="com.vaadin.ui.Layout..SpacingHandler"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="margin-left" type="xs:boolean"/>
             <xs:attribute name="margin-top" type="xs:boolean"/>
@@ -2259,8 +2220,6 @@
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attributeGroup ref="com.vaadin.ui.Layout..MarginHandler"/>
             <xs:attributeGroup ref="com.vaadin.ui.Layout..SpacingHandler"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="margin-left" type="xs:boolean"/>
             <xs:attribute name="margin-top" type="xs:boolean"/>
@@ -2274,8 +2233,6 @@
         <xs:complexType>
             <xs:group maxOccurs="unbounded" minOccurs="0" ref="AllComponentsGroup"/>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="locked" type="xs:boolean"/>
             <xs:attribute name="tabindex" type="xs:string"/>
@@ -2287,8 +2244,6 @@
     <xs:element name="v-image">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="tabindex" type="xs:string"/>
             <xs:attribute name="alt" type="xs:string"/>
@@ -2298,8 +2253,6 @@
     <xs:element name="v-inline-date-field">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractField"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="resolution">
                 <xs:simpleType>
@@ -2326,8 +2279,6 @@
         <xs:complexType mixed="true">
             <xs:group ref="html-tags"/>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="tabindex" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="plain-text" type="xs:string"/>
@@ -2337,8 +2288,6 @@
     <xs:element name="v-link">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="target-width" type="xs:int"/>
             <xs:attribute name="tabindex" type="xs:string"/>
@@ -2362,8 +2311,6 @@
                 <xs:element maxOccurs="unbounded" minOccurs="0" ref="option"/>
             </xs:sequence>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractField"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="columns" type="xs:int"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="null-selection-item-id" type="xs:string"/>
@@ -2395,8 +2342,6 @@
         <xs:complexType>
             <xs:group minOccurs="0" ref="AllComponentsGroup"/>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="password-caption" type="xs:string"/>
             <xs:attribute name="login-button-caption" type="xs:string"/>
@@ -2408,8 +2353,6 @@
     <xs:element name="v-menu-bar">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="tabindex" type="xs:int"/>
             <xs:attribute name="auto-open" type="xs:boolean"/>
@@ -2421,7 +2364,6 @@
         <xs:complexType mixed="true">
             <xs:group ref="html-tags"/>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="disable-on-click" type="xs:boolean"/>
             <xs:attribute name="tabindex" type="xs:int"/>
             <xs:attribute name="icon-alt" type="xs:string"/>
@@ -2435,8 +2377,6 @@
                 <xs:element maxOccurs="unbounded" minOccurs="0" ref="option"/>
             </xs:sequence>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractField"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="columns" type="xs:int"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="null-selection-item-id" type="xs:string"/>
@@ -2469,8 +2409,6 @@
                 <xs:element maxOccurs="unbounded" minOccurs="0" ref="option"/>
             </xs:sequence>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractField"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="null-selection-item-id" type="xs:string"/>
             <xs:attribute name="html-content-allowed" type="xs:boolean"/>
@@ -2501,8 +2439,6 @@
         <xs:complexType>
             <xs:group minOccurs="0" ref="AllComponentsGroup"/>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="scroll-left" type="xs:int"/>
             <xs:attribute name="tabindex" type="xs:int"/>
@@ -2513,8 +2449,6 @@
     <xs:element name="v-password-field">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractField"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="columns" type="xs:int"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="readonly" type="xs:boolean"/>
@@ -2539,8 +2473,6 @@
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractField"/>
             <xs:attribute name="text-field-enabled" type="xs:boolean"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="resolution">
                 <xs:simpleType>
@@ -2568,8 +2500,6 @@
     <xs:element name="v-popup-view">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="hide-on-mouse-out" type="xs:boolean"/>
             <xs:attribute name="popup-visible" type="xs:boolean"/>
@@ -2580,8 +2510,6 @@
     <xs:element name="v-progress-bar">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractField"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="indeterminate" type="xs:boolean"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="readonly" type="xs:boolean"/>
@@ -2591,8 +2519,6 @@
     <xs:element name="v-progress-indicator">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractField"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="indeterminate" type="xs:boolean"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="polling-interval" type="xs:int"/>
@@ -2604,8 +2530,6 @@
         <xs:complexType mixed="true">
             <xs:group ref="html-tags"/>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractField"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="readonly" type="xs:boolean"/>
             <xs:attribute name="null-representation" type="xs:string"/>
@@ -2619,8 +2543,6 @@
                 <xs:element maxOccurs="unbounded" minOccurs="0" ref="option"/>
             </xs:sequence>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractField"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="null-selection-item-id" type="xs:string"/>
             <xs:attribute name="item-caption-property-id" type="xs:string"/>
@@ -2663,8 +2585,6 @@
     <xs:element name="v-slider">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractField"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="vertical" type="xs:string"/>
             <xs:attribute name="resolution" type="xs:int"/>
@@ -2678,8 +2598,6 @@
         <xs:complexType>
             <xs:group maxOccurs="unbounded" minOccurs="0" ref="AllComponentsGroup"/>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="tab-captions-as-html" type="xs:boolean"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="tabs-visible" type="xs:boolean"/>
@@ -2694,7 +2612,6 @@
             </xs:sequence>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractField"/>
             <xs:attribute name="sort-container-property-id" type="xs:string"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
             <xs:attribute name="child-measurement-hint">
                 <xs:simpleType>
                     <xs:restriction base="xs:string">
@@ -2704,7 +2621,6 @@
                     </xs:restriction>
                 </xs:simpleType>
             </xs:attribute>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="selectable" type="xs:boolean"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="null-selection-item-id" type="xs:string"/>
@@ -2777,8 +2693,6 @@
         <xs:complexType mixed="true">
             <xs:group ref="html-tags"/>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractField"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="columns" type="xs:int"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="readonly" type="xs:boolean"/>
@@ -2804,8 +2718,6 @@
     <xs:element name="v-text-field">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractField"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="columns" type="xs:int"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="readonly" type="xs:boolean"/>
@@ -2832,8 +2744,6 @@
                 <xs:element maxOccurs="unbounded" minOccurs="0" ref="node"/>
             </xs:sequence>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractField"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="selectable" type="xs:boolean"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="null-selection-item-id" type="xs:string"/>
@@ -2885,7 +2795,6 @@
             <xs:attributeGroup ref="com.vaadin.ui.AbstractField"/>
             <xs:attribute name="animations-enabled" type="xs:boolean"/>
             <xs:attribute name="sort-container-property-id" type="xs:string"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
             <xs:attribute name="child-measurement-hint">
                 <xs:simpleType>
                     <xs:restriction base="xs:string">
@@ -2895,7 +2804,6 @@
                     </xs:restriction>
                 </xs:simpleType>
             </xs:attribute>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="selectable" type="xs:boolean"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="null-selection-item-id" type="xs:string"/>
@@ -2970,8 +2878,6 @@
                 <xs:element maxOccurs="unbounded" minOccurs="0" ref="option"/>
             </xs:sequence>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractField"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="columns" type="xs:int"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="null-selection-item-id" type="xs:string"/>
@@ -3004,8 +2910,6 @@
     <xs:element name="v-upload">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="button-caption" type="xs:string"/>
             <xs:attribute name="tabindex" type="xs:int"/>
             <xs:attribute name="caption" type="xs:string"/>
@@ -3018,8 +2922,6 @@
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attributeGroup ref="com.vaadin.ui.Layout..MarginHandler"/>
             <xs:attributeGroup ref="com.vaadin.ui.Layout..SpacingHandler"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="margin-left" type="xs:boolean"/>
             <xs:attribute name="margin-top" type="xs:boolean"/>
@@ -3033,8 +2935,6 @@
         <xs:complexType>
             <xs:group maxOccurs="unbounded" minOccurs="0" ref="AllComponentsGroup"/>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="locked" type="xs:boolean"/>
             <xs:attribute name="tabindex" type="xs:string"/>
@@ -3046,8 +2946,6 @@
     <xs:element name="v-video">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="html-content-allowed" type="xs:boolean"/>
             <xs:attribute name="show-controls" type="xs:boolean"/>
@@ -3061,8 +2959,6 @@
         <xs:complexType>
             <xs:group minOccurs="0" ref="AllComponentsGroup"/>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="resize-lazy" type="xs:boolean"/>
             <xs:attribute name="assistive-postfix" type="xs:string"/>
             <xs:attribute name="closable" type="xs:boolean"/>
@@ -3104,8 +3000,6 @@
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attributeGroup ref="com.vaadin.ui.Layout..MarginHandler"/>
             <xs:attributeGroup ref="com.vaadin.ui.Layout..SpacingHandler"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="margin-left" type="xs:boolean"/>
             <xs:attribute name="margin-top" type="xs:boolean"/>
@@ -3121,8 +3015,6 @@
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attributeGroup ref="com.vaadin.ui.Layout..MarginHandler"/>
             <xs:attributeGroup ref="com.vaadin.ui.Layout..SpacingHandler"/>
-            <xs:attribute name="caption-as-html" type="xs:boolean"/>
-            <xs:attribute name="data" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="margin-left" type="xs:boolean"/>
             <xs:attribute name="margin-top" type="xs:boolean"/>

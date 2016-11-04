@@ -90,6 +90,8 @@
     <xs:attributeGroup name="com.vaadin.ui.AbstractComponent">
         <xs:attributeGroup ref="com.vaadin.server.Sizeable"/>
         <xs:attributeGroup ref="com.vaadin.ui.Component"/>
+        <xs:attribute name="caption-as-html" type="xs:boolean"/>
+        <xs:attribute name="data" type="xs:string"/>
         <xs:attribute name="immediate" type="xs:boolean">
             <xs:annotation>
                 <xs:documentation>
