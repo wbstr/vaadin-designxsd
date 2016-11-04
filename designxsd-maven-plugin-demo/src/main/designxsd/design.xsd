@@ -1808,15 +1808,11 @@
         </xs:attribute>
     </xs:attributeGroup>
     <xs:attributeGroup name="com.vaadin.ui.Layout..MarginHandler">
-        <xs:attribute name="margin" type="xs:string">
-            <xs:annotation>
-                <xs:documentation>
-                    Margin for this layout.
-                    Use a single 'true', or 'false' to control all sides.
-                    With four boolean separated by space you can control each side in top right bottom left order.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
+        <xs:attribute name="margin" type="xs:boolean"/>
+        <xs:attribute name="margin-top" type="xs:boolean"/>
+        <xs:attribute name="margin-right" type="xs:boolean"/>
+        <xs:attribute name="margin-bottom" type="xs:boolean"/>
+        <xs:attribute name="margin-left" type="xs:boolean"/>
     </xs:attributeGroup>
     <xs:attributeGroup name="com.vaadin.ui.AbstractField">
         <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
@@ -2163,12 +2159,8 @@
             <xs:attributeGroup ref="com.vaadin.ui.Layout..MarginHandler"/>
             <xs:attributeGroup ref="com.vaadin.ui.Layout..SpacingHandler"/>
             <xs:attribute name="caption" type="xs:string"/>
-            <xs:attribute name="margin-left" type="xs:boolean"/>
-            <xs:attribute name="margin-top" type="xs:boolean"/>
             <xs:attribute name="tabindex" type="xs:string"/>
-            <xs:attribute name="margin-right" type="xs:boolean"/>
             <xs:attribute name="responsive" type="xs:boolean"/>
-            <xs:attribute name="margin-bottom" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="v-grid">
@@ -2205,12 +2197,8 @@
             <xs:attributeGroup ref="com.vaadin.ui.Layout..MarginHandler"/>
             <xs:attributeGroup ref="com.vaadin.ui.Layout..SpacingHandler"/>
             <xs:attribute name="caption" type="xs:string"/>
-            <xs:attribute name="margin-left" type="xs:boolean"/>
-            <xs:attribute name="margin-top" type="xs:boolean"/>
             <xs:attribute name="tabindex" type="xs:string"/>
-            <xs:attribute name="margin-right" type="xs:boolean"/>
             <xs:attribute name="responsive" type="xs:boolean"/>
-            <xs:attribute name="margin-bottom" type="xs:boolean"/>
             <xs:attribute name="hide-empty-rows-and-columns" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
@@ -2221,12 +2209,8 @@
             <xs:attributeGroup ref="com.vaadin.ui.Layout..MarginHandler"/>
             <xs:attributeGroup ref="com.vaadin.ui.Layout..SpacingHandler"/>
             <xs:attribute name="caption" type="xs:string"/>
-            <xs:attribute name="margin-left" type="xs:boolean"/>
-            <xs:attribute name="margin-top" type="xs:boolean"/>
             <xs:attribute name="tabindex" type="xs:string"/>
-            <xs:attribute name="margin-right" type="xs:boolean"/>
             <xs:attribute name="responsive" type="xs:boolean"/>
-            <xs:attribute name="margin-bottom" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="v-horizontal-split-panel">
@@ -2923,12 +2907,8 @@
             <xs:attributeGroup ref="com.vaadin.ui.Layout..MarginHandler"/>
             <xs:attributeGroup ref="com.vaadin.ui.Layout..SpacingHandler"/>
             <xs:attribute name="caption" type="xs:string"/>
-            <xs:attribute name="margin-left" type="xs:boolean"/>
-            <xs:attribute name="margin-top" type="xs:boolean"/>
             <xs:attribute name="tabindex" type="xs:string"/>
-            <xs:attribute name="margin-right" type="xs:boolean"/>
             <xs:attribute name="responsive" type="xs:boolean"/>
-            <xs:attribute name="margin-bottom" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="v-vertical-split-panel">
@@ -3001,12 +2981,8 @@
             <xs:attributeGroup ref="com.vaadin.ui.Layout..MarginHandler"/>
             <xs:attributeGroup ref="com.vaadin.ui.Layout..SpacingHandler"/>
             <xs:attribute name="caption" type="xs:string"/>
-            <xs:attribute name="margin-left" type="xs:boolean"/>
-            <xs:attribute name="margin-top" type="xs:boolean"/>
             <xs:attribute name="tabindex" type="xs:string"/>
-            <xs:attribute name="margin-right" type="xs:boolean"/>
             <xs:attribute name="responsive" type="xs:boolean"/>
-            <xs:attribute name="margin-bottom" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="demo-root-design">
@@ -3016,12 +2992,8 @@
             <xs:attributeGroup ref="com.vaadin.ui.Layout..MarginHandler"/>
             <xs:attributeGroup ref="com.vaadin.ui.Layout..SpacingHandler"/>
             <xs:attribute name="caption" type="xs:string"/>
-            <xs:attribute name="margin-left" type="xs:boolean"/>
-            <xs:attribute name="margin-top" type="xs:boolean"/>
             <xs:attribute name="tabindex" type="xs:string"/>
-            <xs:attribute name="margin-right" type="xs:boolean"/>
             <xs:attribute name="responsive" type="xs:boolean"/>
-            <xs:attribute name="margin-bottom" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
 </xs:schema>
