@@ -50,14 +50,8 @@ public class AttributeDiscoverer {
         spyDesignAttributeHandler();
         Element stubDesign = readStubDesign();
         Map<String, Class> collectedAttributes = collectAttributes(stubDesign);
-        fixTabindexAttribute(collectedAttributes);
+        collectedAttributes.remove("tabindex");
         return collectedAttributes;
-    }
-    
-    private void fixTabindexAttribute(Map<String, Class> attributes) {
-        if (!component.getClass().isAssignableFrom(Component.Focusable.class)) {
-            attributes.remove("tabindex");
-        }
     }
 
     private void spyDesignAttributeHandler() {
