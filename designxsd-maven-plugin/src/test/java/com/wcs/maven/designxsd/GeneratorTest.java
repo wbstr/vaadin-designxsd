@@ -15,6 +15,7 @@
  */
 package com.wcs.maven.designxsd;
 
+import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
@@ -24,6 +25,7 @@ import org.mockito.runners.MockitoJUnitRunner;
  * @author kumm
  */
 @RunWith(MockitoJUnitRunner.class)
+@Ignore
 public class GeneratorTest {
 
 //    private Generator generator;
