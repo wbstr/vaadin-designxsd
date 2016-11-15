@@ -43,7 +43,7 @@ public class NoValueAttributeBuilderTest {
     public void testBuildAttribute() {
         XmlSchemaAttribute attr = instance.buildAttribute(xmlSchema, "n", null);
         String attributeMarkup = XsdTestUtils.buildAttributeMarkup(xmlSchema, attr);
-        String expected  = "<attribute fixed=\"\" name=\"n\" type=\"string\"/>";
+        String expected  = "<attribute name=\"n\" type=\"string\"/>";
         assertEquals(expected, attributeMarkup);
     }
 
