@@ -2,23 +2,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>com.wcs.designxsd</groupId>
-        <artifactId>designxsd-parent</artifactId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
-    
+    <groupId>com.wcs.designxsd</groupId>
     <artifactId>designxsd-demo</artifactId>
     <packaging>war</packaging>
+    <version>1.0-SNAPSHOT</version>
 
     <name>DesignXSD Demo</name>
 
-    <prerequisites>
-        <maven>3</maven>
-    </prerequisites>
-
     <properties>
-        <vaadin.plugin.version>7.7.2</vaadin.plugin.version>
+        <vaadin.version>7.7.2</vaadin.version>
         <jetty.plugin.version>9.3.9.v20160517</jetty.plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -34,11 +26,23 @@
         </repository>
     </repositories>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.vaadin</groupId>
+                <artifactId>vaadin-bom</artifactId>
+                <version>${vaadin.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
         <dependency>
             <groupId>com.wcs.designxsd</groupId>
             <artifactId>designxsd-xdesign</artifactId>
-            <version>${project.version}</version>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -73,17 +77,6 @@
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.powermock</groupId>
-            <artifactId>powermock-module-junit4</artifactId>
-            <version>1.6.5</version>
-        </dependency>
-        <dependency>
-            <groupId>org.powermock</groupId>
-            <artifactId>powermock-api-mockito</artifactId>
-            <version>1.6.5</version>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
     <build>
@@ -101,7 +94,7 @@
             <plugin>
                 <groupId>com.vaadin</groupId>
                 <artifactId>vaadin-maven-plugin</artifactId>
-                <version>${vaadin.plugin.version}</version>
+                <version>${vaadin.version}</version>
                 <executions>
                     <execution>
                         <goals>
@@ -142,6 +135,14 @@
                     <scanIntervalSeconds>2</scanIntervalSeconds>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.5</version>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
@@ -153,7 +154,7 @@
                     <plugin>
                         <groupId>com.wcs.designxsd</groupId>
                         <artifactId>designxsd-maven-plugin</artifactId>
-                        <version>${project.version}</version>
+                        <version>1.0-SNAPSHOT</version>
                         <executions>
                             <execution>
                                 <configuration>
