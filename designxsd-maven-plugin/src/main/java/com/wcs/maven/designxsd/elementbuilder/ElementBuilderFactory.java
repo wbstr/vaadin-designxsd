@@ -17,6 +17,7 @@ package com.wcs.maven.designxsd.elementbuilder;
 
 import com.vaadin.ui.Component;
 import com.vaadin.ui.ComponentContainer;
+import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.SingleComponentContainer;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.UI;
@@ -52,6 +53,10 @@ public class ElementBuilderFactory {
 
         if (TabSheet.class.getName().equals(componentClass.getName())) {
             return new TabSheetElementBuilder(attributeBuilderFactory, baseAttributeGroupMngr, designContext);
+        }
+        
+        if (MenuBar.class.getName().equals(componentClass.getName())) {
+            return new MenuElementBuilder(attributeBuilderFactory, baseAttributeGroupMngr, designContext);
         }
         
         if (ComponentContainer.class.isAssignableFrom(componentClass)) {

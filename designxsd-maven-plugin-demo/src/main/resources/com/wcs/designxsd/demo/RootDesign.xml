@@ -19,7 +19,7 @@
                                             <option selected="">Echo Sschedule</option>
                                             <option>Fail Sschedule</option>
                                             <option>Timeout Sschedule</option>
-                                        </v-combo-box>
+                                        </v-combo-box>                                        
                                         <v-label _id="runStart" caption="Last run start"/>
                                         <v-label _id="runEnd" caption="Last run end}"/>
                                         <v-label _id="nextRun" caption="Next run"/>
@@ -48,8 +48,23 @@
                             <v-panel>
                                 <v-form-layout margin="true"
                                                spacing="true">
-                                    <v-combo-box _id="kind" null-selection-allowed="false" 
-                                                 caption="Kind"/>
+                                    <v-menu-bar _id="kind" 
+                                                caption="Kind">
+                                        <menu>
+                                            Single
+                                            <menu separator="true"></menu>
+                                            <menu>Init default values</menu>
+                                            <menu>Save values to default</menu>
+                                            <menu checkable="true" checked="true">Enabled</menu>
+                                        </menu>
+                                        <menu>
+                                            Calendar
+                                            <menu separator="true"></menu>
+                                            <menu>Init default values</menu>
+                                            <menu>Save values to default</menu>
+                                            <menu disabled="true">Click me!</menu>
+                                        </menu>
+                                    </v-menu-bar>
                                     <v-date-field _id="start" resolution="SECOND" 
                                                   required-error="Required"
                                                   caption="Start date}"/>

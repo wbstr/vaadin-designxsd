@@ -1219,13 +1219,6 @@
         </xs:annotation>
         <xs:complexType mixed="true">
             <xs:attributeGroup ref="attrs"/>
-            <xs:attribute name="selected">
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="selected"/>
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
             <xs:attribute name="disabled">
                 <xs:simpleType>
                     <xs:restriction base="xs:token">
@@ -1237,6 +1230,7 @@
             <xs:attribute name="value"/>
             <!--Vaadin attributes-->
             <xs:attribute name="item-id" type="xs:string"/>
+            <xs:attribute name="selected" type="xs:string" fixed=""/>
             <xs:attribute name="icon" type="URI"/>
         </xs:complexType>
     </xs:element>
@@ -1812,6 +1806,22 @@
             <xs:attribute name="style-name" type="xs:string"/>
             <xs:attribute name="id" type="xs:string"/>
             <xs:attribute name="selected" type="xs:boolean"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="menu">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:element ref="menu" maxOccurs="unbounded" minOccurs="0"/>
+            </xs:sequence>
+            <xs:attribute name="more" type="xs:string" fixed=""/>
+            <xs:attribute name="icon" type="URI"/>
+            <xs:attribute name="visible" type="xs:boolean"/>
+            <xs:attribute name="disabled" type="xs:boolean"/>
+            <xs:attribute name="separator" type="xs:boolean"/>
+            <xs:attribute name="checkable" type="xs:boolean"/>
+            <xs:attribute name="checked" type="xs:boolean"/>
+            <xs:attribute name="description" type="xs:boolean"/>
+            <xs:attribute name="style-name" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
 </xs:schema>
