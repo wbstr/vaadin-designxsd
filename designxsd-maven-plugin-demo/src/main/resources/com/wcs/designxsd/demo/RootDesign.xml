@@ -6,135 +6,108 @@
         <meta charset="UTF-8" name="package-mapping" content="demo:com.wcs.designxsd.demo"/>
     </head>
     <body>
-        <v-horizontal-layout size-full="" spacing="true">
-            <v-label>
-                Simple text
-                <p>Paragraph</p>
-                <b>Bold</b>
-                <u>Underline</u>
-            </v-label>
-            <v-label>
-                <table style="border-collapse: collapse;" border = "1" cellpadding = "5" cellspacing = "5">
-                    <tr>
-                        <th colspan = "6" align = "center">time table</th>
-                    </tr>
-                    <tr>
-                        <th rowspan = "6">hours</th>
-                        <th>mon</th>
-                        <th>tue</th>
-                        <th>wed</th>
-                        <th>thu</th>
-                        <th>fri</th>
-                    </tr>
-                    <tr>
-                        <td>science</td
-                        >
-                        <td>maths</td>
-                        <td>science</td>
-                        <td>maths</td>
-                        <td>arts</td>
-                    </tr>
-                    <tr>
-                        <td>social</td>
-                        <td>history</td>
-                        <td>english</td>
-                        <td>social</td>
-                        <td>sports</td>
-                    </tr>
-                    <tr>
-                        <th colspan = "5" align = "center">lunch</th>
-                    </tr>
-                    <tr>
-                        <td>science</td>
-                        <td>maths</td>
-                        <td>science</td>
-                        <td>maths</td>
-                        <td rowspan = "2">project</td>
-                    </tr>
-                    <tr>
-                        <td>social</td>
-                        <td>history</td>
-                        <td>english</td>
-                        <td>social</td>
-                    </tr>
-                </table> 
-            </v-label>
-            <v-label>
-                <p>
-                    Paragraph<b>bold</b>
-                    <u>underline</u>
-                    <i>italic</i>
-                    <a href="https://github.com/kumm/claraxsd-maven-plugin">Read me text</a>
-                </p>
-                <ul>
-                    <li>Coffee</li>
-                    <li>Tea</li>
-                    <li>Milk</li>
-                </ul>
-                <ol>
-                    <li>First</li>
-                    <li>second</li>
-                    <li>third</li>
-                </ol>
-                <dl>
-                    <dt>Coffee</dt>
-                    <dd>Black hot drink</dd>
-                    <dt>Milk</dt>
-                    <dd>White cold drink</dd>
-                </dl> 
-            </v-label>
-            <v-horizontal-layout width-full="">
-                <v-button _middle="" _expand="1">
-                    Left button
-                </v-button>
-                <v-button _middle="" _right="">
-                    Right button
-                </v-button>
-            </v-horizontal-layout>
-            <v-vertical-layout>
-                <v-option-group _id="options" multi-select="true">
-                    <option item-id="first_id" selected="selected">First option</option>
-                    <option item-id="secound_id">Second option</option>
-                    <option item-id="third_id">Third option</option>
-                </v-option-group>
+        <v-vertical-layout>
+            <v-vertical-layout size-full="" margin="true">
+                <v-tab-sheet _id="tabSheet" _expand="1" size-full="">
+                    <tab caption="General">
+                        <v-vertical-layout spacing="true">
+                            <v-panel>
+                                <v-vertical-layout margin="true">
+                                    <v-form-layout margin-top="false" margin-bottom="true" spacing="true">
+                                        <v-label _id="id" caption="Id"/>
+                                        <v-combo-box _id="job" null-selection-allowed="false" caption="Schedulerwindow job">
+                                            <option selected="">Echo Sschedule</option>
+                                            <option>Fail Sschedule</option>
+                                            <option>Timeout Sschedule</option>
+                                        </v-combo-box>
+                                        <v-label _id="runStart" caption="Last run start"/>
+                                        <v-label _id="runEnd" caption="Last run end}"/>
+                                        <v-label _id="nextRun" caption="Next run"/>
+                                    </v-form-layout>
+                                    <v-button _id="runNow">
+                                        Run now
+                                    </v-button>
+                                </v-vertical-layout>
+                            </v-panel>
+                            <v-panel>
+                                <v-vertical-layout margin="true">
+                                    <v-form-layout margin-top="false" margin-bottom="true" spacing="true">
+                                        <v-label _id="status" caption="Status"/>
+                                        <v-label _id="lastFailRun" caption="Last fail run"/>
+                                        <v-label _id="failCount" caption="Fail count"/>
+                                    </v-form-layout>
+                                    <v-button _id="log">
+                                        Log
+                                    </v-button>
+                                </v-vertical-layout>
+                            </v-panel>
+                        </v-vertical-layout>
+                    </tab>
+                    <tab caption="ScheduleExpression">
+                        <v-vertical-layout _id="seTab" spacing="true">
+                            <v-panel>
+                                <v-form-layout margin="true"
+                                               spacing="true">
+                                    <v-combo-box _id="kind" null-selection-allowed="false" 
+                                                 caption="Kind"/>
+                                    <v-date-field _id="start" resolution="SECOND" 
+                                                  required-error="Required"
+                                                  caption="Start date}"/>
+                                    <v-date-field _id="end" resolution="SECOND" 
+                                                  required-error="Required"
+                                                  caption="End date}"/>
+                                </v-form-layout>
+                            </v-panel>
+                            <v-panel>
+                                <v-form-layout margin="true"
+                                               spacing="true">
+                                    <v-text-field _id="timezone" null-representation="" caption="Timezone"/>
+                                    <v-text-field _id="year" null-representation="" 
+                                                  required-error="Required"
+                                                  caption="Year"/>
+                                    <v-text-field _id="month" null-representation="" 
+                                                  required-error="Required"
+                                                  caption="Month"/>
+                                    <v-text-field _id="dayOfMonth" null-representation="" 
+                                                  required-error="Required"
+                                                  caption="Day of month"/>
+                                    <v-text-field _id="dayOfWeek" null-representation="" 
+                                                  required-error="Required"
+                                                  caption="Day of week"/>
+                                    <v-text-field _id="hour" null-representation="" 
+                                                  required-error="Required"
+                                                  caption="Hour"/>
+                                    <v-text-field _id="minute" null-representation="" 
+                                                  required-error="Required"
+                                                  caption="Minute"/>
+                                    <v-text-field _id="second" null-representation="" 
+                                                  required-error="Required"
+                                                  caption="Second"/>
+                                </v-form-layout>
+                            </v-panel>
+                        </v-vertical-layout>
+                    </tab>
+                    <tab caption="Param">
+                        <v-vertical-layout margin-bottom="true" 
+                                           margin-left="true"
+                                           margin-right="true"
+                                           size-full="">
+                            <v-text-area _id="param" null-representation="" caption="Param" size-full=""/>
+                        </v-vertical-layout>
+                    </tab>
+                </v-tab-sheet>
+                <v-horizontal-layout margin-top="true" spacing="true" width="100%">
+                    <v-button _id="save" _bottom="" style-name="primary">
+                        Save
+                    </v-button>
+                    <v-button _id="cancel" _bottom="">
+                        Cancel
+                    </v-button>
+                    <v-button _id="delete" style-name="danger" _bottom="" _right="" _expand="1">
+                        Delete
+                    </v-button>
+                </v-horizontal-layout>
             </v-vertical-layout>
-            <v-table caption="teszt" width="100%">
-                <table>
-                    <colgroup>
-                        <col center=""/>
-                        <col property-id="lastName"/>
-                    </colgroup>
-                    <thead>
-                        <tr>
-                            <td>First name</td>
-                            <td>Last name</td>
-                        </tr>
-                    </thead>
-                    <tfoot>
-                        <tr>
-                            <td>Footer 1</td>
-                            <td>Footer 2</td>
-                        </tr>
-                    </tfoot>
-                    <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </v-table>
-            <v-tree>
-                <node text="A">
-                    <node text="B"/>
-                    <node text="C"/>
-                    <node text="D">
-                        <node text="E"/>
-                        <node text="F"/>
-                    </node>
-                </node>
-            </v-tree>
-            <demo-custom-component/>
-        </v-horizontal-layout>
+        </v-vertical-layout>
     </body>
 </html>

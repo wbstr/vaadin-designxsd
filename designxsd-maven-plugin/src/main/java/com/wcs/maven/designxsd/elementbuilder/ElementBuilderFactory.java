@@ -18,6 +18,7 @@ package com.wcs.maven.designxsd.elementbuilder;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.ComponentContainer;
 import com.vaadin.ui.SingleComponentContainer;
+import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.declarative.DesignContext;
 import com.wcs.maven.designxsd.attributebuilder.AttributeBuilderFactory;
@@ -49,6 +50,10 @@ public class ElementBuilderFactory {
             return new NopElementBuilder();
         }
 
+        if (TabSheet.class.getName().equals(componentClass.getName())) {
+            return new TabSheetElementBuilder(attributeBuilderFactory, baseAttributeGroupMngr, designContext);
+        }
+        
         if (ComponentContainer.class.isAssignableFrom(componentClass)) {
             return new ContainerElementBuilder(attributeBuilderFactory, baseAttributeGroupMngr, designContext);
         }
