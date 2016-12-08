@@ -68,3 +68,11 @@ Ez a modul felel az .xsd fájl generálásáért. Érdemes csinálni egy külön
   </build>
 </profile>
 ```
+A konfigurációt emelném ki.
+```
+<configuration>
+  <destination>${basedir}/src/main/designxsd</destination>
+  <legacyPrefixEnabled>true</legacyPrefixEnabled>
+</configuration>
+```
+* A <destination> résszel szabályozható, hogy hova kerüljön a generált .xsd fájl. Arra kell figyelni, hogy ha nem létezik a könyvtár, amit itt megadtunk, akkor nem generálódik le a fájl. Ha nincs beállítva semmi, akkor a projekt gyökérkönyvtárába kerül a generált .xsd fájl.
