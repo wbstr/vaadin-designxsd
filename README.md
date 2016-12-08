@@ -38,3 +38,5 @@ Az .xml fájlokra való áttéréshez kellett hoznunk pár szabályt.
 Tartalmaz ezen felül egy kényelmi funkciót is. A Design nevű osztály, ha azt látja, hogy a POJO, amire rátettük a @DesignRoot annotációt az érétke nincs kitöltve, akkor keres ugyan abban a csomagban egy .html fájl, amiből megpróbálja betölteni a design-t. Mivel váltottunk .xml-re ez nem fog működni. Az XDesing osztályunk ugyan ezt teszi, csak .xml kiterjesztési fájlt keres. Így megúszhatjuk, hogy minden egyes osztály esetén meg kelljen adnunk, hogy hol van a design fájl.
 
 ## DesignXSD Maven Plugin modul
+
+Ez a modul felel az .xsd fájl generálásáért. Érdemes csinálni egy külön profilt, hogy befolyásolni tudjuk, hogy mikor kell újra generálni az .xsd fájlt. (Az egyedi komponenseink is bele generálódnak az .xsd fájlba)
