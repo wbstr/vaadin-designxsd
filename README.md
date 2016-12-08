@@ -79,4 +79,20 @@ A konfigurációt emelném ki.
 * Azt, hogy melyik komponens melyik csomagban található a tag nevek előtt lévő prefixummal lehet szabályozni. Ezzek kettő beépített van a `v-` és a `vaadin-` Mindkettő a `com.vaadin.ui` csomagot jelenti. Azt, hogy az .xsd fájl melyik verzióval generálja le a lehetséges tag neveket, a `<legacyPrefixEnabled>` résszel lehet szabályozni. `true` esetén a `v-`-et használja, egyébként meg a `vaadin-`-et. Ha nem adunk meg semmit, akkor `false`-nak vesszük.
 
 # IDE beállítása
-## Netbeans
+## NetBeans
+
+Nyissuk meg a Tools/DTDs and XML Schemas menüpontot! Válasszuk a User Catalog-ot. Majd nyomjuk meg jobb oldalt az Add Locla DTD or Schema gombot. Válasszuk a System ID rádió gobmot és adjunk meg egy tetszőleges nevet. NetBeans esetén a név elé kell írni, hogy `hhtp://` a végére pedig, hogy `.xsd`. Csak így fog működni a kódkiegészítés. Az itt megadott nevet meg kell adnunk a desing-t tartalmazó .xml fájlunkban.
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<html
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://jeewcslib-idm-ui-vaadin-design.xsd">
+    <head>
+    </head>
+    <body>
+        <v-vertical-layout size-full="" spacing="true">
+            
+        </v-vertical-layout>
+    </body>
+</html>
+```
