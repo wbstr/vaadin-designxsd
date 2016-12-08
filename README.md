@@ -43,3 +43,28 @@ public class RootDesign extends VerticalLayout {
 ## DesignXSD Maven Plugin modul
 
 Ez a modul felel az .xsd fájl generálásáért. Érdemes csinálni egy külön profilt, hogy befolyásolni tudjuk, hogy mikor kell újra generálni az .xsd fájlt. (Az egyedi komponenseink is bele generálódnak az .xsd fájlba)
+```
+<profile>
+<id>designxsd</id>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>com.wcs.designxsd</groupId>
+        <artifactId>designxsd-maven-plugin</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <executions>
+          <execution>
+            <configuration>
+              <destination>${basedir}/src/main/designxsd</destination>
+              <legacyPrefixEnabled>true</legacyPrefixEnabled>
+            </configuration>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</profile>
+```
