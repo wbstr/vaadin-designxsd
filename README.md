@@ -6,7 +6,7 @@ Leírás a Vaadin Declaratively nevű találmányáról: [Designing UIs Declarat
 
 ## DesignXSD Demo
 
-Ez a modul segíti a tesztelés, fejlesztést. Lehet benne találni pár példát mit hogyan lehet használni. Minden amit ez után leírok megtalálható ebben a modulban.
+Ez a modul segíti a tesztelés, fejlesztést. Lehet benne találni pár példát rá mit hogyan lehet használni. Minden amit ez után leírok megtalálható ebben a modulban.
 
 ## DesignXSD XDesign
 
