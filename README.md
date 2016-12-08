@@ -81,7 +81,7 @@ A konfigurációt emelném ki.
 # IDE beállítása
 ## NetBeans
 
-Nyissuk meg a Tools/DTDs and XML Schemas menüpontot! Válasszuk a User Catalog-ot. Majd nyomjuk meg jobb oldalt az Add Locla DTD or Schema gombot. Válasszuk a System ID rádió gobmot és adjunk meg egy tetszőleges nevet. NetBeans esetén a név elé kell írni, hogy `hhtp://` a végére pedig, hogy `.xsd`. Csak így fog működni a kódkiegészítés. Az itt megadott nevet meg kell adnunk a desing-t tartalmazó .xml fájlunkban.
+Nyissuk meg a Tools/DTDs and XML Schemas menüpontot! Válasszuk a User Catalog-ot! Majd nyomjuk meg jobb oldalt az Add Locla DTD or Schema gombot. Válasszuk a System ID rádió gobmot és adjunk meg egy tetszőleges nevet. NetBeans esetén a név elé kell írni, hogy `hhtp://` a végére pedig, hogy `.xsd`. Csak így fog működni a kódkiegészítés. Az itt megadott nevet meg kell adnunk a desing-t tartalmazó .xml fájlunkban.
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <html
