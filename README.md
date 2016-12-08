@@ -75,4 +75,8 @@ A konfigurációt emelném ki.
   <legacyPrefixEnabled>true</legacyPrefixEnabled>
 </configuration>
 ```
-* A <destination> résszel szabályozható, hogy hova kerüljön a generált .xsd fájl. Arra kell figyelni, hogy ha nem létezik a könyvtár, amit itt megadtunk, akkor nem generálódik le a fájl. Ha nincs beállítva semmi, akkor a projekt gyökérkönyvtárába kerül a generált .xsd fájl.
+* A `<destination>` résszel szabályozható, hogy hova kerüljön a generált .xsd fájl. Arra kell figyelni, hogy ha nem létezik a könyvtár, amit itt megadtunk, akkor nem generálódik le a fájl. Ha nincs beállítva semmi, akkor a projekt gyökérkönyvtárába kerül a generált .xsd fájl.
+* Azt, hogy melyik komponens melyik csomagban található a tag nevek előtt lévő prefixummal lehet szabályozni. Ezzek kettő beépített van a `v-` és a `vaadin-` Mindkettő a `com.vaadin.ui` csomagot jelenti. Azt, hogy az .xsd fájl melyik verzióval generálja le a lehetséges tag neveket, a `<legacyPrefixEnabled>` résszel lehet szabályozni. `true` esetén a `v-`-et használja, egyébként meg a `vaadin-`-et. Ha nem adunk meg semmit, akkor `false`-nak vesszük.
+
+# IDE beállítása
+## Netbeans
