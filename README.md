@@ -18,7 +18,7 @@ Az .xml fájlokra való áttéréshez kellett hoznunk pár szabályt.
 
 Ezen felül csak néhány hasonló attribútum van, amikkel igazítani lehet a komponenseket. (`:middle`, `:bottom`, `:center`, `:right`) Természetesen ezeket is aláhúzással kell használnunk.
 
-Tartalmaz ezen felül egy kényelmi funkciót is. A Design nevű osztály, ha azt látja, hogy a POJO, amire rátettük a @DesignRoot annotációt, az érétke nincs kitöltve, akkor keres ugyan abban a csomagban egy .html fájl, amiből megpróbálja betölteni a design-t. Mivel váltottunk .xml-re ez nem fog működni. Az XDesing osztályunk ugyan ezt teszi, csak .xml kiterjesztési fájlt keres. Így megúszhatjuk, hogy minden egyes osztály esetén meg kelljen adnunk, hogy hol van a design fájl.
+Tartalmaz ezen felül egy kényelmi funkciót is. A Design nevű osztály, ha azt látja, hogy a POJO, amire rátettük a `@DesignRoot` annotációt, az érétke nincs kitöltve, akkor keres ugyan abban a csomagban egy .html fájl, amiből megpróbálja betölteni a design-t. Mivel váltottunk .xml-re ez nem fog működni. Az XDesing osztályunk ugyan ezt teszi, csak .xml kiterjesztési fájlt keres. Így megúszhatjuk, hogy minden egyes osztály esetén meg kelljen adnunk, hogy hol van a design fájl.
 
 Vegyük hát föl a függőségek közé! (Ez megtalálható a demó modul pom.xml-jében)
 ```
