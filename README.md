@@ -13,7 +13,7 @@ Ez a modul segíti a projekt megértését, tesztelését, fejlesztését. Lehet
 Ez a modul teszi lehetővé az .xml fájlra való áttérést. 
 
 Az .xml fájlokra való áttéréshez kellett hoznunk pár szabályt. 
-* A Vaadin által kitalált fájl szerkezeten nem baj, ha egy attribútum után nem szerepel semmi. Ilyen pl. a size-full attribútum. Ez .xml fájlokban sajnos nem megengedett. Szerencsére úgy implementálták, hogy Mindegy, hogy utána van e, hogy ="" vagy sem. Működik az értékkel vagy anélkül is.
+* A Vaadin által kitalált fájl szerkezeten nem baj, ha egy attribútum után nem szerepel semmi. Ilyen pl. a size-full attribútum. Ez .xml fájlokban sajnos nem megengedett. Szerencsére úgy implementálták, hogy Mindegy, hogy utána van e, hogy ="" vagy sem. Működik az értékkel vagy anélkül is. Tehát csak annyi a dolgunk, hogy így használjuk ezt az attribútumot: `size-full=""`
 * Egy másik probléma, hogy a Vaadin bizonyos attribútumok elött megköveteli a kettőspontot. Pl. a :expand. Ami így magában annyit jelent, hogy az expandot állítsa egyre. Sajnos ez .xml-ben nem megengedett, mert a kettőspont a namespace-t jelenti. Ez helyett az "_" karaktert választottuk. Ennek a modulnak a feladata ezeket feldolgozni. Egy XDesign nevű osztály van benne, ami nagyon haszonlóan működik, mint a Vaadin által szállított Design nevű osztály. Annyival tud többet, hogy az aláhúzás karaktereket lecseréli kettőspontra és tovább adja a gyárinak. (Design)
 * A :expand-on felül van még pár ilyen spéci attribútum, amikkel igazítani lehet a komponenseket. (:middle, :bottom, :center, :right) Természetesen ezeket is aláhúzással kell használnunk.
 
