@@ -10,7 +10,7 @@ Ez a modul segíti a projekt megértését, tesztelését, fejlesztését. Lehet
 
 ## DesignXSD XDesign
 
-Ez a modul teszi lehetővé az .xml fájlra vlaó áttérést. 
+Ez a modul teszi lehetővé az .xml fájlra való áttérést. 
 
 Az .xml fájlokra való áttéréshez kellett hoznunk pár szabályt. 
 * A Vaadin által kitalált fájl szerkezeten nem baj, ha egy attribútum után nem szerepel semmi. Ilyen pl. a size-full attribútum. Ez .xml fájlokban sajnos nem megengedett. Szerencsére úgy implementálták, hogy Mindegy, hogy utána van e, hogy ="" vagy sem. Működik az értékkel vagy anélkül is.
