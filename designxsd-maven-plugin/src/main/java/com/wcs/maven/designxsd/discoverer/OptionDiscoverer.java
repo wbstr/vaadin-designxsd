@@ -15,13 +15,7 @@
  */
 package com.wcs.maven.designxsd.discoverer;
 
-import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Component;
-import com.vaadin.ui.ListSelect;
-import com.vaadin.ui.NativeSelect;
-import com.vaadin.ui.TwinColSelect;
-import com.vaadin.v7.ui.OptionGroup;
-import com.vaadin.v7.ui.Select;
 
 /**
  *
@@ -29,15 +23,13 @@ import com.vaadin.v7.ui.Select;
  */
 public class OptionDiscoverer {
     
-    private boolean searchItemId;
-    
     public boolean discover(Class<? extends Component> componentClass) {
         String componentName = componentClass.getName();
-        return NativeSelect.class.getName().equals(componentName)
-                || Select.class.getName().equals(componentName)
-                || TwinColSelect.class.getName().equals(componentName)
-                || ComboBox.class.getName().equals(componentName)
-                || ListSelect.class.getName().equals(componentName)
-                || OptionGroup.class.getName().equals(componentName);
+        return "com.vaadin.v7.ui.NativeSelect".equals(componentName)
+                || "com.vaadin.v7.ui.Select".equals(componentName)
+                || "com.vaadin.v7.ui.TwinColSelect".equals(componentName)
+                || "com.vaadin.v7.ui.ComboBox".equals(componentName)
+                || "com.vaadin.v7.ui.ListSelect".equals(componentName)
+                || "com.vaadin.v7.ui.OptionGroup".equals(componentName);
     }
 }
