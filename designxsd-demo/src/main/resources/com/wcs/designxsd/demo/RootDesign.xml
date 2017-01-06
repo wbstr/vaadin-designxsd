@@ -65,12 +65,12 @@
                                             <menu disabled="true">Click me!</menu>
                                         </menu>
                                     </v-menu-bar>
-                                    <v-date-field _id="start" resolution="SECOND" 
+                                    <v-date-field _id="start"
                                                   required-error="Required"
-                                                  caption="Start date}"/>
-                                    <v-date-field _id="end" resolution="SECOND" 
+                                                  caption="Start date"/>
+                                    <v-date-field _id="end"
                                                   required-error="Required"
-                                                  caption="End date}"/>
+                                                  caption="End date"/>
                                 </v-form-layout>
                             </v-panel>
                             <v-panel>

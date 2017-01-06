@@ -15,61 +15,29 @@
  */
 package com.wcs.maven.designxsd.discoverer;
 
+import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Component;
-import com.vaadin.ui.declarative.DesignContext;
-import org.jsoup.nodes.Attributes;
-import org.jsoup.nodes.Element;
-import org.jsoup.parser.Tag;
+import com.vaadin.ui.ListSelect;
+import com.vaadin.ui.NativeSelect;
+import com.vaadin.ui.TwinColSelect;
+import com.vaadin.v7.ui.OptionGroup;
+import com.vaadin.v7.ui.Select;
 
 /**
  *
  * @author lali
  */
 public class OptionDiscoverer {
-
+    
     private boolean searchItemId;
-
+    
     public boolean discover(Class<? extends Component> componentClass) {
-        Component component;
-        try {
-            component = componentClass.newInstance();
-        } catch (InstantiationException | IllegalAccessException ex) {
-            return false;
-        }
-
-        Tag abstractSelectTag = Tag.valueOf("mock-" + component.getClass().getSimpleName().toLowerCase());
-        Element abstractSelect = new Element(abstractSelectTag, "");
-
-        Tag optionTag = Tag.valueOf("option");
-        StubElement optionElement = new StubElement(optionTag, "");
-        abstractSelect.appendChild(optionElement);
-
-        try {
-            component.readDesign(abstractSelect, new DesignContext());
-
-        } catch (Exception ex) {
-            return false;
-        }
-
-        return searchItemId;
-    }
-
-    private class StubElement extends Element {
-
-        public StubElement(Tag tag, String baseUri, Attributes attributes) {
-            super(tag, baseUri, attributes);
-        }
-
-        public StubElement(Tag tag, String baseUri) {
-            super(tag, baseUri);
-        }
-
-        @Override
-        public boolean hasAttr(String attributeKey) {
-            if (!searchItemId) {
-                searchItemId = "item-id".equals(attributeKey);
-            }
-            return super.hasAttr(attributeKey);
-        }
+        String componentName = componentClass.getName();
+        return NativeSelect.class.getName().equals(componentName)
+                || Select.class.getName().equals(componentName)
+                || TwinColSelect.class.getName().equals(componentName)
+                || ComboBox.class.getName().equals(componentName)
+                || ListSelect.class.getName().equals(componentName)
+                || OptionGroup.class.getName().equals(componentName);
     }
 }

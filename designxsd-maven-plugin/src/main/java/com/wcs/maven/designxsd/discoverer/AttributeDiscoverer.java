@@ -20,6 +20,7 @@ import com.vaadin.ui.declarative.DesignAttributeHandler;
 import com.vaadin.ui.declarative.DesignContext;
 import com.vaadin.ui.declarative.DesignFormatter;
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -58,6 +59,11 @@ public class AttributeDiscoverer {
         try {
             Field formatterField = DesignAttributeHandler.class.getDeclaredField("FORMATTER");
             formatterField.setAccessible(true);
+
+            Field modifiersField = Field.class.getDeclaredField("modifiers");
+            modifiersField.setAccessible(true);
+            modifiersField.setInt(formatterField, formatterField.getModifiers() & ~Modifier.FINAL);
+
             formatterField.set(null, designFormatter);
         } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {
             throw new RuntimeException(ex);

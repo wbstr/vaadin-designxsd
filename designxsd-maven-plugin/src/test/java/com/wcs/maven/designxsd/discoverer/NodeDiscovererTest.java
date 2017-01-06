@@ -16,7 +16,7 @@
 package com.wcs.maven.designxsd.discoverer;
 
 import com.vaadin.ui.TabSheet;
-import com.vaadin.ui.Tree;
+import com.vaadin.v7.ui.Tree;
 import org.junit.Assert;
 import org.junit.Test;
 

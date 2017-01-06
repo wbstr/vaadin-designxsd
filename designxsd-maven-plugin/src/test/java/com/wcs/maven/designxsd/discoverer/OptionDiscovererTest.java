@@ -19,12 +19,12 @@ import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.ListSelect;
 import com.vaadin.ui.NativeSelect;
-import com.vaadin.ui.OptionGroup;
-import com.vaadin.ui.Select;
-import com.vaadin.ui.Table;
-import com.vaadin.ui.Tree;
-import com.vaadin.ui.TreeTable;
 import com.vaadin.ui.TwinColSelect;
+import com.vaadin.v7.ui.OptionGroup;
+import com.vaadin.v7.ui.Select;
+import com.vaadin.v7.ui.Table;
+import com.vaadin.v7.ui.Tree;
+import com.vaadin.v7.ui.TreeTable;
 import org.junit.Assert;
 import org.junit.Test;
 
