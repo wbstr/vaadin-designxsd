@@ -1922,7 +1922,9 @@
     </xs:element>
     <xs:element name="v-accordion">
         <xs:complexType>
-            <xs:group maxOccurs="unbounded" minOccurs="0" ref="AllComponentsGroup"/>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="tab"/>
+            </xs:sequence>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attribute name="tab-captions-as-html" type="xs:boolean"/>
             <xs:attribute name="caption" type="xs:string"/>
