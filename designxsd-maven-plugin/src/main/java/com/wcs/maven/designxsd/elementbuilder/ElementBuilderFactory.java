@@ -15,6 +15,7 @@
  */
 package com.wcs.maven.designxsd.elementbuilder;
 
+import com.vaadin.ui.Accordion;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.ComponentContainer;
 import com.vaadin.ui.MenuBar;
@@ -53,6 +54,10 @@ public class ElementBuilderFactory {
 
         if (TabSheet.class.getName().equals(componentClass.getName())) {
             return new TabSheetElementBuilder(attributeBuilderFactory, baseAttributeGroupMngr, designContext);
+        }
+        
+        if (Accordion.class.getName().equals(componentClass.getName())) {
+            return new AccordionElementBuilder(attributeBuilderFactory, baseAttributeGroupMngr, designContext);
         }
         
         if (MenuBar.class.getName().equals(componentClass.getName())) {
