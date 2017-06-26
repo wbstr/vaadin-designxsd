@@ -1696,37 +1696,6 @@
             <xs:attribute fixed="" name="selected" type="xs:string"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="tab">
-        <xs:complexType>
-            <xs:group ref="AllComponentsGroup"/>
-            <xs:attribute name="visible" type="xs:boolean"/>
-            <xs:attribute name="closable" type="xs:boolean"/>
-            <xs:attribute name="caption" type="xs:string"/>
-            <xs:attribute name="enabled" type="xs:boolean"/>
-            <xs:attribute name="icon" type="URI"/>
-            <xs:attribute name="icon-alt" type="xs:string"/>
-            <xs:attribute name="description" type="xs:string"/>
-            <xs:attribute name="style-name" type="xs:string"/>
-            <xs:attribute name="id" type="xs:string"/>
-            <xs:attribute name="selected" type="xs:boolean"/>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="menu">
-        <xs:complexType mixed="true">
-            <xs:sequence>
-                <xs:element maxOccurs="unbounded" minOccurs="0" ref="menu"/>
-            </xs:sequence>
-            <xs:attribute fixed="" name="more" type="xs:string"/>
-            <xs:attribute name="icon" type="URI"/>
-            <xs:attribute name="visible" type="xs:boolean"/>
-            <xs:attribute name="disabled" type="xs:boolean"/>
-            <xs:attribute name="separator" type="xs:boolean"/>
-            <xs:attribute name="checkable" type="xs:boolean"/>
-            <xs:attribute name="checked" type="xs:boolean"/>
-            <xs:attribute name="description" type="xs:boolean"/>
-            <xs:attribute name="style-name" type="xs:boolean"/>
-        </xs:complexType>
-    </xs:element>
     <xs:attributeGroup name="_parent">
         <xs:annotation>
             <xs:documentation>
@@ -1852,6 +1821,37 @@
         <xs:attribute name="validation-visible" type="xs:boolean"/>
         <xs:attribute name="tabindex" type="xs:integer"/>
     </xs:attributeGroup>
+    <xs:element name="tab">
+        <xs:complexType>
+            <xs:group ref="AllComponentsGroup"/>
+            <xs:attribute name="visible" type="xs:boolean"/>
+            <xs:attribute name="closable" type="xs:boolean"/>
+            <xs:attribute name="caption" type="xs:string"/>
+            <xs:attribute name="enabled" type="xs:boolean"/>
+            <xs:attribute name="icon" type="URI"/>
+            <xs:attribute name="icon-alt" type="xs:string"/>
+            <xs:attribute name="description" type="xs:string"/>
+            <xs:attribute name="style-name" type="xs:string"/>
+            <xs:attribute name="id" type="xs:string"/>
+            <xs:attribute name="selected" type="xs:boolean"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="menu">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="menu"/>
+            </xs:sequence>
+            <xs:attribute fixed="" name="more" type="xs:string"/>
+            <xs:attribute name="icon" type="URI"/>
+            <xs:attribute name="visible" type="xs:boolean"/>
+            <xs:attribute name="disabled" type="xs:boolean"/>
+            <xs:attribute name="separator" type="xs:boolean"/>
+            <xs:attribute name="checkable" type="xs:boolean"/>
+            <xs:attribute name="checked" type="xs:boolean"/>
+            <xs:attribute name="description" type="xs:boolean"/>
+            <xs:attribute name="style-name" type="xs:boolean"/>
+        </xs:complexType>
+    </xs:element>
     <xs:group name="AllComponentsGroup">
         <xs:choice>
             <xs:element ref="v-absolute-layout"/>
