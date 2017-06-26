@@ -8,9 +8,14 @@
     <version>1.1-SNAPSHOT</version>
 
     <name>DesignXSD Demo</name>
+    
+    <parent>
+        <groupId>com.wcs.designxsd</groupId>
+        <artifactId>designxsd-parent</artifactId>
+        <version>1.1-SNAPSHOT</version>
+    </parent>
 
     <properties>
-        <vaadin.version>8.0.0.beta1</vaadin.version>
         <jetty.plugin.version>9.3.9.v20160517</jetty.plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>

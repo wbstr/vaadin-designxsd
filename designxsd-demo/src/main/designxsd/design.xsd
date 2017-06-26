@@ -1811,14 +1811,7 @@
     <xs:attributeGroup name="com.vaadin.ui.AbstractField">
         <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
         <xs:attribute name="required" type="xs:boolean"/>
-        <xs:attribute name="buffered" type="xs:boolean"/>
-        <xs:attribute name="invalid-allowed" type="xs:boolean"/>
-        <xs:attribute name="invalid-committed" type="xs:boolean"/>
-        <xs:attribute name="conversion-error" type="xs:string"/>
-        <xs:attribute name="converted-value" type="xs:string"/>
         <xs:attribute name="value" type="xs:string"/>
-        <xs:attribute name="required-error" type="xs:string"/>
-        <xs:attribute name="validation-visible" type="xs:boolean"/>
         <xs:attribute name="tabindex" type="xs:integer"/>
     </xs:attributeGroup>
     <xs:element name="tab">
@@ -1864,10 +1857,12 @@
             <xs:element ref="v-color-picker"/>
             <xs:element ref="v-color-picker-area"/>
             <xs:element ref="v-combo-box"/>
+            <xs:element ref="v-composite"/>
             <xs:element ref="v-css-layout"/>
             <xs:element ref="v-custom-component"/>
             <xs:element ref="v-custom-layout"/>
             <xs:element ref="v-date-field"/>
+            <xs:element ref="v-date-time-field"/>
             <xs:element ref="v-drag-and-drop-wrapper"/>
             <xs:element ref="v-embedded"/>
             <xs:element ref="v-flash"/>
@@ -1878,6 +1873,7 @@
             <xs:element ref="v-horizontal-split-panel"/>
             <xs:element ref="v-image"/>
             <xs:element ref="v-inline-date-field"/>
+            <xs:element ref="v-inline-date-time-field"/>
             <xs:element ref="v-label"/>
             <xs:element ref="v-link"/>
             <xs:element ref="v-list-select"/>
@@ -1895,6 +1891,8 @@
             <xs:element ref="v-tab-sheet"/>
             <xs:element ref="v-text-area"/>
             <xs:element ref="v-text-field"/>
+            <xs:element ref="v-tree"/>
+            <xs:element ref="v-tree-grid"/>
             <xs:element ref="v-twin-col-select"/>
             <xs:element ref="v-upload"/>
             <xs:element ref="v-vertical-layout"/>
@@ -2066,6 +2064,14 @@
             <xs:attribute name="empty-selection-caption" type="xs:string"/>
         </xs:complexType>
     </xs:element>
+    <xs:element name="v-composite">
+        <xs:complexType>
+            <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
+            <xs:attribute name="icon" type="xs:string"/>
+            <xs:attribute name="caption" type="xs:string"/>
+            <xs:attribute name="responsive" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
     <xs:element name="v-css-layout">
         <xs:complexType>
             <xs:group maxOccurs="unbounded" minOccurs="0" ref="AllComponentsGroup"/>
@@ -2095,6 +2101,27 @@
         </xs:complexType>
     </xs:element>
     <xs:element name="v-date-field">
+        <xs:complexType>
+            <xs:attributeGroup ref="com.vaadin.ui.AbstractField"/>
+            <xs:attribute name="text-field-enabled" type="xs:string"/>
+            <xs:attribute name="range-start" type="xs:string"/>
+            <xs:attribute name="icon" type="xs:string"/>
+            <xs:attribute name="required-indicator-visible" type="xs:string"/>
+            <xs:attribute name="caption" type="xs:string"/>
+            <xs:attribute name="resolution" type="xs:string"/>
+            <xs:attribute name="lenient" type="xs:string"/>
+            <xs:attribute name="readonly" type="xs:string"/>
+            <xs:attribute name="show-iso-week-numbers" type="xs:string"/>
+            <xs:attribute name="placeholder" type="xs:string"/>
+            <xs:attribute name="parse-error-message" type="xs:string"/>
+            <xs:attribute name="date-out-of-range-message" type="xs:string"/>
+            <xs:attribute name="range-end" type="xs:string"/>
+            <xs:attribute name="date-format" type="xs:string"/>
+            <xs:attribute name="assistive-text" type="xs:string"/>
+            <xs:attribute name="responsive" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="v-date-time-field">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractField"/>
             <xs:attribute name="text-field-enabled" type="xs:string"/>
@@ -2173,8 +2200,10 @@
             </xs:sequence>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attribute name="selection-allowed" type="xs:string"/>
+            <xs:attribute name="row-height" type="xs:string"/>
             <xs:attribute name="icon" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
+            <xs:attribute name="data-item-type" type="xs:string"/>
             <xs:attribute name="column-resize-mode" type="xs:string"/>
             <xs:attribute name="rows" type="xs:string"/>
             <xs:attribute name="column-reordering-allowed" type="xs:string"/>
@@ -2230,6 +2259,24 @@
         </xs:complexType>
     </xs:element>
     <xs:element name="v-inline-date-field">
+        <xs:complexType>
+            <xs:attributeGroup ref="com.vaadin.ui.AbstractField"/>
+            <xs:attribute name="range-start" type="xs:string"/>
+            <xs:attribute name="icon" type="xs:string"/>
+            <xs:attribute name="required-indicator-visible" type="xs:string"/>
+            <xs:attribute name="caption" type="xs:string"/>
+            <xs:attribute name="resolution" type="xs:string"/>
+            <xs:attribute name="lenient" type="xs:string"/>
+            <xs:attribute name="readonly" type="xs:string"/>
+            <xs:attribute name="show-iso-week-numbers" type="xs:string"/>
+            <xs:attribute name="parse-error-message" type="xs:string"/>
+            <xs:attribute name="date-out-of-range-message" type="xs:string"/>
+            <xs:attribute name="range-end" type="xs:string"/>
+            <xs:attribute name="date-format" type="xs:string"/>
+            <xs:attribute name="responsive" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="v-inline-date-time-field">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractField"/>
             <xs:attribute name="range-start" type="xs:string"/>
@@ -2323,9 +2370,12 @@
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attribute name="icon" type="xs:string"/>
             <xs:attribute name="required-indicator-visible" type="xs:string"/>
+            <xs:attribute name="visible-item-count" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="readonly" type="xs:string"/>
+            <xs:attribute name="empty-selection-allowed" type="xs:string"/>
             <xs:attribute name="responsive" type="xs:string"/>
+            <xs:attribute name="empty-selection-caption" type="xs:string"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="v-panel">
@@ -2455,6 +2505,35 @@
             <xs:attribute name="value-change-timeout" type="xs:string"/>
         </xs:complexType>
     </xs:element>
+    <xs:element name="v-tree">
+        <xs:complexType>
+            <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
+            <xs:attribute name="icon" type="xs:string"/>
+            <xs:attribute name="caption" type="xs:string"/>
+            <xs:attribute name="responsive" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="v-tree-grid">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" ref="table"/>
+            </xs:sequence>
+            <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
+            <xs:attribute name="selection-allowed" type="xs:string"/>
+            <xs:attribute name="row-height" type="xs:string"/>
+            <xs:attribute name="icon" type="xs:string"/>
+            <xs:attribute name="caption" type="xs:string"/>
+            <xs:attribute name="data-item-type" type="xs:string"/>
+            <xs:attribute name="column-resize-mode" type="xs:string"/>
+            <xs:attribute name="rows" type="xs:string"/>
+            <xs:attribute name="column-reordering-allowed" type="xs:string"/>
+            <xs:attribute name="hierarchy-column" type="xs:string"/>
+            <xs:attribute name="responsive" type="xs:string"/>
+            <xs:attribute name="frozen-columns" type="xs:string"/>
+            <xs:attribute name="height-mode" type="xs:string"/>
+            <xs:attribute name="selection-mode" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
     <xs:element name="v-twin-col-select">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
@@ -2517,26 +2596,39 @@
         <xs:complexType>
             <xs:group minOccurs="0" ref="AllComponentsGroup"/>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
-            <xs:attribute name="resize-lazy" type="xs:string"/>
-            <xs:attribute name="closable" type="xs:string"/>
+            <xs:attribute name="resize-lazy" type="xs:boolean"/>
+            <xs:attribute name="closable" type="xs:boolean"/>
             <xs:attribute name="assistive-postfix" type="xs:string"/>
-            <xs:attribute name="icon" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
-            <xs:attribute name="draggable" type="xs:string"/>
-            <xs:attribute name="modal" type="xs:string"/>
+            <xs:attribute name="draggable" type="xs:boolean"/>
+            <xs:attribute name="modal" type="xs:boolean"/>
             <xs:attribute name="close-shortcut" type="xs:string"/>
-            <xs:attribute name="scroll-left" type="xs:string"/>
+            <xs:attribute name="scroll-left" type="xs:int"/>
             <xs:attribute name="assistive-prefix" type="xs:string"/>
             <xs:attribute name="tab-stop-top-assistive-text" type="xs:string"/>
-            <xs:attribute name="resizable" type="xs:string"/>
+            <xs:attribute name="resizable" type="xs:boolean"/>
             <xs:attribute name="center" type="xs:string"/>
-            <xs:attribute name="tab-stop-enabled" type="xs:string"/>
-            <xs:attribute name="scroll-top" type="xs:string"/>
+            <xs:attribute name="tab-stop-enabled" type="xs:boolean"/>
+            <xs:attribute name="scroll-top" type="xs:int"/>
             <xs:attribute name="tab-stop-bottom-assistive-text" type="xs:string"/>
-            <xs:attribute name="assistive-role" type="xs:string"/>
-            <xs:attribute name="responsive" type="xs:string"/>
+            <xs:attribute name="assistive-role">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="ALERTDIALOG"/>
+                        <xs:enumeration value="DIALOG"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="responsive" type="xs:boolean"/>
             <xs:attribute name="position" type="xs:string"/>
-            <xs:attribute name="window-mode" type="xs:string"/>
+            <xs:attribute name="window-mode">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="NORMAL"/>
+                        <xs:enumeration value="MAXIMIZED"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
     <xs:element name="vaadin7-abstract-legacy-component">
@@ -2764,6 +2856,7 @@
             </xs:sequence>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attribute name="validation-visible" type="xs:string"/>
+            <xs:attribute name="columns" type="xs:string"/>
             <xs:attribute name="conversion-error" type="xs:string"/>
             <xs:attribute name="icon" type="xs:string"/>
             <xs:attribute name="required-error" type="xs:string"/>
@@ -2791,6 +2884,7 @@
             </xs:sequence>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attribute name="validation-visible" type="xs:string"/>
+            <xs:attribute name="columns" type="xs:string"/>
             <xs:attribute name="conversion-error" type="xs:string"/>
             <xs:attribute name="icon" type="xs:string"/>
             <xs:attribute name="required-error" type="xs:string"/>
@@ -3167,6 +3261,7 @@
             </xs:sequence>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attribute name="validation-visible" type="xs:string"/>
+            <xs:attribute name="columns" type="xs:string"/>
             <xs:attribute name="conversion-error" type="xs:string"/>
             <xs:attribute name="icon" type="xs:string"/>
             <xs:attribute name="required-error" type="xs:string"/>

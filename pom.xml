@@ -37,6 +37,10 @@
         <module>designxsd-xdesign</module>
     </modules>
 
+    <properties>
+        <vaadin.version>8.1.0.beta3</vaadin.version>
+    </properties>
+
     <build>
         <plugins>
             <plugin>

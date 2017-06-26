@@ -8,13 +8,17 @@
     <version>1.1-SNAPSHOT</version>
 
     <name>DesignXSD XDesign</name>
-
+    
+    <parent>
+        <groupId>com.wcs.designxsd</groupId>
+        <artifactId>designxsd-parent</artifactId>
+        <version>1.1-SNAPSHOT</version>
+    </parent>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <vaadin.version>7.7.2</vaadin.version>
     </properties>
 
     <dependencies>
