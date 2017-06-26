@@ -1551,6 +1551,16 @@
             <xs:attribute default="1" name="expand" type="xs:string"/>
             <xs:attribute name="collapsible" type="xs:boolean"/>
             <xs:attribute name="collapsed" type="xs:boolean"/>
+            <xs:attribute name="sortable" type="xs:boolean"/>
+            <xs:attribute name="editable" type="xs:boolean"/>
+            <xs:attribute name="resizable" type="xs:boolean"/>
+            <xs:attribute name="hidable" type="xs:boolean"/>
+            <xs:attribute name="hidden" type="xs:boolean"/>
+            <xs:attribute name="hiding-toggle-caption" type="xs:string"/>
+            <xs:attribute name="width" type="xs:string"/>
+            <xs:attribute name="min-width" type="xs:string"/>
+            <xs:attribute name="max-width" type="xs:string"/>
+            <xs:attribute default="1" name="expand" type="xs:string"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="colgroup">
@@ -2032,17 +2042,18 @@
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractField"/>
             <xs:attribute name="color" type="xs:string"/>
-            <xs:attribute name="required-indicator-visible" type="xs:boolean"/>
+            <xs:attribute name="icon" type="xs:string"/>
+            <xs:attribute name="required-indicator-visible" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="readonly" type="xs:string"/>
-            <xs:attribute name="hsv-visibility" type="xs:boolean"/>
-            <xs:attribute name="default-caption-enabled" type="xs:boolean"/>
+            <xs:attribute name="hsv-visibility" type="xs:string"/>
+            <xs:attribute name="default-caption-enabled" type="xs:string"/>
             <xs:attribute name="popup-style" type="xs:string"/>
-            <xs:attribute name="textfield-visibility" type="xs:boolean"/>
-            <xs:attribute name="history-visibility" type="xs:boolean"/>
-            <xs:attribute name="rgb-visibility" type="xs:boolean"/>
-            <xs:attribute name="responsive" type="xs:boolean"/>
-            <xs:attribute name="swatches-visibility" type="xs:boolean"/>
+            <xs:attribute name="textfield-visibility" type="xs:string"/>
+            <xs:attribute name="history-visibility" type="xs:string"/>
+            <xs:attribute name="rgb-visibility" type="xs:string"/>
+            <xs:attribute name="responsive" type="xs:string"/>
+            <xs:attribute name="swatches-visibility" type="xs:string"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="v-combo-box">
