@@ -15,22 +15,26 @@
  */
 package com.wcs.designxsd.demo.person;
 
+import com.vaadin.data.provider.QuerySortOrder;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  *
  * @author lali
  */
-public class PersonController {
+public class PersonService {
 
-    private final PersonComponent component;
+    private final List<Person> data = Arrays.asList(
+            new Person("Nicolaus Copernicus", 1543),
+            new Person("Galileo Galilei", 1564),
+            new Person("Johannes Kepler", 1571));
 
-    public PersonController(PersonComponent component) {
-        this.component = component;
-
-        init();
+    public List<Person> fetchPersons(int offset, int limit, PersonFilter orElse, List<QuerySortOrder> sortOrders) {
+        return data;
     }
 
-    private void init() {
-        component.grid.setDataProvider(new PersonDataProvider());
+    public int getPersonCount(PersonFilter filter) {
+        return data.size();
     }
-
 }

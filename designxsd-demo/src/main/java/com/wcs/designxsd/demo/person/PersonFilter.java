@@ -15,22 +15,30 @@
  */
 package com.wcs.designxsd.demo.person;
 
+import java.util.Optional;
+
 /**
  *
  * @author lali
  */
-public class PersonController {
+public class PersonFilter {
 
-    private final PersonComponent component;
+    private Optional<String> name = Optional.empty();
+    private Optional<Integer> birth = Optional.empty();
 
-    public PersonController(PersonComponent component) {
-        this.component = component;
-
-        init();
+    public Optional<String> getName() {
+        return name;
     }
 
-    private void init() {
-        component.grid.setDataProvider(new PersonDataProvider());
+    public void setName(Optional<String> name) {
+        this.name = name;
     }
 
+    public Optional<Integer> getBirth() {
+        return birth;
+    }
+
+    public void setBirth(Optional<Integer> birth) {
+        this.birth = birth;
+    }
 }
