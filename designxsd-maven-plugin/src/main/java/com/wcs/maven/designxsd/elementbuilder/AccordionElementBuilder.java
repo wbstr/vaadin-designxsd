@@ -15,39 +15,17 @@
  */
 package com.wcs.maven.designxsd.elementbuilder;
 
-import com.vaadin.ui.Component;
 import com.vaadin.ui.declarative.DesignContext;
 import com.wcs.maven.designxsd.attributebuilder.AttributeBuilderFactory;
 import com.wcs.maven.designxsd.baseattributegroup.BaseAttributeGroupMngr;
-import javax.xml.namespace.QName;
-import org.apache.ws.commons.schema.XmlSchemaComplexType;
-import org.apache.ws.commons.schema.XmlSchemaElement;
-import org.apache.ws.commons.schema.XmlSchemaSequence;
 
 /**
  *
  * @author lali
  */
-public class AccordionElementBuilder extends ComponentElementBuilder {
-    
-    private static final QName TAB_TAG = new QName("tab");
+public class AccordionElementBuilder extends TabHolderElementBuilder {
     
     public AccordionElementBuilder(AttributeBuilderFactory attributeBuilderFactory, BaseAttributeGroupMngr baseAttributeGroupMngr, DesignContext designContext) {
         super(attributeBuilderFactory, baseAttributeGroupMngr, designContext);
     }
-
-    @Override
-    protected XmlSchemaComplexType createElementType(Component component) {
-        XmlSchemaSequence sequence = new XmlSchemaSequence();
-        
-        XmlSchemaComplexType type = super.createElementType(component);
-        XmlSchemaElement element = new XmlSchemaElement();
-        element.setRefName(TAB_TAG);
-        element.setMinOccurs(0);
-        element.setMaxOccurs(Long.MAX_VALUE); // maxOccurs="unbounded"
-        sequence.getItems().add(element);
-        
-        type.setParticle(sequence);
-        return type;
-    }   
 }
