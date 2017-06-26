@@ -15,6 +15,7 @@
  */
 package com.wcs.maven.designxsd.discoverer;
 
+import com.vaadin.ui.AbstractListing;
 import com.vaadin.ui.Component;
 
 /**
@@ -22,14 +23,30 @@ import com.vaadin.ui.Component;
  * @author lali
  */
 public class OptionDiscoverer {
-    
+
     public boolean discover(Class<? extends Component> componentClass) {
-        String componentName = componentClass.getName();
-        return "com.vaadin.v7.ui.NativeSelect".equals(componentName)
-                || "com.vaadin.v7.ui.Select".equals(componentName)
-                || "com.vaadin.v7.ui.TwinColSelect".equals(componentName)
-                || "com.vaadin.v7.ui.ComboBox".equals(componentName)
-                || "com.vaadin.v7.ui.ListSelect".equals(componentName)
-                || "com.vaadin.v7.ui.OptionGroup".equals(componentName);
+        if (AbstractListing.class.isAssignableFrom(componentClass)) {
+            System.out.println("DEBUG" + componentClass.getName());
+        }
+
+        switch (componentClass.getName()) {
+            // v7
+            case "com.vaadin.v7.ui.NativeSelect":
+            case "com.vaadin.v7.ui.Select":
+            case "com.vaadin.v7.ui.TwinColSelect":
+            case "com.vaadin.v7.ui.ComboBox":
+            case "com.vaadin.v7.ui.ListSelect":
+            case "com.vaadin.v7.ui.OptionGroup":
+            // v8
+            case "com.vaadin.ui.RadioButtonGroup":
+            case "com.vaadin.ui.NativeSelect":
+            case "com.vaadin.ui.TwinColSelect":
+            case "com.vaadin.ui.CheckBoxGroup":
+            case "com.vaadin.ui.ComboBox":
+            case "com.vaadin.ui.ListSelect":
+                return true;
+        }
+
+        return false;
     }
 }

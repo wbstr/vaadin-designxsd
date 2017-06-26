@@ -2011,6 +2011,9 @@
     </xs:element>
     <xs:element name="v-check-box-group">
         <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="option"/>
+            </xs:sequence>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attribute name="icon" type="xs:string"/>
             <xs:attribute name="required-indicator-visible" type="xs:string"/>
@@ -2058,6 +2061,9 @@
     </xs:element>
     <xs:element name="v-combo-box">
         <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="option"/>
+            </xs:sequence>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attribute name="icon" type="xs:string"/>
             <xs:attribute name="required-indicator-visible" type="xs:string"/>
@@ -2328,6 +2334,9 @@
     </xs:element>
     <xs:element name="v-list-select">
         <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="option"/>
+            </xs:sequence>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attribute name="icon" type="xs:string"/>
             <xs:attribute name="required-indicator-visible" type="xs:string"/>
@@ -2376,6 +2385,9 @@
     </xs:element>
     <xs:element name="v-native-select">
         <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="option"/>
+            </xs:sequence>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attribute name="icon" type="xs:string"/>
             <xs:attribute name="required-indicator-visible" type="xs:string"/>
@@ -2434,6 +2446,9 @@
     </xs:element>
     <xs:element name="v-radio-button-group">
         <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="option"/>
+            </xs:sequence>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attribute name="icon" type="xs:string"/>
             <xs:attribute name="required-indicator-visible" type="xs:string"/>
@@ -2545,6 +2560,9 @@
     </xs:element>
     <xs:element name="v-twin-col-select">
         <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="option"/>
+            </xs:sequence>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attribute name="icon" type="xs:string"/>
             <xs:attribute name="required-indicator-visible" type="xs:string"/>
