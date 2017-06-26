@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 lali.
+ * Copyright 2017 lali.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,19 +15,24 @@
  */
 package com.wcs.designxsd.demo;
 
-import com.vaadin.annotations.DesignRoot;
-import com.vaadin.ui.VerticalLayout;
-import com.wcs.designxsd.xdesign.XDesign;
+import com.wcs.designxsd.demo.person.PersonController;
 
 /**
  *
  * @author lali
  */
-@DesignRoot
-public class CustomComponent extends VerticalLayout {
+public class RootController {
+    
+    private final RootDesign design;
 
-    public CustomComponent() {
-        XDesign.read(this);
+    public RootController(RootDesign design) {
+        this.design = design;
+        
+        init();
+    }
+
+    private void init() {
+        new PersonController(design.personComponent);
     }
     
 }

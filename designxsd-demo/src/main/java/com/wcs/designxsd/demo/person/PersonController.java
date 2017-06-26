@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 lali.
+ * Copyright 2017 lali.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,24 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.wcs.designxsd.demo;
+package com.wcs.designxsd.demo.person;
 
-import com.vaadin.annotations.DesignRoot;
-import com.vaadin.ui.VerticalLayout;
-import com.wcs.designxsd.demo.person.PersonComponent;
-import com.wcs.designxsd.xdesign.XDesign;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  *
  * @author lali
  */
-@DesignRoot
-public class RootDesign extends VerticalLayout {
+public class PersonController {
 
-    PersonComponent personComponent;
-    
-    public RootDesign() {
-        XDesign.read(this);
+    private final PersonComponent component;
+
+    public PersonController(PersonComponent component) {
+        this.component = component;
+
+        init();
     }
-    
+
+    private void init() {
+        List<Person> people = Arrays.asList(
+                new Person("Nicolaus Copernicus", 1543),
+                new Person("Galileo Galilei", 1564),
+                new Person("Johannes Kepler", 1571));
+
+        component.grid.setItems(people);
+    }
+
 }

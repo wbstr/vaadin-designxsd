@@ -1929,8 +1929,7 @@
             <xs:element ref="vaadin7-twin-col-select"/>
             <xs:element ref="vaadin7-upload"/>
             <xs:element ref="vaadin7-vertical-layout"/>
-            <xs:element ref="demo-custom-component"/>
-            <xs:element ref="demo-root-design"/>
+            <xs:element ref="demo-person-component"/>
         </xs:choice>
     </xs:group>
     <xs:element name="v-absolute-layout">
@@ -2033,18 +2032,17 @@
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractField"/>
             <xs:attribute name="color" type="xs:string"/>
-            <xs:attribute name="icon" type="xs:string"/>
-            <xs:attribute name="required-indicator-visible" type="xs:string"/>
+            <xs:attribute name="required-indicator-visible" type="xs:boolean"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="readonly" type="xs:string"/>
-            <xs:attribute name="hsv-visibility" type="xs:string"/>
-            <xs:attribute name="default-caption-enabled" type="xs:string"/>
+            <xs:attribute name="hsv-visibility" type="xs:boolean"/>
+            <xs:attribute name="default-caption-enabled" type="xs:boolean"/>
             <xs:attribute name="popup-style" type="xs:string"/>
-            <xs:attribute name="textfield-visibility" type="xs:string"/>
-            <xs:attribute name="history-visibility" type="xs:string"/>
-            <xs:attribute name="rgb-visibility" type="xs:string"/>
-            <xs:attribute name="responsive" type="xs:string"/>
-            <xs:attribute name="swatches-visibility" type="xs:string"/>
+            <xs:attribute name="textfield-visibility" type="xs:boolean"/>
+            <xs:attribute name="history-visibility" type="xs:boolean"/>
+            <xs:attribute name="rgb-visibility" type="xs:boolean"/>
+            <xs:attribute name="responsive" type="xs:boolean"/>
+            <xs:attribute name="swatches-visibility" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="v-combo-box">
@@ -2596,39 +2594,26 @@
         <xs:complexType>
             <xs:group minOccurs="0" ref="AllComponentsGroup"/>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
-            <xs:attribute name="resize-lazy" type="xs:boolean"/>
-            <xs:attribute name="closable" type="xs:boolean"/>
+            <xs:attribute name="resize-lazy" type="xs:string"/>
+            <xs:attribute name="closable" type="xs:string"/>
             <xs:attribute name="assistive-postfix" type="xs:string"/>
+            <xs:attribute name="icon" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
-            <xs:attribute name="draggable" type="xs:boolean"/>
-            <xs:attribute name="modal" type="xs:boolean"/>
+            <xs:attribute name="draggable" type="xs:string"/>
+            <xs:attribute name="modal" type="xs:string"/>
             <xs:attribute name="close-shortcut" type="xs:string"/>
-            <xs:attribute name="scroll-left" type="xs:int"/>
+            <xs:attribute name="scroll-left" type="xs:string"/>
             <xs:attribute name="assistive-prefix" type="xs:string"/>
             <xs:attribute name="tab-stop-top-assistive-text" type="xs:string"/>
-            <xs:attribute name="resizable" type="xs:boolean"/>
+            <xs:attribute name="resizable" type="xs:string"/>
             <xs:attribute name="center" type="xs:string"/>
-            <xs:attribute name="tab-stop-enabled" type="xs:boolean"/>
-            <xs:attribute name="scroll-top" type="xs:int"/>
+            <xs:attribute name="tab-stop-enabled" type="xs:string"/>
+            <xs:attribute name="scroll-top" type="xs:string"/>
             <xs:attribute name="tab-stop-bottom-assistive-text" type="xs:string"/>
-            <xs:attribute name="assistive-role">
-                <xs:simpleType>
-                    <xs:restriction base="xs:string">
-                        <xs:enumeration value="ALERTDIALOG"/>
-                        <xs:enumeration value="DIALOG"/>
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
-            <xs:attribute name="responsive" type="xs:boolean"/>
+            <xs:attribute name="assistive-role" type="xs:string"/>
+            <xs:attribute name="responsive" type="xs:string"/>
             <xs:attribute name="position" type="xs:string"/>
-            <xs:attribute name="window-mode">
-                <xs:simpleType>
-                    <xs:restriction base="xs:string">
-                        <xs:enumeration value="NORMAL"/>
-                        <xs:enumeration value="MAXIMIZED"/>
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
+            <xs:attribute name="window-mode" type="xs:string"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="vaadin7-abstract-legacy-component">
@@ -3304,18 +3289,7 @@
             <xs:attribute name="responsive" type="xs:string"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="demo-custom-component">
-        <xs:complexType>
-            <xs:group maxOccurs="unbounded" minOccurs="0" ref="AllComponentsGroup"/>
-            <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
-            <xs:attributeGroup ref="com.vaadin.ui.Layout..MarginHandler"/>
-            <xs:attributeGroup ref="com.vaadin.ui.Layout..SpacingHandler"/>
-            <xs:attribute name="icon" type="xs:string"/>
-            <xs:attribute name="caption" type="xs:string"/>
-            <xs:attribute name="responsive" type="xs:string"/>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="demo-root-design">
+    <xs:element name="demo-person-component">
         <xs:complexType>
             <xs:group maxOccurs="unbounded" minOccurs="0" ref="AllComponentsGroup"/>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
