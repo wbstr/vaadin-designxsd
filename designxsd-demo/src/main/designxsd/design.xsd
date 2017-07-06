@@ -1542,13 +1542,11 @@
         <xs:complexType>
             <xs:attributeGroup ref="attrs"/>
             <xs:attribute default="1" name="span" type="Number"/>
-            <xs:attribute name="width" type="MultiLength"/>
             <xs:attributeGroup ref="cellhalign"/>
             <xs:attributeGroup ref="cellvalign"/>
             <xs:attribute name="property-id" type="xs:string"/>
             <xs:attribute fixed="" name="center" type="xs:string"/>
             <xs:attribute fixed="" name="right" type="xs:string"/>
-            <xs:attribute default="1" name="expand" type="xs:string"/>
             <xs:attribute name="collapsible" type="xs:boolean"/>
             <xs:attribute name="collapsed" type="xs:boolean"/>
             <xs:attribute name="sortable" type="xs:boolean"/>
@@ -1557,10 +1555,10 @@
             <xs:attribute name="hidable" type="xs:boolean"/>
             <xs:attribute name="hidden" type="xs:boolean"/>
             <xs:attribute name="hiding-toggle-caption" type="xs:string"/>
-            <xs:attribute name="width" type="xs:string"/>
-            <xs:attribute name="min-width" type="xs:string"/>
-            <xs:attribute name="max-width" type="xs:string"/>
-            <xs:attribute default="1" name="expand" type="xs:string"/>
+            <xs:attribute name="width" type="xs:double"/>
+            <xs:attribute name="min-width" type="xs:double"/>
+            <xs:attribute name="max-width" type="xs:double"/>
+            <xs:attribute default="1" name="expand" type="xs:integer"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="colgroup">
@@ -2506,10 +2504,10 @@
             <xs:attribute name="required-indicator-visible" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="value-change-mode" type="xs:string"/>
-            <xs:attribute name="readonly" type="xs:string"/>
+            <xs:attribute name="readonly" type="xs:boolean"/>
             <xs:attribute name="placeholder" type="xs:string"/>
             <xs:attribute name="word-wrap" type="xs:string"/>
-            <xs:attribute name="maxlength" type="xs:string"/>
+            <xs:attribute name="maxlength" type="xs:int"/>
             <xs:attribute name="rows" type="xs:string"/>
             <xs:attribute name="responsive" type="xs:string"/>
             <xs:attribute name="value-change-timeout" type="xs:string"/>
@@ -2568,7 +2566,7 @@
             <xs:attribute name="required-indicator-visible" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="right-column-caption" type="xs:string"/>
-            <xs:attribute name="readonly" type="xs:string"/>
+            <xs:attribute name="readonly" type="xs:boolean"/>
             <xs:attribute name="rows" type="xs:string"/>
             <xs:attribute name="left-column-caption" type="xs:string"/>
             <xs:attribute name="responsive" type="xs:string"/>
@@ -2822,9 +2820,8 @@
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attributeGroup ref="com.vaadin.ui.Layout..MarginHandler"/>
             <xs:attributeGroup ref="com.vaadin.ui.Layout..SpacingHandler"/>
-            <xs:attribute name="icon" type="xs:string"/>
             <xs:attribute name="caption" type="xs:string"/>
-            <xs:attribute name="responsive" type="xs:string"/>
+            <xs:attribute name="responsive" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="vaadin7-inline-date-field">
@@ -2956,14 +2953,14 @@
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="invalid-allowed" type="xs:string"/>
             <xs:attribute name="required" type="xs:string"/>
-            <xs:attribute name="readonly" type="xs:string"/>
+            <xs:attribute name="readonly" type="xs:boolean"/>
             <xs:attribute name="text-change-timeout" type="xs:string"/>
             <xs:attribute name="buffered" type="xs:string"/>
             <xs:attribute name="value" type="xs:string"/>
             <xs:attribute name="text-change-event-mode" type="xs:string"/>
             <xs:attribute name="invalid-committed" type="xs:string"/>
             <xs:attribute name="input-prompt" type="xs:string"/>
-            <xs:attribute name="maxlength" type="xs:string"/>
+            <xs:attribute name="maxlength" type="xs:int"/>
             <xs:attribute name="null-representation" type="xs:string"/>
             <xs:attribute name="responsive" type="xs:string"/>
             <xs:attribute name="null-setting-allowed" type="xs:string"/>
