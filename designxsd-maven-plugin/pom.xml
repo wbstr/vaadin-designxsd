@@ -24,6 +24,13 @@
 
     <name>DesignXSD Maven Plugin</name>
 
+    <scm>
+        <url>https://github.com/wbstr/ReCaptcha.git</url>
+        <connection>scm:git:git@github.com:wbstr/vaadin-designxsd.git</connection>
+        <developerConnection>scm:git:git@github.com:wbstr/vaadin-designxsd.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <vaadin.version>7.7.2</vaadin.version>
