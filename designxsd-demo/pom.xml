@@ -5,7 +5,7 @@
     <groupId>com.wcs.designxsd</groupId>
     <artifactId>designxsd-demo</artifactId>
     <packaging>war</packaging>
-    <version>1.0.1</version>
+    <version>1.1-SNAPSHOT</version>
 
     <name>DesignXSD Demo</name>
 
@@ -42,7 +42,7 @@
         <dependency>
             <groupId>com.wcs.designxsd</groupId>
             <artifactId>designxsd-xdesign</artifactId>
-            <version>1.0.1</version>
+            <version>1.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -154,7 +154,7 @@
                     <plugin>
                         <groupId>com.wcs.designxsd</groupId>
                         <artifactId>designxsd-maven-plugin</artifactId>
-                        <version>1.0.1</version>
+                        <version>1.1-SNAPSHOT</version>
                         <executions>
                             <execution>
                                 <configuration>
