@@ -24,14 +24,9 @@
 
     <name>DesignXSD Maven Plugin</name>
 
-    <parent>
-        <groupId>com.wcs.designxsd</groupId>
-        <artifactId>designxsd-parent</artifactId>
-        <version>1.1-SNAPSHOT</version>
-    </parent>
-    
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <vaadin.version>8.1.0.beta3</vaadin.version>
     </properties>
 
     <dependencies>

@@ -8,12 +8,6 @@
     <version>1.1-SNAPSHOT</version>
 
     <name>DesignXSD Demo</name>
-    
-    <parent>
-        <groupId>com.wcs.designxsd</groupId>
-        <artifactId>designxsd-parent</artifactId>
-        <version>1.1-SNAPSHOT</version>
-    </parent>
 
     <properties>
         <jetty.plugin.version>9.3.9.v20160517</jetty.plugin.version>
@@ -22,6 +16,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <!-- If there are no local customisations, this can also be "fetch" or "cdn" -->
         <vaadin.widgetset.mode>local</vaadin.widgetset.mode>
+        <vaadin.version>8.1.0.beta3</vaadin.version>
     </properties>
 
     <repositories>
