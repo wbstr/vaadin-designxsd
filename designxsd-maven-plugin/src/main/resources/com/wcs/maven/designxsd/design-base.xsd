@@ -45,6 +45,8 @@
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
+        <xs:attribute name="caption" type="xs:string"/>
+        <xs:attribute name="icon" type="xs:string"/>
         <xs:attribute name="enabled" type="xs:boolean">
             <xs:annotation>
                 <xs:documentation>
@@ -99,6 +101,7 @@
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
+        <xs:attribute name="responsive" type="xs:boolean"/>
         <xs:attribute name="error" type="xs:string"/>
     </xs:attributeGroup>
 
