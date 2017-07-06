@@ -25,7 +25,7 @@
     <name>DesignXSD Parent</name>
 
     <scm>
-        <url>https://github.com/wbstr/ReCaptcha.git</url>
+        <url>https://github.com/wbstr/vaadin-designxsd</url>
         <connection>scm:git:git@github.com:wbstr/vaadin-designxsd.git</connection>
         <developerConnection>scm:git:git@github.com:wbstr/vaadin-designxsd.git</developerConnection>
         <tag>HEAD</tag>
