@@ -25,10 +25,6 @@ import com.vaadin.ui.Component;
 public class OptionDiscoverer {
 
     public boolean discover(Class<? extends Component> componentClass) {
-        if (AbstractListing.class.isAssignableFrom(componentClass)) {
-            System.out.println("DEBUG" + componentClass.getName());
-        }
-
         switch (componentClass.getName()) {
             // v7
             case "com.vaadin.v7.ui.NativeSelect":
