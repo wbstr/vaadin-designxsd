@@ -1638,14 +1638,12 @@
         <xs:complexType>
             <xs:attributeGroup ref="attrs"/>
             <xs:attribute name="span" default="1" type="Number"/>
-            <xs:attribute name="width" type="MultiLength"/>
             <xs:attributeGroup ref="cellhalign"/>
             <xs:attributeGroup ref="cellvalign"/>
             <!--vaadin attribute-->
             <xs:attribute name="property-id" type="xs:string"/>
             <xs:attribute name="center" type="xs:string" fixed=""/>
             <xs:attribute name="right" type="xs:string" fixed=""/>
-            <xs:attribute name="expand" type="xs:string" default="1"/>
             <xs:attribute name="collapsible" type="xs:boolean"/>
             <xs:attribute name="collapsed" type="xs:boolean"/>
             <xs:attribute name="sortable" type="xs:boolean"/>
@@ -1654,10 +1652,10 @@
             <xs:attribute name="hidable" type="xs:boolean"/>
             <xs:attribute name="hidden" type="xs:boolean"/>
             <xs:attribute name="hiding-toggle-caption" type="xs:string"/>
-            <xs:attribute name="width" type="xs:string"/>
-            <xs:attribute name="min-width" type="xs:string"/>
-            <xs:attribute name="max-width" type="xs:string"/>
-            <xs:attribute name="expand" type="xs:string" default="1"/>
+            <xs:attribute name="width" type="xs:double"/>
+            <xs:attribute name="min-width" type="xs:double"/>
+            <xs:attribute name="max-width" type="xs:double"/>
+            <xs:attribute name="expand" type="xs:integer" default="1"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="colgroup">
