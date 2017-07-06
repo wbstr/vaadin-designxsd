@@ -27,6 +27,7 @@ public class RootUI extends UI {
         setContent(layout);
         RootDesign rootDesign = new RootDesign();
         layout.addComponent(rootDesign);
+        new RootController(rootDesign);
     }
 
     @WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)

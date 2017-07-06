@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 lali.
+ * Copyright 2017 lali.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,24 +13,40 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.wcs.designxsd.demo;
+package com.wcs.designxsd.demo.person;
 
-import com.vaadin.annotations.DesignRoot;
-import com.vaadin.ui.VerticalLayout;
-import com.wcs.designxsd.demo.person.PersonComponent;
-import com.wcs.designxsd.xdesign.XDesign;
+import java.io.Serializable;
 
 /**
  *
  * @author lali
  */
-@DesignRoot
-public class RootDesign extends VerticalLayout {
+public class Person implements Serializable {
+    
+    private String name;
+    private int birth;
 
-    PersonComponent personComponent;
-    
-    public RootDesign() {
-        XDesign.read(this);
+    public Person() {
     }
-    
+
+    public Person(String name, int birth) {
+        this.name = name;
+        this.birth = birth;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getBirth() {
+        return birth;
+    }
+
+    public void setBirth(int birth) {
+        this.birth = birth;
+    }
 }

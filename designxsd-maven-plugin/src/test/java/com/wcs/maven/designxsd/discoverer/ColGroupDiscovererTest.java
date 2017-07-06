@@ -17,8 +17,8 @@ package com.wcs.maven.designxsd.discoverer;
 
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Table;
-import com.vaadin.ui.TreeTable;
+import com.vaadin.v7.ui.Table;
+import com.vaadin.v7.ui.TreeTable;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;

@@ -3,7 +3,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://design.xsd">
     <head>
-        <meta charset="UTF-8" name="package-mapping" content="demo:com.wcs.designxsd.demo"/>
+        <meta charset="UTF-8" name="package-mapping" content="demo:com.wcs.designxsd.demo.person"/>
     </head>
     <body>
         <v-vertical-layout>
@@ -65,12 +65,12 @@
                                             <menu disabled="true">Click me!</menu>
                                         </menu>
                                     </v-menu-bar>
-                                    <v-date-field _id="start" resolution="SECOND" 
+                                    <v-date-field _id="start"
                                                   required-error="Required"
-                                                  caption="Start date}"/>
-                                    <v-date-field _id="end" resolution="SECOND" 
+                                                  caption="Start date"/>
+                                    <v-date-field _id="end"
                                                   required-error="Required"
-                                                  caption="End date}"/>
+                                                  caption="End date"/>
                                 </v-form-layout>
                             </v-panel>
                             <v-panel>
@@ -109,6 +109,9 @@
                                            size-full="">
                             <v-text-area _id="param" null-representation="" caption="Param" size-full=""/>
                         </v-vertical-layout>
+                    </tab>
+                    <tab caption="Custom component">
+                        <demo-person-component _id="personComponent"/>
                     </tab>
                 </v-tab-sheet>
                 <v-horizontal-layout margin-top="true" spacing="true" width="100%">

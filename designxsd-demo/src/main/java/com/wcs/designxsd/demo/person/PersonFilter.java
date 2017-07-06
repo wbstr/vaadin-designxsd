@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 lali.
+ * Copyright 2017 lali.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,21 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.wcs.designxsd.demo;
+package com.wcs.designxsd.demo.person;
 
-import com.vaadin.annotations.DesignRoot;
-import com.vaadin.ui.VerticalLayout;
-import com.wcs.designxsd.xdesign.XDesign;
+import java.util.Optional;
 
 /**
  *
  * @author lali
  */
-@DesignRoot
-public class CustomComponent extends VerticalLayout {
+public class PersonFilter {
 
-    public CustomComponent() {
-        XDesign.read(this);
+    private Optional<String> name = Optional.empty();
+    private Optional<Integer> birth = Optional.empty();
+
+    public Optional<String> getName() {
+        return name;
     }
-    
+
+    public void setName(Optional<String> name) {
+        this.name = name;
+    }
+
+    public Optional<Integer> getBirth() {
+        return birth;
+    }
+
+    public void setBirth(Optional<Integer> birth) {
+        this.birth = birth;
+    }
 }

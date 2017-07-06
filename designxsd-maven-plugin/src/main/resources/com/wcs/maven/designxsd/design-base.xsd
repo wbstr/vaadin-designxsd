@@ -123,14 +123,7 @@
     <xs:attributeGroup name="com.vaadin.ui.AbstractField">
         <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
         <xs:attribute name="required" type="xs:boolean"/>
-        <xs:attribute name="buffered" type="xs:boolean"/>
-        <xs:attribute name="invalid-allowed" type="xs:boolean"/>
-        <xs:attribute name="invalid-committed" type="xs:boolean"/>
-        <xs:attribute name="conversion-error" type="xs:string"/>
-        <xs:attribute name="converted-value" type="xs:string"/>
         <xs:attribute name="value" type="xs:string"/>
-        <xs:attribute name="required-error" type="xs:string"/>
-        <xs:attribute name="validation-visible" type="xs:boolean"/>
         <xs:attribute name="tabindex" type="xs:integer"/> <!-- TODO: focusable-->
     </xs:attributeGroup>
 
@@ -149,7 +142,7 @@
             <xs:attribute name="selected" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
-    
+
     <xs:element name="menu">
         <xs:complexType mixed="true">
             <xs:sequence>

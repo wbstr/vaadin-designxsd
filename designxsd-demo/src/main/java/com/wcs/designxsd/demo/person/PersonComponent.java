@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.wcs.designxsd.demo;
+package com.wcs.designxsd.demo.person;
 
 import com.vaadin.annotations.DesignRoot;
+import com.vaadin.ui.Grid;
 import com.vaadin.ui.VerticalLayout;
-import com.wcs.designxsd.demo.person.PersonComponent;
 import com.wcs.designxsd.xdesign.XDesign;
 
 /**
@@ -25,11 +25,11 @@ import com.wcs.designxsd.xdesign.XDesign;
  * @author lali
  */
 @DesignRoot
-public class RootDesign extends VerticalLayout {
+public class PersonComponent extends VerticalLayout {
 
-    PersonComponent personComponent;
+    Grid grid;
     
-    public RootDesign() {
+    public PersonComponent() {
         XDesign.read(this);
     }
     

@@ -18,12 +18,12 @@ package com.wcs.maven.designxsd.discoverer;
 import com.vaadin.ui.ColorPicker;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Flash;
-import com.vaadin.ui.Table;
-import com.vaadin.ui.TreeTable;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.VerticalSplitPanel;
 import com.vaadin.ui.Video;
 import com.vaadin.ui.Window;
+import com.vaadin.v7.ui.Table;
+import com.vaadin.v7.ui.TreeTable;
 import org.junit.Test;
 
 /**

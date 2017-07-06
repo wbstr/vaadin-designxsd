@@ -15,11 +15,8 @@
  */
 package com.wcs.maven.designxsd.discoverer;
 
+import com.vaadin.ui.AbstractListing;
 import com.vaadin.ui.Component;
-import com.vaadin.ui.declarative.DesignContext;
-import org.jsoup.nodes.Attributes;
-import org.jsoup.nodes.Element;
-import org.jsoup.parser.Tag;
 
 /**
  *
@@ -27,49 +24,29 @@ import org.jsoup.parser.Tag;
  */
 public class OptionDiscoverer {
 
-    private boolean searchItemId;
-
     public boolean discover(Class<? extends Component> componentClass) {
-        Component component;
-        try {
-            component = componentClass.newInstance();
-        } catch (InstantiationException | IllegalAccessException ex) {
-            return false;
+        if (AbstractListing.class.isAssignableFrom(componentClass)) {
+            System.out.println("DEBUG" + componentClass.getName());
         }
 
-        Tag abstractSelectTag = Tag.valueOf("mock-" + component.getClass().getSimpleName().toLowerCase());
-        Element abstractSelect = new Element(abstractSelectTag, "");
-
-        Tag optionTag = Tag.valueOf("option");
-        StubElement optionElement = new StubElement(optionTag, "");
-        abstractSelect.appendChild(optionElement);
-
-        try {
-            component.readDesign(abstractSelect, new DesignContext());
-
-        } catch (Exception ex) {
-            return false;
+        switch (componentClass.getName()) {
+            // v7
+            case "com.vaadin.v7.ui.NativeSelect":
+            case "com.vaadin.v7.ui.Select":
+            case "com.vaadin.v7.ui.TwinColSelect":
+            case "com.vaadin.v7.ui.ComboBox":
+            case "com.vaadin.v7.ui.ListSelect":
+            case "com.vaadin.v7.ui.OptionGroup":
+            // v8
+            case "com.vaadin.ui.RadioButtonGroup":
+            case "com.vaadin.ui.NativeSelect":
+            case "com.vaadin.ui.TwinColSelect":
+            case "com.vaadin.ui.CheckBoxGroup":
+            case "com.vaadin.ui.ComboBox":
+            case "com.vaadin.ui.ListSelect":
+                return true;
         }
 
-        return searchItemId;
-    }
-
-    private class StubElement extends Element {
-
-        public StubElement(Tag tag, String baseUri, Attributes attributes) {
-            super(tag, baseUri, attributes);
-        }
-
-        public StubElement(Tag tag, String baseUri) {
-            super(tag, baseUri);
-        }
-
-        @Override
-        public boolean hasAttr(String attributeKey) {
-            if (!searchItemId) {
-                searchItemId = "item-id".equals(attributeKey);
-            }
-            return super.hasAttr(attributeKey);
-        }
+        return false;
     }
 }
