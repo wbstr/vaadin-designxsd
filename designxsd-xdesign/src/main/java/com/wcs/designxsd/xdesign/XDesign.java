@@ -164,9 +164,6 @@ public class XDesign {
         if (parent instanceof AbstractOrderedLayout) {
             AbstractOrderedLayout layout = (AbstractOrderedLayout) parent;
             layout.setComponentAlignment(c, alignment);
-        } else {
-            throw new IllegalArgumentException(
-                    "Component must be added to layout before using alignment attributes.");
         }
     }
 }
