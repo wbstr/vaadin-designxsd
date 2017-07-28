@@ -33,7 +33,7 @@ public class NodeDiscoverer {
         Component component;
         try {
             component = componentClass.newInstance();
-        } catch (InstantiationException | IllegalAccessException ex) {
+        } catch (Exception ex) {
             return false;
         }
 
