@@ -30,7 +30,7 @@ public class PersonController {
     }
 
     private void init() {
-        component.grid.setDataProvider(new PersonDataProvider());
+        component.xmlGrid.setDataProvider(new PersonDataProvider());
     }
 
 }

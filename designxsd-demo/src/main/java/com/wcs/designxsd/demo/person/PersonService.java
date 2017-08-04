@@ -26,9 +26,9 @@ import java.util.List;
 public class PersonService {
 
     private final List<Person> data = Arrays.asList(
-            new Person("Nicolaus Copernicus", 1543),
-            new Person("Galileo Galilei", 1564),
-            new Person("Johannes Kepler", 1571));
+            new Person("Nicolaus", "Copernicus", 1543),
+            new Person("Galileo", "Galilei", 1564),
+            new Person("Johannes", "Kepler", 1571));
 
     public List<Person> fetchPersons(int offset, int limit, PersonFilter orElse, List<QuerySortOrder> sortOrders) {
         return data;

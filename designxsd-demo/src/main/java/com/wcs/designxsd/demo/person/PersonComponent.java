@@ -27,7 +27,7 @@ import com.wcs.designxsd.xdesign.XDesign;
 @DesignRoot
 public class PersonComponent extends VerticalLayout {
 
-    Grid grid;
+    Grid<Person> xmlGrid;
     
     public PersonComponent() {
         XDesign.read(this);

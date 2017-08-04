@@ -22,24 +22,38 @@ import java.io.Serializable;
  * @author lali
  */
 public class Person implements Serializable {
-    
-    private String name;
+
+    public static final String FIRST_NAME = "firstName";
+    public static final String LAST_NAME = "lastName";
+    public static final String BIRTH = "birth";
+
+    private String firstName;
+    private String lastName;
     private int birth;
 
     public Person() {
     }
 
-    public Person(String name, int birth) {
-        this.name = name;
+    public Person(String firstName, String lastName, int birth) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.birth = birth;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public int getBirth() {
