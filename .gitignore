@@ -4,3 +4,4 @@ target
 *.iml
 /nbproject/
 /designxsd-maven-plugin/nbproject/
+/designxsd-xdesign/nbproject/

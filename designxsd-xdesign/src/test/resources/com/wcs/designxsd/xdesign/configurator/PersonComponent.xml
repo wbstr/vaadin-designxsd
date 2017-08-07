@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="http://design.xsd">
+    <head>
+    </head> 
+    <body> 
+        <v-vertical-layout spacing="true">
+            <v-grid _id="xmlGrid"
+                    model-type="com.wcs.designxsd.demo.person.Person"/>
+        </v-vertical-layout>    
+    </body>
+</html>

@@ -30,7 +30,7 @@ public class PersonComponent extends VerticalLayout {
     Grid<Person> xmlGrid;
     
     public PersonComponent() {
-        XDesign.read(this);
+        XDesign.readAndConfigurate(this);
     }
     
 }

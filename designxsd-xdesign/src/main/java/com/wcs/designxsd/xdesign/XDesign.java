@@ -4,16 +4,32 @@ import com.vaadin.annotations.DesignRoot;
 import com.vaadin.ui.AbstractOrderedLayout;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Component;
+import com.vaadin.ui.ComponentRootSetter;
+import com.vaadin.ui.Composite;
+import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.HasComponents;
 import com.vaadin.ui.declarative.Design;
 import com.vaadin.ui.declarative.DesignAttributeHandler;
 import com.vaadin.ui.declarative.DesignContext;
 import com.vaadin.ui.declarative.DesignException;
+import com.vaadin.ui.declarative.FieldBinder;
+import com.wcs.designxsd.xdesign.configurator.GridConfigurator;
+import java.beans.IntrospectionException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.lang.annotation.Annotation;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
+import org.jsoup.Jsoup;
 import org.jsoup.nodes.Attributes;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.parser.Parser;
+import org.jsoup.select.Elements;
 
 /**
  *
@@ -29,19 +45,83 @@ public class XDesign {
     private static final String ALIGN_CENTER = X_PARENT_PREFIX + "center";
     private static final String ALIGN_RIGHT = X_PARENT_PREFIX + "right";
 
+    public static DesignContext readAndConfigurate(Component componentRoot) {
+        InputStream xDesign = XDesign.readXDesignFile(componentRoot);
+
+        Document doc;
+        try {
+            doc = Jsoup.parse(xDesign, "UTF-8", "", Parser.htmlParser());
+        } catch (IOException ex) {
+            throw new DesignException("The html document cannot be parsed.");
+        }
+
+        StructureDesignContext structureDesignContext = new StructureDesignContext();
+        structureDesignContext.readPackageMappings(doc);
+
+        Element root = doc.body();
+        Elements children = root.children();
+        if (children.size() != 1) {
+            throw new DesignException(
+                    "The first level of a component hierarchy should contain at most one root component, but found "
+                    + children.size() + ".");
+        }
+        Element element = children.first();
+
+        FieldBinder binder;
+        try {
+            binder = new FieldBinder(componentRoot);
+        } catch (IntrospectionException e) {
+            throw new DesignException(
+                    "Could not bind fields of the root component", e);
+        }
+
+        DesignContext.ComponentCreationListener creationListener = (
+                DesignContext.ComponentCreatedEvent event) -> {
+            binder.bindField(event.getComponent(), event.getLocalId());
+        };
+        structureDesignContext.addComponentCreationListener(creationListener);
+
+        if (componentRoot instanceof CustomComponent
+                || componentRoot instanceof Composite) {
+            Component rootComponent = structureDesignContext.readDesign(element);
+            ComponentRootSetter.setRoot(componentRoot, rootComponent);
+        } else {
+            structureDesignContext.readDesign(element, componentRoot);
+        }
+        // make sure that all the member fields are bound
+        Collection<String> unboundFields = binder.getUnboundFields();
+        if (!unboundFields.isEmpty()) {
+            throw new DesignException(
+                    "Found unbound fields from component root "
+                    + unboundFields);
+        }
+        // no need to listen anymore
+        structureDesignContext.removeComponentCreationListener(creationListener);
+
+        GridConfigurator gridConfigurator = new GridConfigurator();
+        for (Component component : structureDesignContext.getGeneratedComponents()) {
+            if (gridConfigurator.isApplicable(component.getClass())) {
+                Map<String, String> customAttributes = structureDesignContext.getCustomAttributes(component);
+                gridConfigurator.configurate(component, customAttributes);
+            }
+        }
+
+        return structureDesignContext;
+    }
+
     public static DesignContext read(Component rootComponent) {
         InputStream xDesignFile = readXDesignFile(rootComponent);
         DesignContext designContext = Design.read(xDesignFile, rootComponent);
         processCustomAttributes(designContext);
         return designContext;
     }
-    
+
     public static DesignContext read(String filename, Component rootComponent) {
         DesignContext designContext = Design.read(filename, rootComponent);
         processCustomAttributes(designContext);
         return designContext;
     }
-    
+
     public static DesignContext read(InputStream stream, Component rootComponent) {
         DesignContext designContext = Design.read(stream, rootComponent);
         processCustomAttributes(designContext);
@@ -53,7 +133,7 @@ public class XDesign {
         processCustomAttributes(designContext);
         return designContext.getRootComponent();
     }
-    
+
     public static InputStream readXDesignFile(Component rootComponent) throws IllegalArgumentException, DesignException {
         Class<? extends Component> annotatedClass = findClassWithAnnotation(
                 rootComponent.getClass(), DesignRoot.class);
@@ -99,7 +179,7 @@ public class XDesign {
         return findClassWithAnnotation(superClass.asSubclass(Component.class),
                 annotationClass);
     }
-    
+
     private static void processCustomAttributes(DesignContext designContext) {
         Component rootComponent = designContext.getRootComponent();
         stepNext(rootComponent, designContext);
@@ -165,5 +245,26 @@ public class XDesign {
             AbstractOrderedLayout layout = (AbstractOrderedLayout) parent;
             layout.setComponentAlignment(c, alignment);
         }
+    }
+
+    private static class StructureDesignContext extends DesignContext {
+
+        private final Set<Component> generatedComponents = new HashSet<>();
+
+        @Override
+        public boolean setComponentLocalId(Component component, String localId) {
+            generatedComponents.add(component);
+            return super.setComponentLocalId(component, localId);
+        }
+
+        @Override
+        public void readPackageMappings(Document doc) {
+            super.readPackageMappings(doc);
+        }
+
+        public Set<Component> getGeneratedComponents() {
+            return Collections.unmodifiableSet(generatedComponents);
+        }
+
     }
 }
