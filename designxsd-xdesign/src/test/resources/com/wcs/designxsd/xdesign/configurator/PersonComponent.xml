@@ -6,7 +6,7 @@
     <body> 
         <v-vertical-layout spacing="true">
             <v-grid _id="xmlGrid"
-                    model-type="com.wcs.designxsd.demo.person.Person"/>
+                    model-type="com.wcs.designxsd.xdesign.configurator.Person"/>
         </v-vertical-layout>    
     </body>
 </html>

@@ -6,28 +6,9 @@
     </head> 
     <body> 
         <v-vertical-layout spacing="true">
-            <v-grid _id="xmlGrid" caption="XML" data-item-type="com.wcs.designxsd.demo.person.Person">
-                <table>
-                    <colgroup>
-                        <col column-id="firstName" sortable=""/>
-                        <col column-id="lastName" sortable=""/>
-                        <col column-id="birth" sortable=""/>
-                    </colgroup>
-                    <thead>
-                        <tr default="true">
-                            <th column-ids="firstName">
-                                First name
-                            </th>
-                            <th column-ids="lastName">
-                                Last name
-                            </th>
-                            <th column-ids="birth">
-                                Birth
-                            </th>
-                        </tr>
-                    </thead>
-                </table>
-            </v-grid>
+            <v-grid _id="xmlGrid" 
+                    caption="XML"
+                    model-type="com.wcs.designxsd.demo.person.Person"/>
         </v-vertical-layout>    
     </body>
 </html>

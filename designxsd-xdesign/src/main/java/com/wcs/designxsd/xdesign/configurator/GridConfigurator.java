@@ -1,8 +1,15 @@
 package com.wcs.designxsd.xdesign.configurator;
 
+import com.vaadin.data.BeanPropertySet;
+import com.vaadin.data.PropertyDefinition;
+import com.vaadin.data.PropertySet;
+import com.vaadin.data.ValueProvider;
+import com.vaadin.server.VaadinServiceClassLoaderUtil;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Grid;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -26,16 +33,36 @@ public class GridConfigurator implements ComponentConfigurator {
         }
 
         String modelClassName = customAttributes.get(MODEL_TYPE_ATTRIBUTE);
-        configurateWithModel(component, modelClassName);
+        configurateWithModel((Grid) component, modelClassName);
     }
 
-    private void configurateWithModel(Component component, String modelClassName) {
+    private void configurateWithModel(Grid grid, String modelClassName) {
         if (modelClassName == null) {
-            System.out.println("Couldn't find model type");
             return;
         }
 
-        System.out.println("Component: " + component.getClass());
-        System.out.println("Model class name: " + modelClassName);
+        Class<?> model = resolveClass(modelClassName);
+        PropertySet<?> propertySet = BeanPropertySet.get(model);
+        List<? extends PropertyDefinition<?, ?>> def = propertySet.getProperties().collect(Collectors.toList());
+        for (PropertyDefinition<?, ?> propertyDefinition : def) {
+            String name = propertyDefinition.getName();
+            ValueProvider<?, ?> getter = propertyDefinition.getGetter();
+
+            Grid.Column newColumn = grid.addColumn(getter);
+            newColumn.setId(name);
+            newColumn.setCaption(name); // TODO
+        }
+    }
+
+    private Class<?> resolveClass(String qualifiedClassName) {
+        try {
+            Class<?> resolvedClass = Class.forName(qualifiedClassName, true,
+                    VaadinServiceClassLoaderUtil.findDefaultClassLoader());
+            return resolvedClass;
+        } catch (ClassNotFoundException | SecurityException e) {
+            throw new IllegalArgumentException(
+                    "Unable to find class " + qualifiedClassName, e);
+        }
+
     }
 }
