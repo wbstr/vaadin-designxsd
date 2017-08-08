@@ -19,6 +19,8 @@ import com.vaadin.annotations.DesignRoot;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.VerticalLayout;
 import com.wcs.designxsd.xdesign.XDesign;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -27,10 +29,22 @@ import com.wcs.designxsd.xdesign.XDesign;
 @DesignRoot
 public class PersonComponent extends VerticalLayout {
 
-    Grid<Person> xmlGrid;
-    
-    public PersonComponent() {
-        XDesign.readAndConfigurate(this);
+    private static final Map<String, String> CAPTION_STORE;
+
+    static {
+        CAPTION_STORE = new HashMap<>();
+        CAPTION_STORE.put("com.wcs.designxsd.demo.person.Person.lastName", "Last name");
+        CAPTION_STORE.put("com.wcs.designxsd.demo.person.Person.firstName", "First name");
+        CAPTION_STORE.put("com.wcs.designxsd.demo.person.Person.birth", "Birth");
     }
-    
+
+    Grid<Person> xmlGrid;
+
+    public PersonComponent() {
+        XDesign.readAndConfigurate(this, (model, propertyName) -> {
+            String caption = CAPTION_STORE.get(model.getName() + "." + propertyName);
+            return caption != null ? caption : "???";
+        });
+    }
+
 }

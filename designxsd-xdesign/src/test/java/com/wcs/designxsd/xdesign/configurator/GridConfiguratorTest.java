@@ -12,7 +12,9 @@ public class GridConfiguratorTest {
     @Test
     public void testConfigurate() {
         PersonComponent personComponent = new PersonComponent();
-        XDesign.readAndConfigurate(personComponent);
+        XDesign.readAndConfigurate(personComponent, (model, propertyName) -> {
+            return model.getName() + "." + propertyName;
+        });
     }
 
 }

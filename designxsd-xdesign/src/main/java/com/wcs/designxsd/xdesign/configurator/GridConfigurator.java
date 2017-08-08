@@ -7,6 +7,7 @@ import com.vaadin.data.ValueProvider;
 import com.vaadin.server.VaadinServiceClassLoaderUtil;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Grid;
+import com.wcs.designxsd.xdesign.XDesign;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -18,6 +19,11 @@ import java.util.stream.Collectors;
 public class GridConfigurator implements ComponentConfigurator {
 
     private static final String MODEL_TYPE_ATTRIBUTE = "model-type";
+    private final XDesign.CaptionGenerator captionGenerator;
+
+    public GridConfigurator(XDesign.CaptionGenerator captionGenerator) {
+        this.captionGenerator = captionGenerator;
+    }
 
     @Override
     public boolean isApplicable(Class<? extends Component> componentClass) {
@@ -41,16 +47,16 @@ public class GridConfigurator implements ComponentConfigurator {
             return;
         }
 
-        Class<?> model = resolveClass(modelClassName);
-        PropertySet<?> propertySet = BeanPropertySet.get(model);
+        Class<?> modelClass = resolveClass(modelClassName);
+        PropertySet<?> propertySet = BeanPropertySet.get(modelClass);
         List<? extends PropertyDefinition<?, ?>> def = propertySet.getProperties().collect(Collectors.toList());
         for (PropertyDefinition<?, ?> propertyDefinition : def) {
-            String name = propertyDefinition.getName();
+            String propertyName = propertyDefinition.getName();
             ValueProvider<?, ?> getter = propertyDefinition.getGetter();
 
             Grid.Column newColumn = grid.addColumn(getter);
-            newColumn.setId(name);
-            newColumn.setCaption(name); // TODO
+            newColumn.setId(propertyName);
+            newColumn.setCaption(captionGenerator.generateCaption(modelClass, propertyName));
         }
     }
 

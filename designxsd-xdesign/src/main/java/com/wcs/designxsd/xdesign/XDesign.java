@@ -45,7 +45,7 @@ public class XDesign {
     private static final String ALIGN_CENTER = X_PARENT_PREFIX + "center";
     private static final String ALIGN_RIGHT = X_PARENT_PREFIX + "right";
 
-    public static DesignContext readAndConfigurate(Component componentRoot) {
+    public static DesignContext readAndConfigurate(Component componentRoot, CaptionGenerator captionGenerator) {
         InputStream xDesign = XDesign.readXDesignFile(componentRoot);
 
         Document doc;
@@ -98,7 +98,7 @@ public class XDesign {
         // no need to listen anymore
         structureDesignContext.removeComponentCreationListener(creationListener);
 
-        GridConfigurator gridConfigurator = new GridConfigurator();
+        GridConfigurator gridConfigurator = new GridConfigurator(captionGenerator);
         for (Component component : structureDesignContext.getGeneratedComponents()) {
             if (gridConfigurator.isApplicable(component.getClass())) {
                 Map<String, String> customAttributes = structureDesignContext.getCustomAttributes(component);
@@ -158,6 +158,13 @@ public class XDesign {
         }
 
         return stream;
+    }
+
+    @FunctionalInterface
+    public interface CaptionGenerator {
+
+        String generateCaption(Class<?> modelClass, String propertyName);
+
     }
 
     private static Class<? extends Component> findClassWithAnnotation(
