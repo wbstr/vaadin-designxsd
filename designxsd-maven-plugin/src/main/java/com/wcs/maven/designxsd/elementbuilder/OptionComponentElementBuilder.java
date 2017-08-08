@@ -19,10 +19,11 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.declarative.DesignContext;
 import com.wcs.maven.designxsd.attributebuilder.AttributeBuilderFactory;
 import com.wcs.maven.designxsd.baseattributegroup.BaseAttributeGroupMngr;
-import javax.xml.namespace.QName;
 import org.apache.ws.commons.schema.XmlSchemaComplexType;
 import org.apache.ws.commons.schema.XmlSchemaElement;
 import org.apache.ws.commons.schema.XmlSchemaSequence;
+
+import javax.xml.namespace.QName;
 
 /**
  *
@@ -30,7 +31,7 @@ import org.apache.ws.commons.schema.XmlSchemaSequence;
  */
 public class OptionComponentElementBuilder extends ComponentElementBuilder {
 
-    private static final QName OPTION_TAG = new QName("option");
+    private static final QName OPTION_TYPE = new QName("vaadinOptionType");
 
     public OptionComponentElementBuilder(AttributeBuilderFactory attributeBuilderFactory, BaseAttributeGroupMngr baseAttributeGroupMngr, DesignContext designContext) {
         super(attributeBuilderFactory, baseAttributeGroupMngr, designContext);
@@ -42,8 +43,9 @@ public class OptionComponentElementBuilder extends ComponentElementBuilder {
         
         XmlSchemaComplexType type = super.createElementType(component);
         XmlSchemaElement element = new XmlSchemaElement();
-        element.setRefName(OPTION_TAG);
+        element.setName("option");
         element.setMinOccurs(0);
+        element.setSchemaTypeName(OPTION_TYPE);
         element.setMaxOccurs(Long.MAX_VALUE); // maxOccurs="unbounded"
         sequence.getItems().add(element);
         

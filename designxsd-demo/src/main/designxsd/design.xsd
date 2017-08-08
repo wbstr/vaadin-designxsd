@@ -1856,6 +1856,12 @@
             <xs:attribute name="style-name" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
+    <xs:complexType name="vaadinOptionType">
+        <xs:attribute name="item" type="xs:string"/>
+        <xs:attribute name="icon" type="URI"/>
+        <xs:attribute name="selected" type="xs:string"/>
+        <xs:attribute name="disabled" type="xs:string"/>
+    </xs:complexType>
     <xs:group name="AllComponentsGroup">
         <xs:choice>
             <xs:element ref="v-absolute-layout"/>
@@ -1996,7 +2002,7 @@
     <xs:element name="v-check-box-group">
         <xs:complexType>
             <xs:sequence>
-                <xs:element maxOccurs="unbounded" minOccurs="0" ref="option"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="option" type="vaadinOptionType"/>
             </xs:sequence>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attribute name="required-indicator-visible" type="xs:string"/>
@@ -2037,7 +2043,7 @@
     <xs:element name="v-combo-box">
         <xs:complexType>
             <xs:sequence>
-                <xs:element maxOccurs="unbounded" minOccurs="0" ref="option"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="option" type="vaadinOptionType"/>
             </xs:sequence>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attribute name="required-indicator-visible" type="xs:string"/>
@@ -2157,30 +2163,15 @@
             </xs:sequence>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attribute name="selection-allowed" type="xs:string"/>
-            <xs:attribute name="row-height" type="xs:double"/>
+            <xs:attribute name="row-height" type="xs:string"/>
             <xs:attribute name="data-item-type" type="xs:string"/>
-            <xs:attribute name="column-resize-mode">
-                <xs:simpleType>
-                    <xs:restriction base="xs:string">
-                        <xs:enumeration value="ANIMATED"/>
-                        <xs:enumeration value="SIMPLE"/>
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
+            <xs:attribute name="column-resize-mode" type="xs:string"/>
             <xs:attribute name="rows" type="xs:string"/>
-            <xs:attribute name="footer-visible" type="xs:boolean"/>
-            <xs:attribute name="column-reordering-allowed" type="xs:boolean"/>
-            <xs:attribute name="header-visible" type="xs:boolean"/>
+            <xs:attribute name="footer-visible" type="xs:string"/>
+            <xs:attribute name="column-reordering-allowed" type="xs:string"/>
+            <xs:attribute name="header-visible" type="xs:string"/>
             <xs:attribute name="frozen-columns" type="xs:string"/>
-            <xs:attribute name="height-mode">
-                <xs:simpleType>
-                    <xs:restriction base="xs:string">
-                        <xs:enumeration value="CSS"/>
-                        <xs:enumeration value="ROW"/>
-                        <xs:enumeration value="UNDEFINED"/>
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
+            <xs:attribute name="height-mode" type="xs:string"/>
             <xs:attribute name="selection-mode" type="xs:string"/>
         </xs:complexType>
     </xs:element>
@@ -2267,7 +2258,7 @@
     <xs:element name="v-list-select">
         <xs:complexType>
             <xs:sequence>
-                <xs:element maxOccurs="unbounded" minOccurs="0" ref="option"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="option" type="vaadinOptionType"/>
             </xs:sequence>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attribute name="required-indicator-visible" type="xs:string"/>
@@ -2307,7 +2298,7 @@
     <xs:element name="v-native-select">
         <xs:complexType>
             <xs:sequence>
-                <xs:element maxOccurs="unbounded" minOccurs="0" ref="option"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="option" type="vaadinOptionType"/>
             </xs:sequence>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attribute name="required-indicator-visible" type="xs:string"/>
@@ -2353,7 +2344,7 @@
     <xs:element name="v-radio-button-group">
         <xs:complexType>
             <xs:sequence>
-                <xs:element maxOccurs="unbounded" minOccurs="0" ref="option"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="option" type="vaadinOptionType"/>
             </xs:sequence>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attribute name="required-indicator-visible" type="xs:string"/>
@@ -2446,7 +2437,7 @@
     <xs:element name="v-twin-col-select">
         <xs:complexType>
             <xs:sequence>
-                <xs:element maxOccurs="unbounded" minOccurs="0" ref="option"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="option" type="vaadinOptionType"/>
             </xs:sequence>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attribute name="required-indicator-visible" type="xs:string"/>
@@ -2576,7 +2567,7 @@
     <xs:element name="vaadin7-combo-box">
         <xs:complexType>
             <xs:sequence>
-                <xs:element maxOccurs="unbounded" minOccurs="0" ref="option"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="option" type="vaadinOptionType"/>
             </xs:sequence>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attribute name="validation-visible" type="xs:string"/>
@@ -2646,11 +2637,18 @@
             </xs:sequence>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attribute name="editor-save-caption" type="xs:string"/>
-            <xs:attribute name="editor-buffered" type="xs:string"/>
+            <xs:attribute name="editor-buffered" type="xs:boolean"/>
             <xs:attribute name="editable" type="xs:string"/>
-            <xs:attribute name="column-resize-mode" type="xs:string"/>
+            <xs:attribute name="column-resize-mode">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="ANIMATED"/>
+                        <xs:enumeration value="SIMPLE"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
             <xs:attribute name="rows" type="xs:string"/>
-            <xs:attribute name="column-reordering-allowed" type="xs:string"/>
+            <xs:attribute name="column-reordering-allowed" type="xs:boolean"/>
             <xs:attribute name="editor-cancel-caption" type="xs:string"/>
             <xs:attribute name="frozen-columns" type="xs:string"/>
             <xs:attribute name="selection-mode" type="xs:string"/>
@@ -2697,7 +2695,7 @@
     <xs:element name="vaadin7-list-select">
         <xs:complexType>
             <xs:sequence>
-                <xs:element maxOccurs="unbounded" minOccurs="0" ref="option"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="option" type="vaadinOptionType"/>
             </xs:sequence>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attribute name="validation-visible" type="xs:string"/>
@@ -2722,7 +2720,7 @@
     <xs:element name="vaadin7-native-select">
         <xs:complexType>
             <xs:sequence>
-                <xs:element maxOccurs="unbounded" minOccurs="0" ref="option"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="option" type="vaadinOptionType"/>
             </xs:sequence>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attribute name="validation-visible" type="xs:string"/>
@@ -2746,7 +2744,7 @@
     <xs:element name="vaadin7-option-group">
         <xs:complexType>
             <xs:sequence>
-                <xs:element maxOccurs="unbounded" minOccurs="0" ref="option"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="option" type="vaadinOptionType"/>
             </xs:sequence>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attribute name="validation-visible" type="xs:string"/>
@@ -2770,22 +2768,30 @@
     <xs:element name="vaadin7-password-field">
         <xs:complexType>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
-            <xs:attribute name="validation-visible" type="xs:string"/>
-            <xs:attribute name="columns" type="xs:string"/>
+            <xs:attribute name="validation-visible" type="xs:boolean"/>
+            <xs:attribute name="columns" type="xs:int"/>
             <xs:attribute name="conversion-error" type="xs:string"/>
             <xs:attribute name="required-error" type="xs:string"/>
-            <xs:attribute name="invalid-allowed" type="xs:string"/>
-            <xs:attribute name="required" type="xs:string"/>
+            <xs:attribute name="invalid-allowed" type="xs:boolean"/>
+            <xs:attribute name="required" type="xs:boolean"/>
             <xs:attribute name="readonly" type="xs:string"/>
-            <xs:attribute name="text-change-timeout" type="xs:string"/>
-            <xs:attribute name="buffered" type="xs:string"/>
+            <xs:attribute name="text-change-timeout" type="xs:int"/>
+            <xs:attribute name="buffered" type="xs:boolean"/>
             <xs:attribute name="value" type="xs:string"/>
-            <xs:attribute name="text-change-event-mode" type="xs:string"/>
-            <xs:attribute name="invalid-committed" type="xs:string"/>
+            <xs:attribute name="text-change-event-mode">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="EAGER"/>
+                        <xs:enumeration value="TIMEOUT"/>
+                        <xs:enumeration value="LAZY"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="invalid-committed" type="xs:boolean"/>
             <xs:attribute name="input-prompt" type="xs:string"/>
             <xs:attribute name="maxlength" type="xs:string"/>
             <xs:attribute name="null-representation" type="xs:string"/>
-            <xs:attribute name="null-setting-allowed" type="xs:string"/>
+            <xs:attribute name="null-setting-allowed" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="vaadin7-popup-date-field">
@@ -2864,7 +2870,7 @@
     <xs:element name="vaadin7-select">
         <xs:complexType>
             <xs:sequence>
-                <xs:element maxOccurs="unbounded" minOccurs="0" ref="option"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="option" type="vaadinOptionType"/>
             </xs:sequence>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attribute name="validation-visible" type="xs:string"/>
@@ -3057,7 +3063,7 @@
     <xs:element name="vaadin7-twin-col-select">
         <xs:complexType>
             <xs:sequence>
-                <xs:element maxOccurs="unbounded" minOccurs="0" ref="option"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="option" type="vaadinOptionType"/>
             </xs:sequence>
             <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
             <xs:attribute name="validation-visible" type="xs:string"/>

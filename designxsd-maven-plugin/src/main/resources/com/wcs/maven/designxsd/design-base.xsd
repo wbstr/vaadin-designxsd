@@ -162,4 +162,12 @@
             <xs:attribute name="style-name" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
+
+    <xs:complexType name="vaadinOptionType">
+        <xs:attribute name="item" type="xs:string"/>
+        <xs:attribute name="icon" type="URI"/>
+        <xs:attribute name="selected" type="xs:string"/>
+        <xs:attribute name="disabled" type="xs:string"/>
+    </xs:complexType>
+
 </xs:schema>
