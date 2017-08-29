@@ -125,8 +125,9 @@
 
     <xs:attributeGroup name="com.vaadin.ui.AbstractField">
         <xs:attributeGroup ref="com.vaadin.ui.AbstractComponent"/>
-        <xs:attribute name="required" type="xs:boolean"/>
+        <xs:attribute name="readonly" type="xs:boolean"/>
         <xs:attribute name="value" type="xs:string"/>
+        <xs:attribute name="required-indicator-visible" type="xs:boolean"/>
         <xs:attribute name="tabindex" type="xs:integer"/> <!-- TODO: focusable-->
     </xs:attributeGroup>
 
