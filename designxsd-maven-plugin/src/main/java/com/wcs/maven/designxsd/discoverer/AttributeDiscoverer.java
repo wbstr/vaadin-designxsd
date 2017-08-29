@@ -19,17 +19,14 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.declarative.DesignAttributeHandler;
 import com.vaadin.ui.declarative.DesignContext;
 import com.vaadin.ui.declarative.DesignFormatter;
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.logging.Logger;
 import org.jsoup.nodes.Attributes;
 import org.jsoup.nodes.Element;
 import org.jsoup.parser.Tag;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.*;
+import java.util.logging.Logger;
 
 /**
  *
@@ -39,23 +36,26 @@ public class AttributeDiscoverer {
 
     private Component component;
     private Collection<String> supportedAttributes;
-    private StubDesignFormatter designFormatter;
+    private static StubDesignFormatter FORMATTER;
     private StubAttributes attributes;
+
+    static {
+        FORMATTER = new StubDesignFormatter();
+        spyDesignAttributeHandler();
+    }
 
     public Map<String, Class> discovery(Component component) {
         this.component = component;
         this.supportedAttributes = DesignAttributeHandler.getSupportedAttributes(component.getClass());
-        this.designFormatter = new StubDesignFormatter();
         this.attributes = new StubAttributes();
-
-        spyDesignAttributeHandler();
+        FORMATTER.parsed.clear();
         Element stubDesign = readStubDesign();
         Map<String, Class> collectedAttributes = collectAttributes(stubDesign);
         collectedAttributes.remove("tabindex");
         return collectedAttributes;
     }
 
-    private void spyDesignAttributeHandler() {
+    private static void spyDesignAttributeHandler() {
         try {
             Field formatterField = DesignAttributeHandler.class.getDeclaredField("FORMATTER");
             formatterField.setAccessible(true);
@@ -64,7 +64,7 @@ public class AttributeDiscoverer {
             modifiersField.setAccessible(true);
             modifiersField.setInt(formatterField, formatterField.getModifiers() & ~Modifier.FINAL);
 
-            formatterField.set(null, designFormatter);
+            formatterField.set(null, FORMATTER);
         } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {
             throw new RuntimeException(ex);
         }
@@ -95,15 +95,15 @@ public class AttributeDiscoverer {
         }
 
         Map<String, Class> discoveredAttributes = new HashMap<>();
-        discoveredAttributes.putAll(designFormatter.parsed);
+        discoveredAttributes.putAll(FORMATTER.parsed);
 
         HashSet<String> markerAttributes = new HashSet<>(attributes.checked);
         markerAttributes.removeAll(attributes.fetched);
-        markerAttributes.removeAll(designFormatter.parsed.keySet());
+        markerAttributes.removeAll(FORMATTER.parsed.keySet());
         markerAttributes.forEach(key -> discoveredAttributes.put(key, null));
 
         HashSet<String> specialAttributes = new HashSet<>(attributes.fetched);
-        specialAttributes.removeAll(designFormatter.parsed.keySet());
+        specialAttributes.removeAll(FORMATTER.parsed.keySet());
         specialAttributes.forEach(key -> discoveredAttributes.put(key, null));
 
         return discoveredAttributes;
@@ -119,7 +119,7 @@ public class AttributeDiscoverer {
         logger.setUseParentHandlers(true);
     }
 
-    private class StubDesignFormatter extends DesignFormatter {
+    private static class StubDesignFormatter extends DesignFormatter {
 
         Map<String, Class> parsed = new HashMap<>();
 
