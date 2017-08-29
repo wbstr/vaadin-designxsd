@@ -46,7 +46,13 @@
             </xs:annotation>
         </xs:attribute>
         <xs:attribute name="caption" type="xs:string"/>
-        <xs:attribute name="icon" type="xs:string"/>
+        <xs:attribute name="icon" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>
+                    example: fonticon://Vaadin-Icons/E929
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
         <xs:attribute name="enabled" type="xs:boolean">
             <xs:annotation>
                 <xs:documentation>
