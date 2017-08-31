@@ -9,11 +9,12 @@ import com.vaadin.ui.declarative.Design;
 import com.vaadin.ui.declarative.DesignAttributeHandler;
 import com.vaadin.ui.declarative.DesignContext;
 import com.vaadin.ui.declarative.DesignException;
+import org.jsoup.nodes.Attributes;
+
 import java.io.InputStream;
 import java.lang.annotation.Annotation;
 import java.util.Iterator;
 import java.util.Map;
-import org.jsoup.nodes.Attributes;
 
 /**
  *
@@ -146,7 +147,7 @@ public class XDesign {
     }
 
     private static void processExpand(String value, Component c) {
-        float ratio = Float.valueOf(value);
+        float ratio = !value.isEmpty() ? Float.valueOf(value) : 1f;
         HasComponents parent = c.getParent();
         if (parent instanceof AbstractOrderedLayout) {
             AbstractOrderedLayout layout = (AbstractOrderedLayout) parent;
