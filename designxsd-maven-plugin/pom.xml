@@ -19,7 +19,7 @@
 
     <groupId>com.wcs.designxsd</groupId>
     <artifactId>designxsd-maven-plugin</artifactId>
-    <version>1.2-SNAPSHOT</version>
+    <version>1.2</version>
     <packaging>maven-plugin</packaging>
 
     <name>DesignXSD Maven Plugin</name>
